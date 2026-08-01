@@ -5,7 +5,6 @@
 <title>Stewardship Style Quiz</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<!-- Website Fonts -->
 <link href="https://fonts.googleapis.com/css2?family=ADLaM+Display&family=Varela+Round&display=swap" rel="stylesheet">
 
 <style>
@@ -40,7 +39,6 @@
     cursor: pointer;
   }
 
-  /* Primary button (See My Results) */
   button {
     margin-top: 1.5rem;
     padding: 0.75rem 1.5rem;
@@ -56,7 +54,6 @@
     background: #0f7a96;
   }
 
-  /* Retake button styled to match site branding */
   #retakeBtn {
     padding: 0.75rem 1.5rem;
     font-size: 1rem;
@@ -73,7 +70,6 @@
     background: #000000;
   }
 
-  /* Results box: subtle, text-first, with color accent */
   #result {
     margin-top: 2rem;
     padding: 1.25rem 1.25rem 1.25rem 0.75rem;
@@ -93,10 +89,9 @@
     bottom: 0;
     width: 6px;
     border-radius: 8px 0 0 8px;
-    background-color: #1494B8; /* default; overridden in JS */
+    background-color: var(--accentColor, #1494B8);
   }
 
-  /* Progress bar container */
   #progressContainer {
     margin-bottom: 1.5rem;
     max-width: 700px;
@@ -136,7 +131,6 @@
   Choose the response that feels most like you. There are no right or wrong choices.
 </p>
 
-<!-- Progress bar -->
 <div id="progressContainer">
   <div id="progressLabel">Progress: 0 of 10 questions answered</div>
   <div id="progressBarOuter">
@@ -152,19 +146,17 @@
 <button id="retakeBtn" onclick="resetQuiz()">Retake Quiz</button>
 
 <script>
-// Stewardship Style Colors (core palette)
 const styleColors = {
-  A: "#E32322", // Driver - Red
-  B: "#F18E1C", // Advocate - Orange
-  C: "#F2DA14", // Visionary - Yellow
-  D: "#5A9129", // Stabilizer - Green
-  E: "#2A71B0", // Architect - Blue
-  F: "#002060", // Keeper - Indigo
-  G: "#6D398B", // Connector - Purple
-  H: "#EE8BFD"  // Guardian - Violet
+  A: "#E32322",
+  B: "#F18E1C",
+  C: "#F2DA14",
+  D: "#5A9129",
+  E: "#2A71B0",
+  F: "#002060",
+  G: "#6D398B",
+  H: "#EE8BFD"
 };
 
-// Style Names
 const styleNames = {
   A: "Driver",
   B: "Advocate",
@@ -176,7 +168,6 @@ const styleNames = {
   H: "Guardian"
 };
 
-// One-sentence descriptors (from your Colors doc)
 const styleDescriptors = {
   A: "You move things forward.",
   B: "You build enthusiasm.",
@@ -188,7 +179,6 @@ const styleDescriptors = {
   H: "You protect what is vulnerable."
 };
 
-// Questions (ASCII-safe)
 const questions = [
   ["When your friends are trying to make a plan and no one decides...",
     ["A","You speak up and suggest what to do next."],
@@ -200,7 +190,6 @@ const questions = [
     ["G","You check to make sure everyone feels included."],
     ["H","You speak up if something feels unfair."]
   ],
-
   ["When someone you care about is stressed...",
     ["A","You help them take the first step."],
     ["B","You cheer them up."],
@@ -211,7 +200,6 @@ const questions = [
     ["G","You listen and help them feel understood."],
     ["H","You protect them from whatever is causing the stress."]
   ],
-
   ["In a group project at school, work, or in your community, you usually...",
     ["A","Get things started when people stall."],
     ["B","Keep people motivated."],
@@ -222,7 +210,6 @@ const questions = [
     ["G","Help people work well together."],
     ["H","Step in when someone needs support or protection."]
   ],
-
   ["When people you know are arguing...",
     ["A","You try to solve it quickly."],
     ["B","You help defuse tension with warmth and optimism."],
@@ -233,7 +220,6 @@ const questions = [
     ["G","You help people hear each other and find common ground."],
     ["H","You speak up if someone is being treated badly."]
   ],
-
   ["When you walk into a new group or event...",
     ["A","You look for what needs to get started."],
     ["B","You look for ways to bring positive energy."],
@@ -244,7 +230,6 @@ const questions = [
     ["G","You look for who might need connection."],
     ["H","You look for what seems at risk."]
   ],
-
   ["When you are part of a team, people count on you to...",
     ["A","Take action."],
     ["B","Encourage others."],
@@ -255,7 +240,6 @@ const questions = [
     ["G","Build relationships."],
     ["H","Hold boundaries."]
   ],
-
   ["When you care about something...",
     ["A","You act on it."],
     ["B","You talk about it and share your excitement."],
@@ -266,7 +250,6 @@ const questions = [
     ["G","You bring people together around it."],
     ["H","You stand up and defend it when it is under threat."]
   ],
-
   ["When someone asks for help...",
     ["A","You help them start."],
     ["B","You encourage them."],
@@ -277,7 +260,6 @@ const questions = [
     ["G","You help them feel supported."],
     ["H","You help them stay safe."]
   ],
-
   ["When you notice something going wrong...",
     ["A","You step up immediately to redirect and get things back on track."],
     ["B","You encourage people to keep going."],
@@ -288,7 +270,6 @@ const questions = [
     ["G","You check on people's feelings."],
     ["H","You protect what is being harmed."]
   ],
-
   ["When you imagine your best self in a group...",
     ["A","You get things moving."],
     ["B","You inspire others."],
@@ -301,125 +282,104 @@ const questions = [
   ]
 ];
 
-// Render questions dynamically
 const quizDiv = document.getElementById("quiz");
-questions.forEach((q, i) => {
-  const block = document.createElement("div");
+
+questions.forEach(function(q, i) {
+  var block = document.createElement("div");
   block.className = "question";
-  block.innerHTML = `<p><strong>${i+1}.</strong> ${q[0]}</p>` +
-    q.slice(1).map(ans =>
-      `<label><input type="radio" name="q${i+1}" value="${ans[0]}"> ${ans[1]}</label>`
-    ).join("");
+
+  var html = "<p><strong>" + (i+1) + ".</strong> " + q[0] + "</p>";
+  for (var j = 1; j < q.length; j++) {
+    var ans = q[j];
+    html += "<label><input type=\"radio\" name=\"q" + (i+1) + "\" value=\"" + ans[0] + "\"> " + ans[1] + "</label>";
+  }
+
+  block.innerHTML = html;
   quizDiv.appendChild(block);
 });
 
-// Progress bar logic
 function updateProgress() {
-  let answeredCount = 0;
-  for (let i = 1; i <= 10; i++) {
-    const ans = document.querySelector(`input[name="q${i}"]:checked`);
+  var answeredCount = 0;
+  for (var i = 1; i <= 10; i++) {
+    var ans = document.querySelector("input[name=\"q" + i + "\"]:checked");
     if (ans) answeredCount++;
   }
-  const progressLabel = document.getElementById("progressLabel");
-  const progressBarInner = document.getElementById("progressBarInner");
-  const percent = (answeredCount / 10) * 100;
+  var progressLabel = document.getElementById("progressLabel");
+  var progressBarInner = document.getElementById("progressBarInner");
+  var percent = (answeredCount / 10) * 100;
 
-  progressLabel.textContent = `Progress: ${answeredCount} of 10 questions answered`;
-  progressBarInner.style.width = `${percent}%`;
+  progressLabel.textContent = "Progress: " + answeredCount + " of 10 questions answered";
+  progressBarInner.style.width = percent + "%";
 }
 
-// Attach change listeners to update progress safely
-questions.forEach((_, i) => {
-  const name = `q${i+1}`;
-  const inputs = document.getElementsByName(name);
-  inputs.forEach(input => {
-    input.addEventListener('change', updateProgress);
-  });
-});
+for (var i = 1; i <= 10; i++) {
+  var inputs = document.getElementsByName("q" + i);
+  for (var j = 0; j < inputs.length; j++) {
+    inputs[j].addEventListener("change", updateProgress);
+  }
+}
 
-// Scoring
 function calculateResults() {
-  const scores = {A:0,B:0,C:0,D:0,E:0,F:0,G:0,H:0};
+  var scores = {A:0,B:0,C:0,D:0,E:0,F:0,G:0,H:0};
 
-  for (let i = 1; i <= 10; i++) {
-    const ans = document.querySelector(`input[name="q${i}"]:checked`);
+  for (var i = 1; i <= 10; i++) {
+    var ans = document.querySelector("input[name=\"q" + i + "\"]:checked");
     if (ans) scores[ans.value]++;
   }
 
-  const answered = Object.values(scores).reduce((a,b)=>a+b,0);
+  var answered = 0;
+  for (var key in scores) {
+    answered += scores[key];
+  }
   if (answered < 10) {
     alert("Please answer all 10 questions before seeing your results.");
     return;
   }
 
-  const sorted = Object.entries(scores).sort((a,b)=>b[1]-a[1]);
-  const primary = sorted[0];
-  const secondary = sorted[1];
+  var entries = [];
+  for (var k in scores) {
+    entries.push([k, scores[k]]);
+  }
+  entries.sort(function(a,b){ return b[1] - a[1]; });
 
-  const result = document.getElementById("result");
+  var primary = entries[0];
+  var secondary = entries[1];
+
+  var result = document.getElementById("result");
   result.style.display = "block";
+  result.style.setProperty("--accentColor", styleColors[primary[0]]);
 
-  // Set accent color on the left strip
-  result.style.setProperty('--accentColor', styleColors[primary[0]]);
-  result.style.position = "relative";
-  result.style.borderColor = "#E5E7EB";
+  var html = "";
+  html += "<h2>Your Stewardship Style</h2>";
+  html += "<p><strong>" + styleNames[primary[0]] + "</strong> &mdash; " + styleDescriptors[primary[0]] + "</p>";
+  html += "<p>Your primary style is <strong>" + styleNames[primary[0]] + "</strong> (" + primary[1] + " selections).</p>";
+  html += "<p>Your supporting style is <strong>" + styleNames[secondary[0]] + "</strong> (" + secondary[1] + " selections).</p>";
+  html += "<p>Tied scores or close numbers are completely normal. Your unique mix shows how flexible your strengths can be.</p>";
+  html += "<p><a href=\"https://climatecolor.com/wheel\" target=\"_blank\" style=\"color:#1494B8; text-decoration:underline;\">Learn more about the Stewardship Wheel</a></p>";
 
-  // Override the ::before color via inline style
-  result.style.setProperty('background', '#FFFFFF');
-  result.style.setProperty('color', '#212121');
-  result.style.setProperty('border', '1px solid #E5E7EB');
-  result.style.setProperty('padding', '1.25rem 1.25rem 1.25rem 0.75rem');
+  result.innerHTML = html;
 
-  // Manually set the accent strip color
-  const accentColor = styleColors[primary[0]];
-  result.style.setProperty('--accentColor', accentColor);
-  result.style.setProperty('boxShadow', 'none');
-
-  // Inject a small inline style for the accent strip
-  result.innerHTML = `
-    <style>
-      #result::before { background-color: ${accentColor}; }
-    </style>
-    <h2>Your Stewardship Style</h2>
-    <p><strong>${styleNames[primary[0]]}</strong> &mdash; ${styleDescriptors[primary[0]]}</p>
-    <p>Your primary style is <strong>${styleNames[primary[0]]}</strong> (${primary[1]} selections).</p>
-    <p>Your supporting style is <strong>${styleNames[secondary[0]]}</strong> (${secondary[1]} selections).</p>
-    <p>Tied scores or close numbers are completely normal. Your unique mix shows how flexible your strengths can be.</p>
-    <p><a href="https://climatecolor.com/wheel" target="_blank" style="color:#1494B8; text-decoration:underline;">
-      Learn more about the Stewardship Wheel
-    </a></p>
-  `;
-
-  // Show retake button only after results
   document.getElementById("retakeBtn").style.display = "inline-block";
-
-  // Scroll to results for usability
   result.scrollIntoView({ behavior: "smooth" });
 }
 
-// Reset quiz for multiple tries
 function resetQuiz() {
-  // Clear all radio buttons
-  for (let i = 1; i <= 10; i++) {
-    const selected = document.querySelector(`input[name="q${i}"]:checked`);
+  for (var i = 1; i <= 10; i++) {
+    var selected = document.querySelector("input[name=\"q" + i + "\"]:checked");
     if (selected) selected.checked = false;
   }
 
-  // Hide results and clear content
-  const result = document.getElementById("result");
+  var result = document.getElementById("result");
   result.style.display = "none";
   result.innerHTML = "";
 
-  // Hide retake button
   document.getElementById("retakeBtn").style.display = "none";
 
-  // Reset progress bar
-  const progressBarInner = document.getElementById("progressBarInner");
-  const progressLabel = document.getElementById("progressLabel");
+  var progressBarInner = document.getElementById("progressBarInner");
+  var progressLabel = document.getElementById("progressLabel");
   progressBarInner.style.width = "0%";
   progressLabel.textContent = "Progress: 0 of 10 questions answered";
 
-  // Scroll back to top of quiz
   window.scrollTo({ top: 0, behavior: "smooth" });
 }
 </script>
