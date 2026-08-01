@@ -40,6 +40,7 @@
     cursor: pointer;
   }
 
+  /* Primary button (See My Results) */
   button {
     margin-top: 1.5rem;
     padding: 0.75rem 1.5rem;
@@ -55,11 +56,72 @@
     background: #0f7a96;
   }
 
+  /* Retake button styled to match site branding */
+  #retakeBtn {
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+    border-radius: 6px;
+    border: none;
+    background: #212121;
+    color: #FFFFFF;
+    cursor: pointer;
+    display: none;
+    margin-top: 1rem;
+  }
+
+  #retakeBtn:hover {
+    background: #000000;
+  }
+
+  /* Results box: subtle, text-first, with color accent */
   #result {
     margin-top: 2rem;
-    padding: 1.5rem;
+    padding: 1.25rem 1.25rem 1.25rem 0.75rem;
     border-radius: 8px;
+    border: 1px solid #E5E7EB;
+    background: #FFFFFF;
     display: none;
+    color: #212121;
+    position: relative;
+  }
+
+  #result::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 6px;
+    border-radius: 8px 0 0 8px;
+    background-color: #1494B8; /* default; overridden in JS */
+  }
+
+  /* Progress bar container */
+  #progressContainer {
+    margin-bottom: 1.5rem;
+    max-width: 700px;
+  }
+
+  #progressLabel {
+    font-size: 0.9rem;
+    color: #212121;
+    margin-bottom: 0.25rem;
+  }
+
+  #progressBarOuter {
+    width: 100%;
+    height: 10px;
+    background: #F1F5F9;
+    border-radius: 999px;
+    overflow: hidden;
+  }
+
+  #progressBarInner {
+    height: 10px;
+    width: 0%;
+    background: #1494B8;
+    border-radius: 999px;
+    transition: width 0.2s ease;
   }
 </style>
 </head>
@@ -74,23 +136,32 @@
   Choose the response that feels most like you. There are no right or wrong choices.
 </p>
 
+<!-- Progress bar -->
+<div id="progressContainer">
+  <div id="progressLabel">Progress: 0 of 10 questions answered</div>
+  <div id="progressBarOuter">
+    <div id="progressBarInner"></div>
+  </div>
+</div>
+
 <div id="quiz"></div>
 
 <button onclick="calculateResults()">See My Results</button>
 
 <div id="result"></div>
+<button id="retakeBtn" onclick="resetQuiz()">Retake Quiz</button>
 
 <script>
-// Stewardship Style Colors
+// Stewardship Style Colors (core palette)
 const styleColors = {
-  A: "#E32322",
-  B: "#F18E1C",
-  C: "#F2DA14",
-  D: "#5A9129",
-  E: "#2A71B0",
-  F: "#002060",
-  G: "#6D398B",
-  H: "#EE8BFD"
+  A: "#E32322", // Driver - Red
+  B: "#F18E1C", // Advocate - Orange
+  C: "#F2DA14", // Visionary - Yellow
+  D: "#5A9129", // Stabilizer - Green
+  E: "#2A71B0", // Architect - Blue
+  F: "#002060", // Keeper - Indigo
+  G: "#6D398B", // Connector - Purple
+  H: "#EE8BFD"  // Guardian - Violet
 };
 
 // Style Names
@@ -105,7 +176,19 @@ const styleNames = {
   H: "Guardian"
 };
 
-// Questions (all curly apostrophes removed)
+// One-sentence descriptors (from your Colors doc)
+const styleDescriptors = {
+  A: "You move things forward.",
+  B: "You build enthusiasm.",
+  C: "You expand what is possible.",
+  D: "You keep things steady.",
+  E: "You make things make sense.",
+  F: "You honor what lasts.",
+  G: "You bring people together.",
+  H: "You protect what is vulnerable."
+};
+
+// Questions (ASCII-safe)
 const questions = [
   ["When your friends are trying to make a plan and no one decides...",
     ["A","You speak up and suggest what to do next."],
@@ -174,4 +257,172 @@ const questions = [
   ],
 
   ["When you care about something...",
-    ["A","
+    ["A","You act on it."],
+    ["B","You talk about it and share your excitement."],
+    ["C","You imagine new ways to approach it."],
+    ["D","You show up regularly to nurture and maintain it."],
+    ["E","You make a plan."],
+    ["F","You honor its importance and ensure its values are preserved."],
+    ["G","You bring people together around it."],
+    ["H","You stand up and defend it when it is under threat."]
+  ],
+
+  ["When someone asks for help...",
+    ["A","You help them start."],
+    ["B","You encourage them."],
+    ["C","You help them think in a new way."],
+    ["D","You help them stay calm."],
+    ["E","You help them organize."],
+    ["F","You help them remember what matters."],
+    ["G","You help them feel supported."],
+    ["H","You help them stay safe."]
+  ],
+
+  ["When you notice something going wrong...",
+    ["A","You step up immediately to redirect and get things back on track."],
+    ["B","You encourage people to keep going."],
+    ["C","You rethink the approach."],
+    ["D","You steady the situation."],
+    ["E","You sort out the details."],
+    ["F","You focus on what is important."],
+    ["G","You check on people's feelings."],
+    ["H","You protect what is being harmed."]
+  ],
+
+  ["When you imagine your best self in a group...",
+    ["A","You get things moving."],
+    ["B","You inspire others."],
+    ["C","You imagine new possibilities."],
+    ["D","You keep things steady."],
+    ["E","You organize the system."],
+    ["F","You protect meaning."],
+    ["G","You build connections."],
+    ["H","You guard what is vulnerable."]
+  ]
+];
+
+// Render questions dynamically
+const quizDiv = document.getElementById("quiz");
+questions.forEach((q, i) => {
+  const block = document.createElement("div");
+  block.className = "question";
+  block.innerHTML = `<p><strong>${i+1}.</strong> ${q[0]}</p>` +
+    q.slice(1).map(ans =>
+      `<label><input type="radio" name="q${i+1}" value="${ans[0]}"> ${ans[1]}</label>`
+    ).join("");
+  quizDiv.appendChild(block);
+});
+
+// Progress bar logic
+function updateProgress() {
+  let answeredCount = 0;
+  for (let i = 1; i <= 10; i++) {
+    const ans = document.querySelector(`input[name="q${i}"]:checked`);
+    if (ans) answeredCount++;
+  }
+  const progressLabel = document.getElementById("progressLabel");
+  const progressBarInner = document.getElementById("progressBarInner");
+  const percent = (answeredCount / 10) * 100;
+
+  progressLabel.textContent = `Progress: ${answeredCount} of 10 questions answered`;
+  progressBarInner.style.width = `${percent}%`;
+}
+
+// Attach change listeners to update progress safely
+questions.forEach((_, i) => {
+  const name = `q${i+1}`;
+  const inputs = document.getElementsByName(name);
+  inputs.forEach(input => {
+    input.addEventListener('change', updateProgress);
+  });
+});
+
+// Scoring
+function calculateResults() {
+  const scores = {A:0,B:0,C:0,D:0,E:0,F:0,G:0,H:0};
+
+  for (let i = 1; i <= 10; i++) {
+    const ans = document.querySelector(`input[name="q${i}"]:checked`);
+    if (ans) scores[ans.value]++;
+  }
+
+  const answered = Object.values(scores).reduce((a,b)=>a+b,0);
+  if (answered < 10) {
+    alert("Please answer all 10 questions before seeing your results.");
+    return;
+  }
+
+  const sorted = Object.entries(scores).sort((a,b)=>b[1]-a[1]);
+  const primary = sorted[0];
+  const secondary = sorted[1];
+
+  const result = document.getElementById("result");
+  result.style.display = "block";
+
+  // Set accent color on the left strip
+  result.style.setProperty('--accentColor', styleColors[primary[0]]);
+  result.style.position = "relative";
+  result.style.borderColor = "#E5E7EB";
+
+  // Override the ::before color via inline style
+  result.style.setProperty('background', '#FFFFFF');
+  result.style.setProperty('color', '#212121');
+  result.style.setProperty('border', '1px solid #E5E7EB');
+  result.style.setProperty('padding', '1.25rem 1.25rem 1.25rem 0.75rem');
+
+  // Manually set the accent strip color
+  const accentColor = styleColors[primary[0]];
+  result.style.setProperty('--accentColor', accentColor);
+  result.style.setProperty('boxShadow', 'none');
+
+  // Inject a small inline style for the accent strip
+  result.innerHTML = `
+    <style>
+      #result::before { background-color: ${accentColor}; }
+    </style>
+    <h2>Your Stewardship Style</h2>
+    <p><strong>${styleNames[primary[0]]}</strong> &mdash; ${styleDescriptors[primary[0]]}</p>
+    <p>Your primary style is <strong>${styleNames[primary[0]]}</strong> (${primary[1]} selections).</p>
+    <p>Your supporting style is <strong>${styleNames[secondary[0]]}</strong> (${secondary[1]} selections).</p>
+    <p>Tied scores or close numbers are completely normal. Your unique mix shows how flexible your strengths can be.</p>
+    <p><a href="https://climatecolor.com/wheel" target="_blank" style="color:#1494B8; text-decoration:underline;">
+      Learn more about the Stewardship Wheel
+    </a></p>
+  `;
+
+  // Show retake button only after results
+  document.getElementById("retakeBtn").style.display = "inline-block";
+
+  // Scroll to results for usability
+  result.scrollIntoView({ behavior: "smooth" });
+}
+
+// Reset quiz for multiple tries
+function resetQuiz() {
+  // Clear all radio buttons
+  for (let i = 1; i <= 10; i++) {
+    const selected = document.querySelector(`input[name="q${i}"]:checked`);
+    if (selected) selected.checked = false;
+  }
+
+  // Hide results and clear content
+  const result = document.getElementById("result");
+  result.style.display = "none";
+  result.innerHTML = "";
+
+  // Hide retake button
+  document.getElementById("retakeBtn").style.display = "none";
+
+  // Reset progress bar
+  const progressBarInner = document.getElementById("progressBarInner");
+  const progressLabel = document.getElementById("progressLabel");
+  progressBarInner.style.width = "0%";
+  progressLabel.textContent = "Progress: 0 of 10 questions answered";
+
+  // Scroll back to top of quiz
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+</script>
+
+</body>
+</html>
