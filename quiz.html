@@ -44,9 +44,9 @@
     margin-top: 1.5rem;
     padding: 0.75rem 1.5rem;
     font-size: 1rem;
-    border-radius: 6px; /* squared */
+    border-radius: 6px;
     border: none;
-    background: #1494B8; /* website accent */
+    background: #1494B8;
     color: #FFFFFF;
     cursor: pointer;
   }
@@ -70,7 +70,7 @@
 
 <p class="intro">
   Everyone brings a different kind of care to the environmental conservation movement.
-  This quiz helps you discover the strengths you naturally use—the ones that light your route to climate action.
+  This quiz helps you discover the strengths you naturally use, the ones that light your route to climate action.
   Choose the response that feels most like you. There are no right or wrong choices.
 </p>
 
@@ -83,14 +83,14 @@
 <script>
 // Stewardship Style Colors
 const styleColors = {
-  A: "#E32322", // Driver
-  B: "#F18E1C", // Advocate
-  C: "#F2DA14", // Visionary
-  D: "#5A9129", // Stabilizer
-  E: "#2A71B0", // Architect
-  F: "#002060", // Keeper
-  G: "#6D398B", // Connector
-  H: "#EE8BFD"  // Guardian
+  A: "#E32322",
+  B: "#F18E1C",
+  C: "#F2DA14",
+  D: "#5A9129",
+  E: "#2A71B0",
+  F: "#002060",
+  G: "#6D398B",
+  H: "#EE8BFD"
 };
 
 // Style Names
@@ -105,9 +105,9 @@ const styleNames = {
   H: "Guardian"
 };
 
-// Questions (style names removed from answers)
+// Questions (all curly apostrophes removed)
 const questions = [
-  ["When your friends are trying to make a plan and no one decides…",
+  ["When your friends are trying to make a plan and no one decides...",
     ["A","You speak up and suggest what to do next."],
     ["B","You encourage them and help them stay positive."],
     ["C","You offer a new idea no one has thought of."],
@@ -118,18 +118,18 @@ const questions = [
     ["H","You speak up if something feels unfair."]
   ],
 
-  ["When someone you care about is stressed…",
+  ["When someone you care about is stressed...",
     ["A","You help them take the first step."],
     ["B","You cheer them up."],
     ["C","You help them see the problem in a new way."],
     ["D","You stay steady and calm with them."],
     ["E","You help them sort things out."],
-    ["F","You help them remember what’s important."],
+    ["F","You help them remember what is important."],
     ["G","You listen and help them feel understood."],
     ["H","You protect them from whatever is causing the stress."]
   ],
 
-  ["In a group project at school, work, or in your community, you usually…",
+  ["In a group project at school, work, or in your community, you usually...",
     ["A","Get things started when people stall."],
     ["B","Keep people motivated."],
     ["C","Suggest creative ideas."],
@@ -140,18 +140,18 @@ const questions = [
     ["H","Step in when someone needs support or protection."]
   ],
 
-  ["When people you know are arguing…",
+  ["When people you know are arguing...",
     ["A","You try to solve it quickly."],
     ["B","You help defuse tension with warmth and optimism."],
     ["C","You help them see the problem differently."],
     ["D","You stay calm and help others calm down."],
-    ["E","You explain what’s actually happening."],
+    ["E","You explain what is actually happening."],
     ["F","You remind people of shared values."],
     ["G","You help people hear each other and find common ground."],
     ["H","You speak up if someone is being treated badly."]
   ],
 
-  ["When you walk into a new group or event…",
+  ["When you walk into a new group or event...",
     ["A","You look for what needs to get started."],
     ["B","You look for ways to bring positive energy."],
     ["C","You look for new ideas or possibilities."],
@@ -162,7 +162,7 @@ const questions = [
     ["H","You look for what seems at risk."]
   ],
 
-  ["When you’re part of a team, people count on you to…",
+  ["When you are part of a team, people count on you to...",
     ["A","Take action."],
     ["B","Encourage others."],
     ["C","Think creatively."],
@@ -173,96 +173,5 @@ const questions = [
     ["H","Hold boundaries."]
   ],
 
-  ["When you care about something…",
-    ["A","You act on it."],
-    ["B","You talk about it and share your excitement."],
-    ["C","You imagine new ways to approach it."],
-    ["D","You show up regularly to nurture and maintain it."],
-    ["E","You make a plan."],
-    ["F","You honor its importance and ensure its values are preserved."],
-    ["G","You bring people together around it."],
-    ["H","You stand up and defend it when it's under threat."]
-  ],
-
-  ["When someone asks for help…",
-    ["A","You help them start."],
-    ["B","You encourage them."],
-    ["C","You help them think in a new way."],
-    ["D","You help them stay calm."],
-    ["E","You help them organize."],
-    ["F","You help them remember what matters."],
-    ["G","You help them feel supported."],
-    ["H","You help them stay safe."]
-  ],
-
-  ["When you notice something going wrong…",
-    ["A","You step up immediately to redirect and get things back on track."],
-    ["B","You encourage people to keep going."],
-    ["C","You rethink the approach."],
-    ["D","You steady the situation."],
-    ["E","You sort out the details."],
-    ["F","You focus on what’s important."],
-    ["G","You check on people’s feelings."],
-    ["H","You protect what’s being harmed."]
-  ],
-
-  ["When you imagine your best self in a group…",
-    ["A","You get things moving."],
-    ["B","You inspire others."],
-    ["C","You imagine new possibilities."],
-    ["D","You keep things steady."],
-    ["E","You organize the system."],
-    ["F","You protect meaning."],
-    ["G","You build connections."],
-    ["H","You guard what’s vulnerable."]
-  ]
-];
-
-// Render questions dynamically
-const quizDiv = document.getElementById("quiz");
-questions.forEach((q, i) => {
-  const block = document.createElement("div");
-  block.className = "question";
-  block.innerHTML = `<p><strong>${i+1}.</strong> ${q[0]}</p>` +
-    q.slice(1).map(ans =>
-      `<label><input type="radio" name="q${i+1}" value="${ans[0]}"> ${ans[1]}</label>`
-    ).join("");
-  quizDiv.appendChild(block);
-});
-
-// Scoring
-function calculateResults() {
-  const scores = {A:0,B:0,C:0,D:0,E:0,F:0,G:0,H:0};
-
-  for (let i = 1; i <= 10; i++) {
-    const ans = document.querySelector(`input[name="q${i}"]:checked`);
-    if (ans) scores[ans.value]++;
-  }
-
-  const answered = Object.values(scores).reduce((a,b)=>a+b,0);
-  if (answered < 10) {
-    alert("Please answer all 10 questions.");
-    return;
-  }
-
-  const sorted = Object.entries(scores).sort((a,b)=>b[1]-a[1]);
-  const primary = sorted[0];
-  const secondary = sorted[1];
-
-  const result = document.getElementById("result");
-  result.style.display = "block";
-  result.style.backgroundColor = styleColors[primary[0]];
-  result.style.color = "#FFFFFF";
-
-  result.innerHTML = `
-    <h2>Your Stewardship Style</h2>
-    <p>Your primary style is <strong>${styleNames[primary[0]]}</strong> (${primary[1]} selections).</p>
-    <p>Your supporting style is <strong>${styleNames[secondary[0]]}</strong> (${secondary[1]} selections).</p>
-    <p>Tied scores or close numbers? That's completely normal. Your unique mix shows how flexible your strengths can be.</p>
-    <p><a href="https://climatecolor.com/wheel" target="_blank" style="color:#FFFFFF; text-decoration:underline;">Learn more →</a></p>
-  `;
-}
-</script>
-
-</body>
-</html>
+  ["When you care about something...",
+    ["A","
