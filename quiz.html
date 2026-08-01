@@ -4,145 +4,226 @@
 <meta charset="UTF-8">
 <title>Stewardship Style Quiz</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Website Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=ADLaM+Display&family=Varela+Round&display=swap" rel="stylesheet">
+
 <style>
-  body { font-family: system-ui, sans-serif; margin: 2rem; line-height: 1.5; }
-  h1 { margin-bottom: 0.5rem; }
-  .intro { max-width: 700px; }
-  .question { margin: 1.5rem 0; padding: 1rem; background: #f5f5f7; border-radius: 8px; }
-  label { display: block; margin: 0.25rem 0; cursor: pointer; }
-  button { margin-top: 1.5rem; padding: 0.6rem 1.2rem; font-size: 1rem;
-           border-radius: 999px; border: none; background: #2563eb; color: white; }
-  button:hover { background: #1d4ed8; }
-  #result { margin-top: 1.5rem; padding: 1rem; background: #ecfeff; border-radius: 8px; }
+  body {
+    font-family: 'Varela Round', sans-serif;
+    margin: 2rem;
+    line-height: 1.6;
+    background: #FFFFFF;
+    color: #212121;
+  }
+
+  h1, h2 {
+    font-family: 'ADLaM Display', sans-serif;
+    color: #212121;
+  }
+
+  .intro {
+    max-width: 700px;
+    margin-bottom: 2rem;
+  }
+
+  .question {
+    margin: 1.5rem 0;
+    padding: 1rem;
+    background: #F1F5F9;
+    border-radius: 8px;
+  }
+
+  label {
+    display: block;
+    margin: 0.35rem 0;
+    cursor: pointer;
+  }
+
+  button {
+    margin-top: 1.5rem;
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+    border-radius: 6px; /* squared */
+    border: none;
+    background: #1494B8; /* website accent */
+    color: #FFFFFF;
+    cursor: pointer;
+  }
+
+  button:hover {
+    background: #0f7a96;
+  }
+
+  #result {
+    margin-top: 2rem;
+    padding: 1.5rem;
+    border-radius: 8px;
+    display: none;
+  }
 </style>
 </head>
+
 <body>
 
 <h1>Stewardship Style Quiz</h1>
+
 <p class="intro">
   Everyone brings a different kind of care to the environmental conservation movement.
   This quiz helps you discover the strengths you naturally use—the ones that light your route to climate action.
+  Choose the response that feels most like you. There are no right or wrong choices.
 </p>
 
-<!-- QUESTIONS -->
-<div id="quiz">
-  <!-- Question blocks inserted here -->
-</div>
+<div id="quiz"></div>
 
-<button onclick="calculateResults()">See My Stewardship Style</button>
-<div id="result" style="display:none;"></div>
+<button onclick="calculateResults()">See My Results</button>
+
+<div id="result"></div>
 
 <script>
-// Insert questions dynamically (cleaner than 10 giant blocks)
+// Stewardship Style Colors
+const styleColors = {
+  A: "#E32322", // Driver
+  B: "#F18E1C", // Advocate
+  C: "#F2DA14", // Visionary
+  D: "#5A9129", // Stabilizer
+  E: "#2A71B0", // Architect
+  F: "#002060", // Keeper
+  G: "#6D398B", // Connector
+  H: "#EE8BFD"  // Guardian
+};
+
+// Style Names
+const styleNames = {
+  A: "Driver",
+  B: "Advocate",
+  C: "Visionary",
+  D: "Stabilizer",
+  E: "Architect",
+  F: "Keeper",
+  G: "Connector",
+  H: "Guardian"
+};
+
+// Questions (style names removed from answers)
 const questions = [
   ["When your friends are trying to make a plan and no one decides…",
-    ["A","You speak up and suggest what to do next. (Driver)"],
-    ["B","You encourage them and help them stay positive. (Advocate)"],
-    ["C","You offer a new idea no one has thought of. (Visionary)"],
-    ["D","You stay calm and help the group settle down. (Stabilizer)"],
-    ["E","You organize the details so the plan works. (Architect)"],
-    ["F","You remind people why the plan matters. (Keeper)"],
-    ["G","You check to make sure everyone feels included. (Connector)"],
-    ["H","You speak up if something feels unfair. (Guardian)"]
+    ["A","You speak up and suggest what to do next."],
+    ["B","You encourage them and help them stay positive."],
+    ["C","You offer a new idea no one has thought of."],
+    ["D","You stay calm and help the group settle down."],
+    ["E","You organize the details so the plan works."],
+    ["F","You remind people why the plan matters."],
+    ["G","You check to make sure everyone feels included."],
+    ["H","You speak up if something feels unfair."]
   ],
+
   ["When someone you care about is stressed…",
-    ["A","You help them take the first step. (Driver)"],
-    ["B","You cheer them up. (Advocate)"],
-    ["C","You help them see the problem in a new way. (Visionary)"],
-    ["D","You stay steady and calm with them. (Stabilizer)"],
-    ["E","You help them sort things out. (Architect)"],
-    ["F","You help them remember what’s important. (Keeper)"],
-    ["G","You listen and help them feel understood. (Connector)"],
-    ["H","You protect them from whatever is causing the stress. (Guardian)"]
+    ["A","You help them take the first step."],
+    ["B","You cheer them up."],
+    ["C","You help them see the problem in a new way."],
+    ["D","You stay steady and calm with them."],
+    ["E","You help them sort things out."],
+    ["F","You help them remember what’s important."],
+    ["G","You listen and help them feel understood."],
+    ["H","You protect them from whatever is causing the stress."]
   ],
+
   ["In a group project at school, work, or in your community, you usually…",
-    ["A","Get things started when people stall. (Driver)"],
-    ["B","Keep people motivated. (Advocate)"],
-    ["C","Suggest creative ideas. (Visionary)"],
-    ["D","Stick with the project and keep it going. (Stabilizer)"],
-    ["E","Organize tasks and timelines. (Architect)"],
-    ["F","Help the group stay focused on the goal. (Keeper)"],
-    ["G","Help people work well together. (Connector)"],
-    ["H","Step in when someone needs support or protection. (Guardian)"]
+    ["A","Get things started when people stall."],
+    ["B","Keep people motivated."],
+    ["C","Suggest creative ideas."],
+    ["D","Stick with the project and keep it going."],
+    ["E","Organize tasks and timelines."],
+    ["F","Help the group stay focused on the goal."],
+    ["G","Help people work well together."],
+    ["H","Step in when someone needs support or protection."]
   ],
+
   ["When people you know are arguing…",
-    ["A","You try to solve it quickly. (Driver)"],
-    ["B","You help defuse tension with warmth and optimism. (Advocate)"],
-    ["C","You help them see the problem differently. (Visionary)"],
-    ["D","You stay calm and help others calm down. (Stabilizer)"],
-    ["E","You explain what’s actually happening. (Architect)"],
-    ["F","You remind people of shared values. (Keeper)"],
-    ["G","You help people hear each other and find common ground. (Connector)"],
-    ["H","You speak up if someone is being treated badly. (Guardian)"]
+    ["A","You try to solve it quickly."],
+    ["B","You help defuse tension with warmth and optimism."],
+    ["C","You help them see the problem differently."],
+    ["D","You stay calm and help others calm down."],
+    ["E","You explain what’s actually happening."],
+    ["F","You remind people of shared values."],
+    ["G","You help people hear each other and find common ground."],
+    ["H","You speak up if someone is being treated badly."]
   ],
+
   ["When you walk into a new group or event…",
-    ["A","You look for what needs to get started. (Driver)"],
-    ["B","You look for ways to bring positive energy. (Advocate)"],
-    ["C","You look for new ideas or possibilities. (Visionary)"],
-    ["D","You look for what needs steady support. (Stabilizer)"],
-    ["E","You look for how things are organized. (Architect)"],
-    ["F","You look for what feels meaningful. (Keeper)"],
-    ["G","You look for who might need connection. (Connector)"],
-    ["H","You look for what seems at risk. (Guardian)"]
+    ["A","You look for what needs to get started."],
+    ["B","You look for ways to bring positive energy."],
+    ["C","You look for new ideas or possibilities."],
+    ["D","You look for what needs steady support."],
+    ["E","You look for how things are organized."],
+    ["F","You look for what feels meaningful."],
+    ["G","You look for who might need connection."],
+    ["H","You look for what seems at risk."]
   ],
+
   ["When you’re part of a team, people count on you to…",
-    ["A","Take action. (Driver)"],
-    ["B","Encourage others. (Advocate)"],
-    ["C","Think creatively. (Visionary)"],
-    ["D","Stay steady. (Stabilizer)"],
-    ["E","Organize things. (Architect)"],
-    ["F","Keep the purpose clear. (Keeper)"],
-    ["G","Build relationships. (Connector)"],
-    ["H","Hold boundaries. (Guardian)"]
+    ["A","Take action."],
+    ["B","Encourage others."],
+    ["C","Think creatively."],
+    ["D","Stay steady."],
+    ["E","Organize things."],
+    ["F","Keep the purpose clear."],
+    ["G","Build relationships."],
+    ["H","Hold boundaries."]
   ],
+
   ["When you care about something…",
-    ["A","You act on it. (Driver)"],
-    ["B","You talk about it and share your excitement. (Advocate)"],
-    ["C","You imagine new ways to approach it. (Visionary)"],
-    ["D","You show up regularly to nurture and maintain it. (Stabilizer)"],
-    ["E","You make a plan. (Architect)"],
-    ["F","You honor its importance and ensure its values are preserved. (Keeper)"],
-    ["G","You bring people together around it. (Connector)"],
-    ["H","You stand up and defend it when it's under threat. (Guardian)"]
+    ["A","You act on it."],
+    ["B","You talk about it and share your excitement."],
+    ["C","You imagine new ways to approach it."],
+    ["D","You show up regularly to nurture and maintain it."],
+    ["E","You make a plan."],
+    ["F","You honor its importance and ensure its values are preserved."],
+    ["G","You bring people together around it."],
+    ["H","You stand up and defend it when it's under threat."]
   ],
+
   ["When someone asks for help…",
-    ["A","You help them start. (Driver)"],
-    ["B","You encourage them. (Advocate)"],
-    ["C","You help them think in a new way. (Visionary)"],
-    ["D","You help them stay calm. (Stabilizer)"],
-    ["E","You help them organize. (Architect)"],
-    ["F","You help them remember what matters. (Keeper)"],
-    ["G","You help them feel supported. (Connector)"],
-    ["H","You help them stay safe. (Guardian)"]
+    ["A","You help them start."],
+    ["B","You encourage them."],
+    ["C","You help them think in a new way."],
+    ["D","You help them stay calm."],
+    ["E","You help them organize."],
+    ["F","You help them remember what matters."],
+    ["G","You help them feel supported."],
+    ["H","You help them stay safe."]
   ],
+
   ["When you notice something going wrong…",
-    ["A","You step up immediately to redirect and get things back on track. (Driver)"],
-    ["B","You encourage people to keep going. (Advocate)"],
-    ["C","You rethink the approach. (Visionary)"],
-    ["D","You steady the situation. (Stabilizer)"],
-    ["E","You sort out the details. (Architect)"],
-    ["F","You focus on what’s important. (Keeper)"],
-    ["G","You check on people’s feelings. (Connector)"],
-    ["H","You protect what’s being harmed. (Guardian)"]
+    ["A","You step up immediately to redirect and get things back on track."],
+    ["B","You encourage people to keep going."],
+    ["C","You rethink the approach."],
+    ["D","You steady the situation."],
+    ["E","You sort out the details."],
+    ["F","You focus on what’s important."],
+    ["G","You check on people’s feelings."],
+    ["H","You protect what’s being harmed."]
   ],
+
   ["When you imagine your best self in a group…",
-    ["A","You get things moving. (Driver)"],
-    ["B","You inspire others. (Advocate)"],
-    ["C","You imagine new possibilities. (Visionary)"],
-    ["D","You keep things steady. (Stabilizer)"],
-    ["E","You organize the system. (Architect)"],
-    ["F","You protect meaning. (Keeper)"],
-    ["G","You build connections. (Connector)"],
-    ["H","You guard what’s vulnerable. (Guardian)"]
+    ["A","You get things moving."],
+    ["B","You inspire others."],
+    ["C","You imagine new possibilities."],
+    ["D","You keep things steady."],
+    ["E","You organize the system."],
+    ["F","You protect meaning."],
+    ["G","You build connections."],
+    ["H","You guard what’s vulnerable."]
   ]
 ];
 
-// Render questions
+// Render questions dynamically
 const quizDiv = document.getElementById("quiz");
 questions.forEach((q, i) => {
   const block = document.createElement("div");
   block.className = "question";
-  block.innerHTML = `<p>${i+1}. ${q[0]}</p>` +
+  block.innerHTML = `<p><strong>${i+1}.</strong> ${q[0]}</p>` +
     q.slice(1).map(ans =>
       `<label><input type="radio" name="q${i+1}" value="${ans[0]}"> ${ans[1]}</label>`
     ).join("");
@@ -159,24 +240,26 @@ function calculateResults() {
   }
 
   const answered = Object.values(scores).reduce((a,b)=>a+b,0);
-  if (answered < 10) { alert("Please answer all 10 questions."); return; }
+  if (answered < 10) {
+    alert("Please answer all 10 questions.");
+    return;
+  }
 
   const sorted = Object.entries(scores).sort((a,b)=>b[1]-a[1]);
   const primary = sorted[0];
   const secondary = sorted[1];
 
-  const names = {
-    A:"Driver", B:"Advocate", C:"Visionary", D:"Stabilizer",
-    E:"Architect", F:"Keeper", G:"Connector", H:"Guardian"
-  };
-
   const result = document.getElementById("result");
   result.style.display = "block";
+  result.style.backgroundColor = styleColors[primary[0]];
+  result.style.color = "#FFFFFF";
+
   result.innerHTML = `
     <h2>Your Stewardship Style</h2>
-    <p>Your primary style is <strong>${names[primary[0]]}</strong> (${primary[1]} selections).</p>
-    <p>Your supporting style is <strong>${names[secondary[0]]}</strong> (${secondary[1]} selections).</p>
-    <p><a href="https://climatecolor.com/wheel" target="_blank">Learn more →</a></p>
+    <p>Your primary style is <strong>${styleNames[primary[0]]}</strong> (${primary[1]} selections).</p>
+    <p>Your supporting style is <strong>${styleNames[secondary[0]]}</strong> (${secondary[1]} selections).</p>
+    <p>Tied scores or close numbers? That's completely normal. Your unique mix shows how flexible your strengths can be.</p>
+    <p><a href="https://climatecolor.com/wheel" target="_blank" style="color:#FFFFFF; text-decoration:underline;">Learn more →</a></p>
   `;
 }
 </script>
