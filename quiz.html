@@ -349,10 +349,6 @@ function calculateResults() {
   result.style.setProperty("--accentColor", styleColors[primary[0]]);
 
   var html = "";
-html += "<p style=\"font-weight:bold; font-size:1.1rem; margin-bottom:0.5rem;\">Your Stewardship Style</p>";
-html += "<p style=\"font-size:1.25rem; font-weight:bold; margin:0.5rem 0;\">" 
-      + styleNames[primary[0]] + " — " + styleDescriptors[primary[0]] 
-      + "</p>";
 html += "<p>Your primary style is <strong>" + styleNames[primary[0]] + "</strong> (" + primary[1] + " selections).</p>";
 html += "<p>Your supporting style is <strong>" + styleNames[secondary[0]] + "</strong> (" + secondary[1] + " selections).</p>";
 html += "<p>Tied scores or close numbers are completely normal. Your unique mix shows how flexible your strengths can be.</p>";
