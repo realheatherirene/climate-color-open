@@ -126,7 +126,7 @@
 <h1>Stewardship Style Quiz</h1>
 
 <p class="intro">
-Identify your stewardship style—the unique palette of mental, emotional, and practical strengths you use to care for the world around you! There are ten multiple choice questions. For each question, select one answer—the response that feels the most like you.
+Discover your stewardship style—the core strength you bring to community and climate action. For each question, select one answer—the response that feels the most like you.
 There are no right or wrong answers.
 </p>
 
@@ -349,9 +349,9 @@ function calculateResults() {
   result.style.setProperty("--accentColor", styleColors[primary[0]]);
 
   var html = "";
-html += "<p>Your core stewardship style is <strong>" + styleNames[primary[0]] + "</strong> (" + primary[1] + " selections).</p>";
-html += "<p>Tied scores or close numbers are completely normal. Your unique mix shows how flexible your strengths can be.</p>";
-html += "<p><a href=\"https://climatecolor.com/wheel\" target=\"_blank\" style=\"color:#1494B8; text-decoration:underline;\">Learn more about the Stewardship Wheel</a></p>";
+html += "<p>Your stewardship style is <strong>" + styleNames[primary[0]] + "</strong> (" + primary[1] + " selections).</p>";
+html += "<p>Your stewardship style indicates the core strength you bring to community and climate action. You can flex when needed, though, so don't be surprised if you resonate with more than one! Follow the link to learn more.</p>";
+html += "<p><a href=\"https://climatecolor.com/wheel\" target=\"_blank\" style=\"color:#1494B8; text-decoration:underline;\">Try on other stewardship styles!</a></p>";
 
   result.innerHTML = html;
 
