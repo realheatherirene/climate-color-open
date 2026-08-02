@@ -58,14 +58,36 @@ button:hover {
     display: none;
 }
 
-.primaryStyle {
-    font-size: 1.75rem;
+/* New optimized style blocks */
+.styleBlock {
+    margin-bottom: 2rem;
+    padding: 1rem;
+    border-radius: 8px;
+    background: #F9FAFB;
+    border-left: 6px solid;
+}
+
+.styleTitle {
+    font-size: 1.5rem;
     font-weight: bold;
+    margin-bottom: 0.25rem;
+}
+
+.styleIdentity {
+    font-size: 1.1rem;
+    font-weight: 600;
     margin-bottom: 0.5rem;
 }
 
-.secondaryStyle {
-    font-size: 1.25rem;
+.styleQualities {
+    font-size: 0.95rem;
+    margin: 0.5rem 0;
+    font-style: italic;
+}
+
+.styleAction {
+    margin-top: 0.75rem;
+    font-size: 0.95rem;
     font-weight: 600;
 }
 
@@ -146,175 +168,22 @@ const styleColors = {
     H: "#EE8BFD"
 };
 
-// Updated Questions (Version 5)
-const questions = [
-[
-"When a group needs to make a decision, you are most likely to…",
-["AB","get things moving."],
-["CD","offer a new angle."],
-["EF","outline the steps."],
-["GH","check how people are feeling."]
-],
-
-[
-"When someone you know feels overwhelmed, you are most likely to…",
-["AB","suggest one doable action."],
-["CD","offer a different way to look at it."],
-["EF","clarify what’s actually going on."],
-["GH","reassure them directly."]
-],
-
-[
-"When you join a new community effort or project, you are most likely to…",
-["AB","jump right in to a task."],
-["CD","pitch ideas."],
-["EF","set up the structure."],
-["GH","introduce people to each other."]
-],
-
-[
-"When plans suddenly change, you are most likely to…",
-["AB","adjust quickly."],
-["CD","rethink the approach."],
-["EF","reorganize the steps."],
-["GH","check on everyone."]
-],
-
-[
-"When you learn something that matters to you, you are most likely to…",
-["AB","act on it right away."],
-["CD","explore possibilities."],
-["EF","make a plan."],
-["GH","reach out to others."]
-],
-
-[
-"When you volunteer to help out in your community, you are most likely to…",
-["AB","kick things off."],
-["CD","brainstorm ideas."],
-["EF","set up systems."],
-["GH","check in on teammates."]
-],
-
-[
-"When someone asks for advice, you are most likely to…",
-["AB","give them one clear action."],
-["CD","help them see the situation differently."],
-["EF","map out steps with them."],
-["GH","encourage them directly."]
-],
-
-[
-"When you notice something in your community that needs attention, you are most likely to…",
-["AB","step in to help."],
-["CD","imagine a clearer way forward."],
-["EF","assess what’s needed."],
-["GH","stay present to support it."]
-],
-
-[
-"When news feels heavy or discouraging, you are most likely to…",
-["AB","encourage next steps."],
-["CD","calm the conversation."],
-["EF","outline practical steps."],
-["GH","check in on people’s feelings."]
-],
-
-[
-"When you imagine your best self in a service setting, you are most likely to…",
-["AB","take the lead to get things moving."],
-["CD","offer ideas that help people stay grounded."],
-["EF","build clear structure that supports good work."],
-["GH","support people in ways that help them feel safe."]
-]
-];
-
-// Render quiz
-const quizDiv = document.getElementById("quiz");
-
-questions.forEach((q, i) => {
-    const block = document.createElement("div");
-    block.className = "question";
-    let html = `<p><strong>${i+1}.</strong> ${q[0]}</p>`;
-    q.slice(1).forEach(ans => {
-        html += `<label><input type="radio" name="q${i+1}" value="${ans[0]}"> ${ans[1]}</label>`;
-    });
-    block.innerHTML = html;
-    quizDiv.appendChild(block);
-});
-
-// Progress bar logic
-function updateProgress() {
-    let answered = 0;
-    for (let i = 1; i <= 10; i++) {
-        if (document.querySelector(`input[name="q${i}"]:checked`)) answered++;
-    }
-    document.getElementById("progressLabel").textContent =
-        `Progress: ${answered} of 10 questions answered`;
-    document.getElementById("progressInner").style.width = `${(answered/10)*100}%`;
-}
-
-document.querySelectorAll("input[type=radio]").forEach(input => {
-    input.addEventListener("change", updateProgress);
-});
-
-// Scoring
-function calculateResults() {
-    const scores = {A:0,B:0,C:0,D:0,E:0,F:0,G:0,H:0};
-
-    for (let i = 1; i <= 10; i++) {
-        const ans = document.querySelector(`input[name="q${i}"]:checked`);
-        if (!ans) {
-            alert("Please answer all 10 questions.");
-            return;
-        }
-        const pair = ans.value;
-        scores[pair[0]]++;
-        scores[pair[1]]++;
-    }
-
-    const sorted = Object.entries(scores).sort((a,b) => b[1] - a[1]);
-    const primary = sorted[0][0];
-    const secondary = sorted[1][0];
-
-    const result = document.getElementById("result");
-    result.style.display = "block";
-
-    result.innerHTML = `
-        <div class="primaryStyle">
-            Your primary style is
-            <span style="color:${styleColors[primary]}">${styleNames[primary]}</span>
-        </div>
-
-        <div class="secondaryStyle">
-            Your secondary style is
-            <span style="color:${styleColors[secondary]}">${styleNames[secondary]}</span>
-        </div>
-
-        <p>Visit <a href="https://stewardshipwheel.com/wheel" target="_blank" style="color:#1494B8;">
-        stewardshipwheel.com</a> for information about your results, as well as information about eight core stewardship styles.</p>
-    `;
-
-    document.getElementById("retakeBtn").style.display = "inline-block";
-}
-
-// Reset quiz
-function resetQuiz() {
-    for (let i = 1; i <= 10; i++) {
-        const selected = document.querySelector(`input[name="q${i}"]:checked`);
-        if (selected) selected.checked = false;
-    }
-
-    document.getElementById("result").style.display = "none";
-    document.getElementById("result").innerHTML = "";
-    document.getElementById("retakeBtn").style.display = "none";
-    document.getElementById("progressInner").style.width = "0%";
-    document.getElementById("progressLabel").textContent =
-        "Progress: 0 of 10 questions answered";
-
-    window.scrollTo({ top: 0, behavior: "smooth" });
-}
-</script>
-
-</body>
-</html>
+// Optimized style blocks
+const styleBlocks = {
+A: {
+    identity: "You move things forward.",
+    behavior: "You help people shift from hesitation to momentum by offering direction and a clear first step.",
+    qualities: "Catalyze · Execute · Deploy",
+    action: "Lead one small action that helps a community effort get underway."
+},
+B: {
+    identity: "You build enthusiasm.",
+    behavior: "You help people connect emotionally with what matters by bringing warmth, encouragement, and human resonance.",
+    qualities: "Encourage · Amplify · Evangelize",
+    action: "Share a message, story, or invitation that draws others into a climate or community effort."
+},
+C: {
+    identity: "You expand what’s possible.",
+    behavior: "You help people see new angles, fresh options, and creative openings that break old patterns.",
+    qualities: "Imagine · Reframe · Create",
+    action: "Offer one fresh perspective to a
