@@ -249,20 +249,23 @@ function calculateResults() {
   result.style.display = "block";
 
   result.innerHTML = `
-    <div class="primaryStyle" style="color:${styleColors[primary]}">
-      Your primary style is ${styleNames[primary]}
-    </div>
+    result.innerHTML = `
+  <div class="primaryStyle">
+    Your primary style is 
+    <span style="color:${styleColors[primary]}">${styleNames[primary]}</span>
+  </div>
 
-    <div class="secondaryStyle" style="color:${styleColors[secondary]}">
-      Your secondary style is ${styleNames[secondary]}
-    </div>
+  <div class="secondaryStyle">
+    Your secondary style is 
+    <span style="color:${styleColors[secondary]}">${styleNames[secondary]}</span>
+  </div>
 
-    <p>Visit the link for information about YOUR primary and secondary styles, as well as information about ALL of the core stewardship styles.</p>
+  <p>Your stewardship style reflects the strengths you naturally bring to community and climate care.</p>
 
-    <p><a href="https://climatecolor.com/wheel" target="_blank" style="color:#1494B8;">
-      Explore the stewardship styles
-    </a></p>
-  `;
+  <p><a href="https://climatecolor.com/wheel" target="_blank" style="color:#1494B8;">
+    Explore all eight styles
+  </a></p>
+`;
 
   document.getElementById("retakeBtn").style.display = "inline-block";
 }
