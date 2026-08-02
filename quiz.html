@@ -15,7 +15,7 @@ body {
   background: #FFFFFF;
   color: #212121;
 }
-h1, h2 {
+h1 {
   font-family: 'ADLaM Display', sans-serif;
   color: #1494B9;
 }
@@ -50,19 +50,42 @@ button:hover {
   border: 1px solid #E5E7EB;
   background: #FFFFFF;
   display: none;
-  color: #212121;
 }
 .primaryStyle {
   font-size: 1.75rem;
   font-weight: bold;
   color: #000000;
+  margin-bottom: 0.5rem;
 }
-
 .secondaryStyle {
   font-size: 1.25rem;
   font-weight: 600;
   color: #000000;
 }
+
+/* Progress bar */
+#progressContainer {
+  margin-bottom: 1.5rem;
+}
+#progressLabel {
+  font-size: 0.9rem;
+  margin-bottom: 0.25rem;
+}
+#progressOuter {
+  width: 100%;
+  height: 10px;
+  background: #F1F5F9;
+  border-radius: 999px;
+  overflow: hidden;
+}
+#progressInner {
+  height: 10px;
+  width: 0%;
+  background: #1494B8;
+  border-radius: 999px;
+  transition: width 0.2s ease;
+}
+
 </style>
 </head>
 
@@ -71,14 +94,22 @@ button:hover {
 <h1>Stewardship Style Quiz</h1>
 <p>Choose the response that feels most like you. There are no right or wrong answers.</p>
 
+<!-- Progress Bar -->
+<div id="progressContainer">
+  <div id="progressLabel">Progress: 0 of 10 questions answered</div>
+  <div id="progressOuter"><div id="progressInner"></div></div>
+</div>
+
 <div id="quiz"></div>
 
 <button onclick="calculateResults()">See My Results</button>
+
 <div id="result"></div>
-  <button id="retakeBtn" onclick="resetQuiz()" style="display:none;">Retake Quiz</button>
+
+<button id="retakeBtn" onclick="resetQuiz()" style="display:none;">Retake Quiz</button>
 
 <script>
-// Style definitions
+// Style names
 const styleNames = {
   A: "Driver",
   B: "Advocate",
@@ -90,7 +121,19 @@ const styleNames = {
   H: "Guardian"
 };
 
-// NEW 10 QUESTIONS × 4 ANSWERS
+// Style colors
+const styleColors = {
+  A: "#E32322",
+  B: "#F18E1C",
+  C: "#F2DA14",
+  D: "#5A9129",
+  E: "#2A71B0",
+  F: "#002060",
+  G: "#6D398B",
+  H: "#EE8BFD"
+};
+
+// Questions (10 × 4 answers)
 const questions = [
   ["When a group needs to make a decision, you are most likely to…",
     ["AB","start the conversation."],
@@ -167,6 +210,21 @@ questions.forEach((q, i) => {
   quizDiv.appendChild(block);
 });
 
+// Progress bar logic
+function updateProgress() {
+  let answered = 0;
+  for (let i = 1; i <= 10; i++) {
+    if (document.querySelector(`input[name="q${i}"]:checked`)) answered++;
+  }
+  document.getElementById("progressLabel").textContent =
+    `Progress: ${answered} of 10 questions answered`;
+  document.getElementById("progressInner").style.width = `${(answered/10)*100}%`;
+}
+
+document.querySelectorAll("input[type=radio]").forEach(input => {
+  input.addEventListener("change", updateProgress);
+});
+
 // Scoring
 function calculateResults() {
   const scores = {A:0,B:0,C:0,D:0,E:0,F:0,G:0,H:0};
@@ -190,21 +248,39 @@ function calculateResults() {
   result.style.display = "block";
 
   result.innerHTML = `
-  <div class="primaryStyle" style="color:${styleColors[primary]}">
-    Your primary style is ${styleNames[primary]}
-  </div>
+    <div class="primaryStyle" style="color:${styleColors[primary]}">
+      Your primary style is ${styleNames[primary]}
+    </div>
 
-  <div class="secondaryStyle" style="color:${styleColors[secondary]}">
-    Your secondary style is ${styleNames[secondary]}
-  </div>
+    <div class="secondaryStyle" style="color:${styleColors[secondary]}">
+      Your secondary style is ${styleNames[secondary]}
+    </div>
 
-  <p>Your stewardship style reflects the strengths you naturally bring to community and climate care.</p>
+    <p>Your stewardship style reflects the strengths you naturally bring to community and climate care.</p>
 
-  <p><a href="https://climatecolor.com/wheel" target="_blank" style="color:#1494B8;">
-    Explore all eight styles
-  </a></p>
-`;
+    <p><a href="https://climatecolor.com/wheel" target="_blank" style="color:#1494B8;">
+      Explore all eight styles
+    </a></p>
+  `;
+
+  document.getElementById("retakeBtn").style.display = "inline-block";
 }
+
+// Reset quiz
+function resetQuiz() {
+  for (let i = 1; i <= 10; i++) {
+    const selected = document.querySelector(`input[name="q${i}"]:checked`);
+    if (selected) selected.checked = false;
+  }
+  document.getElementById("result").style.display = "none";
+  document.getElementById("result").innerHTML = "";
+  document.getElementById("retakeBtn").style.display = "none";
+  document.getElementById("progressInner").style.width = "0%";
+  document.getElementById("progressLabel").textContent =
+    "Progress: 0 of 10 questions answered";
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
 </script>
 
 </body>
