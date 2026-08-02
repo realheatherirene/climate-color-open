@@ -1,103 +1,116 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 <meta charset="UTF-8">
 <title>Stewardship Style Quiz</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-
 <link href="https://fonts.googleapis.com/css2?family=ADLaM+Display&family=Varela+Round&display=swap" rel="stylesheet">
 
 <style>
 body {
-  font-family: 'Varela Round', sans-serif;
-  margin: 2rem;
-  line-height: 1.6;
-  background: #FFFFFF;
-  color: #212121;
+    font-family: 'Varela Round', sans-serif;
+    margin: 2rem;
+    line-height: 1.6;
+    background: #FFFFFF;
+    color: #212121;
 }
+
 h1 {
-  font-family: 'ADLaM Display', sans-serif;
-  color: #1494B9;
+    font-family: 'ADLaM Display', sans-serif;
+    color: #1494B9;
 }
+
 .question {
-  margin: 1.5rem 0;
-  padding: 1rem;
-  background: #F1F5F9;
-  border-radius: 8px;
+    margin: 1.5rem 0;
+    padding: 1rem;
+    background: #F1F5F9;
+    border-radius: 8px;
 }
+
 label {
-  display: block;
-  margin: 0.35rem 0;
-  cursor: pointer;
+    display: block;
+    margin: 0.35rem 0;
+    cursor: pointer;
 }
+
 button {
-  margin-top: 1.5rem;
-  padding: 0.75rem 1.5rem;
-  font-size: 1rem;
-  border-radius: 6px;
-  border: none;
-  background: #1494B8;
-  color: #FFFFFF;
-  cursor: pointer;
+    margin-top: 1.5rem;
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+    border-radius: 6px;
+    border: none;
+    background: #1494B8;
+    color: #FFFFFF;
+    cursor: pointer;
 }
+
 button:hover {
-  background: #0f7a96;
+    background: #0f7a96;
 }
+
 #result {
-  margin-top: 2rem;
-  padding: 1.25rem;
-  border-radius: 8px;
-  border: 1px solid #E5E7EB;
-  background: #FFFFFF;
-  display: none;
+    margin-top: 2rem;
+    padding: 1.25rem;
+    border-radius: 8px;
+    border: 1px solid #E5E7EB;
+    background: #FFFFFF;
+    display: none;
 }
+
 .primaryStyle {
-  font-size: 1.75rem;
-  font-weight: bold;
-  margin-bottom: 0.5rem;
+    font-size: 1.75rem;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
 }
 
 .secondaryStyle {
-  font-size: 1.25rem;
-  font-weight: 600;
+    font-size: 1.25rem;
+    font-weight: 600;
 }
 
 /* Progress bar */
 #progressContainer {
-  margin-bottom: 1.5rem;
-}
-#progressLabel {
-  font-size: 0.9rem;
-  margin-bottom: 0.25rem;
-}
-#progressOuter {
-  width: 100%;
-  height: 10px;
-  background: #F1F5F9;
-  border-radius: 999px;
-  overflow: hidden;
-}
-#progressInner {
-  height: 10px;
-  width: 0%;
-  background: #1494B8;
-  border-radius: 999px;
-  transition: width 0.2s ease;
+    margin-bottom: 1.5rem;
 }
 
+#progressLabel {
+    font-size: 0.9rem;
+    margin-bottom: 0.25rem;
+}
+
+#progressOuter {
+    width: 100%;
+    height: 10px;
+    background: #F1F5F9;
+    border-radius: 999px;
+    overflow: hidden;
+}
+
+#progressInner {
+    height: 10px;
+    width: 0%;
+    background: #1494B8;
+    border-radius: 999px;
+    transition: width 0.2s ease;
+}
 </style>
 </head>
 
 <body>
 
 <h1>Stewardship Style Quiz</h1>
+
 <p>The Stewardship Style Quiz helps you identify the strengths you naturally bring to community and climate care.</p>
-<p>Choose the response that feels most like you. There are no right or wrong answers. Complete all ten questions and view your results at the end.</p>
+
+<p>As you move through the questions, picture yourself showing up to support a cause you care about.</p>
+
+<p>Choose the response that feels most like you, even if you’re unsure. There are no right or wrong answers. Complete all ten questions and view your results at the end.</p>
 
 <!-- Progress Bar -->
 <div id="progressContainer">
-  <div id="progressLabel">Progress: 0 of 10 questions answered</div>
-  <div id="progressOuter"><div id="progressInner"></div></div>
+    <div id="progressLabel">Progress: 0 of 10 questions answered</div>
+    <div id="progressOuter"><div id="progressInner"></div></div>
 </div>
 
 <div id="quiz"></div>
@@ -111,175 +124,196 @@ button:hover {
 <script>
 // Style names
 const styleNames = {
-  A: "Driver",
-  B: "Advocate",
-  C: "Visionary",
-  D: "Stabilizer",
-  E: "Architect",
-  F: "Keeper",
-  G: "Connector",
-  H: "Guardian"
+    A: "Driver",
+    B: "Advocate",
+    C: "Visionary",
+    D: "Stabilizer",
+    E: "Architect",
+    F: "Keeper",
+    G: "Connector",
+    H: "Guardian"
 };
 
 // Style colors
 const styleColors = {
-  A: "#E32322",
-  B: "#F18E1C",
-  C: "#F2DA14",
-  D: "#5A9129",
-  E: "#2A71B0",
-  F: "#002060",
-  G: "#6D398B",
-  H: "#EE8BFD"
+    A: "#E32322",
+    B: "#F18E1C",
+    C: "#F2DA14",
+    D: "#5A9129",
+    E: "#2A71B0",
+    F: "#002060",
+    G: "#6D398B",
+    H: "#EE8BFD"
 };
 
-// Questions (10 × 4 answers)
+// Updated Questions (Version 5)
 const questions = [
-  ["When a group needs to make a decision, you are most likely to…",
-    ["AB","start the conversation."],
-    ["CD","suggest a new angle."],
-    ["EF","outline the steps."],
-    ["GH","check how people are feeling."]
-  ],
-  ["When someone you know feels overwhelmed, you are most likely to…",
-    ["AB","break things into one doable action."],
-    ["CD","offer a different way to look at it."],
-    ["EF","explain what’s actually going on."],
-    ["GH","reassure them directly."]
-  ],
-  ["When you join a new group or project, you are most likely to…",
-    ["AB","get things moving."],
-    ["CD","pitch ideas."],
-    ["EF","set up structure."],
-    ["GH","introduce people to each other."]
-  ],
-  ["When plans suddenly change, you are most likely to…",
-    ["AB","jump in and adjust quickly."],
-    ["CD","rethink the approach."],
-    ["EF","reorganize the steps."],
-    ["GH","check on how everyone’s doing."]
-  ],
-  ["When you learn something that matters to you, you are most likely to…",
-    ["AB","take action right away."],
-    ["CD","explore possible solutions."],
-    ["EF","build a plan."],
-    ["GH","reach out to others."]
-  ],
-  ["When you volunteer or help out somewhere, you are most likely to…",
-    ["AB","kick off the work."],
-    ["CD","brainstorm ideas."],
-    ["EF","set up systems."],
-    ["GH","check in on teammates."]
-  ],
-  ["When someone asks for advice, you are most likely to…",
-    ["AB","give them one clear action."],
-    ["CD","shift how they’re thinking."],
-    ["EF","map out steps with them."],
-    ["GH","encourage them directly."]
-  ],
-  ["When you notice something that needs attention, you are most likely to…",
-    ["AB","step in to help."],
-    ["CD","picture what it could become."],
-    ["EF","assess what’s needed."],
-    ["GH","stay present to support it."]
-  ],
-  ["When news feels heavy or discouraging, you are most likely to…",
-    ["AB","redirect toward action."],
-    ["CD","steady the conversation."],
-    ["EF","outline practical steps."],
-    ["GH","check in on people’s feelings."]
-  ],
-  ["When you imagine your best self, you are most likely to…",
-    ["AB","lead action."],
-    ["CD","expand possibilities."],
-    ["EF","build structure."],
-    ["GH","uphold care."]
-  ]
+[
+"When a group needs to make a decision, you are most likely to…",
+["AB","get things moving."],
+["CD","offer a new angle."],
+["EF","outline the steps."],
+["GH","check how people are feeling."]
+],
+
+[
+"When someone you know feels overwhelmed, you are most likely to…",
+["AB","suggest one doable action."],
+["CD","offer a clearer way to understand it."],
+["EF","clarify what’s actually going on."],
+["GH","reassure them directly."]
+],
+
+[
+"When you join a new community effort or project, you are most likely to…",
+["AB","jump right in to a task."],
+["CD","pitch ideas."],
+["EF","set up the structure."],
+["GH","introduce people to each other."]
+],
+
+[
+"When plans suddenly change, you are most likely to…",
+["AB","adjust quickly."],
+["CD","rethink the approach."],
+["EF","reorganize the steps."],
+["GH","check on everyone."]
+],
+
+[
+"When you learn something that matters to you, you are most likely to…",
+["AB","act on it right away."],
+["CD","explore possibilities."],
+["EF","make a plan."],
+["GH","reach out to others."]
+],
+
+[
+"When you volunteer to help out in your community, you are most likely to…",
+["AB","kick things off."],
+["CD","brainstorm ideas."],
+["EF","set up systems."],
+["GH","check in on teammates."]
+],
+
+[
+"When someone asks for advice, you are most likely to…",
+["AB","give them one clear action."],
+["CD","help them see the situation differently."],
+["EF","map out steps with them."],
+["GH","encourage them directly."]
+],
+
+[
+"When you notice something in your community that needs attention, you are most likely to…",
+["AB","step in to help."],
+["CD","imagine a clearer way forward."],
+["EF","assess what’s needed."],
+["GH","stay present to support it."]
+],
+
+[
+"When news feels heavy or discouraging, you are most likely to…",
+["AB","encourage next steps."],
+["CD","calm the conversation."],
+["EF","outline practical steps."],
+["GH","check in on people’s feelings."]
+],
+
+[
+"When you imagine your best self in a service setting, you are most likely to…",
+["AB","take the lead to get things moving."],
+["CD","offer ideas that help people stay grounded."],
+["EF","build clear structure that supports good work."],
+["GH","support people in ways that help them feel safe."]
+]
 ];
 
 // Render quiz
 const quizDiv = document.getElementById("quiz");
+
 questions.forEach((q, i) => {
-  const block = document.createElement("div");
-  block.className = "question";
-  let html = `<p><strong>${i+1}.</strong> ${q[0]}</p>`;
-  q.slice(1).forEach(ans => {
-    html += `<label><input type="radio" name="q${i+1}" value="${ans[0]}"> ${ans[1]}</label>`;
-  });
-  block.innerHTML = html;
-  quizDiv.appendChild(block);
+    const block = document.createElement("div");
+    block.className = "question";
+    let html = `<p><strong>${i+1}.</strong> ${q[0]}</p>`;
+    q.slice(1).forEach(ans => {
+        html += `<label><input type="radio" name="q${i+1}" value="${ans[0]}"> ${ans[1]}</label>`;
+    });
+    block.innerHTML = html;
+    quizDiv.appendChild(block);
 });
 
 // Progress bar logic
 function updateProgress() {
-  let answered = 0;
-  for (let i = 1; i <= 10; i++) {
-    if (document.querySelector(`input[name="q${i}"]:checked`)) answered++;
-  }
-  document.getElementById("progressLabel").textContent =
-    `Progress: ${answered} of 10 questions answered`;
-  document.getElementById("progressInner").style.width = `${(answered/10)*100}%`;
+    let answered = 0;
+    for (let i = 1; i <= 10; i++) {
+        if (document.querySelector(`input[name="q${i}"]:checked`)) answered++;
+    }
+    document.getElementById("progressLabel").textContent =
+        `Progress: ${answered} of 10 questions answered`;
+    document.getElementById("progressInner").style.width = `${(answered/10)*100}%`;
 }
 
 document.querySelectorAll("input[type=radio]").forEach(input => {
-  input.addEventListener("change", updateProgress);
+    input.addEventListener("change", updateProgress);
 });
 
 // Scoring
 function calculateResults() {
-  const scores = {A:0,B:0,C:0,D:0,E:0,F:0,G:0,H:0};
+    const scores = {A:0,B:0,C:0,D:0,E:0,F:0,G:0,H:0};
 
-  for (let i = 1; i <= 10; i++) {
-    const ans = document.querySelector(`input[name="q${i}"]:checked`);
-    if (!ans) {
-      alert("Please answer all 10 questions.");
-      return;
+    for (let i = 1; i <= 10; i++) {
+        const ans = document.querySelector(`input[name="q${i}"]:checked`);
+        if (!ans) {
+            alert("Please answer all 10 questions.");
+            return;
+        }
+        const pair = ans.value;
+        scores[pair[0]]++;
+        scores[pair[1]]++;
     }
-    const pair = ans.value;
-    scores[pair[0]]++;
-    scores[pair[1]]++;
-  }
 
-  const sorted = Object.entries(scores).sort((a,b) => b[1] - a[1]);
-  const primary = sorted[0][0];
-  const secondary = sorted[1][0];
+    const sorted = Object.entries(scores).sort((a,b) => b[1] - a[1]);
+    const primary = sorted[0][0];
+    const secondary = sorted[1][0];
 
-  const result = document.getElementById("result");
-  result.style.display = "block";
+    const result = document.getElementById("result");
+    result.style.display = "block";
 
-  result.innerHTML = `
-  <div class="primaryStyle">
-    Your primary style is 
-    <span style="color:${styleColors[primary]}">${styleNames[primary]}</span>
-  </div>
+    result.innerHTML = `
+        <div class="primaryStyle">
+            Your primary style is
+            <span style="color:${styleColors[primary]}">${styleNames[primary]}</span>
+        </div>
 
-  <div class="secondaryStyle">
-    Your secondary style is 
-    <span style="color:${styleColors[secondary]}">${styleNames[secondary]}</span>
-  </div>
-    <p>Visit <a href="https://stewardshipwheel.com/wheel" target="_blank" style="color:#1494B8;">
-      stewardshipwheel.com
-    </a> for information about your results, as well as information about eight core stewardship styles.</p>
-  `;
+        <div class="secondaryStyle">
+            Your secondary style is
+            <span style="color:${styleColors[secondary]}">${styleNames[secondary]}</span>
+        </div>
 
-  document.getElementById("retakeBtn").style.display = "inline-block";
+        <p>Visit <a href="https://stewardshipwheel.com/wheel" target="_blank" style="color:#1494B8;">
+        stewardshipwheel.com</a> for information about your results, as well as information about eight core stewardship styles.</p>
+    `;
+
+    document.getElementById("retakeBtn").style.display = "inline-block";
 }
 
 // Reset quiz
 function resetQuiz() {
-  for (let i = 1; i <= 10; i++) {
-    const selected = document.querySelector(`input[name="q${i}"]:checked`);
-    if (selected) selected.checked = false;
-  }
-  document.getElementById("result").style.display = "none";
-  document.getElementById("result").innerHTML = "";
-  document.getElementById("retakeBtn").style.display = "none";
-  document.getElementById("progressInner").style.width = "0%";
-  document.getElementById("progressLabel").textContent =
-    "Progress: 0 of 10 questions answered";
-  window.scrollTo({ top: 0, behavior: "smooth" });
-}
+    for (let i = 1; i <= 10; i++) {
+        const selected = document.querySelector(`input[name="q${i}"]:checked`);
+        if (selected) selected.checked = false;
+    }
 
+    document.getElementById("result").style.display = "none";
+    document.getElementById("result").innerHTML = "";
+    document.getElementById("retakeBtn").style.display = "none";
+    document.getElementById("progressInner").style.width = "0%";
+    document.getElementById("progressLabel").textContent =
+        "Progress: 0 of 10 questions answered";
+
+    window.scrollTo({ top: 0, behavior: "smooth" });
+}
 </script>
 
 </body>
