@@ -55,13 +55,13 @@ button:hover {
 .primaryStyle {
   font-size: 1.75rem;
   font-weight: bold;
-  color: #1494B9;
-  margin-bottom: 0.5rem;
+  color: #000000;
 }
+
 .secondaryStyle {
   font-size: 1.25rem;
   font-weight: 600;
-  color: #444;
+  color: #000000;
 }
 </style>
 </head>
@@ -75,6 +75,7 @@ button:hover {
 
 <button onclick="calculateResults()">See My Results</button>
 <div id="result"></div>
+  <button id="retakeBtn" onclick="resetQuiz()" style="display:none;">Retake Quiz</button>
 
 <script>
 // Style definitions
@@ -189,11 +190,20 @@ function calculateResults() {
   result.style.display = "block";
 
   result.innerHTML = `
-    <div class="primaryStyle">Your primary style is ${styleNames[primary]}</div>
-    <div class="secondaryStyle">Your secondary style is ${styleNames[secondary]}</div>
-    <p>Your stewardship style reflects the strengths you naturally bring to community and climate care.</p>
-    <p><a href="https://climatecolor.com/wheel" target="_blank" style="color:#1494B8;">Explore all eight styles</a></p>
-  `;
+  <div class="primaryStyle" style="color:${styleColors[primary]}">
+    Your primary style is ${styleNames[primary]}
+  </div>
+
+  <div class="secondaryStyle" style="color:${styleColors[secondary]}">
+    Your secondary style is ${styleNames[secondary]}
+  </div>
+
+  <p>Your stewardship style reflects the strengths you naturally bring to community and climate care.</p>
+
+  <p><a href="https://climatecolor.com/wheel" target="_blank" style="color:#1494B8;">
+    Explore all eight styles
+  </a></p>
+`;
 }
 </script>
 
