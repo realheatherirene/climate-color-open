@@ -92,10 +92,8 @@ button:hover {
 <body>
 
 <h1>Stewardship Style Quiz</h1>
-<p>Your stewardship style reflects the strengths you naturally bring to community and climate care.</p>
-</p>The stewardship Style Quiz will help you identify your primary and secondary stewardship style.</p>
-<p>Choose the response that feels most like you. There are no right or wrong answers.</p>
-</p>Complete all ten questions and view your results at the end.</p>
+<p>The Stewardship Style Quiz helps you identify the strengths you naturally bring to community and climate care.</p>
+<p>Choose the response that feels most like you. There are no right or wrong answers. Complete all ten questions and view your results at the end.</p>
 
 <!-- Progress Bar -->
 <div id="progressContainer">
@@ -251,23 +249,20 @@ function calculateResults() {
   result.style.display = "block";
 
   result.innerHTML = `
-    result.innerHTML = `
-  <div class="primaryStyle">
-    Your primary style is 
-    <span style="color:${styleColors[primary]}">${styleNames[primary]}</span>
-  </div>
+    <div class="primaryStyle" style="color:${styleColors[primary]}">
+      Your primary style is ${styleNames[primary]}
+    </div>
 
-  <div class="secondaryStyle">
-    Your secondary style is 
-    <span style="color:${styleColors[secondary]}">${styleNames[secondary]}</span>
-  </div>
+    <div class="secondaryStyle" style="color:${styleColors[secondary]}">
+      Your secondary style is ${styleNames[secondary]}
+    </div>
 
-  <p>Visit the link for information about your results, as well as information about all eight of the core stewardship steyles.</p>
+    <p>Visit the link for information about your results, as well as information about eight core stewardship styles.</p>
 
-  <p><a href="https://climatecolor.com/wheel" target="_blank" style="color:#1494B8;">
-    Explore all eight styles
-  </a></p>
-`;
+    <p><a href="https://climatecolor.com/wheel" target="_blank" style="color:#1494B8;">
+      Explore the stewardship styles
+    </a></p>
+  `;
 
   document.getElementById("retakeBtn").style.display = "inline-block";
 }
