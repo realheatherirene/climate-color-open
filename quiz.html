@@ -248,14 +248,15 @@ function calculateResults() {
   result.style.display = "block";
 
   result.innerHTML = `
-    <div class="primaryStyle" style="color:${styleColors[primary]}">
-      Your primary style is ${styleNames[primary]}
-    </div>
+  <div class="primaryStyle">
+    Your primary style is 
+    <span style="color:${styleColors[primary]}">${styleNames[primary]}</span>
+  </div>
 
-    <div class="secondaryStyle" style="color:${styleColors[secondary]}">
-      Your secondary style is ${styleNames[secondary]}
-    </div>
-
+  <div class="secondaryStyle">
+    Your secondary style is 
+    <span style="color:${styleColors[secondary]}">${styleNames[secondary]}</span>
+  </div>
     <p>Visit <a href="https://stewardshipwheel.com/wheel" target="_blank" style="color:#1494B8;">
       stewardshipwheel.com
     </a> for information about your results, as well as information about eight core stewardship styles.</p>
