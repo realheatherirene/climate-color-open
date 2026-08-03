@@ -58,7 +58,7 @@ button:hover {
     display: none;
 }
 
-/* Optimized style blocks */
+/* Style block formatting */
 .styleBlock {
     margin-bottom: 2rem;
     padding: 1rem;
@@ -73,9 +73,14 @@ button:hover {
     margin-bottom: 0.25rem;
 }
 
+.styleIdentity strong,
+.styleQualities strong,
+.styleAction strong {
+    font-weight: 700;
+}
+
 .styleIdentity {
     font-size: 1.1rem;
-    font-weight: 600;
     margin-bottom: 0.5rem;
 }
 
@@ -88,7 +93,6 @@ button:hover {
 .styleAction {
     margin-top: 0.75rem;
     font-size: 0.95rem;
-    font-weight: 600;
 }
 
 /* Progress bar */
@@ -168,59 +172,67 @@ const styleColors = {
     H: "#EE8BFD"
 };
 
-// Optimized style blocks
+// Style blocks with color and bold formatting
 const styleBlocks = {
 A: {
-    identity: "You move things forward.",
+    color: "#E32322",
+    identity: "<strong>You move things forward.</strong>",
     behavior: "You help people shift from hesitation to momentum by offering direction and a clear first step.",
-    qualities: "Catalyze · Execute · Deploy",
-    action: "Lead one small action that helps a community effort get underway."
+    qualities: "<strong>Key qualities:</strong> Catalyze · Execute · Deploy",
+    action: "<strong>Try this:</strong> Lead one small action that helps a community effort get underway."
 },
 B: {
-    identity: "You build enthusiasm.",
+    color: "#F18E1C",
+    identity: "<strong>You build enthusiasm.</strong>",
     behavior: "You help people connect emotionally with what matters by bringing warmth, encouragement, and human resonance.",
-    qualities: "Encourage · Amplify · Evangelize",
-    action: "Share a message, story, or invitation that draws others into a climate or community effort."
+    qualities: "<strong>Key qualities:</strong> Encourage · Amplify · Evangelize",
+    action: "<strong>Try this:</strong> Share a message, story, or invitation that draws others into a climate or community effort."
 },
 C: {
-    identity: "You expand what’s possible.",
+    color: "#F2DA14",
+    identity: "<strong>You expand what’s possible.</strong>",
     behavior: "You help people see new angles, fresh options, and creative openings that break old patterns.",
-    qualities: "Imagine · Reframe · Create",
-    action: "Offer one fresh perspective to a group or project that feels stuck."
+    qualities: "<strong>Key qualities:</strong> Imagine · Reframe · Create",
+    action: "<strong>Try this:</strong> Offer one fresh perspective to a group or project that feels stuck."
 },
 D: {
-    identity: "You keep things steady.",
+    color: "#5A9129",
+    identity: "<strong>You keep things steady.</strong>",
     behavior: "You show up consistently, maintain continuity, and help efforts endure over time.",
-    qualities: "Sustain · Ground · Equip",
-    action: "Choose one recurring stewardship task and commit to it for the next few weeks."
+    qualities: "<strong>Key qualities:</strong> Sustain · Ground · Equip",
+    action: "<strong>Try this:</strong> Choose one recurring stewardship task and commit to it for the next few weeks."
 },
 E: {
-    identity: "You make things make sense.",
+    color: "#2A71B0",
+    identity: "<strong>You make things make sense.</strong>",
     behavior: "You organize details, design systems, and create processes that turn confusion into coherence.",
-    qualities: "Design · Organize · Align",
-    action: "Create or improve one simple system that helps a community effort run more smoothly."
+    qualities: "<strong>Key qualities:</strong> Design · Organize · Align",
+    action: "<strong>Try this:</strong> Create or improve one simple system that helps a community effort run more smoothly."
 },
 F: {
-    identity: "You honor what lasts.",
+    color: "#002060",
+    identity: "<strong>You honor what lasts.</strong>",
     behavior: "You protect meaning, memory, and long‑view purpose by noticing what’s irreplaceable and giving it care.",
-    qualities: "Preserve · Honor · Archive",
-    action: "Spend time tending a place, practice, or relationship that deserves continuity."
+    qualities: "<strong>Key qualities:</strong> Preserve · Honor · Archive",
+    action: "<strong>Try this:</strong> Spend time tending a place, practice, or relationship that deserves continuity."
 },
 G: {
-    identity: "You bring people together.",
+    color: "#6D398B",
+    identity: "<strong>You bring people together.</strong>",
     behavior: "You build trust, ease tension, and create environments where people feel understood and included.",
-    qualities: "Bridge · Listen · Unite",
-    action: "Reach out to someone who might feel on the margins and help them feel welcomed into a shared effort."
+    qualities: "<strong>Key qualities:</strong> Bridge · Listen · Unite",
+    action: "<strong>Try this:</strong> Reach out to someone who might feel on the margins and help them feel welcomed into a shared effort."
 },
 H: {
-    identity: "You protect what’s vulnerable.",
+    color: "#EE8BFD",
+    identity: "<strong>You protect what’s vulnerable.</strong>",
     behavior: "You step in when something is at risk and help groups stay courageous, accountable, and principled.",
-    qualities: "Defend · Uphold · Shield",
-    action: "Support one effort that needs protection — a place, a boundary, or a community under pressure."
+    qualities: "<strong>Key qualities:</strong> Defend · Uphold · Shield",
+    action: "<strong>Try this:</strong> Support one effort that needs protection — a place, a boundary, or a community under pressure."
 }
 };
 
-// Updated Questions (Version 5)
+// Questions
 const questions = [
 [
 "When a group needs to make a decision, you are most likely to…",
@@ -229,7 +241,6 @@ const questions = [
 ["EF","outline the steps."],
 ["GH","check how people are feeling."]
 ],
-
 [
 "When someone you know feels overwhelmed, you are most likely to…",
 ["AB","suggest one doable action."],
@@ -237,7 +248,6 @@ const questions = [
 ["EF","clarify what’s actually going on."],
 ["GH","reassure them directly."]
 ],
-
 [
 "When you join a new community effort or project, you are most likely to…",
 ["AB","jump right in to a task."],
@@ -245,7 +255,6 @@ const questions = [
 ["EF","set up the structure."],
 ["GH","introduce people to each other."]
 ],
-
 [
 "When plans suddenly change, you are most likely to…",
 ["AB","adjust quickly."],
@@ -253,7 +262,6 @@ const questions = [
 ["EF","reorganize the steps."],
 ["GH","check on everyone."]
 ],
-
 [
 "When you learn something that matters to you, you are most likely to…",
 ["AB","act on it right away."],
@@ -261,7 +269,6 @@ const questions = [
 ["EF","make a plan."],
 ["GH","reach out to others."]
 ],
-
 [
 "When you volunteer to help out in your community, you are most likely to…",
 ["AB","kick things off."],
@@ -269,7 +276,6 @@ const questions = [
 ["EF","set up systems."],
 ["GH","check in on teammates."]
 ],
-
 [
 "When someone asks for advice, you are most likely to…",
 ["AB","give them one clear action."],
@@ -277,7 +283,6 @@ const questions = [
 ["EF","map out steps with them."],
 ["GH","encourage them directly."]
 ],
-
 [
 "When you notice something in your community that needs attention, you are most likely to…",
 ["AB","step in to help."],
@@ -285,7 +290,6 @@ const questions = [
 ["EF","assess what’s needed."],
 ["GH","stay present to support it."]
 ],
-
 [
 "When news feels heavy or discouraging, you are most likely to…",
 ["AB","encourage next steps."],
@@ -293,7 +297,6 @@ const questions = [
 ["EF","outline practical steps."],
 ["GH","check in on people’s feelings."]
 ],
-
 [
 "When you imagine your best self in a service setting, you are most likely to…",
 ["AB","take the lead to get things moving."],
@@ -354,21 +357,28 @@ function calculateResults() {
     const result = document.getElementById("result");
     result.style.display = "block";
 
+    const primaryBlock = styleBlocks[primary];
+    const secondaryBlock = styleBlocks[secondary];
+
     result.innerHTML = `
-        <div class="styleBlock" style="border-left-color:${styleColors[primary]}">
-            <div class="styleTitle">Your primary style: ${styleNames[primary]}</div>
-            <div class="styleIdentity">${styleBlocks[primary].identity}</div>
-            <div>${styleBlocks[primary].behavior}</div>
-            <div class="styleQualities">${styleBlocks[primary].qualities}</div>
-            <div class="styleAction">Try this: ${styleBlocks[primary].action}</div>
+        <div class="styleBlock" style="border-left-color:${primaryBlock.color}">
+            <div class="styleTitle">
+                Your primary style: <span style="color:${primaryBlock.color};">${styleNames[primary]}</span>
+            </div>
+            <div class="styleIdentity">${primaryBlock.identity}</div>
+            <div>${primaryBlock.behavior}</div>
+            <div class="styleQualities">${primaryBlock.qualities}</div>
+            <div class="styleAction">${primaryBlock.action}</div>
         </div>
 
-        <div class="styleBlock" style="border-left-color:${styleColors[secondary]}">
-            <div class="styleTitle">Your secondary style: ${styleNames[secondary]}</div>
-            <div class="styleIdentity">${styleBlocks[secondary].identity}</div>
-            <div>${styleBlocks[secondary].behavior}</div>
-            <div class="styleQualities">${styleBlocks[secondary].qualities}</div>
-            <div class="styleAction">Try this: ${styleBlocks[secondary].action}</div>
+        <div class="styleBlock" style="border-left-color:${secondaryBlock.color}">
+            <div class="styleTitle">
+                Your secondary style: <span style="color:${secondaryBlock.color};">${styleNames[secondary]}</span>
+            </div>
+            <div class="styleIdentity">${secondaryBlock.identity}</div>
+            <div>${secondaryBlock.behavior}</div>
+            <div class="styleQualities">${secondaryBlock.qualities}</div>
+            <div class="styleAction">${secondaryBlock.action}</div>
         </div>
 
         <p>Visit <a href="https://stewardshipwheel.com/wheel" target="_blank" style="color:#1494B8;">
