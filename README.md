@@ -16,7 +16,6 @@ You can find the following assets in this repository:
 * **High-Res icon images:** PNG files found in the `/assets/icons` folder.
 * **Source-vector files:** Scalable AI and SVG files found in the `/assets/raw` folder.
 * **README:** Use guidelines.
-* **LICENSE:** License details.
 
 ---
 
