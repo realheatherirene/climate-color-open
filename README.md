@@ -26,7 +26,6 @@ You can find the following assets in this repository:
 This work is licensed under the **Creative Commons Attribution 4.0 International (CC BY-NC-SA 4.0)** license.
 
 ### How to Credit
-You are free to share, remix, and use this character commercially. We simply ask that you provide the following attribution:
 
 > **"Stewardship Wheel" by Heather Succio (Licensed under CC BY-NC-SA 4.0)**
 
