@@ -23,14 +23,14 @@ You can find the following assets in this repository:
 ---
 
 ## ⚖️ Licensing & Attribution
-This work is licensed under the **Creative Commons Attribution 4.0 International (CC BY 4.0)** license.
+This work is licensed under the **Creative Commons Attribution 4.0 International (CC BY-NC-SA 4.0)** license.
 
 ### How to Credit
 You are free to share, remix, and use this character commercially. We simply ask that you provide the following attribution:
 
-> **"Stewardship Wheel" by Heather Succio (Licensed under CC BY 4.0)**
+> **"Stewardship Wheel" by Heather Succio (Licensed under CC BY-NC-SA 4.0)**
 
-For full license details, see the [LICENSE](./LICENSE) file in this repository or visit [CreativeCommons.org](https://creativecommons.org/licenses/by/4.0/).
+For full license details, visit [CreativeCommons.org](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en).
 
 ---
 
