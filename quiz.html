@@ -593,6 +593,14 @@ function resetQuiz() {
 
   window.scrollTo({ top: 0, behavior: "smooth" });
 }
+   function sendHeight() {
+  const height = document.body.scrollHeight;
+  parent.postMessage({ iframeHeight: height }, "*");
+}
+
+window.addEventListener("load", sendHeight);
+window.addEventListener("resize", sendHeight);
+
 </script>
 
 </body>
