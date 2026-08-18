@@ -43,12 +43,6 @@ p {
     margin-bottom: 1rem;
 }
 
-.quiz-intro {
-    text-align: left;
-    max-width: 100%;
-    margin: 0 0 2rem 0;
-}
-
 /* ========================================================================== 
 Question Cards & Tappable Options 
 ========================================================================== */
@@ -276,10 +270,6 @@ Result Section
 
 <body>
 
-<div class="quiz-intro">
-    <p>Find your stewardship style—the unique strengths you naturally bring to climate action! Each question prompts you to picture yourself showing up to support a cause you care about. Complete all 10 questions to see your results.</p>
-</div>
-
 <div id="quiz"></div>
 
 <button onclick="calculateResults()">See My Results</button>
@@ -485,3 +475,13 @@ function calculateResults() {
     result.innerHTML = `
         <div class="styleBlock" style="border-left-color:${primaryBlock.color}">
             <div class="styleTitle">
+                Your primary style: <span style="color:${primaryBlock.color};">${styleNames[primary]}</span>
+            </div>
+            <div class="styleIdentity">${primaryBlock.identity}</div>
+            <div>${primaryBlock.behavior}</div>
+            <div class="styleQualities">${primaryBlock.qualities}</div>
+            <div class="styleAction">${primaryBlock.action}</div>
+        </div>
+
+        <div class="styleBlock" style="border-left-color:${secondaryBlock.color}">
+            <div class="
