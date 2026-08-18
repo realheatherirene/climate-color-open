@@ -484,4 +484,43 @@ function calculateResults() {
         </div>
 
         <div class="styleBlock" style="border-left-color:${secondaryBlock.color}">
-            <div class="
+            <div class="styleTitle">
+                Your secondary style: <span style="color:${secondaryBlock.color};">${styleNames[secondary]}</span>
+            </div>
+            <div class="styleIdentity">${secondaryBlock.identity}</div>
+            <div>${secondaryBlock.behavior}</div>
+            <div class="styleQualities">${secondaryBlock.qualities}</div>
+            <div class="styleAction">${secondaryBlock.action}</div>
+        </div>
+
+        <p style="margin-top: 1.5rem; text-align: left;">
+            Explore how your styles connect on
+            <a href="https://climatecolor.com/wheel" target="_blank" style="color:#1494B8; font-weight: bold;">
+                The Climate Color Wheel
+            </a>.
+        </p>
+    `;
+
+    document.getElementById("retakeBtn").style.display = "inline-block";
+    result.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+// Reset Quiz
+function resetQuiz() {
+    for (let i = 1; i <= 10; i++) {
+        const selected = document.querySelector(`input[name="q${i}"]:checked`);
+        if (selected) selected.checked = false;
+    }
+
+    const result = document.getElementById("result");
+    result.style.display = "none";
+    result.innerHTML = "";
+
+    document.getElementById("retakeBtn").style.display = "none";
+
+    window.scrollTo({ top: 0, behavior: "smooth" });
+}
+</script>
+
+</body>
+</html>
