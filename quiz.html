@@ -25,4 +25,463 @@ body {
     line-height: 1.6;
     background-color: #FFFFFF;
     color: #212121;
-    -webkit-font-smoothing
+    -webkit-font-smoothing: antialiased;
+}
+
+h1 {
+    font-family: 'ADLaM Display', cursive, sans-serif;
+    color: #1494B9;
+    font-size: 2.25rem;
+    margin-top: 0;
+    margin-bottom: 0.75rem;
+    text-align: left;
+}
+
+p {
+    color: #4B5563;
+    font-size: 1rem;
+    margin-bottom: 1rem;
+}
+
+.quiz-intro {
+    text-align: left;
+    max-width: 100%;
+    margin: 0 0 2rem 0;
+}
+
+/* ========================================================================== 
+Question Cards & Tappable Options 
+========================================================================== */
+
+.question {
+    margin-bottom: 2rem;
+    padding: 1.5rem;
+    background: #FFFFFF;
+    border: 1px solid #E2E8F0;
+    border-radius: 16px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.03), 0 2px 4px -1px rgba(0, 0, 0, 0.02);
+}
+
+.question p {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #0F172A;
+    margin-top: 0;
+    margin-bottom: 1rem;
+}
+
+label {
+    display: flex;
+    align-items: center;
+    margin: 0.6rem 0;
+    padding: 0.85rem 1.15rem;
+    background: #FFFFFF;
+    border: 2px solid #E2E8F0;
+    border-radius: 12px;
+    cursor: pointer;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+label input[type="radio"] {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 20px;
+    height: 20px;
+    border: 2px solid #94A3B8;
+    border-radius: 50%;
+    margin: 0 0.85rem 0 0;
+    outline: none;
+    display: grid;
+    place-content: center;
+    flex-shrink: 0;
+    transition: all 0.2s ease;
+}
+
+label input[type="radio"]::before {
+    content: "";
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    transform: scale(0);
+    transition: transform 0.15s ease-in-out;
+    background-color: #FFFFFF;
+}
+
+label:hover {
+    border-color: #1494B9;
+    background-color: #F0F9FF;
+    transform: translateY(-1px);
+}
+
+label:has(input[type="radio"]:checked) {
+    border-color: #1494B9;
+    background-color: #F0F9FF;
+    box-shadow: 0 2px 8px rgba(20, 148, 185, 0.15);
+}
+
+label input[type="radio"]:checked {
+    border-color: #1494B9;
+    background-color: #1494B9;
+}
+
+label input[type="radio"]:checked::before {
+    transform: scale(1);
+}
+
+label span {
+    font-size: 1rem;
+    color: #334155;
+    line-height: 1.4;
+}
+
+label:has(input[type="radio"]:checked) span {
+    color: #0F172A;
+    font-weight: 700;
+}
+
+label input[type="radio"]:focus-visible {
+    outline: 2px solid #1494B9;
+    outline-offset: 2px;
+}
+
+/* ========================================================================== 
+Action Buttons 
+========================================================================== */
+
+button {
+    font-family: inherit;
+    font-size: 1.15rem;
+    font-weight: 700;
+    padding: 1rem 1.75rem;
+    margin: 1.5rem 0;
+    width: 100%;
+    border: none;
+    border-radius: 12px;
+    background-color: #1494B9;
+    color: #FFFFFF;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(20, 148, 185, 0.25);
+    transition: all 0.2s ease;
+}
+
+button:hover {
+    background-color: #0E7490;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(20, 148, 185, 0.35);
+}
+
+button:active {
+    transform: translateY(0);
+}
+
+#retakeBtn {
+    background-color: #64748B;
+    box-shadow: 0 4px 12px rgba(100, 116, 139, 0.2);
+}
+
+#retakeBtn:hover {
+    background-color: #475569;
+    box-shadow: 0 6px 16px rgba(100, 116, 139, 0.3);
+}
+
+/* ========================================================================== 
+Result Section 
+========================================================================== */
+
+#result {
+    margin-top: 2.5rem;
+    padding: 1.5rem;
+    border-radius: 16px;
+    border: 1px solid #E2E8F0;
+    background: #FFFFFF;
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
+    display: none;
+    text-align: left;
+}
+
+.styleBlock {
+    margin-bottom: 1.5rem;
+    padding: 1.25rem 1.5rem;
+    border-radius: 12px;
+    background: #F8FAFC;
+    border-left: 6px solid;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+}
+
+.styleBlock:last-of-type {
+    margin-bottom: 0;
+}
+
+.styleTitle {
+    font-size: 1.35rem;
+    font-weight: 700;
+    color: #0F172A;
+    margin-bottom: 0.5rem;
+}
+
+.styleIdentity {
+    font-size: 1.1rem;
+    color: #1E293B;
+    margin-bottom: 0.5rem;
+}
+
+.styleQualities {
+    font-size: 0.95rem;
+    margin: 0.75rem 0;
+    color: #475569;
+}
+
+.styleAction {
+    margin-top: 0.85rem;
+    padding-top: 0.75rem;
+    border-top: 1px solid #E2E8F0;
+    font-size: 0.95rem;
+    color: #334155;
+}
+
+#result a {
+    text-decoration: none;
+}
+
+#result a:hover {
+    text-decoration: underline;
+}
+
+/* Responsive */
+@media (max-width: 640px) {
+    body {
+        padding: 0 0.85rem;
+    }
+    h1 {
+        font-size: 1.85rem;
+    }
+    .question {
+        padding: 1.15rem;
+    }
+    label {
+        padding: 0.75rem 0.9rem;
+    }
+    label span {
+        font-size: 0.95rem;
+    }
+    button {
+        font-size: 1.05rem;
+        padding: 0.85rem 1.25rem;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="quiz-intro">
+    <p>Find your stewardship style—the unique strengths you naturally bring to climate action! Each question prompts you to picture yourself showing up to support a cause you care about. Complete all 10 questions to see your results.</p>
+</div>
+
+<div id="quiz"></div>
+
+<button onclick="calculateResults()">See My Results</button>
+
+<div id="result"></div>
+
+<button id="retakeBtn" onclick="resetQuiz()" style="display:none;">Retake Quiz</button>
+
+<script>
+// Style names
+const styleNames = {
+    A: "Driver",
+    B: "Advocate",
+    C: "Visionary",
+    D: "Stabilizer",
+    E: "Architect",
+    F: "Keeper",
+    G: "Connector",
+    H: "Guardian"
+};
+
+// Style blocks with colors
+const styleBlocks = {
+    A: {
+        color: "#E32322",
+        identity: "<strong>You move things forward.</strong>",
+        behavior: "You help people shift from hesitation to momentum by offering direction and a clear first step.",
+        qualities: "<strong>Key qualities:</strong> Catalyze · Execute · Deploy",
+        action: "<strong>Try this:</strong> Lead one small action that helps a community effort get underway."
+    },
+    B: {
+        color: "#F18E1C",
+        identity: "<strong>You build enthusiasm.</strong>",
+        behavior: "You help people connect emotionally with what matters by bringing warmth, encouragement, and human resonance.",
+        qualities: "<strong>Key qualities:</strong> Encourage · Amplify · Evangelize",
+        action: "<strong>Try this:</strong> Share a message, story, or invitation that draws others into a climate or community effort."
+    },
+    C: {
+        color: "#F2DA14",
+        identity: "<strong>You expand what’s possible.</strong>",
+        behavior: "You help people see new angles, fresh options, and creative openings that break old patterns.",
+        qualities: "<strong>Key qualities:</strong> Imagine · Reframe · Create",
+        action: "<strong>Try this:</strong> Offer one fresh perspective to a group or project that feels stuck."
+    },
+    D: {
+        color: "#5A9129",
+        identity: "<strong>You keep things steady.</strong>",
+        behavior: "You show up consistently, maintain continuity, and help efforts endure over time.",
+        qualities: "<strong>Key qualities:</strong> Sustain · Ground · Equip",
+        action: "<strong>Try this:</strong> Choose one recurring stewardship task and commit to it for the next few weeks."
+    },
+    E: {
+        color: "#2A71B0",
+        identity: "<strong>You make things make sense.</strong>",
+        behavior: "You organize details, design systems, and create processes that turn confusion into coherence.",
+        qualities: "<strong>Key qualities:</strong> Design · Organize · Align",
+        action: "<strong>Try this:</strong> Create or improve one simple system that helps a community effort run more smoothly."
+    },
+    F: {
+        color: "#002060",
+        identity: "<strong>You honor what lasts.</strong>",
+        behavior: "You protect meaning, memory, and long‑view purpose by noticing what’s irreplaceable and giving it care.",
+        qualities: "<strong>Key qualities:</strong> Preserve · Honor · Archive",
+        action: "<strong>Try this:</strong> Spend time tending a place, practice, or relationship that deserves continuity."
+    },
+    G: {
+        color: "#6D398B",
+        identity: "<strong>You bring people together.</strong>",
+        behavior: "You build trust, ease tension, and create environments where people feel understood and included.",
+        qualities: "<strong>Key qualities:</strong> Bridge · Listen · Unite",
+        action: "<strong>Try this:</strong> Reach out to someone who might feel on the margins and help them feel welcomed into a shared effort."
+    },
+    H: {
+        color: "#EE8BFD",
+        identity: "<strong>You protect what’s vulnerable.</strong>",
+        behavior: "You step in when something is at risk and help groups stay courageous, accountable, and principled.",
+        qualities: "<strong>Key qualities:</strong> Defend · Uphold · Shield",
+        action: "<strong>Try this:</strong> Support one effort that needs protection — a place, a boundary, or a community under pressure."
+    }
+};
+
+// Questions matrix
+const questions = [
+    [
+        "When a group needs to make a decision, you are most likely to…",
+        ["A", "get things moving and push for a clear call to action."],
+        ["C", "offer a fresh, unexpected angle or alternative route."],
+        ["E", "outline a structured process for evaluating choices."],
+        ["G", "check in on how everyone is feeling about the options."]
+    ],
+    [
+        "When someone you know feels overwhelmed, you are most likely to…",
+        ["B", "bring warmth and encouragement to lift their spirits."],
+        ["D", "offer steady presence and grounded consistency."],
+        ["F", "remind them of core values and long-term purpose."],
+        ["H", "step in directly to shelter them from extra pressure."]
+    ],
+    [
+        "When you join a new community or climate initiative, you are most likely to…",
+        ["A", "jump right in and grab responsibility for a key task."],
+        ["C", "brainstorm creative ideas to expand the project's scope."],
+        ["E", "design or refine the workflow, systems, or schedule."],
+        ["G", "introduce people to each other and foster community."]
+    ],
+    [
+        "When unexpected challenges disrupt plans, you are most likely to…",
+        ["B", "rally morale and keep everyone motivated."],
+        ["D", "maintain continuity and keep routine tasks running steady."],
+        ["F", "anchor the team in why this work matters historically."],
+        ["H", "defend team boundaries and protect vulnerable resources."]
+    ],
+    [
+        "When you learn something urgent about a cause you care about, you are most likely to…",
+        ["A", "take immediate action and encourage others to act now."],
+        ["B", "share the story passionately to inspire emotion and awareness."],
+        ["C", "imagine new, unconventional solutions to address it."],
+        ["E", "analyze the system behind it to organize a logical response."]
+    ],
+    [
+        "When volunteering your time, you feel most fulfilled when you…",
+        ["D", "provide reliable, ongoing support behind the scenes."],
+        ["F", "preserve important knowledge, stories, or local heritage."],
+        ["G", "facilitate dialogues and make newcomers feel welcome."],
+        ["H", "advocate for those whose voices or rights are at risk."]
+    ],
+    [
+        "When a project or group conversation gets completely stuck, you are most likely to…",
+        ["A", "propose a simple, immediate step to restore momentum."],
+        ["C", "reframe the entire problem to break open fresh possibilities."],
+        ["E", "break down the roadblock into clear, manageable steps."],
+        ["G", "ease tension by helping people listen to each other."]
+    ],
+    [
+        "When community news feels heavy or discouraging, you are most likely to…",
+        ["B", "highlight stories of hope and positive impact."],
+        ["D", "focus on daily habits and persistent, quiet care."],
+        ["F", "reflect on past resilience to honor what endures."],
+        ["H", "stand up against injustice and shield those affected."]
+    ],
+    [
+        "When someone asks for your advice or guidance, you are most likely to…",
+        ["A", "give them one direct, actionable next step."],
+        ["B", "encourage their confidence and validate their feeling."],
+        ["C", "help them see the situation from a creative vantage point."],
+        ["E", "help them map out a systematic plan."]
+    ],
+    [
+        "When imagining your best contribution to community care, you see yourself as someone who…",
+        ["D", "keeps foundational efforts stable over the long haul."],
+        ["F", "guards the principles, memory, and heart of the work."],
+        ["G", "bridges divides and weaves people together."],
+        ["H", "stands up boldly to safeguard vulnerable places or groups."]
+    ]
+];
+
+// Render quiz
+const quizDiv = document.getElementById("quiz");
+
+questions.forEach((q, i) => {
+    const block = document.createElement("div");
+    block.className = "question";
+
+    let html = `<p>${i+1}. ${q[0]}</p>`;
+    q.slice(1).forEach(ans => {
+        html += `
+            <label>
+                <input type="radio" name="q${i+1}" value="${ans[0]}">
+                <span>${ans[1]}</span>
+            </label>`;
+    });
+
+    block.innerHTML = html;
+    quizDiv.appendChild(block);
+});
+
+// Calculate Results
+function calculateResults() {
+    const scores = { A: 0, B: 0, C: 0, D: 0, E: 0, F: 0, G: 0, H: 0 };
+
+    for (let i = 1; i <= 10; i++) {
+        const selected = document.querySelector(`input[name="q${i}"]:checked`);
+        if (!selected) {
+            alert("Please answer all 10 questions to see your results.");
+            return;
+        }
+        scores[selected.value]++;
+    }
+
+    const sorted = Object.entries(scores).sort((a, b) => {
+        if (b[1] !== a[1]) return b[1] - a[1];
+        return 0.5 - Math.random();
+    });
+
+    const primary = sorted[0][0];
+    const secondary = sorted[1][0];
+
+    const result = document.getElementById("result");
+    result.style.display = "block";
+
+    const primaryBlock = styleBlocks[primary];
+    const secondaryBlock = styleBlocks[secondary];
+
+    result.innerHTML = `
+        <div class="styleBlock" style="border-left-color:${primaryBlock.color}">
+            <div class="styleTitle">
