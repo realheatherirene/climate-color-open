@@ -151,7 +151,7 @@
 
   <div class="grid" id="resourceGrid"></div>
 
-  <script>
+<script>
     const styleOrder = {
       "Driver": 1,
       "Advocate": 2,
@@ -195,14 +195,24 @@
 
     function renderCards() {
       const filtered = resources.filter(item => {
-        const matchesStyle = currentStyle === 'all' || item["Inner Ring Style"] === currentStyle;
-        const query = searchQuery.toLowerCase();
+        // Safe string extraction with fallbacks to avoid runtime crashes
+        const style = item["Inner Ring Style"] || '';
+        const title = item["Resource Title"] || '';
+        const desc = item["Description"] || '';
+        const category = item["Primary Category"] || '';
+        const action = item["Outer Ring Action"] || '';
+
+        // Filter by pill selection
+        const matchesStyle = currentStyle === 'all' || style.toLowerCase() === currentStyle.toLowerCase();
+        
+        // Safe case-insensitive search across all text fields
+        const query = searchQuery.trim().toLowerCase();
         const matchesSearch = !query || 
-          item["Resource Title"].toLowerCase().includes(query) ||
-          item["Description"].toLowerCase().includes(query) ||
-          item["Primary Category"].toLowerCase().includes(query) ||
-          item["Inner Ring Style"].toLowerCase().includes(query) ||
-          item["Outer Ring Action"].toLowerCase().includes(query);
+          title.toLowerCase().includes(query) ||
+          desc.toLowerCase().includes(query) ||
+          category.toLowerCase().includes(query) ||
+          style.toLowerCase().includes(query) ||
+          action.toLowerCase().includes(query);
 
         return matchesStyle && matchesSearch;
       });
@@ -215,16 +225,16 @@
       }
 
       resourceGrid.innerHTML = filtered.map(item => `
-        <div class="card" data-style="${item["Inner Ring Style"]}">
+        <div class="card" data-style="${item["Inner Ring Style"] || ''}">
           <div>
             <div class="card-meta">
-              <span class="badge-style">${item["Inner Ring Style"]} • ${item["Outer Ring Action"]}</span>
-              <span class="category-tag">${item["Primary Category"]}</span>
+              <span class="badge-style">${item["Inner Ring Style"] || 'General'} • ${item["Outer Ring Action"] || 'Action'}</span>
+              <span class="category-tag">${item["Primary Category"] || ''}</span>
             </div>
             <h3 class="card-title">
               <a href="${item.URL}" target="_blank" rel="noopener noreferrer">${item["Resource Title"]}</a>
             </h3>
-            <p class="card-desc">${item.Description}</p>
+            <p class="card-desc">${item.Description || ''}</p>
           </div>
           <a href="${item.URL}" target="_blank" rel="noopener noreferrer" class="card-footer">
             <span>Explore Resource</span>
