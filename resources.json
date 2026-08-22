@@ -122,7 +122,7 @@
   {
     "Resource Title": "NCA5 Teaching & Engagement Resources (Internet Archive)",
     "Primary Category": "General Field & Educational",
-    "URL": "https://web.archive.org/web/20231114220000/https://nca2023.globalchange.gov/",
+    "URL": "https://web.archive.org/web/20231114220709/https://nca2023.globalchange.gov/",
     "Inner Ring Style": "Visionary",
     "Outer Ring Action": "Reframe",
     "Description": "Preserved snapshots of the Fifth National Climate Assessment summaries, visual aids, and regional impact data."
@@ -314,10 +314,18 @@
   {
     "Resource Title": "EJScreen (EPA End-of-Term Archive)",
     "Primary Category": "General Field & Educational",
-    "URL": "https://eotarchive.org/",
+    "URL": "https://eotarchive.org",
     "Inner Ring Style": "Guardian",
     "Outer Ring Action": "Shield",
     "Description": "Archived high-resolution demographic and environmental indicator mapping tool preserved via the End of Term Archive."
+  },
+  {
+    "Resource Title": "Climate Policy Radar",
+    "Primary Category": "General Field & Educational",
+    "URL": "https://climatepolicyradar.org/",
+    "Inner Ring Style": "Guardian",
+    "Outer Ring Action": "Defend",
+    "Description": "Open-access research platform tracking climate laws, policies, and legal framework data globally."
   },
   {
     "Resource Title": "The Solutions Project Frontline Resource Hub",
@@ -334,5 +342,13 @@
     "Inner Ring Style": "Guardian",
     "Outer Ring Action": "Uphold",
     "Description": "Global network providing direct micro-grants, grassroots toolkits, and local governance resources for frontline defenders."
+  },
+  {
+    "Resource Title": "NAACP Environmental & Climate Justice Program",
+    "Primary Category": "Environmental Justice",
+    "URL": "https://naacp.org/know-issues/environmental-climate-justice",
+    "Inner Ring Style": "Guardian",
+    "Outer Ring Action": "Defend",
+    "Description": "Research reports, policy toolkits, and civic engagement guides focusing on energy access and environmental equity."
   }
 ]
