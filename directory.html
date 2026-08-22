@@ -95,7 +95,16 @@
 
     .card-desc { font-size: 14px; color: #4b5563; margin-bottom: 16px; flex-grow: 1; }
 
-    .card-footer { display: flex; justify-content: space-between; align-items: center; font-size: 13px; font-weight: 600; color: #2563eb; }
+    .card-footer { 
+      display: flex; 
+      justify-content: space-between; 
+      align-items: center; 
+      font-size: 13px; 
+      font-weight: 600; 
+      color: #2563eb; 
+      text-decoration: none;
+    }
+    .card-footer:hover { text-decoration: underline; }
     .external-link-icon { width: 14px; height: 14px; fill: currentColor; }
     
     .no-results { grid-column: 1 / -1; text-align: center; padding: 40px; color: var(--text-muted); font-size: 16px; }
@@ -341,7 +350,7 @@
     "URL": "https://cleanet.org/",
     "Inner Ring Style": "Advocate",
     "Outer Ring Action": "Encourage",
-    "Description": "Peer-reviewed collection of K\u201316 educational resources and lesson plans aligned with science standards."
+    "Description": "Peer-reviewed collection of K–16 educational resources and lesson plans aligned with science standards."
   },
   {
     "Resource Title": "Climate Policy Radar",
@@ -510,17 +519,17 @@
               <span class="category-tag">${item["Primary Category"]}</span>
             </div>
             <h3 class="card-title">
-              <a href="${item.URL}" target="_blank" rel="noopener">${item["Resource Title"]}</a>
+              <a href="${item.URL}" target="_blank" rel="noopener noreferrer">${item["Resource Title"]}</a>
             </h3>
             <p class="card-desc">${item.Description}</p>
           </div>
-          <div class="card-footer">
+          <a href="${item.URL}" target="_blank" rel="noopener noreferrer" class="card-footer">
             <span>Explore Resource</span>
             <svg class="external-link-icon" viewBox="0 0 20 20">
               <path d="M11 3a1 1 0 100 2h2.586l-6.293 6.293a1 1 0 101.414 1.414L15 6.414V9a1 1 0 102 0V4a1 1 0 00-1-1h-5z"/>
               <path d="M5 5a2 2 0 00-2 2v8a2 2 0 002 2h8a2 2 0 002-2v-3a1 1 0 10-2 0v3H5V7h3a1 1 0 000-2H5z"/>
             </svg>
-          </div>
+          </a>
         </div>
       `).join('');
     }
