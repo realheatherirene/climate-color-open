@@ -114,7 +114,7 @@
   {
     "Resource Title": "NCA5 Teaching & Engagement Resources (Internet Archive)",
     "Primary Category": "General Field & Educational",
-    "URL": "https://web.archive.org/web/20240101000000/https://nca2023.globalchange.gov/",
+    "URL": "https://web.archive.org/web/20231114220709/https://nca2023.globalchange.gov/",
     "Inner Ring Style": "Visionary",
     "Outer Ring Action": "Reframe",
     "Description": "Preserved snapshots of the Fifth National Climate Assessment summaries, visual aids, and regional impact data."
@@ -258,7 +258,7 @@
   {
     "Resource Title": "Resilience Hubs Toolkit (USDN Direct)",
     "Primary Category": "Resilience & Adaptation",
-    "URL": "https://resilience-hubs.org/templates-and-resources/",
+    "URL": "https://www.usdn.org/resilience-hubs.html",
     "Inner Ring Style": "Connector",
     "Outer Ring Action": "Bridge",
     "Description": "Urban Sustainability Directors Network guide for developing community facilities that support residents during climate disruptions."
@@ -306,7 +306,7 @@
   {
     "Resource Title": "EJScreen (EPA End-of-Term Archive)",
     "Primary Category": "General Field & Educational",
-    "URL": "https://web.archive.org/web/20240101000000/https://www.epa.gov/ejscreen",
+    "URL": "https://eotarchive.org",
     "Inner Ring Style": "Guardian",
     "Outer Ring Action": "Shield",
     "Description": "Archived high-resolution demographic and environmental indicator mapping tool preserved via the End of Term Archive."
@@ -320,20 +320,20 @@
     "Description": "Open-access research platform tracking climate laws, policies, and legal framework data globally."
   },
   {
-    "Resource Title": "EPA Environmental Justice Grants (Archive & Climate Justice Alliance)",
+    "Resource Title": "The Solutions Project Frontline Resource Hub",
     "Primary Category": "Funding & Micro-Grants",
-    "URL": "https://climatejusticealliance.org/resources/",
+    "URL": "https://thesolutionsproject.org/",
     "Inner Ring Style": "Guardian",
     "Outer Ring Action": "Shield",
-    "Description": "Grassroots funding guides and frontline community grants tracking maintained by community coalitions."
+    "Description": "National grassroots funding platform and accelerator supporting climate justice solutions created by frontline community leaders."
   },
   {
-    "Resource Title": "Climate Justice Alliance Resource Library (Direct Hub)",
+    "Resource Title": "Global Greengrants Fund Environmental Justice Hub",
     "Primary Category": "Environmental Justice",
-    "URL": "https://climatejusticealliance.org/work/",
+    "URL": "https://www.greengrants.org/",
     "Inner Ring Style": "Guardian",
     "Outer Ring Action": "Uphold",
-    "Description": "Educational guides, popular education tools, and strategy briefs focused on just transition strategies for frontline communities."
+    "Description": "Global network providing direct micro-grants, grassroots toolkits, and local governance resources for frontline defenders."
   },
   {
     "Resource Title": "NAACP Environmental & Climate Justice Program",
