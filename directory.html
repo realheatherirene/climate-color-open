@@ -13,14 +13,14 @@
       --border-color: #e5e7eb;
       
       /* Climate Color Wheel Palette */
-      --color-visionary: #eab308;
-      --color-advocate: #f97316;
-      --color-driver: #ef4444;
-      --color-guardian: #d946ef;
-      --color-connector: #7e22ce;
-      --color-keeper: #1e3a8a;
-      --color-architect: #0284c7;
-      --color-stabilizer: #65a30d;
+      --color-driver: #ef4444;     /* Red */
+      --color-advocate: #f97316;   /* Orange */
+      --color-visionary: #eab308;  /* Yellow */
+      --color-stabilizer: #65a30d; /* Green */
+      --color-architect: #0284c7;  /* Blue */
+      --color-keeper: #1e3a8a;     /* Indigo */
+      --color-connector: #7e22ce;  /* Purple */
+      --color-guardian: #d946ef;   /* Violet */
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -39,22 +39,39 @@
     /* Filter Pills */
     .filter-pills { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
     .pill {
-      border: 1px solid var(--border-color); background: #f9fafb; color: var(--text-main);
-      padding: 6px 14px; border-radius: 20px; font-size: 14px; font-weight: 500;
+      border: 1px solid var(--border-color);
+      padding: 6px 14px; border-radius: 20px; font-size: 14px; font-weight: 600;
       cursor: pointer; transition: all 0.2s ease; user-select: none;
+      opacity: 0.85;
     }
-    .pill:hover { background: #f3f4f6; }
-    .pill.active { color: #fff; border-color: transparent; }
+    .pill:hover { opacity: 1; transform: translateY(-1px); }
+    .pill.active { opacity: 1; transform: translateY(-1px); box-shadow: 0 2px 6px rgba(0,0,0,0.15); border-color: transparent; }
     
-    .pill[data-style="all"].active { background: #374151; }
-    .pill[data-style="Visionary"].active { background: var(--color-visionary); color: #000; }
-    .pill[data-style="Advocate"].active { background: var(--color-advocate); }
-    .pill[data-style="Driver"].active { background: var(--color-driver); }
-    .pill[data-style="Guardian"].active { background: var(--color-guardian); }
-    .pill[data-style="Connector"].active { background: var(--color-connector); }
-    .pill[data-style="Keeper"].active { background: var(--color-keeper); }
-    .pill[data-style="Architect"].active { background: var(--color-architect); }
-    .pill[data-style="Stabilizer"].active { background: var(--color-stabilizer); }
+    /* Individual Pill Color Schemes */
+    .pill[data-style="all"] { background: #374151; color: #ffffff; }
+    .pill[data-style="Driver"] { background: #fef2f2; color: #b91c1c; border-color: #fca5a5; }
+    .pill[data-style="Driver"].active { background: var(--color-driver); color: #ffffff; }
+
+    .pill[data-style="Advocate"] { background: #fff7ed; color: #c2410c; border-color: #fdba74; }
+    .pill[data-style="Advocate"].active { background: var(--color-advocate); color: #ffffff; }
+
+    .pill[data-style="Visionary"] { background: #fefce8; color: #854d0e; border-color: #fde047; }
+    .pill[data-style="Visionary"].active { background: var(--color-visionary); color: #000000; }
+
+    .pill[data-style="Stabilizer"] { background: #f7fee7; color: #3f6212; border-color: #bef264; }
+    .pill[data-style="Stabilizer"].active { background: var(--color-stabilizer); color: #ffffff; }
+
+    .pill[data-style="Architect"] { background: #f0f9ff; color: #0369a1; border-color: #7dd3fc; }
+    .pill[data-style="Architect"].active { background: var(--color-architect); color: #ffffff; }
+
+    .pill[data-style="Keeper"] { background: #eff6ff; color: #1e3a8a; border-color: #93c5fd; }
+    .pill[data-style="Keeper"].active { background: var(--color-keeper); color: #ffffff; }
+
+    .pill[data-style="Connector"] { background: #faf5ff; color: #6b21a8; border-color: #d8b4fe; }
+    .pill[data-style="Connector"].active { background: var(--color-connector); color: #ffffff; }
+
+    .pill[data-style="Guardian"] { background: #fdf4ff; color: #a21caf; border-color: #f0abfc; }
+    .pill[data-style="Guardian"].active { background: var(--color-guardian); color: #ffffff; }
 
     .results-count { font-size: 14px; color: var(--text-muted); margin-top: 4px; }
 
@@ -73,14 +90,14 @@
     .card:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
 
     /* Border Colors by Style */
-    .card[data-style="Visionary"] { border-left-color: var(--color-visionary); }
-    .card[data-style="Advocate"] { border-left-color: var(--color-advocate); }
     .card[data-style="Driver"] { border-left-color: var(--color-driver); }
-    .card[data-style="Guardian"] { border-left-color: var(--color-guardian); }
-    .card[data-style="Connector"] { border-left-color: var(--color-connector); }
-    .card[data-style="Keeper"] { border-left-color: var(--color-keeper); }
-    .card[data-style="Architect"] { border-left-color: var(--color-architect); }
+    .card[data-style="Advocate"] { border-left-color: var(--color-advocate); }
+    .card[data-style="Visionary"] { border-left-color: var(--color-visionary); }
     .card[data-style="Stabilizer"] { border-left-color: var(--color-stabilizer); }
+    .card[data-style="Architect"] { border-left-color: var(--color-architect); }
+    .card[data-style="Keeper"] { border-left-color: var(--color-keeper); }
+    .card[data-style="Connector"] { border-left-color: var(--color-connector); }
+    .card[data-style="Guardian"] { border-left-color: var(--color-guardian); }
 
     .card-meta { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; gap: 8px; }
     .badge-style {
@@ -119,14 +136,14 @@
 
     <div class="filter-pills" id="styleFilters">
       <button class="pill active" data-style="all">All Styles</button>
-      <button class="pill" data-style="Visionary">Visionary</button>
-      <button class="pill" data-style="Advocate">Advocate</button>
       <button class="pill" data-style="Driver">Driver</button>
-      <button class="pill" data-style="Guardian">Guardian</button>
-      <button class="pill" data-style="Connector">Connector</button>
-      <button class="pill" data-style="Keeper">Keeper</button>
-      <button class="pill" data-style="Architect">Architect</button>
+      <button class="pill" data-style="Advocate">Advocate</button>
+      <button class="pill" data-style="Visionary">Visionary</button>
       <button class="pill" data-style="Stabilizer">Stabilizer</button>
+      <button class="pill" data-style="Architect">Architect</button>
+      <button class="pill" data-style="Keeper">Keeper</button>
+      <button class="pill" data-style="Connector">Connector</button>
+      <button class="pill" data-style="Guardian">Guardian</button>
     </div>
 
     <div class="results-count" id="resultsCount">Showing 43 resources</div>
@@ -135,30 +152,57 @@
   <div class="grid" id="resourceGrid"></div>
 
   <script>
+    const styleOrder = {
+      "Driver": 1,
+      "Advocate": 2,
+      "Visionary": 3,
+      "Stabilizer": 4,
+      "Architect": 5,
+      "Keeper": 6,
+      "Connector": 7,
+      "Guardian": 8
+    };
+
     const resources = [
   {
-    "Resource Title": "Museums for Climate Action",
-    "Primary Category": "Key Organization & Sector",
-    "URL": "https://www.museumsforclimateaction.org/",
-    "Inner Ring Style": "Visionary",
-    "Outer Ring Action": "Imagine",
-    "Description": "Global initiative providing open-source exhibition concepts and creative research models for cultural institutions."
+    "Resource Title": "Drawdown Solutions Library",
+    "Primary Category": "General Field & Educational",
+    "URL": "https://drawdown.org/solutions",
+    "Inner Ring Style": "Driver",
+    "Outer Ring Action": "Catalyze",
+    "Description": "Comprehensive catalog detailing evidence-based climate solutions spanning energy, land use, and community action."
   },
   {
-    "Resource Title": "Young Voices for the Planet (CELF)",
+    "Resource Title": "Clean Energy States Alliance (CESA)",
+    "Primary Category": "General Field & Educational",
+    "URL": "https://www.cesa.org/",
+    "Inner Ring Style": "Driver",
+    "Outer Ring Action": "Execute",
+    "Description": "Research and practical technical guides on transitioning community spaces and public institutions to clean energy."
+  },
+  {
+    "Resource Title": "Patagonia Environmental Grants",
+    "Primary Category": "Funding & Micro-Grants",
+    "URL": "https://www.patagonia.com/how-we-fund/",
+    "Inner Ring Style": "Driver",
+    "Outer Ring Action": "Deploy",
+    "Description": "Funding for small, action-oriented grassroots groups focused on protecting local ecosystems and regional climate solutions."
+  },
+  {
+    "Resource Title": "Youth Climate Justice Fund Resources",
     "Primary Category": "Youth & Student",
-    "URL": "https://celfeducation.org/yvfp/",
-    "Inner Ring Style": "Visionary",
-    "Outer Ring Action": "Reframe",
-    "Description": "Short films and lesson plans showcasing student-led environmental projects to reframe youth agency."
+    "URL": "https://ycjf.org/",
+    "Inner Ring Style": "Driver",
+    "Outer Ring Action": "Deploy",
+    "Description": "Capacity-building tools, youth mentorship frameworks, and micro-granting models for youth-led groups."
   },
   {
-    "Resource Title": "StoryCorps Climate & Environment Collection",
-    "Primary Category": "Storytelling & Heritage",
-    "URL": "https://storycorps.org/",
-    "Inner Ring Style": "Visionary",
-    "Outer Ring Action": "Create",
-    "Description": "Curated archive of first-person narratives capturing local landscape changes and personal environmental stewardship."
+    "Resource Title": "Clif Family Foundation Grants",
+    "Primary Category": "Funding & Micro-Grants",
+    "URL": "https://cliffamilyfoundation.org/",
+    "Inner Ring Style": "Driver",
+    "Outer Ring Action": "Deploy",
+    "Description": "Supports community-based organizations working to protect community health and preserve natural resources."
   },
   {
     "Resource Title": "ACE Youth Action Network",
@@ -185,124 +229,60 @@
     "Description": "Youth-led campaign guides, civics playbooks, and local hub toolkits focused on climate policy and public organizing."
   },
   {
-    "Resource Title": "Drawdown Solutions Library",
+    "Resource Title": "CLEAN (Climate Literacy and Energy Awareness Network)",
     "Primary Category": "General Field & Educational",
-    "URL": "https://drawdown.org/solutions",
-    "Inner Ring Style": "Driver",
-    "Outer Ring Action": "Catalyze",
-    "Description": "Comprehensive catalog detailing evidence-based climate solutions spanning energy, land use, and community action."
+    "URL": "https://cleanet.org/",
+    "Inner Ring Style": "Advocate",
+    "Outer Ring Action": "Encourage",
+    "Description": "Peer-reviewed collection of K–16 educational resources and lesson plans aligned with science standards."
   },
   {
-    "Resource Title": "Clean Energy States Alliance (CESA)",
+    "Resource Title": "NOAA Teaching Climate",
     "Primary Category": "General Field & Educational",
-    "URL": "https://www.cesa.org/",
-    "Inner Ring Style": "Driver",
-    "Outer Ring Action": "Execute",
-    "Description": "Research and practical technical guides on transitioning community spaces and public institutions to clean energy."
+    "URL": "https://www.climate.gov/teaching",
+    "Inner Ring Style": "Advocate",
+    "Outer Ring Action": "Encourage",
+    "Description": "Professional development opportunities, climate data visualizers, and interactive tools for educators."
   },
   {
-    "Resource Title": "Patagonia Environmental Grants",
-    "Primary Category": "Funding & Micro-Grants",
-    "URL": "https://www.patagonia.com/how-we-fund/",
-    "Inner Ring Style": "Driver",
-    "Outer Ring Action": "Deploy",
-    "Description": "Funding for small, action-oriented grassroots groups focused on protecting local ecosystems and regional climate solutions."
+    "Resource Title": "Citizens' Climate Education Youth & Higher Ed",
+    "Primary Category": "Youth & Student",
+    "URL": "https://citizensclimateeducation.org/programs-and-tools/youth/",
+    "Inner Ring Style": "Advocate",
+    "Outer Ring Action": "Evangelize",
+    "Description": "Youth-focused education modules, advocacy curricula, campus organizing kits, and leadership training."
   },
   {
-    "Resource Title": "Sabin Center Climate Change Litigation Database",
-    "Primary Category": "Legal & Policy Tracking",
-    "URL": "https://climatecasechart.com/",
-    "Inner Ring Style": "Guardian",
-    "Outer Ring Action": "Defend",
-    "Description": "Maintained by Columbia Law School, tracking climate litigation cases and administrative petitions across courts."
+    "Resource Title": "Museums for Climate Action",
+    "Primary Category": "Key Organization & Sector",
+    "URL": "https://www.museumsforclimateaction.org/",
+    "Inner Ring Style": "Visionary",
+    "Outer Ring Action": "Imagine",
+    "Description": "Global initiative providing open-source exhibition concepts and creative research models for cultural institutions."
   },
   {
-    "Resource Title": "Equitable & Just National Climate Platform",
-    "Primary Category": "Environmental Justice",
-    "URL": "https://ajustclimate.org/",
-    "Inner Ring Style": "Guardian",
-    "Outer Ring Action": "Uphold",
-    "Description": "Collaborative platform detailing policy frameworks to address environmental pollution and economic resilience simultaneously."
+    "Resource Title": "Young Voices for the Planet (CELF)",
+    "Primary Category": "Youth & Student",
+    "URL": "https://celfeducation.org/yvfp/",
+    "Inner Ring Style": "Visionary",
+    "Outer Ring Action": "Reframe",
+    "Description": "Short films and lesson plans showcasing student-led environmental projects to reframe youth agency."
   },
   {
-    "Resource Title": "EJScreen (EPA)",
-    "Primary Category": "General Field & Educational",
-    "URL": "https://www.epa.gov/ejscreen",
-    "Inner Ring Style": "Guardian",
-    "Outer Ring Action": "Shield",
-    "Description": "High-resolution demographic and environmental indicator mapping tool to support equitable community outreach and protection."
-  },
-  {
-    "Resource Title": "SciStarter",
-    "Primary Category": "Community Science",
-    "URL": "https://scistarter.org/",
-    "Inner Ring Style": "Connector",
-    "Outer Ring Action": "Unite",
-    "Description": "Global community science hub connecting the public with searchable research projects in environmental monitoring."
-  },
-  {
-    "Resource Title": "CoCoRaHS Network",
-    "Primary Category": "Community Science",
-    "URL": "https://www.cocorahs.org/",
-    "Inner Ring Style": "Connector",
-    "Outer Ring Action": "Listen",
-    "Description": "Grassroots network of volunteer observers measuring precipitation to provide high-resolution data for climate researchers."
-  },
-  {
-    "Resource Title": "Resilience Hubs Toolkit (USDN)",
-    "Primary Category": "Resilience & Adaptation",
-    "URL": "https://resilience-hubs.org/",
-    "Inner Ring Style": "Connector",
-    "Outer Ring Action": "Bridge",
-    "Description": "Guide for developing community-serving facilities designed to support residents before, during, and after disruptions."
-  },
-  {
-    "Resource Title": "Indigenous Climate Hub",
+    "Resource Title": "StoryCorps Climate & Environment Collection",
     "Primary Category": "Storytelling & Heritage",
-    "URL": "https://indigenousclimatehub.ca/",
-    "Inner Ring Style": "Keeper",
-    "Outer Ring Action": "Honor",
-    "Description": "Indigenous-led platform sharing traditional ecological knowledge and community climate adaptation projects."
+    "URL": "https://storycorps.org/",
+    "Inner Ring Style": "Visionary",
+    "Outer Ring Action": "Create",
+    "Description": "Curated archive of first-person narratives capturing local landscape changes and personal environmental stewardship."
   },
   {
-    "Resource Title": "World Monuments Fund: Cultivating Resilience",
-    "Primary Category": "Resilience & Adaptation",
-    "URL": "https://www.wmf.org/",
-    "Inner Ring Style": "Keeper",
-    "Outer Ring Action": "Preserve",
-    "Description": "Global initiative providing climate risk assessment models and technical guidance to safeguard historic green spaces."
-  },
-  {
-    "Resource Title": "Oral History Association Guides",
-    "Primary Category": "Storytelling & Heritage",
-    "URL": "https://oralhistory.org/",
-    "Inner Ring Style": "Keeper",
-    "Outer Ring Action": "Archive",
-    "Description": "Methodology guides and best practices for documenting community memories of environmental change and land use."
-  },
-  {
-    "Resource Title": "Database of State Incentives for Renewables & Efficiency (DSIRE)",
-    "Primary Category": "Legal & Policy Tracking",
-    "URL": "https://www.dsireusa.org/",
-    "Inner Ring Style": "Architect",
-    "Outer Ring Action": "Align",
-    "Description": "Searchable database tracking federal, state, and utility incentives, tax credits, and policies for clean energy."
-  },
-  {
-    "Resource Title": "State Climate Policy Dashboard (C2ES)",
-    "Primary Category": "Legal & Policy Tracking",
-    "URL": "https://www.c2es.org/content/state-climate-policy/",
-    "Inner Ring Style": "Architect",
-    "Outer Ring Action": "Organize",
-    "Description": "State-by-state policy maps and tracking tools for clean energy standards and climate action plans."
-  },
-  {
-    "Resource Title": "USGBC LEED for Existing Buildings",
-    "Primary Category": "Sustainable Facilities",
-    "URL": "https://www.usgbc.org/leed",
-    "Inner Ring Style": "Architect",
-    "Outer Ring Action": "Design",
-    "Description": "Standards and verification toolkits for green building maintenance, water conservation, and sustainable purchasing."
+    "Resource Title": "NCA5 Teaching & Engagement Resources",
+    "Primary Category": "General Field & Educational",
+    "URL": "https://nca2023.globalchange.gov/",
+    "Inner Ring Style": "Visionary",
+    "Outer Ring Action": "Reframe",
+    "Description": "Accessible summaries, visual aids, and regional impact data from the Fifth National Climate Assessment."
   },
   {
     "Resource Title": "dPlan / ArtsReady",
@@ -329,100 +309,12 @@
     "Description": "Interagency federal framework offering case studies and decision-support tools to build adaptation into master planning."
   },
   {
-    "Resource Title": "The Climate Toolkit",
-    "Primary Category": "Key Organization & Sector",
-    "URL": "https://climatetoolkit.org/",
-    "Inner Ring Style": "Architect",
-    "Outer Ring Action": "Align",
-    "Description": "Collaborative network for cultural institutions offering practical goals, tracking metrics, and shared operational strategies."
-  },
-  {
     "Resource Title": "AAM Environment and Climate Network",
     "Primary Category": "Key Organization & Sector",
     "URL": "https://www.aam-us.org/programs/advocacy/issue-environmental-sustainability-and-museums/",
     "Inner Ring Style": "Stabilizer",
     "Outer Ring Action": "Equip",
     "Description": "Operational frameworks and toolkits from AAM to help cultural sites integrate sustainability into operations."
-  },
-  {
-    "Resource Title": "CLEAN (Climate Literacy and Energy Awareness Network)",
-    "Primary Category": "General Field & Educational",
-    "URL": "https://cleanet.org/",
-    "Inner Ring Style": "Advocate",
-    "Outer Ring Action": "Encourage",
-    "Description": "Peer-reviewed collection of K–16 educational resources and lesson plans aligned with science standards."
-  },
-  {
-    "Resource Title": "Climate Policy Radar",
-    "Primary Category": "General Field & Educational",
-    "URL": "https://climatepolicyradar.org/",
-    "Inner Ring Style": "Guardian",
-    "Outer Ring Action": "Defend",
-    "Description": "Open-access research platform tracking climate laws, policies, and legal framework data globally."
-  },
-  {
-    "Resource Title": "NOAA Teaching Climate",
-    "Primary Category": "General Field & Educational",
-    "URL": "https://www.climate.gov/teaching",
-    "Inner Ring Style": "Advocate",
-    "Outer Ring Action": "Encourage",
-    "Description": "Professional development opportunities, climate data visualizers, and interactive tools for educators."
-  },
-  {
-    "Resource Title": "NCA5 Teaching & Engagement Resources",
-    "Primary Category": "General Field & Educational",
-    "URL": "https://nca2023.globalchange.gov/",
-    "Inner Ring Style": "Visionary",
-    "Outer Ring Action": "Reframe",
-    "Description": "Accessible summaries, visual aids, and regional impact data from the Fifth National Climate Assessment."
-  },
-  {
-    "Resource Title": "Citizens' Climate Education Youth & Higher Ed",
-    "Primary Category": "Youth & Student",
-    "URL": "https://citizensclimateeducation.org/programs-and-tools/youth/",
-    "Inner Ring Style": "Advocate",
-    "Outer Ring Action": "Evangelize",
-    "Description": "Youth-focused education modules, advocacy curricula, campus organizing kits, and leadership training."
-  },
-  {
-    "Resource Title": "Climate Toolkit Youth Network Library",
-    "Primary Category": "Youth & Student",
-    "URL": "https://climatetoolkit.org/youth/resource-library/",
-    "Inner Ring Style": "Connector",
-    "Outer Ring Action": "Unite",
-    "Description": "Youth Climate Summit toolkits and frameworks for engaging young people in institutional decision-making."
-  },
-  {
-    "Resource Title": "Youth Climate Justice Fund Resources",
-    "Primary Category": "Youth & Student",
-    "URL": "https://ycjf.org/",
-    "Inner Ring Style": "Driver",
-    "Outer Ring Action": "Deploy",
-    "Description": "Capacity-building tools, youth mentorship frameworks, and micro-granting models for youth-led groups."
-  },
-  {
-    "Resource Title": "Clif Family Foundation Grants",
-    "Primary Category": "Funding & Micro-Grants",
-    "URL": "https://cliffamilyfoundation.org/",
-    "Inner Ring Style": "Driver",
-    "Outer Ring Action": "Deploy",
-    "Description": "Supports community-based organizations working to protect community health and preserve natural resources."
-  },
-  {
-    "Resource Title": "EPA Environmental Justice Small Grants Program",
-    "Primary Category": "Funding & Micro-Grants",
-    "URL": "https://www.epa.gov/environmentaljustice/environmental-justice-small-grants-program",
-    "Inner Ring Style": "Guardian",
-    "Outer Ring Action": "Shield",
-    "Description": "Federal financial assistance addressing localized environmental health harms in overburdened areas."
-  },
-  {
-    "Resource Title": "iNaturalist",
-    "Primary Category": "Community Science",
-    "URL": "https://www.inaturalist.org/",
-    "Inner Ring Style": "Connector",
-    "Outer Ring Action": "Listen",
-    "Description": "Joint initiative allowing citizens to log plant and animal observations to map local biodiversity shifts."
   },
   {
     "Resource Title": "EPA ARC-X (Climate Change Adaptation Resource Center)",
@@ -441,6 +333,70 @@
     "Description": "Frameworks and funding resources to help local organizations assess risks and protect community infrastructure."
   },
   {
+    "Resource Title": "Database of State Incentives for Renewables & Efficiency (DSIRE)",
+    "Primary Category": "Legal & Policy Tracking",
+    "URL": "https://www.dsireusa.org/",
+    "Inner Ring Style": "Architect",
+    "Outer Ring Action": "Align",
+    "Description": "Searchable database tracking federal, state, and utility incentives, tax credits, and policies for clean energy."
+  },
+  {
+    "Resource Title": "State Climate Policy Dashboard (C2ES)",
+    "Primary Category": "Legal & Policy Tracking",
+    "URL": "https://www.c2es.org/content/state-climate-policy/",
+    "Inner Ring Style": "Architect",
+    "Outer Ring Action": "Organize",
+    "Description": "State-by-state policy maps and tracking tools for clean energy standards and climate action plans."
+  },
+  {
+    "Resource Title": "USGBC LEED for Existing Buildings",
+    "Primary Category": "Sustainable Facilities",
+    "URL": "https://www.usgbc.org/leed",
+    "Inner Ring Style": "Architect",
+    "Outer Ring Action": "Design",
+    "Description": "Standards and verification toolkits for green building maintenance, water conservation, and sustainable purchasing."
+  },
+  {
+    "Resource Title": "The Climate Toolkit",
+    "Primary Category": "Key Organization & Sector",
+    "URL": "https://climatetoolkit.org/",
+    "Inner Ring Style": "Architect",
+    "Outer Ring Action": "Align",
+    "Description": "Collaborative network for cultural institutions offering practical goals, tracking metrics, and shared operational strategies."
+  },
+  {
+    "Resource Title": "EPA ENERGY STAR for Congregations & Nonprofits",
+    "Primary Category": "Sustainable Facilities",
+    "URL": "https://www.energystar.gov/buildings/congregations",
+    "Inner Ring Style": "Architect",
+    "Outer Ring Action": "Organize",
+    "Description": "Action workbooks, benchmarking tools, and low-cost energy-saving checklists designed for non-profit facilities."
+  },
+  {
+    "Resource Title": "Indigenous Climate Hub",
+    "Primary Category": "Storytelling & Heritage",
+    "URL": "https://indigenousclimatehub.ca/",
+    "Inner Ring Style": "Keeper",
+    "Outer Ring Action": "Honor",
+    "Description": "Indigenous-led platform sharing traditional ecological knowledge and community climate adaptation projects."
+  },
+  {
+    "Resource Title": "World Monuments Fund: Cultivating Resilience",
+    "Primary Category": "Resilience & Adaptation",
+    "URL": "https://www.wmf.org/",
+    "Inner Ring Style": "Keeper",
+    "Outer Ring Action": "Preserve",
+    "Description": "Global initiative providing climate risk assessment models and technical guidance to safeguard historic green spaces."
+  },
+  {
+    "Resource Title": "Oral History Association Guides",
+    "Primary Category": "Storytelling & Heritage",
+    "URL": "https://oralhistory.org/",
+    "Inner Ring Style": "Keeper",
+    "Outer Ring Action": "Archive",
+    "Description": "Methodology guides and best practices for documenting community memories of environmental change and land use."
+  },
+  {
     "Resource Title": "Heritage Emergency National Task Force (HENTF)",
     "Primary Category": "Resilience & Adaptation",
     "URL": "https://culturalrescue.si.edu/hentf/",
@@ -449,12 +405,44 @@
     "Description": "Disaster response guides, salvage procedures, and technical assistance for cultural sites following natural disasters."
   },
   {
-    "Resource Title": "Climate Justice Alliance Resource Library",
-    "Primary Category": "Environmental Justice",
-    "URL": "https://climatejusticealliance.org/resources/",
-    "Inner Ring Style": "Guardian",
-    "Outer Ring Action": "Uphold",
-    "Description": "Educational guides and policy briefs focused on advancing transition strategies centering frontline communities."
+    "Resource Title": "SciStarter",
+    "Primary Category": "Community Science",
+    "URL": "https://scistarter.org/",
+    "Inner Ring Style": "Connector",
+    "Outer Ring Action": "Unite",
+    "Description": "Global community science hub connecting the public with searchable research projects in environmental monitoring."
+  },
+  {
+    "Resource Title": "CoCoRaHS Network",
+    "Primary Category": "Community Science",
+    "URL": "https://www.cocorahs.org/",
+    "Inner Ring Style": "Connector",
+    "Outer Ring Action": "Listen",
+    "Description": "Grassroots network of volunteer observers measuring precipitation to provide high-resolution data for climate researchers."
+  },
+  {
+    "Resource Title": "Resilience Hubs Toolkit (USDN)",
+    "Primary Category": "Resilience & Adaptation",
+    "URL": "https://resilience-hubs.org/",
+    "Inner Ring Style": "Connector",
+    "Outer Ring Action": "Bridge",
+    "Description": "Guide for developing community-serving facilities designed to support residents before, during, and after disruptions."
+  },
+  {
+    "Resource Title": "Climate Toolkit Youth Network Library",
+    "Primary Category": "Youth & Student",
+    "URL": "https://climatetoolkit.org/youth/resource-library/",
+    "Inner Ring Style": "Connector",
+    "Outer Ring Action": "Unite",
+    "Description": "Youth Climate Summit toolkits and frameworks for engaging young people in institutional decision-making."
+  },
+  {
+    "Resource Title": "iNaturalist",
+    "Primary Category": "Community Science",
+    "URL": "https://www.inaturalist.org/",
+    "Inner Ring Style": "Connector",
+    "Outer Ring Action": "Listen",
+    "Description": "Joint initiative allowing citizens to log plant and animal observations to map local biodiversity shifts."
   },
   {
     "Resource Title": "Just Transition Alliance Resources",
@@ -465,22 +453,67 @@
     "Description": "Popular education tools, organizing frameworks, and policy briefs created jointly by labor and community groups."
   },
   {
+    "Resource Title": "Sabin Center Climate Change Litigation Database",
+    "Primary Category": "Legal & Policy Tracking",
+    "URL": "https://climatecasechart.com/",
+    "Inner Ring Style": "Guardian",
+    "Outer Ring Action": "Defend",
+    "Description": "Maintained by Columbia Law School, tracking climate litigation cases and administrative petitions across courts."
+  },
+  {
+    "Resource Title": "Equitable & Just National Climate Platform",
+    "Primary Category": "Environmental Justice",
+    "URL": "https://ajustclimate.org/",
+    "Inner Ring Style": "Guardian",
+    "Outer Ring Action": "Uphold",
+    "Description": "Collaborative platform detailing policy frameworks to address environmental pollution and economic resilience simultaneously."
+  },
+  {
+    "Resource Title": "EJScreen (EPA)",
+    "Primary Category": "General Field & Educational",
+    "URL": "https://www.epa.gov/ejscreen",
+    "Inner Ring Style": "Guardian",
+    "Outer Ring Action": "Shield",
+    "Description": "High-resolution demographic and environmental indicator mapping tool to support equitable community outreach and protection."
+  },
+  {
+    "Resource Title": "Climate Policy Radar",
+    "Primary Category": "General Field & Educational",
+    "URL": "https://climatepolicyradar.org/",
+    "Inner Ring Style": "Guardian",
+    "Outer Ring Action": "Defend",
+    "Description": "Open-access research platform tracking climate laws, policies, and legal framework data globally."
+  },
+  {
+    "Resource Title": "EPA Environmental Justice Small Grants Program",
+    "Primary Category": "Funding & Micro-Grants",
+    "URL": "https://www.epa.gov/environmentaljustice/environmental-justice-small-grants-program",
+    "Inner Ring Style": "Guardian",
+    "Outer Ring Action": "Shield",
+    "Description": "Federal financial assistance addressing localized environmental health harms in overburdened areas."
+  },
+  {
+    "Resource Title": "Climate Justice Alliance Resource Library",
+    "Primary Category": "Environmental Justice",
+    "URL": "https://climatejusticealliance.org/resources/",
+    "Inner Ring Style": "Guardian",
+    "Outer Ring Action": "Uphold",
+    "Description": "Educational guides and policy briefs focused on advancing transition strategies centering frontline communities."
+  },
+  {
     "Resource Title": "NAACP Environmental & Climate Justice Program",
     "Primary Category": "Environmental Justice",
     "URL": "https://naacp.org/know-issues/environmental-climate-justice",
     "Inner Ring Style": "Guardian",
     "Outer Ring Action": "Defend",
     "Description": "Research reports, policy toolkits, and civic engagement guides focusing on energy access and environmental equity."
-  },
-  {
-    "Resource Title": "EPA ENERGY STAR for Congregations & Nonprofits",
-    "Primary Category": "Sustainable Facilities",
-    "URL": "https://www.energystar.gov/buildings/congregations",
-    "Inner Ring Style": "Architect",
-    "Outer Ring Action": "Organize",
-    "Description": "Action workbooks, benchmarking tools, and low-cost energy-saving checklists designed for non-profit facilities."
   }
 ];
+
+    // Guarantee sorting aligns with the wheel spectrum
+    resources.sort((a, b) => {
+      return (styleOrder[a["Inner Ring Style"]] || 99) - (styleOrder[b["Inner Ring Style"]] || 99);
+    });
 
     let currentStyle = 'all';
     let searchQuery = '';
