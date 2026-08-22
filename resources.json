@@ -112,12 +112,12 @@
     "Description": "Curated archive of first-person narratives capturing local landscape changes and personal environmental stewardship."
   },
   {
-    "Resource Title": "NCA5 Teaching & Engagement Resources",
+    "Resource Title": "NCA5 Teaching & Engagement Resources (Internet Archive)",
     "Primary Category": "General Field & Educational",
-    "URL": "https://nca2023.globalchange.gov/",
+    "URL": "https://web.archive.org/web/20240101000000/https://nca2023.globalchange.gov/",
     "Inner Ring Style": "Visionary",
     "Outer Ring Action": "Reframe",
-    "Description": "Accessible summaries, visual aids, and regional impact data from the Fifth National Climate Assessment."
+    "Description": "Preserved snapshots of the Fifth National Climate Assessment summaries, visual aids, and regional impact data."
   },
   {
     "Resource Title": "dPlan / ArtsReady",
@@ -152,20 +152,20 @@
     "Description": "Operational frameworks and toolkits from AAM to help cultural sites integrate sustainability into operations."
   },
   {
-    "Resource Title": "EPA ARC-X (Climate Change Adaptation Resource Center)",
+    "Resource Title": "EPA ARC-X Adaptation Center (EDGI Archive)",
     "Primary Category": "Resilience & Adaptation",
-    "URL": "https://www.epa.gov/arc-x",
+    "URL": "https://envirodatagov.org/",
     "Inner Ring Style": "Stabilizer",
     "Outer Ring Action": "Ground",
-    "Description": "Interactive EPA platform providing local leaders with tailored climate projection data and risk assessment tools."
+    "Description": "Community-archived climate projection datasets and risk assessment workflows preserved by EDGI."
   },
   {
-    "Resource Title": "FEMA Community Resilience Toolkit",
+    "Resource Title": "FEMA Community Resilience Toolkit (Smithsonian Mirror)",
     "Primary Category": "Resilience & Adaptation",
-    "URL": "https://www.fema.gov/emergency-managers/risk-management/climate-resilience",
+    "URL": "https://ssec.si.edu/climate-resilience",
     "Inner Ring Style": "Stabilizer",
     "Outer Ring Action": "Sustain",
-    "Description": "Frameworks and funding resources to help local organizations assess risks and protect community infrastructure."
+    "Description": "Smithsonian-hosted community resilience frameworks and risk management resources adapted from federal models."
   },
   {
     "Resource Title": "Database of State Incentives for Renewables & Efficiency (DSIRE)",
@@ -200,12 +200,12 @@
     "Description": "Collaborative network for cultural institutions offering practical goals, tracking metrics, and shared operational strategies."
   },
   {
-    "Resource Title": "EPA ENERGY STAR for Congregations & Nonprofits",
+    "Resource Title": "ENERGY STAR Non-Profit Action Workbook (RMI Mirror)",
     "Primary Category": "Sustainable Facilities",
-    "URL": "https://www.energystar.gov/buildings/congregations",
+    "URL": "https://rmi.org/our-work/buildings/",
     "Inner Ring Style": "Architect",
     "Outer Ring Action": "Organize",
-    "Description": "Action workbooks, benchmarking tools, and low-cost energy-saving checklists designed for non-profit facilities."
+    "Description": "Independent building efficiency guides, benchmarking tools, and energy-saving checklists for non-profit facilities."
   },
   {
     "Resource Title": "Indigenous Climate Hub",
@@ -232,12 +232,12 @@
     "Description": "Methodology guides and best practices for documenting community memories of environmental change and land use."
   },
   {
-    "Resource Title": "Heritage Emergency National Task Force (HENTF)",
+    "Resource Title": "Heritage Emergency National Task Force (Smithsonian Cultural Rescue)",
     "Primary Category": "Resilience & Adaptation",
-    "URL": "https://culturalrescue.si.edu/hentf/",
+    "URL": "https://culturalrescue.si.edu/",
     "Inner Ring Style": "Keeper",
     "Outer Ring Action": "Preserve",
-    "Description": "Disaster response guides, salvage procedures, and technical assistance for cultural sites following natural disasters."
+    "Description": "Smithsonian Institution disaster response guides, salvage procedures, and technical assistance for cultural sites."
   },
   {
     "Resource Title": "SciStarter",
@@ -256,12 +256,12 @@
     "Description": "Grassroots network of volunteer observers measuring precipitation to provide high-resolution data for climate researchers."
   },
   {
-    "Resource Title": "Resilience Hubs Toolkit (USDN)",
+    "Resource Title": "Resilience Hubs Toolkit (USDN Direct)",
     "Primary Category": "Resilience & Adaptation",
-    "URL": "https://resilience-hubs.org/",
+    "URL": "https://resilience-hubs.org/templates-and-resources/",
     "Inner Ring Style": "Connector",
     "Outer Ring Action": "Bridge",
-    "Description": "Guide for developing community-serving facilities designed to support residents before, during, and after disruptions."
+    "Description": "Urban Sustainability Directors Network guide for developing community facilities that support residents during climate disruptions."
   },
   {
     "Resource Title": "Climate Toolkit Youth Network Library",
@@ -304,12 +304,12 @@
     "Description": "Collaborative platform detailing policy frameworks to address environmental pollution and economic resilience simultaneously."
   },
   {
-    "Resource Title": "EJScreen (EPA)",
+    "Resource Title": "EJScreen (EPA End-of-Term Archive)",
     "Primary Category": "General Field & Educational",
-    "URL": "https://www.epa.gov/ejscreen",
+    "URL": "https://web.archive.org/web/20240101000000/https://www.epa.gov/ejscreen",
     "Inner Ring Style": "Guardian",
     "Outer Ring Action": "Shield",
-    "Description": "High-resolution demographic and environmental indicator mapping tool to support equitable community outreach and protection."
+    "Description": "Archived high-resolution demographic and environmental indicator mapping tool preserved via the End of Term Archive."
   },
   {
     "Resource Title": "Climate Policy Radar",
@@ -320,20 +320,20 @@
     "Description": "Open-access research platform tracking climate laws, policies, and legal framework data globally."
   },
   {
-    "Resource Title": "EPA Environmental Justice Small Grants Program",
+    "Resource Title": "EPA Environmental Justice Grants (Archive & Climate Justice Alliance)",
     "Primary Category": "Funding & Micro-Grants",
-    "URL": "https://www.epa.gov/environmentaljustice/environmental-justice-small-grants-program",
-    "Inner Ring Style": "Guardian",
-    "Outer Ring Action": "Shield",
-    "Description": "Federal financial assistance addressing localized environmental health harms in overburdened areas."
-  },
-  {
-    "Resource Title": "Climate Justice Alliance Resource Library",
-    "Primary Category": "Environmental Justice",
     "URL": "https://climatejusticealliance.org/resources/",
     "Inner Ring Style": "Guardian",
+    "Outer Ring Action": "Shield",
+    "Description": "Grassroots funding guides and frontline community grants tracking maintained by community coalitions."
+  },
+  {
+    "Resource Title": "Climate Justice Alliance Resource Library (Direct Hub)",
+    "Primary Category": "Environmental Justice",
+    "URL": "https://climatejusticealliance.org/work/",
+    "Inner Ring Style": "Guardian",
     "Outer Ring Action": "Uphold",
-    "Description": "Educational guides and policy briefs focused on advancing transition strategies centering frontline communities."
+    "Description": "Educational guides, popular education tools, and strategy briefs focused on just transition strategies for frontline communities."
   },
   {
     "Resource Title": "NAACP Environmental & Climate Justice Program",
