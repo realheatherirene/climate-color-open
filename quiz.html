@@ -21,7 +21,7 @@ body {
     font-family: 'Varela Round', -apple-system, BlinkMacSystemFont, sans-serif;
     max-width: 720px;
     margin: 0 auto;
-    padding: 0 1rem;
+    padding: 1rem;
     line-height: 1.6;
     background-color: #FFFFFF;
     color: #212121;
@@ -109,7 +109,7 @@ label:hover {
     transform: translateY(-1px);
 }
 
-label:has(input[type="radio"]:checked) {
+label.selected, label:has(input[type="radio"]:checked) {
     border-color: #1494B9;
     background-color: #F0F9FF;
     box-shadow: 0 2px 8px rgba(20, 148, 185, 0.15);
@@ -130,7 +130,7 @@ label span {
     line-height: 1.4;
 }
 
-label:has(input[type="radio"]:checked) span {
+label.selected span, label:has(input[type="radio"]:checked) span {
     color: #0F172A;
     font-weight: 700;
 }
@@ -246,7 +246,7 @@ Result Section
 /* Responsive */
 @media (max-width: 640px) {
     body {
-        padding: 0 0.85rem;
+        padding: 0.85rem;
     }
     h1 {
         font-size: 1.85rem;
@@ -272,7 +272,7 @@ Result Section
 
 <div id="quiz"></div>
 
-<button onclick="calculateResults()">See My Results</button>
+<button id="submitBtn" onclick="calculateResults()">See My Results</button>
 
 <div id="result"></div>
 
@@ -445,6 +445,15 @@ questions.forEach((q, i) => {
     quizDiv.appendChild(block);
 });
 
+// Add change listener to highlight labels on selection (Backwards compatibility)
+quizDiv.addEventListener('change', (e) => {
+    if (e.target.type === 'radio') {
+        const questionBlock = e.target.closest('.question');
+        questionBlock.querySelectorAll('label').forEach(lbl => lbl.classList.remove('selected'));
+        e.target.closest('label').classList.add('selected');
+    }
+});
+
 // Calculate Results
 function calculateResults() {
     const scores = { A: 0, B: 0, C: 0, D: 0, E: 0, F: 0, G: 0, H: 0 };
@@ -494,7 +503,7 @@ function calculateResults() {
         </div>
 
         <p style="margin-top: 1.5rem; text-align: left;">
-            Explore how your styles connect on
+            Explore how your styles connect on 
             <a href="https://climatecolor.com/wheel" target="_blank" style="color:#1494B8; font-weight: bold;">
                 The Climate Color Wheel
             </a>.
@@ -502,7 +511,10 @@ function calculateResults() {
     `;
 
     document.getElementById("retakeBtn").style.display = "inline-block";
-    result.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    
+    setTimeout(() => {
+        result.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }, 50);
 }
 
 // Reset Quiz
@@ -511,6 +523,8 @@ function resetQuiz() {
         const selected = document.querySelector(`input[name="q${i}"]:checked`);
         if (selected) selected.checked = false;
     }
+
+    document.querySelectorAll('label').forEach(lbl => lbl.classList.remove('selected'));
 
     const result = document.getElementById("result");
     result.style.display = "none";
