@@ -159,6 +159,25 @@
     const resourceGrid = document.getElementById('resourceGrid');
     const resultsCount = document.getElementById('resultsCount');
 
+    // Parse URL parameter to check for initial style filter (e.g. ?style=Driver)
+    function setInitialStyleFromURL() {
+      const urlParams = new URLSearchParams(window.location.search);
+      const styleParam = urlParams.get('style');
+
+      if (styleParam) {
+        // Search for matching pill regardless of casing
+        const matchingPill = Array.from(document.querySelectorAll('.pill')).find(
+          pill => pill.getAttribute('data-style').toLowerCase() === styleParam.toLowerCase()
+        );
+
+        if (matchingPill) {
+          document.querySelectorAll('.pill').forEach(p => p.classList.remove('active'));
+          matchingPill.classList.add('active');
+          currentStyle = matchingPill.getAttribute('data-style');
+        }
+      }
+    }
+
     // Fetch resources from external JSON file
     async function loadResources() {
       try {
@@ -172,6 +191,8 @@
           return (styleOrder[a["Inner Ring Style"]] || 99) - (styleOrder[b["Inner Ring Style"]] || 99);
         });
 
+        // Set initial filter based on URL parameter before initial render
+        setInitialStyleFromURL();
         renderCards();
       } catch (error) {
         console.error(error);
@@ -222,6 +243,13 @@
         document.querySelectorAll('.pill').forEach(p => p.classList.remove('active'));
         e.target.classList.add('active');
         currentStyle = e.target.getAttribute('data-style');
+        
+        // Optionally update the address bar URL without reloading the page
+        const newUrl = currentStyle === 'all' 
+          ? window.location.pathname 
+          : `${window.location.pathname}?style=${encodeURIComponent(currentStyle)}`;
+        window.history.replaceState(null, '', newUrl);
+
         renderCards();
       }
     });
