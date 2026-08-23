@@ -144,7 +144,7 @@ label input[type="radio"]:focus-visible {
 Action Buttons 
 ========================================================================== */
 
-button {
+button, .btn-primary {
     font-family: inherit;
     font-size: 1.15rem;
     font-weight: 700;
@@ -154,25 +154,30 @@ button {
     border: none;
     border-radius: 12px;
     background-color: #1494B9;
-    color: #FFFFFF;
+    color: #FFFFFF !important;
     cursor: pointer;
     box-shadow: 0 4px 12px rgba(20, 148, 185, 0.25);
     transition: all 0.2s ease;
+    text-align: center;
+    display: block;
+    text-decoration: none;
 }
 
-button:hover {
+button:hover, .btn-primary:hover {
     background-color: #0E7490;
     transform: translateY(-2px);
     box-shadow: 0 6px 16px rgba(20, 148, 185, 0.35);
+    text-decoration: none !important;
 }
 
-button:active {
+button:active, .btn-primary:active {
     transform: translateY(0);
 }
 
 #retakeBtn {
     background-color: #64748B;
     box-shadow: 0 4px 12px rgba(100, 116, 139, 0.2);
+    margin-top: 0.5rem;
 }
 
 #retakeBtn:hover {
@@ -204,10 +209,6 @@ Result Section
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
 }
 
-.styleBlock:last-of-type {
-    margin-bottom: 0;
-}
-
 .styleTitle {
     font-size: 1.35rem;
     font-weight: 700;
@@ -235,12 +236,10 @@ Result Section
     color: #334155;
 }
 
-#result a {
-    text-decoration: none;
-}
-
-#result a:hover {
-    text-decoration: underline;
+.directory-cta {
+    margin-top: 1.5rem;
+    padding-top: 1rem;
+    border-top: 1px solid #E2E8F0;
 }
 
 /* Responsive */
@@ -260,7 +259,7 @@ Result Section
     label span {
         font-size: 0.95rem;
     }
-    button {
+    button, .btn-primary {
         font-size: 1.05rem;
         padding: 0.85rem 1.25rem;
     }
@@ -445,7 +444,7 @@ questions.forEach((q, i) => {
     quizDiv.appendChild(block);
 });
 
-// Add change listener to highlight labels on selection (Backwards compatibility)
+// Add change listener to highlight labels on selection
 quizDiv.addEventListener('change', (e) => {
     if (e.target.type === 'radio') {
         const questionBlock = e.target.closest('.question');
@@ -472,19 +471,25 @@ function calculateResults() {
         return 0.5 - Math.random();
     });
 
-    const primary = sorted[0][0];
-    const secondary = sorted[1][0];
+    const primaryKey = sorted[0][0];
+    const secondaryKey = sorted[1][0];
+
+    const primaryName = styleNames[primaryKey];
+    const secondaryName = styleNames[secondaryKey];
+
+    const primaryBlock = styleBlocks[primaryKey];
+    const secondaryBlock = styleBlocks[secondaryKey];
 
     const result = document.getElementById("result");
     result.style.display = "block";
 
-    const primaryBlock = styleBlocks[primary];
-    const secondaryBlock = styleBlocks[secondary];
+    // URL to directory using primary style parameter
+    const directoryUrl = `directory.html?style=${encodeURIComponent(primaryName)}`;
 
     result.innerHTML = `
         <div class="styleBlock" style="border-left-color:${primaryBlock.color}">
             <div class="styleTitle">
-                Your primary style: <span style="color:${primaryBlock.color};">${styleNames[primary]}</span>
+                Your primary style: <span style="color:${primaryBlock.color};">${primaryName}</span>
             </div>
             <div class="styleIdentity">${primaryBlock.identity}</div>
             <div>${primaryBlock.behavior}</div>
@@ -494,7 +499,7 @@ function calculateResults() {
 
         <div class="styleBlock" style="border-left-color:${secondaryBlock.color}">
             <div class="styleTitle">
-                Your secondary style: <span style="color:${secondaryBlock.color};">${styleNames[secondary]}</span>
+                Your secondary style: <span style="color:${secondaryBlock.color};">${secondaryName}</span>
             </div>
             <div class="styleIdentity">${secondaryBlock.identity}</div>
             <div>${secondaryBlock.behavior}</div>
@@ -502,8 +507,14 @@ function calculateResults() {
             <div class="styleAction">${secondaryBlock.action}</div>
         </div>
 
-        <p style="margin-top: 1.5rem; text-align: left;">
-            Explore how your styles connect on 
+        <div class="directory-cta">
+            <a href="${directoryUrl}" class="btn-primary">
+                Explore Resources for ${primaryName}s &rarr;
+            </a>
+        </div>
+
+        <p style="margin-top: 1rem; text-align: center; font-size: 0.9rem;">
+            Or view how your styles connect on 
             <a href="https://climatecolor.com/wheel" target="_blank" style="color:#1494B8; font-weight: bold;">
                 The Climate Color Wheel
             </a>.
