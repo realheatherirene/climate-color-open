@@ -141,18 +141,18 @@ label input[type="radio"]:focus-visible {
 }
 
 /* ========================================================================== 
-Action Buttons 
+Action Buttons & Pill Styles
 ========================================================================== */
 
-button, .btn-primary {
+button, .btn-pill {
     font-family: inherit;
-    font-size: 1.15rem;
+    font-size: 1.05rem;
     font-weight: 700;
-    padding: 1rem 1.75rem;
-    margin: 1.5rem 0;
+    padding: 0.85rem 1.75rem;
+    margin: 1rem 0;
     width: 100%;
     border: none;
-    border-radius: 12px;
+    border-radius: 9999px; /* Rounded Pill Shape */
     background-color: #1494B9;
     color: #FFFFFF !important;
     cursor: pointer;
@@ -163,15 +163,29 @@ button, .btn-primary {
     text-decoration: none;
 }
 
-button:hover, .btn-primary:hover {
+button:hover, .btn-pill:hover {
     background-color: #0E7490;
     transform: translateY(-2px);
     box-shadow: 0 6px 16px rgba(20, 148, 185, 0.35);
     text-decoration: none !important;
 }
 
-button:active, .btn-primary:active {
+button:active, .btn-pill:active {
     transform: translateY(0);
+}
+
+.btn-secondary-pill {
+    background-color: #FFFFFF;
+    color: #334155 !important;
+    border: 2px solid #CBD5E1;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+}
+
+.btn-secondary-pill:hover {
+    background-color: #F8FAFC;
+    border-color: #94A3B8;
+    color: #0F172A !important;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
 }
 
 #retakeBtn {
@@ -236,10 +250,8 @@ Result Section
     color: #334155;
 }
 
-.directory-cta {
-    margin-top: 1.5rem;
-    padding-top: 1rem;
-    border-top: 1px solid #E2E8F0;
+.cta-container {
+    margin-top: 1rem;
 }
 
 /* Responsive */
@@ -259,9 +271,9 @@ Result Section
     label span {
         font-size: 0.95rem;
     }
-    button, .btn-primary {
-        font-size: 1.05rem;
-        padding: 0.85rem 1.25rem;
+    button, .btn-pill {
+        font-size: 1rem;
+        padding: 0.75rem 1.25rem;
     }
 }
 </style>
@@ -483,8 +495,9 @@ function calculateResults() {
     const result = document.getElementById("result");
     result.style.display = "block";
 
-    // URL to directory using primary style parameter
-    const directoryUrl = `directory.html?style=${encodeURIComponent(primaryName)}`;
+    // URLs using archetype parameters
+    const primaryUrl = `directory.html?style=${encodeURIComponent(primaryName)}`;
+    const secondaryUrl = `directory.html?style=${encodeURIComponent(secondaryName)}`;
 
     result.innerHTML = `
         <div class="styleBlock" style="border-left-color:${primaryBlock.color}">
@@ -495,6 +508,11 @@ function calculateResults() {
             <div>${primaryBlock.behavior}</div>
             <div class="styleQualities">${primaryBlock.qualities}</div>
             <div class="styleAction">${primaryBlock.action}</div>
+            <div class="cta-container">
+                <a href="${primaryUrl}" class="btn-pill">
+                    Explore ${primaryName} Resources &rarr;
+                </a>
+            </div>
         </div>
 
         <div class="styleBlock" style="border-left-color:${secondaryBlock.color}">
@@ -505,15 +523,14 @@ function calculateResults() {
             <div>${secondaryBlock.behavior}</div>
             <div class="styleQualities">${secondaryBlock.qualities}</div>
             <div class="styleAction">${secondaryBlock.action}</div>
+            <div class="cta-container">
+                <a href="${secondaryUrl}" class="btn-pill btn-secondary-pill">
+                    Explore ${secondaryName} Resources &rarr;
+                </a>
+            </div>
         </div>
 
-        <div class="directory-cta">
-            <a href="${directoryUrl}" class="btn-primary">
-                Explore Resources for ${primaryName}s &rarr;
-            </a>
-        </div>
-
-        <p style="margin-top: 1rem; text-align: center; font-size: 0.9rem;">
+        <p style="margin-top: 1.25rem; text-align: center; font-size: 0.9rem;">
             Or view how your styles connect on 
             <a href="https://climatecolor.com/wheel" target="_blank" style="color:#1494B8; font-weight: bold;">
                 The Climate Color Wheel
