@@ -1,24 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
 <meta charset="UTF-8">
 <title>Stewardship Style Quiz | Climate Color</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=ADLaM+Display&family=Varela+Round&display=swap" rel="stylesheet">
-
+<!-- Optimized font loading by removing unused ADLaM Display -->
+<link href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap" rel="stylesheet">
 <style>
 /* ========================================================================== 
 Base & Global Styles 
 ========================================================================== */
-
 * {
     box-sizing: border-box;
 }
-
 body {
     font-family: 'Varela Round', -apple-system, BlinkMacSystemFont, sans-serif;
     max-width: 720px;
@@ -29,11 +25,9 @@ body {
     color: #212121;
     -webkit-font-smoothing: antialiased;
 }
-
 /* ========================================================================== 
 Quiz Interface Elements
 ========================================================================== */
-
 .progress-container {
     width: 100%;
     background-color: #E2E8F0;
@@ -42,14 +36,12 @@ Quiz Interface Elements
     margin-bottom: 1.5rem;
     overflow: hidden;
 }
-
 .progress-bar {
     height: 100%;
     width: 0%;
     background-color: #1494B9;
     transition: width 0.3s ease;
 }
-
 .question-card {
     background: #FFFFFF;
     border: 1px solid #E2E8F0;
@@ -57,7 +49,6 @@ Quiz Interface Elements
     padding: 1.5rem;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
 }
-
 .question-title {
     font-size: 1.2rem;
     font-weight: 700;
@@ -65,7 +56,6 @@ Quiz Interface Elements
     margin-bottom: 1rem;
     text-align: left;
 }
-
 .option-btn {
     display: block;
     width: 100%;
@@ -81,17 +71,14 @@ Quiz Interface Elements
     cursor: pointer;
     transition: all 0.15s ease;
 }
-
-.option-btn:hover {
+.option-btn:hover, .option-btn:focus {
     background: #F1F5F9;
     border-color: #1494B9;
-    transform: translateX(2px);
+    outline: none;
 }
-
 /* ========================================================================== 
 Results Cards & Styles
 ========================================================================== */
-
 .styleBlock {
     background: #FFFFFF;
     border: 1px solid #E2E8F0;
@@ -102,20 +89,17 @@ Results Cards & Styles
     text-align: left;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
 }
-
 .styleTitle {
     font-size: 1.25rem;
     font-weight: 700;
     margin-bottom: 0.35rem;
 }
-
 .styleIdentity {
     font-size: 1.05rem;
     font-weight: 700;
     color: #1E293B;
     margin-bottom: 0.5rem;
 }
-
 .styleAction {
     background: #F8FAFC;
     border-radius: 8px;
@@ -124,20 +108,17 @@ Results Cards & Styles
     color: #334155;
     margin-bottom: 1rem;
 }
-
 /* Search Terms Block & Copy Buttons */
 .searchTermsBlock {
     margin-top: 1rem;
     padding-top: 0.85rem;
     border-top: 1px solid #F1F5F9;
 }
-
 .search-terms-list {
     list-style: none;
     padding-left: 0 !important;
     margin: 0;
 }
-
 .search-terms-list li {
     display: flex;
     align-items: center;
@@ -146,7 +127,6 @@ Results Cards & Styles
     margin-bottom: 0.4rem;
     padding: 0.25rem 0;
 }
-
 .search-terms-list code {
     font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
     background: #F1F5F9;
@@ -156,7 +136,6 @@ Results Cards & Styles
     color: #0F172A;
     word-break: break-word;
 }
-
 .btn-copy {
     width: auto !important;
     margin: 0 !important;
@@ -172,24 +151,20 @@ Results Cards & Styles
     border: none;
     transition: all 0.15s ease;
 }
-
 .btn-copy:hover {
     background-color: #CBD5E1 !important;
     color: #0F172A !important;
 }
-
 .btn-copy.copied {
     background-color: #22C55E !important;
     color: #FFFFFF !important;
 }
-
 /* Soft, Left-Justified Pill Buttons */
 .cta-container {
     display: flex;
     justify-content: flex-start;
     margin-top: 1.25rem;
 }
-
 .btn-pill-soft {
     display: inline-block;
     width: auto !important;
@@ -202,12 +177,10 @@ Results Cards & Styles
     border: 1px solid transparent;
     transition: all 0.15s ease;
 }
-
 .btn-pill-soft:hover {
     filter: brightness(0.95);
     transform: translateY(-1px);
 }
-
 /* Responsive */
 @media (max-width: 640px) {
     body {
@@ -219,25 +192,25 @@ Results Cards & Styles
 }
 </style>
 </head>
-
 <body>
-
+<!-- Accessibility: Progress bar role & ARIA attributes added -->
 <div class="progress-container">
-    <div class="progress-bar" id="progressBar"></div>
+    <div class="progress-bar" id="progressBar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-label="Quiz progress"></div>
 </div>
-
+<!-- Accessibility: Live region for question updates -->
 <div class="question-card" id="quizCard">
-    <div class="question-title" id="questionTitle">Loading...</div>
+    <div class="question-title" id="questionTitle" aria-live="polite">Loading...</div>
     <div id="optionsContainer"></div>
 </div>
-
-<div id="resultContainer" style="display: none;"></div>
+<!-- Accessibility: Live region and tabindex for smooth focus redirection -->
+<div id="resultContainer" tabindex="-1" aria-live="polite" style="display: none; outline: none;"></div>
 
 <script>
 // Quiz Metadata & Questions
 const styles = {
     Driver: {
         color: "#E32322",
+        rgb: "227, 35, 34",
         identity: "Direct Action & High Momentum",
         behavior: "You thrive when jumping straight into action and leading physical campaigns.",
         action: "Focus on rapid-response events, direct mobilization, and visible projects.",
@@ -245,6 +218,7 @@ const styles = {
     },
     Advocate: {
         color: "#F18E1C",
+        rgb: "241, 142, 28",
         identity: "Public Voice & Storytelling",
         behavior: "You excel at communicating big ideas and inspiring public support.",
         action: "Focus on social campaigns, community presentations, and writing outreach materials.",
@@ -252,6 +226,7 @@ const styles = {
     },
     Visionary: {
         color: "#D4B000",
+        rgb: "212, 176, 0",
         identity: "Future Concepts & Innovation",
         behavior: "You see creative solutions and love building new community possibilities.",
         action: "Focus on design labs, local innovation sprints, and vision mapping.",
@@ -259,6 +234,7 @@ const styles = {
     },
     Stabilizer: {
         color: "#5A9129",
+        rgb: "90, 145, 41",
         identity: "Consistent Care & Habitual Support",
         behavior: "You keep local efforts strong through steady, dependable ongoing care.",
         action: "Focus on recurring park maintenance, community gardens, or habitat restoration.",
@@ -266,6 +242,7 @@ const styles = {
     },
     Architect: {
         color: "#2A71B0",
+        rgb: "42, 113, 176",
         identity: "Systems Design & Logistics",
         behavior: "You make sure plans are organized, efficient, and built to last.",
         action: "Focus on project logistics, volunteer databases, and event planning.",
@@ -273,6 +250,7 @@ const styles = {
     },
     Keeper: {
         color: "#002060",
+        rgb: "0, 32, 96",
         identity: "Heritage Protection & Tradition",
         behavior: "You protect established community wisdom, land heritage, and local history.",
         action: "Focus on land trust preservation, seed saving, and historical restoration.",
@@ -280,6 +258,7 @@ const styles = {
     },
     Connector: {
         color: "#6D398B",
+        rgb: "109, 57, 139",
         identity: "Relationship Building & Trust",
         behavior: "You bring people together and build bridges across diverse community groups.",
         action: "Focus on community welcoming, liaison roles, and collaborative meetings.",
@@ -287,6 +266,7 @@ const styles = {
     },
     Guardian: {
         color: "#D946EF",
+        rgb: "217, 70, 239",
         identity: "Protector & Policy Watchdog",
         behavior: "You stand up for local environmental rights and policy accountability.",
         action: "Focus on legal observation, policy monitoring, and environmental justice.",
@@ -371,7 +351,6 @@ const questions = [
 
 let currentQuestion = 0;
 const scores = {};
-
 // Initialize scores
 Object.keys(styles).forEach(style => { scores[style] = 0; });
 
@@ -381,26 +360,26 @@ function renderQuestion() {
     
     const container = document.getElementById("optionsContainer");
     container.innerHTML = "";
-
     q.options.forEach(opt => {
         const btn = document.createElement("button");
+        btn.type = "button";
         btn.className = "option-btn";
         btn.textContent = opt.text;
         btn.onclick = () => selectOption(opt.style);
         container.appendChild(btn);
     });
 
-    const progressPct = ((currentQuestion) / questions.length) * 100;
-    document.getElementById("progressBar").style.width = `${progressPct}%`;
+    const progressPct = Math.round((currentQuestion / questions.length) * 100);
+    const progressBar = document.getElementById("progressBar");
+    progressBar.style.width = `${progressPct}%`;
+    progressBar.setAttribute("aria-valuenow", progressPct);
 }
 
 function selectOption(styleKey) {
     if (scores[styleKey] !== undefined) {
         scores[styleKey]++;
     }
-
     currentQuestion++;
-
     if (currentQuestion < questions.length) {
         renderQuestion();
     } else {
@@ -409,26 +388,31 @@ function selectOption(styleKey) {
 }
 
 function calculateResults() {
-    document.getElementById("progressBar").style.width = "100%";
+    const progressBar = document.getElementById("progressBar");
+    progressBar.style.width = "100%";
+    progressBar.setAttribute("aria-valuenow", 100);
+    
     document.getElementById("quizCard").style.display = "none";
+    
+    // Deterministic sort: secondary sort by key name ensures consistent behavior on ties
+    const sorted = Object.entries(scores).sort((a, b) => {
+        if (b[1] !== a[1]) {
+            return b[1] - a[1];
+        }
+        return a[0].localeCompare(b[0]);
+    });
 
-    // Sort scores
-    const sorted = Object.entries(scores).sort((a, b) => b[1] - a[1]);
     const primaryKey = sorted[0][0];
     const secondaryKey = sorted[1][0];
-
     const primaryBlock = styles[primaryKey];
     const secondaryBlock = styles[secondaryKey];
-
     const primaryName = primaryKey;
     const secondaryName = secondaryKey;
-
     const primaryUrl = `directory.html?style=${encodeURIComponent(primaryName)}`;
     const secondaryUrl = `directory.html?style=${encodeURIComponent(secondaryName)}`;
-
+    
     const result = document.getElementById("resultContainer");
     result.style.display = "block";
-
     result.innerHTML = `
         <!-- PRIMARY RESULT CARD -->
         <div class="styleBlock" style="border-left-color:${primaryBlock.color}">
@@ -441,7 +425,6 @@ function calculateResults() {
             <div class="styleAction">
                 ${primaryBlock.action}
             </div>
-
             <div class="searchTermsBlock">
                 <strong>Keywords to try on volunteer boards & project sites:</strong>
                 <p style="font-size: 0.85rem; color: #64748B; margin: 0.25rem 0 0.5rem 0;">
@@ -456,14 +439,12 @@ function calculateResults() {
                     `).join('')}
                 </ul>
             </div>
-
             <div class="cta-container">
-                <a href="${primaryUrl}" class="btn-pill-soft" style="background-color: ${primaryBlock.color}14; border-color: ${primaryBlock.color}40; color: ${primaryBlock.color} !important;">
+                <a href="${primaryUrl}" class="btn-pill-soft" style="background-color: rgba(${primaryBlock.rgb}, 0.08); border-color: rgba(${primaryBlock.rgb}, 0.25); color: ${primaryBlock.color} !important;">
                     Explore ${primaryName} Directory &rarr;
                 </a>
             </div>
         </div>
-
         <!-- SECONDARY RESULT CARD -->
         <div class="styleBlock" style="border-left-color:${secondaryBlock.color};">
             <div class="styleTitle" style="font-size: 1.15rem;">
@@ -477,39 +458,65 @@ function calculateResults() {
             </div>
             
             <div class="cta-container">
-                <a href="${secondaryUrl}" class="btn-pill-soft" style="background-color: ${secondaryBlock.color}14; border-color: ${secondaryBlock.color}40; color: ${secondaryBlock.color} !important;">
+                <a href="${secondaryUrl}" class="btn-pill-soft" style="background-color: rgba(${secondaryBlock.rgb}, 0.08); border-color: rgba(${secondaryBlock.rgb}, 0.25); color: ${secondaryBlock.color} !important;">
                     Explore ${secondaryName} Directory &rarr;
                 </a>
             </div>
         </div>
-
         <p style="margin-top: 1.25rem; text-align: left; font-size: 0.9rem;">
             Or view how your styles connect on 
-            <a href="https://climatecolor.com/wheel" target="_blank" style="color:#1494B8; font-weight: bold;">
+            <a href="https://climatecolor.com/wheel" target="_blank" rel="noopener" style="color:#1494B8; font-weight: bold;">
                 The Climate Color Wheel
             </a>.
         </p>
     `;
+
+    // Accessibility: Focus user attention on the results container
+    result.focus();
 }
 
 function copyTerm(text, btnElement) {
-    navigator.clipboard.writeText(text).then(() => {
-        const originalText = btnElement.textContent;
-        btnElement.textContent = "Copied!";
-        btnElement.classList.add("copied");
+    // Robust fallback for non-HTTPS or unsupported Clipboard API contexts
+    if (navigator.clipboard && window.isSecureContext) {
+        navigator.clipboard.writeText(text).then(() => {
+            handleCopySuccess(btnElement);
+        }).catch(err => {
+            fallbackCopy(text, btnElement);
+        });
+    } else {
+        fallbackCopy(text, btnElement);
+    }
+}
 
-        setTimeout(() => {
-            btnElement.textContent = originalText;
-            btnElement.classList.remove("copied");
-        }, 1800);
-    }).catch(err => {
-        console.error("Failed to copy text: ", err);
-    });
+function fallbackCopy(text, btnElement) {
+    const textArea = document.createElement("textarea");
+    textArea.value = text;
+    textArea.style.position = "fixed";
+    textArea.style.left = "-9999px";
+    document.body.appendChild(textArea);
+    textArea.focus();
+    textArea.select();
+    try {
+        document.execCommand('copy');
+        handleCopySuccess(btnElement);
+    } catch (err) {
+        console.error("Copy failed", err);
+    }
+    document.body.removeChild(textArea);
+}
+
+function handleCopySuccess(btnElement) {
+    const originalText = btnElement.textContent;
+    btnElement.textContent = "Copied!";
+    btnElement.classList.add("copied");
+    setTimeout(() => {
+        btnElement.textContent = originalText;
+        btnElement.classList.remove("copied");
+    }, 1800);
 }
 
 // Initial render
 renderQuestion();
 </script>
-
 </body>
 </html>
