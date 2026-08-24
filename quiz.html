@@ -23,20 +23,11 @@ body {
     font-family: 'Varela Round', -apple-system, BlinkMacSystemFont, sans-serif;
     max-width: 720px;
     margin: 0 auto;
-    padding: 1rem;
+    padding: 2rem 1rem 1rem 1rem;
     line-height: 1.6;
     background-color: #FFFFFF;
     color: #212121;
     -webkit-font-smoothing: antialiased;
-}
-
-h1 {
-    font-family: 'ADLaM Display', cursive, sans-serif;
-    color: #1494B9;
-    font-size: 2.25rem;
-    margin-top: 0;
-    margin-bottom: 0.5rem;
-    text-align: left;
 }
 
 p.subtitle {
@@ -199,38 +190,35 @@ Results Cards & Styles
     color: #FFFFFF !important;
 }
 
-/* Refined Primary & Secondary Pill Buttons */
+/* Soft, Left-Justified Pill Buttons */
 .cta-container {
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     margin-top: 1.25rem;
 }
 
-.btn-pill {
+.btn-pill-soft {
     display: inline-block;
     width: auto !important;
-    max-width: 320px;
-    padding: 0.55rem 1.25rem !important;
-    font-size: 0.95rem !important;
+    padding: 0.5rem 1.15rem !important;
+    font-size: 0.9rem !important;
     font-weight: 700;
-    text-align: center;
+    text-align: left;
     text-decoration: none;
     border-radius: 9999px;
-    transition: transform 0.15s ease, opacity 0.15s ease;
+    border: 1px solid transparent;
+    transition: all 0.15s ease;
 }
 
-.btn-pill:hover {
-    opacity: 0.92;
+.btn-pill-soft:hover {
+    filter: brightness(0.95);
     transform: translateY(-1px);
 }
 
 /* Responsive */
 @media (max-width: 640px) {
     body {
-        padding: 0.85rem;
-    }
-    h1 {
-        font-size: 1.85rem;
+        padding: 1.25rem 0.85rem 0.85rem 0.85rem;
     }
     .question-card, .styleBlock {
         padding: 1rem 1.15rem;
@@ -241,8 +229,7 @@ Results Cards & Styles
 
 <body>
 
-<h1>Find Your Climate Stewardship Style</h1>
-<p class="subtitle">Answer 5 quick questions to discover your natural role in community climate action.</p>
+<p class="subtitle">Answer 8 quick questions to discover your natural role in community climate action.</p>
 
 <div class="progress-container">
     <div class="progress-bar" id="progressBar"></div>
@@ -273,7 +260,7 @@ const styles = {
         searchTerms: ["climate storyteller", "community outreach volunteer", "campaign writer"]
     },
     Visionary: {
-        color: "#F2DA14",
+        color: "#D4B000",
         identity: "Future Concepts & Innovation",
         behavior: "You see creative solutions and love building new community possibilities.",
         action: "Focus on design labs, local innovation sprints, and vision mapping.",
@@ -308,7 +295,7 @@ const styles = {
         searchTerms: ["community liaison", "volunteer host", "coalition builder"]
     },
     Guardian: {
-        color: "#EE8BFD",
+        color: "#D946EF",
         identity: "Protector & Policy Watchdog",
         behavior: "You stand up for local environmental rights and policy accountability.",
         action: "Focus on legal observation, policy monitoring, and environmental justice.",
@@ -354,12 +341,39 @@ const questions = [
         ]
     },
     {
-        title: "5. How do you prefer to spend a free weekend volunteer afternoon?",
+        title: "5. A new municipal environmental policy is being proposed. You choose to:",
         options: [
-            { text: "Leading a fast-moving physical work crew.", style: "Driver" },
-            { text: "Designing map concepts or future rewilding plans.", style: "Visionary" },
-            { text: "Maintaining trail lines or caring for native trees.", style: "Stabilizer" },
-            { text: "Hosting a welcoming table to chat with passing neighbors.", style: "Connector" }
+            { text: "Rally people to show up at public hearings for direct pressure.", style: "Driver" },
+            { text: "Write articles or social posts to explain the impact to voters.", style: "Advocate" },
+            { text: "Draft alternative long-term vision maps for city council.", style: "Visionary" },
+            { text: "Analyze the exact wording to ensure vulnerable communities are protected.", style: "Guardian" }
+        ]
+    },
+    {
+        title: "6. How do you prefer to handle team organization during a project?",
+        options: [
+            { text: "Build database systems and schedule logistics for everyone.", style: "Architect" },
+            { text: "Ensure traditional community wisdom and history guide decision-making.", style: "Keeper" },
+            { text: "Facilitate open dialog and resolve conflicts between members.", style: "Connector" },
+            { text: "Maintain steady, reliable weekly check-ins to keep work on track.", style: "Stabilizer" }
+        ]
+    },
+    {
+        title: "7. What is your primary focus when starting a new initiative?",
+        options: [
+            { text: "Generating immediate energy and getting things moving.", style: "Driver" },
+            { text: "Framing the compelling story that wins people over.", style: "Advocate" },
+            { text: "Designing bold, sustainable models for the future.", style: "Visionary" },
+            { text: "Establishing a reliable, long-term operational routine.", style: "Stabilizer" }
+        ]
+    },
+    {
+        title: "8. How do you ensure community projects stay resilient over time?",
+        options: [
+            { text: "Set up efficient administrative frameworks and records.", style: "Architect" },
+            { text: "Pass down knowledge and protect local ecological heritage.", style: "Keeper" },
+            { text: "Nurture continuous strong relationships across the community.", style: "Connector" },
+            { text: "Monitor legal policies and protect local environmental rights.", style: "Guardian" }
         ]
     }
 ];
@@ -421,10 +435,6 @@ function calculateResults() {
     const primaryUrl = `directory.html?style=${encodeURIComponent(primaryName)}`;
     const secondaryUrl = `directory.html?style=${encodeURIComponent(secondaryName)}`;
 
-    // Text contrast logic (Visionary 'C' uses dark text)
-    const primaryTextColor = (primaryKey === 'Visionary') ? '#0F172A' : '#FFFFFF';
-    const secondaryTextColor = (secondaryKey === 'Visionary') ? '#0F172A' : '#FFFFFF';
-
     const result = document.getElementById("resultContainer");
     result.style.display = "block";
 
@@ -457,7 +467,7 @@ function calculateResults() {
             </div>
 
             <div class="cta-container">
-                <a href="${primaryUrl}" class="btn-pill" style="background-color:${primaryBlock.color}; color:${primaryTextColor} !important;">
+                <a href="${primaryUrl}" class="btn-pill-soft" style="background-color: ${primaryBlock.color}14; border-color: ${primaryBlock.color}40; color: ${primaryBlock.color} !important;">
                     Explore ${primaryName} Directory &rarr;
                 </a>
             </div>
@@ -476,13 +486,13 @@ function calculateResults() {
             </div>
             
             <div class="cta-container">
-                <a href="${secondaryUrl}" class="btn-pill" style="background-color:${secondaryBlock.color}; color:${secondaryTextColor} !important;">
+                <a href="${secondaryUrl}" class="btn-pill-soft" style="background-color: ${secondaryBlock.color}14; border-color: ${secondaryBlock.color}40; color: ${secondaryBlock.color} !important;">
                     Explore ${secondaryName} Directory &rarr;
                 </a>
             </div>
         </div>
 
-        <p style="margin-top: 1.25rem; text-align: center; font-size: 0.9rem;">
+        <p style="margin-top: 1.25rem; text-align: left; font-size: 0.9rem;">
             Or view how your styles connect on 
             <a href="https://climatecolor.com/wheel" target="_blank" style="color:#1494B8; font-weight: bold;">
                 The Climate Color Wheel
