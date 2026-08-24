@@ -256,7 +256,7 @@ Result Section & Cards
 
 .searchTermsBlock strong {
     display: block;
-    margin-bottom: 0.35rem;
+    margin-bottom: 0.25rem;
     color: #0F172A;
 }
 
@@ -577,7 +577,10 @@ function calculateResults() {
             </div>
 
             <div class="searchTermsBlock">
-                <strong>Try searching directories for:</strong>
+                <strong>Keywords to try on volunteer boards & project sites:</strong>
+                <p style="font-size: 0.85rem; color: #64748B; margin: 0.25rem 0 0.5rem 0;">
+                    Copy and paste these phrases into search bars on sites like VolunteerMatch, Idealist, or local civic portals:
+                </p>
                 <ul>
                     ${primaryBlock.searchTerms.map(term => `<li><code>${term}</code></li>`).join('')}
                 </ul>
