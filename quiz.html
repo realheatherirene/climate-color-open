@@ -1,199 +1,220 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 <meta charset="UTF-8">
+<title>Stewardship Style Quiz | Climate Color</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<title>Climate Color Stewardship Quiz</title>
-
-<!-- Fonts -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=ADLaM+Display&family=Varela+Round&display=swap" rel="stylesheet">
 
 <style>
-/* ==========================================================================
-Base & Global Styles (Directory-Matched)
+/* ========================================================================== 
+Base & Global Styles 
 ========================================================================== */
 
-* { box-sizing: border-box; }
+* {
+    box-sizing: border-box;
+}
 
 body {
     font-family: 'Varela Round', -apple-system, BlinkMacSystemFont, sans-serif;
-    max-width: 1120px;
+    max-width: 720px;
     margin: 0 auto;
-    padding: 2rem 1rem;
+    padding: 2rem 1rem 1rem 1rem;
+    line-height: 1.6;
     background-color: #FFFFFF;
     color: #212121;
-    line-height: 1.6;
     -webkit-font-smoothing: antialiased;
 }
 
-/* ==========================================================================
-Progress Bar
+/* ========================================================================== 
+Quiz Interface Elements
 ========================================================================== */
 
-.progress-wrapper {
+.progress-container {
     width: 100%;
-    background: #F1F5F9;
+    background-color: #E2E8F0;
+    height: 8px;
     border-radius: 9999px;
-    height: 10px;
     margin-bottom: 1.5rem;
+    overflow: hidden;
 }
 
 .progress-bar {
-    height: 10px;
-    border-radius: 9999px;
-    background: #334155;
+    height: 100%;
     width: 0%;
+    background-color: #1494B9;
     transition: width 0.3s ease;
 }
 
-/* ==========================================================================
-Question Card
-========================================================================== */
-
-.question {
+.question-card {
     background: #FFFFFF;
     border: 1px solid #E2E8F0;
     border-radius: 12px;
-    padding: 1.25rem 1.25rem;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.02);
-    margin-bottom: 1.5rem;
+    padding: 1.5rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+}
+
+.question-title {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #0F172A;
+    margin-bottom: 1rem;
     text-align: left;
 }
 
-.question h2 {
-    font-family: 'ADLaM Display', sans-serif;
-    font-size: 1.35rem;
-    margin-bottom: 1rem;
-    color: #0F172A;
-}
-
-/* ==========================================================================
-Answer Buttons (Pill Style)
-========================================================================== */
-
-.answers button {
+.option-btn {
     display: block;
     width: 100%;
-    margin: 0.5rem 0;
-    padding: 0.75rem 1rem;
-    border-radius: 9999px;
-    border: 1px solid #E2E8F0;
-    background: #F8FAFC;
-    font-size: 0.95rem;
-    font-weight: 600;
     text-align: left;
+    background: #F8FAFC;
+    border: 1px solid #CBD5E1;
+    border-radius: 8px;
+    padding: 0.85rem 1rem;
+    margin-bottom: 0.75rem;
+    font-family: inherit;
+    font-size: 0.98rem;
+    color: #1E293B;
     cursor: pointer;
     transition: all 0.15s ease;
 }
 
-.answers button:hover {
-    transform: translateY(-1px);
-    filter: brightness(0.97);
+.option-btn:hover {
+    background: #F1F5F9;
+    border-color: #1494B9;
+    transform: translateX(2px);
 }
 
-/* ==========================================================================
-Result Cards
+/* ========================================================================== 
+Results Cards & Styles
 ========================================================================== */
 
-.result-card {
+.styleBlock {
     background: #FFFFFF;
     border: 1px solid #E2E8F0;
     border-radius: 12px;
-    padding: 1.25rem 1.25rem;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.02);
-    margin-bottom: 2rem;
-    text-align: left;
-    position: relative;
-}
-
-/* Full-strength but softened sidebar (Option B) */
-.result-card::before {
-    content: "";
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 6px;
-    height: 100%;
-    border-radius: 6px;
-    background: var(--sidebar-color);
-}
-
-.result-title {
-    font-family: 'ADLaM Display', sans-serif;
-    font-size: 1.4rem;
-    margin-bottom: 0.75rem;
-    color: #0F172A;
-}
-
-.result-section {
+    padding: 1.25rem 1.5rem;
     margin-bottom: 1.25rem;
-}
-
-.result-section strong {
-    font-size: 0.95rem;
-    font-weight: 700;
-    color: #334155;
-    margin-bottom: 0.35rem;
-    display: block;
-}
-
-/* ==========================================================================
-Explore Buttons (Tint System)
-========================================================================== */
-
-.result-buttons a {
-    display: inline-block;
-    padding: 0.55rem 1.1rem;
-    margin-right: 0.75rem;
-    margin-top: 0.5rem;
-    border-radius: 9999px;
-    font-size: 0.85rem;
-    font-weight: 700;
-    text-decoration: none;
-    transition: all 0.15s ease;
-    border: 1px solid transparent;
-}
-
-.result-buttons a:hover {
-    transform: translateY(-1px);
-    filter: brightness(0.97);
-}
-
-/* ==========================================================================
-Retake Button
-========================================================================== */
-
-.retake {
+    border-left: 6px solid #CBD5E1;
     text-align: left;
-    margin-top: 1rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
 }
 
-.retake button {
-    padding: 0.65rem 1.25rem;
-    border-radius: 9999px;
-    border: 1px solid #CBD5E1;
-    background: #F1F5F9;
-    font-size: 0.9rem;
+.styleTitle {
+    font-size: 1.25rem;
     font-weight: 700;
+    margin-bottom: 0.35rem;
+}
+
+.styleIdentity {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: #1E293B;
+    margin-bottom: 0.5rem;
+}
+
+.styleAction {
+    background: #F8FAFC;
+    border-radius: 8px;
+    padding: 0.85rem 1rem;
+    font-size: 0.95rem;
+    color: #334155;
+    margin-bottom: 1rem;
+}
+
+/* Search Terms Block & Copy Buttons */
+.searchTermsBlock {
+    margin-top: 1rem;
+    padding-top: 0.85rem;
+    border-top: 1px solid #F1F5F9;
+}
+
+.search-terms-list {
+    list-style: none;
+    padding-left: 0 !important;
+    margin: 0;
+}
+
+.search-terms-list li {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+    margin-bottom: 0.4rem;
+    padding: 0.25rem 0;
+}
+
+.search-terms-list code {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    background: #F1F5F9;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    color: #0F172A;
+    word-break: break-word;
+}
+
+.btn-copy {
+    width: auto !important;
+    margin: 0 !important;
+    padding: 0.2rem 0.6rem !important;
+    font-size: 0.75rem !important;
+    font-weight: 700 !important;
+    border-radius: 6px !important;
+    background-color: #E2E8F0 !important;
+    color: #334155 !important;
+    box-shadow: none !important;
+    flex-shrink: 0;
     cursor: pointer;
+    border: none;
     transition: all 0.15s ease;
 }
 
-.retake button:hover {
-    transform: translateY(-1px);
-    filter: brightness(0.97);
+.btn-copy:hover {
+    background-color: #CBD5E1 !important;
+    color: #0F172A !important;
 }
 
-/* ==========================================================================
-Responsive
-========================================================================== */
+.btn-copy.copied {
+    background-color: #22C55E !important;
+    color: #FFFFFF !important;
+}
 
+/* Soft, Left-Justified Pill Buttons */
+.cta-container {
+    display: flex;
+    justify-content: flex-start;
+    margin-top: 1.25rem;
+}
+
+.btn-pill-soft {
+    display: inline-block;
+    width: auto !important;
+    padding: 0.5rem 1.15rem !important;
+    font-size: 0.9rem !important;
+    font-weight: 700;
+    text-align: left;
+    text-decoration: none;
+    border-radius: 9999px;
+    border: 1px solid transparent;
+    transition: all 0.15s ease;
+}
+
+.btn-pill-soft:hover {
+    filter: brightness(0.95);
+    transform: translateY(-1px);
+}
+
+/* Responsive */
 @media (max-width: 640px) {
     body {
-        padding: 1.25rem 0.85rem;
+        padding: 1.25rem 0.85rem 0.85rem 0.85rem;
+    }
+    .question-card, .styleBlock {
+        padding: 1rem 1.15rem;
     }
 }
 </style>
@@ -201,189 +222,292 @@ Responsive
 
 <body>
 
-<!-- Progress Bar -->
-<div class="progress-wrapper">
+<div class="progress-container">
     <div class="progress-bar" id="progressBar"></div>
 </div>
 
-<div class="container">
-    <div id="quiz"></div>
-    <div id="result"></div>
+<div class="question-card" id="quizCard">
+    <div class="question-title" id="questionTitle">Loading...</div>
+    <div id="optionsContainer"></div>
 </div>
 
+<div id="resultContainer" style="display: none;"></div>
+
 <script>
-/* ==========================================================================
-Quiz Data
-========================================================================== */
+// Quiz Metadata & Questions
+const styles = {
+    Driver: {
+        color: "#E32322",
+        identity: "Direct Action & High Momentum",
+        behavior: "You thrive when jumping straight into action and leading physical campaigns.",
+        action: "Focus on rapid-response events, direct mobilization, and visible projects.",
+        searchTerms: ["climate rally coordinator", "action leader", "rapid response campaign"]
+    },
+    Advocate: {
+        color: "#F18E1C",
+        identity: "Public Voice & Storytelling",
+        behavior: "You excel at communicating big ideas and inspiring public support.",
+        action: "Focus on social campaigns, community presentations, and writing outreach materials.",
+        searchTerms: ["climate storyteller", "community outreach volunteer", "campaign writer"]
+    },
+    Visionary: {
+        color: "#D4B000",
+        identity: "Future Concepts & Innovation",
+        behavior: "You see creative solutions and love building new community possibilities.",
+        action: "Focus on design labs, local innovation sprints, and vision mapping.",
+        searchTerms: ["urban innovation lab", "rewilding design", "sustainability strategist"]
+    },
+    Stabilizer: {
+        color: "#5A9129",
+        identity: "Consistent Care & Habitual Support",
+        behavior: "You keep local efforts strong through steady, dependable ongoing care.",
+        action: "Focus on recurring park maintenance, community gardens, or habitat restoration.",
+        searchTerms: ["community garden volunteer", "tree planting crew", "trail steward"]
+    },
+    Architect: {
+        color: "#2A71B0",
+        identity: "Systems Design & Logistics",
+        behavior: "You make sure plans are organized, efficient, and built to last.",
+        action: "Focus on project logistics, volunteer databases, and event planning.",
+        searchTerms: ["nonprofit operations volunteer", "data coordinator", "event logistics manager"]
+    },
+    Keeper: {
+        color: "#002060",
+        identity: "Heritage Protection & Tradition",
+        behavior: "You protect established community wisdom, land heritage, and local history.",
+        action: "Focus on land trust preservation, seed saving, and historical restoration.",
+        searchTerms: ["land trust volunteer", "heritage seed saver", "historical ecology"]
+    },
+    Connector: {
+        color: "#6D398B",
+        identity: "Relationship Building & Trust",
+        behavior: "You bring people together and build bridges across diverse community groups.",
+        action: "Focus on community welcoming, liaison roles, and collaborative meetings.",
+        searchTerms: ["community liaison", "volunteer host", "coalition builder"]
+    },
+    Guardian: {
+        color: "#D946EF",
+        identity: "Protector & Policy Watchdog",
+        behavior: "You stand up for local environmental rights and policy accountability.",
+        action: "Focus on legal observation, policy monitoring, and environmental justice.",
+        searchTerms: ["environmental justice watchdog", "policy observer", "civic monitor"]
+    }
+};
 
 const questions = [
     {
-        q: "When facing a climate challenge, what’s your first instinct?",
-        a: {
-            Driver: "Take action immediately — movement creates momentum.",
-            Advocate: "Communicate the issue clearly so others understand.",
-            Visionary: "Zoom out and imagine the long-term systemic picture.",
-            Stabilizer: "Ground the situation and look for practical steps.",
-            Architect: "Analyze the structure and find the most efficient path.",
-            Keeper: "Protect what matters — heritage, species, places.",
-            Connector: "Bring people together to collaborate.",
-            Guardian: "Watch for risks, blind spots, and injustices."
-        }
+        title: "1. A local park needs care. Where do you naturally step in?",
+        options: [
+            { text: "Organize a fast-paced cleanup day with tools ready.", style: "Driver" },
+            { text: "Write posters and tell neighbors why the park matters.", style: "Advocate" },
+            { text: "Imagine new ways to redesign the park with native plants.", style: "Visionary" },
+            { text: "Show up every Saturday to water plants and weed beds.", style: "Stabilizer" }
+        ]
     },
     {
-        q: "Which environment feels most energizing to you?",
-        a: {
-            Driver: "A fast-paced action-oriented space.",
-            Advocate: "A room full of conversation and storytelling.",
-            Visionary: "A creative studio or strategy retreat.",
-            Stabilizer: "A garden, workshop, or hands-on project.",
-            Architect: "A data dashboard or planning session.",
-            Keeper: "A forest, archive, or cultural space.",
-            Connector: "A community gathering or shared meal.",
-            Guardian: "A watchdog meeting or policy review."
-        }
+        title: "2. Your neighborhood is hosting a sustainability fair. What's your role?",
+        options: [
+            { text: "Manage the schedule, sign-in sheets, and volunteer shifts.", style: "Architect" },
+            { text: "Document the local history of green spaces for display.", style: "Keeper" },
+            { text: "Greet visitors and connect different local groups together.", style: "Connector" },
+            { text: "Review safety guidelines and ensure fair access for everyone.", style: "Guardian" }
+        ]
     },
     {
-        q: "What role do you naturally take in group efforts?",
-        a: {
-            Driver: "The catalyst — you get things moving.",
-            Advocate: "The communicator — you translate ideas.",
-            Visionary: "The strategist — you see the future arc.",
-            Stabilizer: "The steady hand — you keep things grounded.",
-            Architect: "The planner — you design the system.",
-            Keeper: "The protector — you safeguard what matters.",
-            Connector: "The bridge — you link people and resources.",
-            Guardian: "The monitor — you ensure accountability."
-        }
+        title: "3. When faced with a new climate goal, you feel most energized by:",
+        options: [
+            { text: "Setting bold targets and jumping directly into action.", style: "Driver" },
+            { text: "Brainstorming creative, out-of-the-box ideas.", style: "Visionary" },
+            { text: "Organizing the step-by-step plan to make it run smoothly.", style: "Architect" },
+            { text: "Welcoming new people so everyone feels part of the team.", style: "Connector" }
+        ]
+    },
+    {
+        title: "4. What kind of impact feels most rewarding to you?",
+        options: [
+            { text: "Inspiring dozens of people to care about a shared cause.", style: "Advocate" },
+            { text: "Seeing steady, tangible improvement over months and years.", style: "Stabilizer" },
+            { text: "Safeguarding vital natural habitats from harm.", style: "Keeper" },
+            { text: "Holding local leaders accountable to environmental promises.", style: "Guardian" }
+        ]
+    },
+    {
+        title: "5. A new municipal environmental policy is being proposed. You choose to:",
+        options: [
+            { text: "Rally people to show up at public hearings for direct pressure.", style: "Driver" },
+            { text: "Write articles or social posts to explain the impact to voters.", style: "Advocate" },
+            { text: "Draft alternative long-term vision maps for city council.", style: "Visionary" },
+            { text: "Analyze the exact wording to ensure vulnerable communities are protected.", style: "Guardian" }
+        ]
+    },
+    {
+        title: "6. How do you prefer to handle team organization during a project?",
+        options: [
+            { text: "Build database systems and schedule logistics for everyone.", style: "Architect" },
+            { text: "Ensure traditional community wisdom and history guide decision-making.", style: "Keeper" },
+            { text: "Facilitate open dialog and resolve conflicts between members.", style: "Connector" },
+            { text: "Maintain steady, reliable weekly check-ins to keep work on track.", style: "Stabilizer" }
+        ]
+    },
+    {
+        title: "7. What is your primary focus when starting a new initiative?",
+        options: [
+            { text: "Generating immediate energy and getting things moving.", style: "Driver" },
+            { text: "Framing the compelling story that wins people over.", style: "Advocate" },
+            { text: "Designing bold, sustainable models for the future.", style: "Visionary" },
+            { text: "Establishing a reliable, long-term operational routine.", style: "Stabilizer" }
+        ]
+    },
+    {
+        title: "8. How do you ensure community projects stay resilient over time?",
+        options: [
+            { text: "Set up efficient administrative frameworks and records.", style: "Architect" },
+            { text: "Pass down knowledge and protect local ecological heritage.", style: "Keeper" },
+            { text: "Nurture continuous strong relationships across the community.", style: "Connector" },
+            { text: "Monitor legal policies and protect local environmental rights.", style: "Guardian" }
+        ]
     }
 ];
 
-/* ==========================================================================
-State
-========================================================================== */
-
 let currentQuestion = 0;
-let scores = {
-    Driver: 0,
-    Advocate: 0,
-    Visionary: 0,
-    Stabilizer: 0,
-    Architect: 0,
-    Keeper: 0,
-    Connector: 0,
-    Guardian: 0
-};
+const scores = {};
 
-/* ==========================================================================
-Progress Bar
-========================================================================== */
-
-function updateProgress() {
-    const total = questions.length;
-    const percent = (currentQuestion / total) * 100;
-    document.getElementById("progressBar").style.width = percent + "%";
-}
-
-/* ==========================================================================
-Render Question
-========================================================================== */
+// Initialize scores
+Object.keys(styles).forEach(style => { scores[style] = 0; });
 
 function renderQuestion() {
-    if (currentQuestion >= questions.length) {
-        showResults();
-        return;
-    }
-
     const q = questions[currentQuestion];
-    let html = `<div class="question"><h2>${q.q}</h2><div class="answers">`;
+    document.getElementById("questionTitle").textContent = q.title;
+    
+    const container = document.getElementById("optionsContainer");
+    container.innerHTML = "";
 
-    Object.keys(q.a).forEach(style => {
-        html += `<button onclick="selectAnswer('${style}')">${q.a[style]}</button>`;
+    q.options.forEach(opt => {
+        const btn = document.createElement("button");
+        btn.className = "option-btn";
+        btn.textContent = opt.text;
+        btn.onclick = () => selectOption(opt.style);
+        container.appendChild(btn);
     });
 
-    html += `</div></div>`;
-    document.getElementById("quiz").innerHTML = html;
-
-    updateProgress();
+    const progressPct = ((currentQuestion) / questions.length) * 100;
+    document.getElementById("progressBar").style.width = `${progressPct}%`;
 }
 
-/* ==========================================================================
-Handle Answer
-========================================================================== */
+function selectOption(styleKey) {
+    if (scores[styleKey] !== undefined) {
+        scores[styleKey]++;
+    }
 
-function selectAnswer(style) {
-    scores[style]++;
     currentQuestion++;
-    renderQuestion();
+
+    if (currentQuestion < questions.length) {
+        renderQuestion();
+    } else {
+        calculateResults();
+    }
 }
 
-/* ==========================================================================
-Show Results
-========================================================================== */
+function calculateResults() {
+    document.getElementById("progressBar").style.width = "100%";
+    document.getElementById("quizCard").style.display = "none";
 
-function showResults() {
-    const topStyle = Object.keys(scores).reduce((a, b) =>
-        scores[a] > scores[b] ? a : b
-    );
+    // Sort scores
+    const sorted = Object.entries(scores).sort((a, b) => b[1] - a[1]);
+    const primaryKey = sorted[0][0];
+    const secondaryKey = sorted[1][0];
 
-    const colors = {
-        Driver: "#E32322",
-        Advocate: "#F18E1C",
-        Visionary: "#D4B000",
-        Stabilizer: "#5A9129",
-        Architect: "#2A71B0",
-        Keeper: "#002060",
-        Connector: "#6D398B",
-        Guardian: "#D946EF"
-    };
+    const primaryBlock = styles[primaryKey];
+    const secondaryBlock = styles[secondaryKey];
 
-    const color = colors[topStyle];
+    const primaryName = primaryKey;
+    const secondaryName = secondaryKey;
 
-    const resultHTML = `
-        <div class="result-card" style="--sidebar-color: ${color};">
-            <div class="result-title">${topStyle}</div>
+    const primaryUrl = `directory.html?style=${encodeURIComponent(primaryName)}`;
+    const secondaryUrl = `directory.html?style=${encodeURIComponent(secondaryName)}`;
 
-            <div class="result-section">
-                <strong>Your Stewardship Strength</strong>
-                You bring a unique climate leadership energy shaped by your instincts, values, and natural way of engaging with the world.
+    const result = document.getElementById("resultContainer");
+    result.style.display = "block";
+
+    result.innerHTML = `
+        <!-- PRIMARY RESULT CARD -->
+        <div class="styleBlock" style="border-left-color:${primaryBlock.color}">
+            <div class="styleTitle">
+                Your primary style: <span style="color:${primaryBlock.color};">${primaryName}</span>
+            </div>
+            <div class="styleIdentity">${primaryBlock.identity}</div>
+            <div style="margin-bottom: 0.85rem; color: #475569;">${primaryBlock.behavior}</div>
+            
+            <div class="styleAction">
+                ${primaryBlock.action}
             </div>
 
-            <div class="result-section">
-                <strong>Explore Your Style</strong>
-                <div class="result-buttons">
-                    <a href="/directory.html?style=${topStyle}"
-                       style="background-color:${color}14; border-color:${color}40; color:${color};">
-                       Explore Stewardship Resources →
-                    </a>
-                </div>
+            <div class="searchTermsBlock">
+                <strong>Keywords to try on volunteer boards & project sites:</strong>
+                <p style="font-size: 0.85rem; color: #64748B; margin: 0.25rem 0 0.5rem 0;">
+                    Copy and paste these phrases into search bars on sites like VolunteerMatch, Idealist, or local civic portals:
+                </p>
+                <ul class="search-terms-list">
+                    ${primaryBlock.searchTerms.map(term => `
+                        <li>
+                            <code>${term}</code>
+                            <button type="button" class="btn-copy" onclick="copyTerm('${term.replace(/'/g, "\\'")}', this)">Copy</button>
+                        </li>
+                    `).join('')}
+                </ul>
             </div>
 
-            <div class="retake">
-                <button onclick="restartQuiz()">Retake Quiz</button>
+            <div class="cta-container">
+                <a href="${primaryUrl}" class="btn-pill-soft" style="background-color: ${primaryBlock.color}14; border-color: ${primaryBlock.color}40; color: ${primaryBlock.color} !important;">
+                    Explore ${primaryName} Directory &rarr;
+                </a>
             </div>
         </div>
+
+        <!-- SECONDARY RESULT CARD -->
+        <div class="styleBlock" style="border-left-color:${secondaryBlock.color};">
+            <div class="styleTitle" style="font-size: 1.15rem;">
+                Secondary alignment: <span style="color:${secondaryBlock.color};">${secondaryName}</span>
+            </div>
+            <div class="styleIdentity" style="font-size: 0.98rem; margin-bottom: 0.35rem;">
+                ${secondaryBlock.identity}
+            </div>
+            <div style="font-size: 0.9rem; color: #475569;">
+                ${secondaryBlock.behavior}
+            </div>
+            
+            <div class="cta-container">
+                <a href="${secondaryUrl}" class="btn-pill-soft" style="background-color: ${secondaryBlock.color}14; border-color: ${secondaryBlock.color}40; color: ${secondaryBlock.color} !important;">
+                    Explore ${secondaryName} Directory &rarr;
+                </a>
+            </div>
+        </div>
+
+        <p style="margin-top: 1.25rem; text-align: left; font-size: 0.9rem;">
+            Or view how your styles connect on 
+            <a href="https://climatecolor.com/wheel" target="_blank" style="color:#1494B8; font-weight: bold;">
+                The Climate Color Wheel
+            </a>.
+        </p>
     `;
-
-    document.getElementById("result").innerHTML = resultHTML;
-    document.getElementById("quiz").innerHTML = "";
 }
 
-/* ==========================================================================
-Restart
-========================================================================== */
+function copyTerm(text, btnElement) {
+    navigator.clipboard.writeText(text).then(() => {
+        const originalText = btnElement.textContent;
+        btnElement.textContent = "Copied!";
+        btnElement.classList.add("copied");
 
-function restartQuiz() {
-    currentQuestion = 0;
-    Object.keys(scores).forEach(k => scores[k] = 0);
-    document.getElementById("result").innerHTML = "";
-    updateProgress();
-    renderQuestion();
+        setTimeout(() => {
+            btnElement.textContent = originalText;
+            btnElement.classList.remove("copied");
+        }, 1800);
+    }).catch(err => {
+        console.error("Failed to copy text: ", err);
+    });
 }
 
-/* ==========================================================================
-Init
-========================================================================== */
-
+// Initial render
 renderQuestion();
 </script>
 
