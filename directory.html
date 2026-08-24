@@ -21,29 +21,13 @@ Base & Global Styles
 
 body {
     font-family: 'Varela Round', -apple-system, BlinkMacSystemFont, sans-serif;
-    max-width: 800px;
+    max-width: 1120px;
     margin: 0 auto;
     padding: 2rem 1rem 1rem 1rem;
     line-height: 1.6;
     background-color: #FFFFFF;
     color: #212121;
     -webkit-font-smoothing: antialiased;
-}
-
-h1 {
-    font-family: 'ADLaM Display', cursive, sans-serif;
-    color: #1494B9;
-    font-size: 2.25rem;
-    margin-top: 0;
-    margin-bottom: 0.5rem;
-    text-align: left;
-}
-
-p.subtitle {
-    color: #4B5563;
-    font-size: 1.02rem;
-    margin-bottom: 1.5rem;
-    text-align: left;
 }
 
 /* ========================================================================== 
@@ -81,12 +65,12 @@ Archetype Pill Navigation
 }
 
 /* ========================================================================== 
-Resource Card Grid & Items (Quiz Results Alignment)
+Recipe Card Grid Layout (3-Column Desktop)
 ========================================================================== */
 
-.resource-list {
-    display: flex;
-    flex-direction: column;
+.resource-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
     gap: 1.25rem;
 }
 
@@ -94,10 +78,13 @@ Resource Card Grid & Items (Quiz Results Alignment)
     background: #FFFFFF;
     border: 1px solid #E2E8F0;
     border-radius: 12px;
-    padding: 1.25rem 1.5rem;
+    padding: 1.25rem 1.25rem;
     border-left: 6px solid #CBD5E1;
     text-align: left;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     transition: transform 0.15s ease, box-shadow 0.15s ease;
 }
 
@@ -106,44 +93,49 @@ Resource Card Grid & Items (Quiz Results Alignment)
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
 }
 
+.card-content {
+    margin-bottom: 1rem;
+}
+
 .styleTitle {
-    font-size: 1.2rem;
+    font-size: 1.1rem;
     font-weight: 700;
     color: #0F172A;
-    margin-bottom: 0.35rem;
+    margin-bottom: 0.5rem;
     display: flex;
-    justify-content: space-between;
-    align-items: center;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.35rem;
 }
 
 .type-tag {
-    font-size: 0.75rem;
+    font-size: 0.7rem;
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.05em;
-    padding: 0.2rem 0.55rem;
+    padding: 0.15rem 0.55rem;
     border-radius: 4px;
     background: #F1F5F9;
     color: #475569;
 }
 
 .styleIdentity {
-    font-size: 0.95rem;
+    font-size: 0.9rem;
     color: #475569;
-    margin-bottom: 0.85rem;
+    line-height: 1.45;
 }
 
 .cta-container {
     display: flex;
     justify-content: flex-start;
-    margin-top: 1rem;
+    margin-top: auto;
 }
 
 .btn-pill-soft {
     display: inline-block;
     width: auto !important;
-    padding: 0.45rem 1.1rem !important;
-    font-size: 0.88rem !important;
+    padding: 0.45rem 1rem !important;
+    font-size: 0.85rem !important;
     font-weight: 700;
     text-align: left;
     text-decoration: none;
@@ -158,6 +150,7 @@ Resource Card Grid & Items (Quiz Results Alignment)
 }
 
 .empty-state {
+    grid-column: 1 / -1;
     padding: 3rem 1.5rem;
     text-align: center;
     color: #64748B;
@@ -166,21 +159,25 @@ Resource Card Grid & Items (Quiz Results Alignment)
     border: 1px dashed #CBD5E1;
 }
 
-/* Responsive */
+/* ========================================================================== 
+Responsive Breakpoints
+========================================================================== */
+
+@media (max-width: 960px) {
+    .resource-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
 @media (max-width: 640px) {
     body {
         padding: 1.25rem 0.85rem;
     }
-    h1 {
-        font-size: 1.85rem;
+    .resource-grid {
+        grid-template-columns: 1fr;
     }
     .styleBlock {
         padding: 1rem 1.15rem;
-    }
-    .styleTitle {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 0.25rem;
     }
 }
 </style>
@@ -188,12 +185,9 @@ Resource Card Grid & Items (Quiz Results Alignment)
 
 <body>
 
-<h1>Stewardship Directory</h1>
-<p class="subtitle" id="directorySubtitle">Explore organizations, platforms, and tools aligned with your climate action style.</p>
-
 <div class="filter-pills" id="pillContainer"></div>
 
-<div class="resource-list" id="resourceContainer"></div>
+<div class="resource-grid" id="resourceContainer"></div>
 
 <script>
 const styles = {
@@ -208,7 +202,7 @@ const styles = {
     Guardian: { color: "#D946EF" }
 };
 
-// Full 44-Resource Database
+// Expanded Resource Dataset (Includes Archived/Mirrored Gov Portals)
 const resources = [
     { title: "Sunrise Movement", styles: ["Driver", "Advocate"], type: "Direct Action", desc: "Youth-led movement organizing rapid political and local action for climate solutions.", url: "https://www.sunrisemovement.org" },
     { title: "350.org", styles: ["Driver", "Guardian"], type: "Campaigning", desc: "Global grassroots network taking direct action on fossil fuel infrastructure.", url: "https://350.org" },
@@ -260,10 +254,16 @@ const resources = [
     { title: "Environmental Justice Health Alliance", styles: ["Guardian", "Connector"], type: "Fence-line Protection", desc: "Grassroots coalition monitoring industrial pollution impacts on vulnerable communities.", url: "https://ej4all.org" },
     { title: "FrackTracker Alliance", styles: ["Guardian", "Architect"], type: "Data Watchdog", desc: "Tracking extraction risks through map datasets to inform public health advocates.", url: "https://www.fracktracker.org" },
     { title: "Center for Biological Diversity", styles: ["Guardian", "Keeper"], type: "Species Protection", desc: "Legal advocacy securing protections for endangered species and public lands.", url: "https://www.biologicaldiversity.org" },
-    { title: "Climate Emergency Fund", styles: ["Driver", "Guardian"], type: "Rapid Funding", desc: "Providing rapid grant funding to disruptive grassroots legal action networks.", url: "https://www.climateemergencyfund.org" }
+    { title: "Climate Emergency Fund", styles: ["Driver", "Guardian"], type: "Rapid Funding", desc: "Providing rapid grant funding to disruptive grassroots legal action networks.", url: "https://www.climateemergencyfund.org" },
+
+    /* Archived & Mirrored Government Portals */
+    { title: "EPA Local Climate Program (Archive)", styles: ["Architect", "Guardian"], type: "Gov Archive", desc: "Mirrored frameworks for local government climate action, energy efficiency, and municipal planning.", url: "https://web.archive.org/web/epa-local-climate" },
+    { title: "USDA Conservation Program (Mirror)", styles: ["Stabilizer", "Keeper"], type: "Gov Archive", desc: "Archived practices and guidelines for land management, soil health, and agricultural stewardship.", url: "https://web.archive.org/web/usda-csp" },
+    { title: "NOAA Climate Resilience Toolkit", styles: ["Architect", "Visionary"], type: "Gov Portal", desc: "Federal framework and case studies helping communities navigate climate hazards and adaptation.", url: "https://toolkit.climate.gov" },
+    { title: "Climate Data Initiative Archive", styles: ["Architect", "Guardian"], type: "Data Archive", desc: "Archived open-data repositories mapping coastal flooding, ecosystem vulnerability, and urban heat.", url: "https://web.archive.org/web/climate-data" }
 ];
 
-// URL Parsing & Sanitization
+// URL Parsing
 const urlParams = new URLSearchParams(window.location.search);
 let rawStyle = urlParams.get('style');
 let activeStyle = "All Styles";
@@ -290,7 +290,6 @@ function renderPills() {
         if (key === activeStyle) {
             btn.classList.add("active");
         } else {
-            // Permanent soft-tinted style for inactive pills
             if (key === "All Styles") {
                 btn.style.backgroundColor = "#F1F5F9";
                 btn.style.borderColor = "#CBD5E1";
@@ -324,15 +323,7 @@ function selectStyle(key) {
 
 function renderResources() {
     const container = document.getElementById("resourceContainer");
-    const subtitle = document.getElementById("directorySubtitle");
     container.innerHTML = "";
-
-    // Dynamic Subtitle text
-    if (activeStyle !== 'All Styles' && styles[activeStyle]) {
-        subtitle.innerHTML = `Showing orientation lenses tailored for <strong style="color:${styles[activeStyle].color}">${activeStyle}s</strong>.`;
-    } else {
-        subtitle.innerHTML = `Not sure which style fits you? <a href="quiz.html" style="color:#1494B9; font-weight:bold; text-decoration:underline;">Take the 2-minute Stewardship Quiz &rarr;</a>`;
-    }
 
     const filtered = activeStyle === 'All Styles' 
         ? resources 
@@ -348,7 +339,6 @@ function renderResources() {
     }
 
     filtered.forEach(res => {
-        // Use primary matching style's color for the border/button
         const matchStyle = (activeStyle !== 'All Styles') ? activeStyle : res.styles[0];
         const cardColor = styles[matchStyle] ? styles[matchStyle].color : "#1494B9";
 
@@ -357,11 +347,13 @@ function renderResources() {
         card.style.borderLeftColor = cardColor;
 
         card.innerHTML = `
-            <div class="styleTitle">
-                <span>${res.title}</span>
-                <span class="type-tag">${res.type}</span>
+            <div class="card-content">
+                <div class="styleTitle">
+                    <span>${res.title}</span>
+                    <span class="type-tag">${res.type}</span>
+                </div>
+                <div class="styleIdentity">${res.desc}</div>
             </div>
-            <div class="styleIdentity">${res.desc}</div>
             
             <div class="cta-container">
                 <a href="${res.url}" target="_blank" rel="noopener" class="btn-pill-soft" style="background-color: ${cardColor}14; border-color: ${cardColor}40; color: ${cardColor} !important;">
