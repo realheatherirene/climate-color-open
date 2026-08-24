@@ -161,6 +161,7 @@ button, .btn-pill {
     text-align: center;
     display: block;
     text-decoration: none;
+    box-sizing: border-box;
 }
 
 button:hover, .btn-pill:hover {
@@ -200,7 +201,7 @@ button:active, .btn-pill:active {
 }
 
 /* ========================================================================== 
-Result Section 
+Result Section & Cards
 ========================================================================== */
 
 #result {
@@ -236,12 +237,6 @@ Result Section
     margin-bottom: 0.5rem;
 }
 
-.styleQualities {
-    font-size: 0.95rem;
-    margin: 0.75rem 0;
-    color: #475569;
-}
-
 .styleAction {
     margin-top: 0.85rem;
     padding-top: 0.75rem;
@@ -250,8 +245,38 @@ Result Section
     color: #334155;
 }
 
-.cta-container {
+.searchTermsBlock {
     margin-top: 1rem;
+    padding: 0.85rem 1rem;
+    background: #F1F5F9;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    color: #334155;
+}
+
+.searchTermsBlock strong {
+    display: block;
+    margin-bottom: 0.35rem;
+    color: #0F172A;
+}
+
+.searchTermsBlock ul {
+    margin: 0;
+    padding-left: 1.2rem;
+    line-height: 1.5;
+}
+
+.searchTermsBlock code {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    background: #E2E8F0;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    color: #0F172A;
+}
+
+.cta-container {
+    margin-top: 1.25rem;
 }
 
 /* Responsive */
@@ -302,63 +327,103 @@ const styleNames = {
     H: "Guardian"
 };
 
-// Style blocks with colors
+// Style blocks with colors, behaviors, action lenses, and search terms
 const styleBlocks = {
     A: {
         color: "#E32322",
         identity: "<strong>You move things forward.</strong>",
-        behavior: "You help people shift from hesitation to momentum by offering direction and a clear first step.",
-        qualities: "<strong>Key qualities:</strong> Catalyze · Execute · Deploy",
-        action: "<strong>Try this:</strong> Lead one small action that helps a community effort get underway."
+        behavior: "Drivers turn ideas into action. You help people shift from hesitation to momentum by offering direction, confidence, and a clear first step.",
+        action: "<strong>Orientation Lens:</strong> Focus on immediate, high-momentum entry points. Look for direct action calls, active teams, and clear project shifts.",
+        searchTerms: [
+            "lead a local cleanup volunteer shift",
+            "conservation project coordinator volunteer",
+            "community action team climate volunteer",
+            "invasive species removal volunteer lead"
+        ]
     },
     B: {
         color: "#F18E1C",
         identity: "<strong>You build enthusiasm.</strong>",
-        behavior: "You help people connect emotionally with what matters by bringing warmth, encouragement, and human resonance.",
-        qualities: "<strong>Key qualities:</strong> Encourage · Amplify · Evangelize",
-        action: "<strong>Try this:</strong> Share a message, story, or invitation that draws others into a climate or community effort."
+        behavior: "Advocates make climate care feel human. You spark interest, amplify messages, and help people connect emotionally with what matters.",
+        action: "<strong>Orientation Lens:</strong> Look for opportunities to share stories, encourage participation, and bring warmth and expression to community initiatives.",
+        searchTerms: [
+            "environmental outreach volunteer",
+            "climate communications ambassador program",
+            "community engagement volunteer conservation",
+            "environmental education storytelling volunteer"
+        ]
     },
     C: {
         color: "#F2DA14",
         identity: "<strong>You expand what’s possible.</strong>",
-        behavior: "You help people see new angles, fresh options, and creative openings that break old patterns.",
-        qualities: "<strong>Key qualities:</strong> Imagine · Reframe · Create",
-        action: "<strong>Try this:</strong> Offer one fresh perspective to a group or project that feels stuck."
+        behavior: "Visionaries imagine new futures. You offer fresh perspectives, creative approaches, and alternative paths that help teams break old patterns.",
+        action: "<strong>Orientation Lens:</strong> Look for spaces that value imagination, experimentation, circular/zero-waste ideas, and creative problem-solving.",
+        searchTerms: [
+            "climate innovation workshop near me",
+            "sustainability design sprint",
+            "environmental problem solving volunteer",
+            "climate action brainstorming session"
+        ]
     },
     D: {
         color: "#5A9129",
         identity: "<strong>You keep things steady.</strong>",
-        behavior: "You show up consistently, maintain continuity, and help efforts endure over time.",
-        qualities: "<strong>Key qualities:</strong> Sustain · Ground · Equip",
-        action: "<strong>Try this:</strong> Choose one recurring stewardship task and commit to it for the next few weeks."
+        behavior: "Stabilizers sustain long-term care. You show up consistently, maintain continuity, and help climate efforts endure over time.",
+        action: "<strong>Orientation Lens:</strong> Look for recurring stewardship tasks, habitat adoption, trail maintenance, or ongoing monitoring programs.",
+        searchTerms: [
+            "habitat restoration volunteer",
+            "community garden volunteer",
+            "trail maintenance volunteer program",
+            "watershed monitoring volunteer"
+        ]
     },
     E: {
         color: "#2A71B0",
         identity: "<strong>You make things make sense.</strong>",
-        behavior: "You organize details, design systems, and create processes that turn confusion into coherence.",
-        qualities: "<strong>Key qualities:</strong> Design · Organize · Align",
-        action: "<strong>Try this:</strong> Create or improve one simple system that helps a community effort run more smoothly."
+        behavior: "Architects bring structure and clarity. You organize details, design systems, and create processes that make climate action coordinated and effective.",
+        action: "<strong>Orientation Lens:</strong> Look for operational needs, project logistics, administrative support, planning committees, or workflow design.",
+        searchTerms: [
+            "environmental project logistics volunteer",
+            "nonprofit operations volunteer sustainability",
+            "event planning volunteer conservation",
+            "administrative support volunteer climate"
+        ]
     },
     F: {
         color: "#002060",
         identity: "<strong>You honor what lasts.</strong>",
-        behavior: "You protect meaning, memory, and long‑view purpose by noticing what’s irreplaceable and giving it care.",
-        qualities: "<strong>Key qualities:</strong> Preserve · Honor · Archive",
-        action: "<strong>Try this:</strong> Spend time tending a place, practice, or relationship that deserves continuity."
+        behavior: "Keepers protect meaning and memory. You notice what’s irreplaceable, uphold values, and help communities stay rooted in purpose.",
+        action: "<strong>Orientation Lens:</strong> Look for long-view initiatives like land trusts, heritage site conservation, ecological history documentation, or advisory roles.",
+        searchTerms: [
+            "land trust volunteer opportunities",
+            "watershed council volunteer",
+            "environmental history preservation",
+            "community ecological monitoring"
+        ]
     },
     G: {
         color: "#6D398B",
         identity: "<strong>You bring people together.</strong>",
-        behavior: "You build trust, ease tension, and create environments where people feel understood and included.",
-        qualities: "<strong>Key qualities:</strong> Bridge · Listen · Unite",
-        action: "<strong>Try this:</strong> Reach out to someone who might feel on the margins and help them feel welcomed into a shared effort."
+        behavior: "Connectors build trust and belonging. You sense what people need, ease tension, and create environments where collaboration can thrive.",
+        action: "<strong>Orientation Lens:</strong> Look for relational roles such as meeting facilitation, welcoming newcomers, community dialogues, or bridging perspectives.",
+        searchTerms: [
+            "community climate conversation facilitator",
+            "environmental justice community liaison volunteer",
+            "climate dialogue circle",
+            "sustainability community engagement volunteer"
+        ]
     },
     H: {
         color: "#EE8BFD",
         identity: "<strong>You protect what’s vulnerable.</strong>",
-        behavior: "You step in when something is at risk and help groups stay courageous, accountable, and principled.",
-        qualities: "<strong>Key qualities:</strong> Defend · Uphold · Shield",
-        action: "<strong>Try this:</strong> Support one effort that needs protection — a place, a boundary, or a community under pressure."
+        behavior: "Guardians defend people, places, and principles. You step in when something is at risk and help groups stay courageous, accountable, and principled.",
+        action: "<strong>Orientation Lens:</strong> Look for advocacy efforts, environmental justice groups, habitat protection teams, or legal/policy observer roles.",
+        searchTerms: [
+            "climate justice volunteer",
+            "environmental defense policy volunteer",
+            "environmental accountability advocacy",
+            "legal observer climate action"
+        ]
     }
 };
 
@@ -456,7 +521,7 @@ questions.forEach((q, i) => {
     quizDiv.appendChild(block);
 });
 
-// Add change listener to highlight labels on selection
+// Highlight radio labels on click
 quizDiv.addEventListener('change', (e) => {
     if (e.target.type === 'radio') {
         const questionBlock = e.target.closest('.question');
@@ -465,7 +530,7 @@ quizDiv.addEventListener('change', (e) => {
     }
 });
 
-// Calculate Results
+// Calculate & Display Results
 function calculateResults() {
     const scores = { A: 0, B: 0, C: 0, D: 0, E: 0, F: 0, G: 0, H: 0 };
 
@@ -495,37 +560,51 @@ function calculateResults() {
     const result = document.getElementById("result");
     result.style.display = "block";
 
-    // URLs using archetype parameters
     const primaryUrl = `directory.html?style=${encodeURIComponent(primaryName)}`;
     const secondaryUrl = `directory.html?style=${encodeURIComponent(secondaryName)}`;
 
     result.innerHTML = `
+        <!-- PRIMARY RESULT CARD -->
         <div class="styleBlock" style="border-left-color:${primaryBlock.color}">
             <div class="styleTitle">
                 Your primary style: <span style="color:${primaryBlock.color};">${primaryName}</span>
             </div>
             <div class="styleIdentity">${primaryBlock.identity}</div>
-            <div>${primaryBlock.behavior}</div>
-            <div class="styleQualities">${primaryBlock.qualities}</div>
-            <div class="styleAction">${primaryBlock.action}</div>
+            <div style="margin-bottom: 0.85rem; color: #475569;">${primaryBlock.behavior}</div>
+            
+            <div class="styleAction">
+                ${primaryBlock.action}
+            </div>
+
+            <div class="searchTermsBlock">
+                <strong>Try searching directories for:</strong>
+                <ul>
+                    ${primaryBlock.searchTerms.map(term => `<li><code>${term}</code></li>`).join('')}
+                </ul>
+            </div>
+
             <div class="cta-container">
-                <a href="${primaryUrl}" class="btn-pill">
-                    Explore ${primaryName} Resources &rarr;
+                <a href="${primaryUrl}" class="btn-pill" style="background-color:${primaryBlock.color}; color:#FFFFFF !important;">
+                    Explore ${primaryName} Directory &rarr;
                 </a>
             </div>
         </div>
 
-        <div class="styleBlock" style="border-left-color:${secondaryBlock.color}">
-            <div class="styleTitle">
-                Your secondary style: <span style="color:${secondaryBlock.color};">${secondaryName}</span>
+        <!-- SECONDARY RESULT TEASE CARD -->
+        <div class="styleBlock" style="border-left-color:${secondaryBlock.color}; background: #FAF5FF;">
+            <div class="styleTitle" style="font-size: 1.15rem;">
+                Secondary alignment: <span style="color:${secondaryBlock.color};">${secondaryName}</span>
             </div>
-            <div class="styleIdentity">${secondaryBlock.identity}</div>
-            <div>${secondaryBlock.behavior}</div>
-            <div class="styleQualities">${secondaryBlock.qualities}</div>
-            <div class="styleAction">${secondaryBlock.action}</div>
-            <div class="cta-container">
+            <div class="styleIdentity" style="font-size: 0.98rem; margin-bottom: 0.35rem;">
+                ${secondaryBlock.identity}
+            </div>
+            <div style="font-size: 0.9rem; color: #475569;">
+                ${secondaryBlock.behavior}
+            </div>
+            
+            <div class="cta-container" style="margin-top: 1rem;">
                 <a href="${secondaryUrl}" class="btn-pill btn-secondary-pill">
-                    Explore ${secondaryName} Resources &rarr;
+                    Peek ${secondaryName} Directory &rarr;
                 </a>
             </div>
         </div>
