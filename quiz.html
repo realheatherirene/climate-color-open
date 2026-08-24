@@ -1,291 +1,267 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
 <title>Climate Color Stewardship Quiz</title>
+
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=ADLaM+Display&family=Varela+Round&display=swap" rel="stylesheet">
+
 <style>
+/* ==========================================================================
+Base & Global Styles (Directory-Matched)
+========================================================================== */
+
+* { box-sizing: border-box; }
+
+body {
+    font-family: 'Varela Round', -apple-system, BlinkMacSystemFont, sans-serif;
+    max-width: 1120px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+    background-color: #FFFFFF;
+    color: #212121;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* ==========================================================================
+Progress Bar
+========================================================================== */
+
+.progress-wrapper {
+    width: 100%;
+    background: #F1F5F9;
+    border-radius: 9999px;
+    height: 10px;
+    margin-bottom: 1.5rem;
+}
+
+.progress-bar {
+    height: 10px;
+    border-radius: 9999px;
+    background: #334155;
+    width: 0%;
+    transition: width 0.3s ease;
+}
+
+/* ==========================================================================
+Question Card
+========================================================================== */
+
+.question {
+    background: #FFFFFF;
+    border: 1px solid #E2E8F0;
+    border-radius: 12px;
+    padding: 1.25rem 1.25rem;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+    margin-bottom: 1.5rem;
+    text-align: left;
+}
+
+.question h2 {
+    font-family: 'ADLaM Display', sans-serif;
+    font-size: 1.35rem;
+    margin-bottom: 1rem;
+    color: #0F172A;
+}
+
+/* ==========================================================================
+Answer Buttons (Pill Style)
+========================================================================== */
+
+.answers button {
+    display: block;
+    width: 100%;
+    margin: 0.5rem 0;
+    padding: 0.75rem 1rem;
+    border-radius: 9999px;
+    border: 1px solid #E2E8F0;
+    background: #F8FAFC;
+    font-size: 0.95rem;
+    font-weight: 600;
+    text-align: left;
+    cursor: pointer;
+    transition: all 0.15s ease;
+}
+
+.answers button:hover {
+    transform: translateY(-1px);
+    filter: brightness(0.97);
+}
+
+/* ==========================================================================
+Result Cards
+========================================================================== */
+
+.result-card {
+    background: #FFFFFF;
+    border: 1px solid #E2E8F0;
+    border-radius: 12px;
+    padding: 1.25rem 1.25rem;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+    margin-bottom: 2rem;
+    text-align: left;
+    position: relative;
+}
+
+/* Full-strength but softened sidebar (Option B) */
+.result-card::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 6px;
+    height: 100%;
+    border-radius: 6px;
+    background: var(--sidebar-color);
+}
+
+.result-title {
+    font-family: 'ADLaM Display', sans-serif;
+    font-size: 1.4rem;
+    margin-bottom: 0.75rem;
+    color: #0F172A;
+}
+
+.result-section {
+    margin-bottom: 1.25rem;
+}
+
+.result-section strong {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: #334155;
+    margin-bottom: 0.35rem;
+    display: block;
+}
+
+/* ==========================================================================
+Explore Buttons (Tint System)
+========================================================================== */
+
+.result-buttons a {
+    display: inline-block;
+    padding: 0.55rem 1.1rem;
+    margin-right: 0.75rem;
+    margin-top: 0.5rem;
+    border-radius: 9999px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-decoration: none;
+    transition: all 0.15s ease;
+    border: 1px solid transparent;
+}
+
+.result-buttons a:hover {
+    transform: translateY(-1px);
+    filter: brightness(0.97);
+}
+
+/* ==========================================================================
+Retake Button
+========================================================================== */
+
+.retake {
+    text-align: left;
+    margin-top: 1rem;
+}
+
+.retake button {
+    padding: 0.65rem 1.25rem;
+    border-radius: 9999px;
+    border: 1px solid #CBD5E1;
+    background: #F1F5F9;
+    font-size: 0.9rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.15s ease;
+}
+
+.retake button:hover {
+    transform: translateY(-1px);
+    filter: brightness(0.97);
+}
+
+/* ==========================================================================
+Responsive
+========================================================================== */
+
+@media (max-width: 640px) {
     body {
-        font-family: Arial, sans-serif;
-        background: #f7f7f7;
-        margin: 0;
-        padding: 0;
-        color: #333;
+        padding: 1.25rem 0.85rem;
     }
-
-    .container {
-        max-width: 800px;
-        margin: 40px auto;
-        background: #fff;
-        padding: 30px;
-        border-radius: 12px;
-        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-    }
-
-    h1 {
-        text-align: center;
-        margin-bottom: 20px;
-    }
-
-    .question {
-        margin-bottom: 30px;
-    }
-
-    .answers button {
-        display: block;
-        width: 100%;
-        margin: 8px 0;
-        padding: 12px;
-        border: none;
-        border-radius: 8px;
-        background: #e0e0e0;
-        cursor: pointer;
-        font-size: 16px;
-    }
-
-    .answers button:hover {
-        background: #d5d5d5;
-    }
-
-    .result-card {
-        margin-top: 40px;
-        padding: 25px;
-        border-radius: 12px;
-        background: #fff;
-        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-    }
-
-    .result-title {
-        font-size: 26px;
-        font-weight: bold;
-        margin-bottom: 10px;
-    }
-
-    .result-section {
-        margin-bottom: 18px;
-    }
-
-    .result-section strong {
-        display: block;
-        margin-bottom: 6px;
-        font-size: 18px;
-    }
-
-    .result-buttons a {
-        display: inline-block;
-        margin: 10px 10px 0 0;
-        padding: 12px 18px;
-        border-radius: 8px;
-        text-decoration: none;
-        color: #fff;
-        font-weight: bold;
-    }
-
-    .retake {
-        margin-top: 30px;
-        text-align: center;
-    }
-
-    .retake button {
-        padding: 12px 20px;
-        font-size: 16px;
-        border: none;
-        border-radius: 8px;
-        background: #444;
-        color: #fff;
-        cursor: pointer;
-    }
-
-    .retake button:hover {
-        background: #333;
-    }
+}
 </style>
 </head>
 
 <body>
-<div class="container">
-    <h1>Climate Color Stewardship Quiz</h1>
 
+<!-- Progress Bar -->
+<div class="progress-wrapper">
+    <div class="progress-bar" id="progressBar"></div>
+</div>
+
+<div class="container">
     <div id="quiz"></div>
     <div id="result"></div>
 </div>
 
 <script>
-// ----------------------------
-// Updated Climate Color Styles
-// ----------------------------
-const styles = {
-    Driver: {
-        color: "red",
-        identity: "Direct Action & Momentum",
-        behavior: "You turn hesitation into movement by offering direction, confidence, and a clear first step.",
-        action: "Focus on rapid‑response efforts, decisive mobilization, and projects that need immediate traction.",
-        search: [
-            "climate action crew lead",
-            "conservation project coordinator",
-            "rapid‑response volunteer"
-        ]
-    },
-    Advocate: {
-        color: "orange",
-        identity: "Public Voice & Human Resonance",
-        behavior: "You build enthusiasm and emotional connection, helping people feel the meaning behind climate work.",
-        action: "Focus on storytelling, outreach, communications, and roles that amplify messages and inspire participation.",
-        search: [
-            "climate communications ambassador",
-            "environmental outreach volunteer",
-            "community engagement storyteller"
-        ]
-    },
-    Visionary: {
-        color: "yellow",
-        identity: "Creative Futures & Innovation",
-        behavior: "You expand what’s possible by reframing challenges, imagining alternatives, and offering fresh perspectives.",
-        action: "Focus on design sprints, innovation workshops, and creative problem‑solving spaces.",
-        search: [
-            "sustainability design sprint",
-            "climate innovation workshop",
-            "environmental problem‑solving volunteer"
-        ]
-    },
-    Stabilizer: {
-        color: "green",
-        identity: "Steady Care & Long‑Term Support",
-        behavior: "You sustain efforts over time through grounded care, consistency, and reliable follow‑through.",
-        action: "Focus on recurring stewardship tasks, habitat tending, and long‑term community care.",
-        search: [
-            "habitat restoration volunteer",
-            "community garden steward",
-            "watershed monitoring volunteer"
-        ]
-    },
-    Architect: {
-        color: "blue",
-        identity: "Systems Design & Clarity",
-        behavior: "You bring coherence to complexity by organizing details, designing systems, and aligning moving parts.",
-        action: "Focus on logistics, operations, planning committees, and process design.",
-        search: [
-            "nonprofit operations volunteer",
-            "conservation event logistics",
-            "climate project planning support"
-        ]
-    },
-    Keeper: {
-        color: "indigo",
-        identity: "Heritage Preservation & Continuity",
-        behavior: "You preserve meaning, memory, and long‑view purpose by tending what’s irreplaceable and honoring community wisdom.",
-        action: "Focus on land trust support, ecological history, heritage sites, and continuity‑based stewardship.",
-        search: [
-            "land trust volunteer",
-            "ecological history documentation",
-            "heritage site conservation"
-        ]
-    },
-    Connector: {
-        color: "purple",
-        identity: "Relationship Building & Belonging",
-        behavior: "You create trust, ease tension, and help people feel understood, included, and connected.",
-        action: "Focus on community liaison roles, welcoming teams, dialogue circles, and trust‑building gatherings.",
-        search: [
-            "community climate conversation facilitator",
-            "environmental justice liaison",
-            "sustainability engagement volunteer"
-        ]
-    },
-    Guardian: {
-        color: "violet",
-        identity: "Protection & Justice Stewardship",
-        behavior: "You defend what’s vulnerable, uphold boundaries, and ensure accountability when pressure rises.",
-        action: "Focus on environmental justice, policy monitoring, conflict navigation, and protection‑oriented stewardship.",
-        search: [
-            "climate justice volunteer",
-            "environmental accountability advocate",
-            "legal observer climate action"
-        ]
-    }
-};
+/* ==========================================================================
+Quiz Data
+========================================================================== */
 
-// ----------------------------
-// Updated Quiz Questions
-// ----------------------------
 const questions = [
     {
-        q: "A local park needs care. Where do you naturally step in?",
+        q: "When facing a climate challenge, what’s your first instinct?",
         a: {
-            Driver: "Organize a fast‑paced cleanup with tools ready.",
-            Advocate: "Share messages that help neighbors feel why the park matters.",
-            Visionary: "Imagine creative redesigns using native plants and regenerative ideas.",
-            Stabilizer: "Show up weekly to water, weed, and tend the space over time."
+            Driver: "Take action immediately — movement creates momentum.",
+            Advocate: "Communicate the issue clearly so others understand.",
+            Visionary: "Zoom out and imagine the long-term systemic picture.",
+            Stabilizer: "Ground the situation and look for practical steps.",
+            Architect: "Analyze the structure and find the most efficient path.",
+            Keeper: "Protect what matters — heritage, species, places.",
+            Connector: "Bring people together to collaborate.",
+            Guardian: "Watch for risks, blind spots, and injustices."
         }
     },
     {
-        q: "Your neighborhood is hosting a sustainability fair. What’s your role?",
+        q: "Which environment feels most energizing to you?",
         a: {
-            Architect: "Manage schedules, sign‑ins, and coordinated logistics.",
-            Keeper: "Help preserve local ecological history or community memory for display.",
-            Connector: "Welcome visitors and build bridges between groups.",
-            Guardian: "Step in to uphold fairness, boundaries, or environmental justice."
+            Driver: "A fast-paced action-oriented space.",
+            Advocate: "A room full of conversation and storytelling.",
+            Visionary: "A creative studio or strategy retreat.",
+            Stabilizer: "A garden, workshop, or hands-on project.",
+            Architect: "A data dashboard or planning session.",
+            Keeper: "A forest, archive, or cultural space.",
+            Connector: "A community gathering or shared meal.",
+            Guardian: "A watchdog meeting or policy review."
         }
     },
     {
-        q: "When faced with a new climate goal, you feel most energized by:",
+        q: "What role do you naturally take in group efforts?",
         a: {
-            Driver: "Setting bold targets and jumping directly into action.",
-            Visionary: "Reframing the challenge with fresh, creative ideas.",
-            Architect: "Designing the step‑by‑step plan that makes it run smoothly.",
-            Connector: "Welcoming new people so everyone feels part of the effort."
-        }
-    },
-    {
-        q: "What kind of impact feels most rewarding to you?",
-        a: {
-            Advocate: "Inspiring people to care through human connection and storytelling.",
-            Stabilizer: "Seeing steady improvement through long‑term commitment.",
-            Keeper: "Preserving meaning, memory, or ecological heritage.",
-            Guardian: "Defending vulnerable ecosystems or communities under pressure."
-        }
-    },
-    {
-        q: "A new municipal environmental policy is being proposed. You choose to:",
-        a: {
-            Driver: "Rally people to show up and create momentum.",
-            Advocate: "Explain the impact in ways that resonate with voters.",
-            Visionary: "Offer alternative long‑view concepts or regenerative models.",
-            Guardian: "Analyze the wording to ensure accountability and protection."
-        }
-    },
-    {
-        q: "How do you prefer to handle team organization during a project?",
-        a: {
-            Architect: "Build systems and logistics that keep everything aligned.",
-            Keeper: "Ensure long‑view values and community wisdom guide decisions.",
-            Connector: "Facilitate dialogue and ease tension between members.",
-            Stabilizer: "Maintain steady check‑ins that keep work grounded."
-        }
-    },
-    {
-        q: "What is your primary focus when starting a new initiative?",
-        a: {
-            Driver: "Generating immediate energy and getting things moving.",
-            Advocate: "Framing the story that draws people in.",
-            Visionary: "Designing bold, future‑focused models.",
-            Stabilizer: "Establishing a reliable long‑term routine."
-        }
-    },
-    {
-        q: "How do you ensure community projects stay resilient over time?",
-        a: {
-            Architect: "Set up efficient administrative frameworks and records.",
-            Keeper: "Preserve ecological heritage, memory, or long‑view purpose.",
-            Connector: "Nurture strong relationships across the community.",
-            Guardian: "Monitor policies and defend vulnerable ecosystems or groups."
+            Driver: "The catalyst — you get things moving.",
+            Advocate: "The communicator — you translate ideas.",
+            Visionary: "The strategist — you see the future arc.",
+            Stabilizer: "The steady hand — you keep things grounded.",
+            Architect: "The planner — you design the system.",
+            Keeper: "The protector — you safeguard what matters.",
+            Connector: "The bridge — you link people and resources.",
+            Guardian: "The monitor — you ensure accountability."
         }
     }
 ];
 
-// ----------------------------
-// Quiz Logic
-// ----------------------------
+/* ==========================================================================
+State
+========================================================================== */
+
 let currentQuestion = 0;
 let scores = {
     Driver: 0,
@@ -297,6 +273,20 @@ let scores = {
     Connector: 0,
     Guardian: 0
 };
+
+/* ==========================================================================
+Progress Bar
+========================================================================== */
+
+function updateProgress() {
+    const total = questions.length;
+    const percent = (currentQuestion / total) * 100;
+    document.getElementById("progressBar").style.width = percent + "%";
+}
+
+/* ==========================================================================
+Render Question
+========================================================================== */
 
 function renderQuestion() {
     if (currentQuestion >= questions.length) {
@@ -313,7 +303,13 @@ function renderQuestion() {
 
     html += `</div></div>`;
     document.getElementById("quiz").innerHTML = html;
+
+    updateProgress();
 }
+
+/* ==========================================================================
+Handle Answer
+========================================================================== */
 
 function selectAnswer(style) {
     scores[style]++;
@@ -321,82 +317,72 @@ function selectAnswer(style) {
     renderQuestion();
 }
 
+/* ==========================================================================
+Show Results
+========================================================================== */
+
 function showResults() {
-    document.getElementById("quiz").innerHTML = "";
+    const topStyle = Object.keys(scores).reduce((a, b) =>
+        scores[a] > scores[b] ? a : b
+    );
 
-    const sorted = Object.entries(scores).sort((a,b) => b[1] - a[1]);
-    const primary = sorted[0][0];
-    const secondary = sorted[1][0];
+    const colors = {
+        Driver: "#E32322",
+        Advocate: "#F18E1C",
+        Visionary: "#D4B000",
+        Stabilizer: "#5A9129",
+        Architect: "#2A71B0",
+        Keeper: "#002060",
+        Connector: "#6D398B",
+        Guardian: "#D946EF"
+    };
 
-    const p = styles[primary];
-    const s = styles[secondary];
+    const color = colors[topStyle];
 
-    let html = `
-        <div class="result-card" style="border-left: 12px solid ${p.color};">
-            <div class="result-title">${primary}</div>
-
-            <div class="result-section">
-                <strong>Climate Strengths</strong>
-                ${p.identity}
-            </div>
-
-            <div class="result-section">
-                <strong>Behavior</strong>
-                ${p.behavior}
-            </div>
+    const resultHTML = `
+        <div class="result-card" style="--sidebar-color: ${color};">
+            <div class="result-title">${topStyle}</div>
 
             <div class="result-section">
-                <strong>Climate Actions</strong>
-                ${p.action}
-            </div>
-
-            <div class="result-buttons">
-                <a href="https://climatecolor.com/${p.color}" style="background:${p.color};">
-                    Explore ${primary} climate strengths →
-                </a>
-                <a href="directory.html?style=${primary}" style="background:${p.color};">
-                    Explore ${primary} climate actions →
-                </a>
-            </div>
-
-            <div class="result-section" style="margin-top:20px;">
-                <strong>Try these style‑aligned search phrases</strong>
-                <ul>
-                    ${p.search.map(term => `<li>${term}</li>`).join("")}
-                </ul>
-            </div>
-        </div>
-
-        <div class="result-card" style="border-left: 12px solid ${s.color}; margin-top:30px;">
-            <div class="result-title">${secondary}</div>
-
-            <div class="result-section">
-                <strong>Climate Strengths</strong>
-                ${s.identity}
+                <strong>Your Stewardship Strength</strong>
+                You bring a unique climate leadership energy shaped by your instincts, values, and natural way of engaging with the world.
             </div>
 
             <div class="result-section">
-                <strong>Behavior</strong>
-                ${s.behavior}
+                <strong>Explore Your Style</strong>
+                <div class="result-buttons">
+                    <a href="/directory.html?style=${topStyle}"
+                       style="background-color:${color}14; border-color:${color}40; color:${color};">
+                       Explore Stewardship Resources →
+                    </a>
+                </div>
             </div>
 
-            <div class="result-buttons">
-                <a href="https://climatecolor.com/${s.color}" style="background:${s.color};">
-                    Explore ${secondary} climate strengths →
-                </a>
-                <a href="directory.html?style=${secondary}" style="background:${s.color};">
-                    Explore ${secondary} climate actions →
-                </a>
+            <div class="retake">
+                <button onclick="restartQuiz()">Retake Quiz</button>
             </div>
-        </div>
-
-        <div class="retake">
-            <button onclick="location.reload()">Retake Quiz</button>
         </div>
     `;
 
-    document.getElementById("result").innerHTML = html;
+    document.getElementById("result").innerHTML = resultHTML;
+    document.getElementById("quiz").innerHTML = "";
 }
+
+/* ==========================================================================
+Restart
+========================================================================== */
+
+function restartQuiz() {
+    currentQuestion = 0;
+    Object.keys(scores).forEach(k => scores[k] = 0);
+    document.getElementById("result").innerHTML = "";
+    updateProgress();
+    renderQuestion();
+}
+
+/* ==========================================================================
+Init
+========================================================================== */
 
 renderQuestion();
 </script>
