@@ -31,8 +31,9 @@ body {
 }
 
 h1 {
-    font-size: 1.75rem;
-    color: #0F172A;
+    font-family: 'ADLaM Display', cursive, sans-serif;
+    color: #1494B9;
+    font-size: 2.25rem;
     margin-top: 0;
     margin-bottom: 0.5rem;
     text-align: left;
@@ -40,7 +41,7 @@ h1 {
 
 p.subtitle {
     color: #4B5563;
-    font-size: 1rem;
+    font-size: 1.02rem;
     margin-bottom: 1.5rem;
     text-align: left;
 }
@@ -57,13 +58,11 @@ Archetype Pill Navigation
 }
 
 .pill-btn {
-    border: 1px solid #CBD5E1;
-    background-color: #F8FAFC;
-    color: #475569;
-    padding: 0.4rem 0.85rem;
+    border: 1px solid transparent;
+    padding: 0.45rem 0.95rem;
     border-radius: 9999px;
     font-family: inherit;
-    font-size: 0.85rem;
+    font-size: 0.88rem;
     font-weight: 700;
     cursor: pointer;
     transition: all 0.15s ease;
@@ -71,82 +70,91 @@ Archetype Pill Navigation
 
 .pill-btn:hover {
     transform: translateY(-1px);
-    border-color: #94A3B8;
+    filter: brightness(0.96);
 }
 
-/* Active Pill dynamic color styles applied via JS */
 .pill-btn.active {
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    background-color: #334155 !important;
+    border-color: #334155 !important;
+    color: #FFFFFF !important;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
 }
 
 /* ========================================================================== 
-Resource Card Grid & Items
+Resource Card Grid & Items (Quiz Results Alignment)
 ========================================================================== */
 
 .resource-list {
     display: flex;
     flex-direction: column;
-    gap: 1rem;
+    gap: 1.25rem;
 }
 
-.resource-card {
+.styleBlock {
     background: #FFFFFF;
     border: 1px solid #E2E8F0;
     border-radius: 12px;
     padding: 1.25rem 1.5rem;
+    border-left: 6px solid #CBD5E1;
     text-align: left;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
-    border-left: 6px solid #CBD5E1;
     transition: transform 0.15s ease, box-shadow 0.15s ease;
 }
 
-.resource-card:hover {
+.styleBlock:hover {
     transform: translateY(-2px);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
 }
 
-.resource-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-    margin-bottom: 0.35rem;
-    gap: 1rem;
-}
-
-.resource-title {
-    font-size: 1.15rem;
+.styleTitle {
+    font-size: 1.2rem;
     font-weight: 700;
     color: #0F172A;
+    margin-bottom: 0.35rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
-.resource-type {
+.type-tag {
     font-size: 0.75rem;
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.05em;
-    padding: 0.25rem 0.6rem;
+    padding: 0.2rem 0.55rem;
     border-radius: 4px;
     background: #F1F5F9;
     color: #475569;
-    white-space: nowrap;
 }
 
-.resource-desc {
+.styleIdentity {
     font-size: 0.95rem;
-    color: #334155;
+    color: #475569;
     margin-bottom: 0.85rem;
 }
 
-.resource-link {
-    display: inline-block;
-    font-size: 0.88rem;
-    font-weight: 700;
-    text-decoration: none;
-    transition: opacity 0.15s ease;
+.cta-container {
+    display: flex;
+    justify-content: flex-start;
+    margin-top: 1rem;
 }
 
-.resource-link:hover {
-    opacity: 0.8;
+.btn-pill-soft {
+    display: inline-block;
+    width: auto !important;
+    padding: 0.45rem 1.1rem !important;
+    font-size: 0.88rem !important;
+    font-weight: 700;
+    text-align: left;
+    text-decoration: none;
+    border-radius: 9999px;
+    border: 1px solid transparent;
+    transition: all 0.15s ease;
+}
+
+.btn-pill-soft:hover {
+    filter: brightness(0.95);
+    transform: translateY(-1px);
 }
 
 .empty-state {
@@ -163,10 +171,13 @@ Resource Card Grid & Items
     body {
         padding: 1.25rem 0.85rem;
     }
-    .resource-card {
+    h1 {
+        font-size: 1.85rem;
+    }
+    .styleBlock {
         padding: 1rem 1.15rem;
     }
-    .resource-header {
+    .styleTitle {
         flex-direction: column;
         align-items: flex-start;
         gap: 0.25rem;
@@ -178,16 +189,15 @@ Resource Card Grid & Items
 <body>
 
 <h1>Stewardship Directory</h1>
-<p class="subtitle">Explore organizations, platforms, and tools aligned with your climate action style.</p>
+<p class="subtitle" id="directorySubtitle">Explore organizations, platforms, and tools aligned with your climate action style.</p>
 
 <div class="filter-pills" id="pillContainer"></div>
 
 <div class="resource-list" id="resourceContainer"></div>
 
 <script>
-// Metadata with archetypes and matching colors
 const styles = {
-    All: { color: "#1494B9" },
+    "All Styles": { color: "#334155" },
     Driver: { color: "#E32322" },
     Advocate: { color: "#F18E1C" },
     Visionary: { color: "#D4B000" },
@@ -198,29 +208,72 @@ const styles = {
     Guardian: { color: "#D946EF" }
 };
 
-// Resource Database
+// Full 44-Resource Database
 const resources = [
     { title: "Sunrise Movement", styles: ["Driver", "Advocate"], type: "Direct Action", desc: "Youth-led movement organizing rapid political and local action for climate solutions.", url: "https://www.sunrisemovement.org" },
-    { title: "Climate Reality Project", styles: ["Advocate", "Connector"], type: "Outreach & Training", desc: "Trainings and communication hubs for public climate advocates and storytellers.", url: "https://www.climaterealityproject.org" },
-    { title: "Project Drawdown", styles: ["Visionary", "Architect"], type: "Research & Systems", desc: "Resource hub mapping scalable solutions and systemic approaches for climate mitigation.", url: "https://drawdown.org" },
+    { title: "350.org", styles: ["Driver", "Guardian"], type: "Campaigning", desc: "Global grassroots network taking direct action on fossil fuel infrastructure.", url: "https://350.org" },
+    { title: "Extinction Rebellion", styles: ["Driver"], type: "Civil Resistance", desc: "International movement using non-violent civil disobedience to compel climate action.", url: "https://rebellion.global" },
+    { title: "Rainforest Action Network", styles: ["Driver", "Guardian"], type: "Corporate Action", desc: "Direct market campaigns targeting global corporate drivers of deforestation.", url: "https://www.ran.org" },
+    { title: "Climate Defiance", styles: ["Driver"], type: "Direct Action", desc: "Youth-led rapid-response network conducting peaceful blockades and disruption.", url: "https://www.climatedefiance.org" },
+    
+    { title: "Climate Reality Project", styles: ["Advocate", "Connector"], type: "Public Outreach", desc: "Trainings and communication hubs for public climate advocates and storytellers.", url: "https://www.climaterealityproject.org" },
+    { title: "Citizen's Climate Lobby", styles: ["Advocate", "Architect", "Connector"], type: "Civic Advocacy", desc: "Building relationships with lawmakers and training citizen lobbyists across local chapters.", url: "https://citizensclimatelobby.org" },
+    { title: "Climate Voices", styles: ["Advocate"], type: "Speakers Bureau", desc: "Connecting local scientists and communicators directly with community audiences.", url: "https://climatevoices.org" },
+    { title: "EcoAmerica", styles: ["Advocate", "Connector"], type: "Faith & Civic", desc: "Building broad-based leadership across faith, health, and local civic sectors.", url: "https://ecoamerica.org" },
+    { title: "The Climate Mobilization", styles: ["Advocate", "Driver"], type: "Policy Mobilization", desc: "Campaigning to declare climate emergencies and mobilize municipal action.", url: "https://www.theclimatemobilization.org" },
+    { title: "InsideClimate News", styles: ["Advocate", "Guardian"], type: "Journalism", desc: "Independent, non-profit news organization covering energy, environmental law, and climate.", url: "https://insideclimatenews.org" },
+
+    { title: "Project Drawdown", styles: ["Visionary", "Architect"], type: "Research & Systems", desc: "Mapping scalable, science-backed solutions and systemic models for climate drawdown.", url: "https://drawdown.org" },
+    { title: "B Lab / B Corp Directory", styles: ["Visionary", "Architect"], type: "Economic Design", desc: "Framework and directory supporting sustainable business and ethical economic design.", url: "https://www.bcorporation.net" },
+    { title: "Rocky Mountain Institute", styles: ["Visionary", "Architect"], type: "Clean Tech", desc: "Accelerating market-driven transitions to clean energy and zero-carbon building systems.", url: "https://rmi.org" },
+    { title: "Ecovillage Network", styles: ["Visionary", "Stabilizer"], type: "Living Systems", desc: "Global network of regenerative intentional communities and ecological housing.", url: "https://ecovillage.org" },
+    { title: "Dark Mountain Project", styles: ["Visionary", "Keeper"], type: "Cultural Design", desc: "Cultural collective framing new narratives for an age of ecological transition.", url: "https://dark-mountain.net" },
+
     { title: "National Wildlife Federation", styles: ["Stabilizer", "Keeper"], type: "Conservation", desc: "Hands-on habitat protection, local garden certifications, and practical conservation.", url: "https://www.nwf.org" },
-    { title: "350.org", styles: ["Driver", "Guardian"], type: "Campaigning", desc: "Global grassroots network taking direct action on fossil fuels and environmental justice.", url: "https://350.org" },
-    { title: "Citizen's Climate Lobby", styles: ["Advocate", "Architect", "Connector"], type: "Policy & Outreach", desc: "Nonpartisan group building relationships with lawmakers and training citizen lobbyists.", url: "https://citizensclimatelobby.org" },
-    { title: "Local Food Hubs & Community Gardens", styles: ["Stabilizer", "Keeper"], type: "Community Care", desc: "Practical local agriculture networks for building ongoing neighborhood resilience.", url: "https://www.usda.gov/local-food-directories" },
-    { title: "Sierra Club Volunteer Portal", styles: ["Driver", "Stabilizer", "Guardian"], type: "Volunteer Network", desc: "Database for finding localized outdoor stewardship, cleanups, and watchdogs.", url: "https://www.sierraclub.org/get-involved" },
-    { title: "B Lab / B Corp Directory", styles: ["Architect", "Visionary"], type: "Economic Systems", desc: "Framework and directory for supporting sustainable business and ethical economic design.", url: "https://www.bcorporation.net" },
-    { title: "Indigenous Environmental Network", styles: ["Keeper", "Guardian"], type: "Heritage & Rights", desc: "Alliance protecting sacred lands, traditional ecological wisdom, and environmental rights.", url: "https://www.ienearth.org" },
-    { title: "Community Environmental Legal Defense Fund", styles: ["Guardian"], type: "Legal Watchdog", desc: "Legal assistance and advocacy for local ecosystems and civic environmental rights.", url: "https://celdf.org" },
-    { title: "Transition Network", styles: ["Connector", "Visionary"], type: "Community Building", desc: "Grassroots movement helping communities rebuild local resilience and cooperation.", url: "https://transitionnetwork.org" }
+    { title: "Local Food Hubs & USDA Directory", styles: ["Stabilizer", "Keeper"], type: "Agriculture", desc: "Practical local agriculture networks for building ongoing neighborhood food resilience.", url: "https://www.usda.gov/local-food-directories" },
+    { title: "Community Garden Association", styles: ["Stabilizer", "Connector"], type: "Community Care", desc: "Resources and neighborhood network maps for building and tending shared gardens.", url: "https://communitygarden.org" },
+    { title: "TreePeople", styles: ["Stabilizer", "Driver"], type: "Urban Forestry", desc: "Hands-on urban tree planting, canopy restoration, and local watershed care.", url: "https://www.treepeople.org" },
+    { title: "Xerces Society", styles: ["Stabilizer", "Keeper"], type: "Invertebrate Care", desc: "Invertebrate conservation, pollinator habitat restoration, and pesticide reduction.", url: "https://www.xerces.org" },
+    { title: "Compost Coalition", styles: ["Stabilizer"], type: "Soil Health", desc: "Decentralized community composting networks converting urban waste to living soil.", url: "https://www.compostfoundation.org" },
+
+    { title: "Sierra Club Volunteer Portal", styles: ["Architect", "Stabilizer", "Guardian"], type: "Volunteer Operations", desc: "Database for finding localized outdoor stewardship, cleanups, and watchdogs.", url: "https://www.sierraclub.org/get-involved" },
+    { title: "ICLEI Local Governments", styles: ["Architect"], type: "Municipal Logistics", desc: "Global network of local governments dedicated to systemic municipal sustainability.", url: "https://iclei.org" },
+    { title: "Global Footprint Network", styles: ["Architect", "Visionary"], type: "Data Metrics", desc: "Providing accounting frameworks and footprint indicators for resource management.", url: "https://www.footprintnetwork.org" },
+    { title: "Climate Policy Initiative", styles: ["Architect", "Guardian"], type: "Financial Systems", desc: "Analyzing energy policy and public finance systems to maximize investment efficiency.", url: "https://www.climatepolicyinitiative.org" },
+    { title: "Carbon Disclosure Project", styles: ["Architect"], type: "Corporate Reporting", desc: "Managing global disclosure systems for investors, companies, and city operations.", url: "https://www.cdp.net" },
+
+    { title: "Indigenous Environmental Network", styles: ["Keeper", "Guardian"], type: "Heritage & Rights", desc: "Alliance protecting sacred lands, traditional ecological wisdom, and indigenous rights.", url: "https://www.ienearth.org" },
+    { title: "Native Seed/SEARCH", styles: ["Keeper", "Stabilizer"], type: "Seed Preservation", desc: "Preserving traditional crop seeds and arid-land agricultural heritage.", url: "https://www.nativeseed.org" },
+    { title: "Land Trust Alliance", styles: ["Keeper", "Architect"], type: "Land Conservation", desc: "National network guiding local land trusts in permanent conservation easement protection.", url: "https://www.landtrustalliance.org" },
+    { title: "Society for Ecological Restoration", styles: ["Keeper", "Stabilizer"], type: "Ecology Protection", desc: "Restoring native ecosystem balance and protecting ecological heritage worldwide.", url: "https://www.ser.org" },
+    { title: "Old Growth Forest Network", styles: ["Keeper"], type: "Forest Protection", desc: "Identifying and preserving protected ancient forests across national county networks.", url: "https://www.oldgrowthforest.network" },
+
+    { title: "Transition Network", styles: ["Connector", "Visionary"], type: "Community Building", desc: "Grassroots movement helping communities rebuild local resilience and cooperation.", url: "https://transitionnetwork.org" },
+    { title: "VolunteerMatch Climate Hub", styles: ["Connector", "Architect"], type: "Volunteering", desc: "Connecting skilled volunteers with local environmental non-profits and groups.", url: "https://www.volunteermatch.org" },
+    { title: "Idealist Environmental Index", styles: ["Connector", "Architect"], type: "Network Portal", desc: "Searchable directory connecting individuals with local climate projects and jobs.", url: "https://www.idealist.org" },
+    { title: "Climate Resilience Leadership Network", styles: ["Connector", "Advocate"], type: "Community Coalitions", desc: "Facilitating cross-sector dialogues and neighborhood resilience circles.", url: "https://resilience.org" },
+    { title: "Green Faith Alliance", styles: ["Connector", "Keeper"], type: "Interfaith Networks", desc: "Mobilizing multi-faith communities for shared local stewardship and justice.", url: "https://greenfaith.org" },
+
+    { title: "Community Environmental Legal Defense Fund", styles: ["Guardian"], type: "Legal Watchdog", desc: "Legal assistance and advocacy protecting rights of nature and community self-governance.", url: "https://celdf.org" },
+    { title: "Earthjustice", styles: ["Guardian", "Driver"], type: "Environmental Law", desc: "Nonprofit environmental law organization wielding the power of law to protect health.", url: "https://earthjustice.org" },
+    { title: "NRDC Action Fund", styles: ["Guardian", "Advocate"], type: "Policy Accountability", desc: "Holding elected officials accountable for environmental justice and clean energy laws.", url: "https://www.nrdcactionfund.org" },
+    { title: "Environmental Justice Health Alliance", styles: ["Guardian", "Connector"], type: "Fence-line Protection", desc: "Grassroots coalition monitoring industrial pollution impacts on vulnerable communities.", url: "https://ej4all.org" },
+    { title: "FrackTracker Alliance", styles: ["Guardian", "Architect"], type: "Data Watchdog", desc: "Tracking extraction risks through map datasets to inform public health advocates.", url: "https://www.fracktracker.org" },
+    { title: "Center for Biological Diversity", styles: ["Guardian", "Keeper"], type: "Species Protection", desc: "Legal advocacy securing protections for endangered species and public lands.", url: "https://www.biologicaldiversity.org" },
+    { title: "Climate Emergency Fund", styles: ["Driver", "Guardian"], type: "Rapid Funding", desc: "Providing rapid grant funding to disruptive grassroots legal action networks.", url: "https://www.climateemergencyfund.org" }
 ];
 
-// Get style parameter from URL (e.g. ?style=Driver)
+// URL Parsing & Sanitization
 const urlParams = new URLSearchParams(window.location.search);
-let activeStyle = urlParams.get('style') || 'All';
+let rawStyle = urlParams.get('style');
+let activeStyle = "All Styles";
 
-// Validate activeStyle exists in our styles object
-if (!styles[activeStyle]) {
-    activeStyle = 'All';
+if (rawStyle) {
+    const cleanInput = decodeURIComponent(rawStyle).trim().toLowerCase();
+    const foundKey = Object.keys(styles).find(s => s.toLowerCase() === cleanInput);
+    if (foundKey) {
+        activeStyle = foundKey;
+    }
 }
 
 function renderPills() {
@@ -236,14 +289,17 @@ function renderPills() {
 
         if (key === activeStyle) {
             btn.classList.add("active");
-            // Apply soft tinted background, solid border, and brand color text
-            btn.style.backgroundColor = `${styleInfo.color}18`;
-            btn.style.borderColor = styleInfo.color;
-            btn.style.color = styleInfo.color;
         } else {
-            btn.style.backgroundColor = "#F8FAFC";
-            btn.style.borderColor = "#CBD5E1";
-            btn.style.color = "#475569";
+            // Permanent soft-tinted style for inactive pills
+            if (key === "All Styles") {
+                btn.style.backgroundColor = "#F1F5F9";
+                btn.style.borderColor = "#CBD5E1";
+                btn.style.color = "#334155";
+            } else {
+                btn.style.backgroundColor = `${styleInfo.color}14`;
+                btn.style.borderColor = `${styleInfo.color}40`;
+                btn.style.color = styleInfo.color;
+            }
         }
 
         btn.onclick = () => selectStyle(key);
@@ -254,9 +310,8 @@ function renderPills() {
 function selectStyle(key) {
     activeStyle = key;
     
-    // Update URL query string without reloading page
     const newUrl = new URL(window.location);
-    if (key === 'All') {
+    if (key === 'All Styles') {
         newUrl.searchParams.delete('style');
     } else {
         newUrl.searchParams.set('style', key);
@@ -269,10 +324,17 @@ function selectStyle(key) {
 
 function renderResources() {
     const container = document.getElementById("resourceContainer");
+    const subtitle = document.getElementById("directorySubtitle");
     container.innerHTML = "";
 
-    // Filter resources without hard caps
-    const filtered = activeStyle === 'All' 
+    // Dynamic Subtitle text
+    if (activeStyle !== 'All Styles' && styles[activeStyle]) {
+        subtitle.innerHTML = `Showing orientation lenses tailored for <strong style="color:${styles[activeStyle].color}">${activeStyle}s</strong>.`;
+    } else {
+        subtitle.innerHTML = `Not sure which style fits you? <a href="quiz.html" style="color:#1494B9; font-weight:bold; text-decoration:underline;">Take the 2-minute Stewardship Quiz &rarr;</a>`;
+    }
+
+    const filtered = activeStyle === 'All Styles' 
         ? resources 
         : resources.filter(res => res.styles.includes(activeStyle));
 
@@ -285,22 +347,27 @@ function renderResources() {
         return;
     }
 
-    const currentThemeColor = styles[activeStyle] ? styles[activeStyle].color : "#1494B9";
-
     filtered.forEach(res => {
+        // Use primary matching style's color for the border/button
+        const matchStyle = (activeStyle !== 'All Styles') ? activeStyle : res.styles[0];
+        const cardColor = styles[matchStyle] ? styles[matchStyle].color : "#1494B9";
+
         const card = document.createElement("div");
-        card.className = "resource-card";
-        card.style.borderLeftColor = currentThemeColor;
+        card.className = "styleBlock";
+        card.style.borderLeftColor = cardColor;
 
         card.innerHTML = `
-            <div class="resource-header">
-                <span class="resource-title">${res.title}</span>
-                <span class="resource-type">${res.type}</span>
+            <div class="styleTitle">
+                <span>${res.title}</span>
+                <span class="type-tag">${res.type}</span>
             </div>
-            <div class="resource-desc">${res.desc}</div>
-            <a href="${res.url}" target="_blank" rel="noopener" class="resource-link" style="color: ${currentThemeColor};">
-                Visit Resource &rarr;
-            </a>
+            <div class="styleIdentity">${res.desc}</div>
+            
+            <div class="cta-container">
+                <a href="${res.url}" target="_blank" rel="noopener" class="btn-pill-soft" style="background-color: ${cardColor}14; border-color: ${cardColor}40; color: ${cardColor} !important;">
+                    Visit Resource &rarr;
+                </a>
+            </div>
         `;
 
         container.appendChild(card);
