@@ -6,6 +6,8 @@
 <title>Stewardship Style Quiz | Climate Color</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=ADLaM+Display&family=Varela+Round&display=swap" rel="stylesheet">
 
 <style>
@@ -33,250 +35,193 @@ h1 {
     color: #1494B9;
     font-size: 2.25rem;
     margin-top: 0;
-    margin-bottom: 0.75rem;
+    margin-bottom: 0.5rem;
     text-align: left;
 }
 
-p {
+p.subtitle {
     color: #4B5563;
-    font-size: 1rem;
-    margin-bottom: 1rem;
-}
-
-/* ========================================================================== 
-Question Cards & Tappable Options 
-========================================================================== */
-
-.question {
-    margin-bottom: 2rem;
-    padding: 1.5rem;
-    background: #FFFFFF;
-    border: 1px solid #E2E8F0;
-    border-radius: 16px;
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.03), 0 2px 4px -1px rgba(0, 0, 0, 0.02);
-}
-
-.question p {
-    font-size: 1.1rem;
-    font-weight: 700;
-    color: #0F172A;
-    margin-top: 0;
-    margin-bottom: 1rem;
-}
-
-label {
-    display: flex;
-    align-items: center;
-    margin: 0.6rem 0;
-    padding: 0.85rem 1.15rem;
-    background: #FFFFFF;
-    border: 2px solid #E2E8F0;
-    border-radius: 12px;
-    cursor: pointer;
-    user-select: none;
-    -webkit-tap-highlight-color: transparent;
-    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-label input[type="radio"] {
-    appearance: none;
-    -webkit-appearance: none;
-    width: 20px;
-    height: 20px;
-    border: 2px solid #94A3B8;
-    border-radius: 50%;
-    margin: 0 0.85rem 0 0;
-    outline: none;
-    display: grid;
-    place-content: center;
-    flex-shrink: 0;
-    transition: all 0.2s ease;
-}
-
-label input[type="radio"]::before {
-    content: "";
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    transform: scale(0);
-    transition: transform 0.15s ease-in-out;
-    background-color: #FFFFFF;
-}
-
-label:hover {
-    border-color: #1494B9;
-    background-color: #F0F9FF;
-    transform: translateY(-1px);
-}
-
-label.selected, label:has(input[type="radio"]:checked) {
-    border-color: #1494B9;
-    background-color: #F0F9FF;
-    box-shadow: 0 2px 8px rgba(20, 148, 185, 0.15);
-}
-
-label input[type="radio"]:checked {
-    border-color: #1494B9;
-    background-color: #1494B9;
-}
-
-label input[type="radio"]:checked::before {
-    transform: scale(1);
-}
-
-label span {
-    font-size: 1rem;
-    color: #334155;
-    line-height: 1.4;
-}
-
-label.selected span, label:has(input[type="radio"]:checked) span {
-    color: #0F172A;
-    font-weight: 700;
-}
-
-label input[type="radio"]:focus-visible {
-    outline: 2px solid #1494B9;
-    outline-offset: 2px;
-}
-
-/* ========================================================================== 
-Action Buttons & Pill Styles
-========================================================================== */
-
-button, .btn-pill {
-    font-family: inherit;
     font-size: 1.05rem;
-    font-weight: 700;
-    padding: 0.85rem 1.75rem;
-    margin: 1rem 0;
-    width: 100%;
-    border: none;
-    border-radius: 9999px; /* Rounded Pill Shape */
-    background-color: #1494B9;
-    color: #FFFFFF !important;
-    cursor: pointer;
-    box-shadow: 0 4px 12px rgba(20, 148, 185, 0.25);
-    transition: all 0.2s ease;
-    text-align: center;
-    display: block;
-    text-decoration: none;
-    box-sizing: border-box;
-}
-
-button:hover, .btn-pill:hover {
-    background-color: #0E7490;
-    transform: translateY(-2px);
-    box-shadow: 0 6px 16px rgba(20, 148, 185, 0.35);
-    text-decoration: none !important;
-}
-
-button:active, .btn-pill:active {
-    transform: translateY(0);
-}
-
-.btn-secondary-pill {
-    background-color: #FFFFFF;
-    color: #334155 !important;
-    border: 2px solid #CBD5E1;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
-}
-
-.btn-secondary-pill:hover {
-    background-color: #F8FAFC;
-    border-color: #94A3B8;
-    color: #0F172A !important;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
-}
-
-#retakeBtn {
-    background-color: #64748B;
-    box-shadow: 0 4px 12px rgba(100, 116, 139, 0.2);
-    margin-top: 0.5rem;
-}
-
-#retakeBtn:hover {
-    background-color: #475569;
-    box-shadow: 0 6px 16px rgba(100, 116, 139, 0.3);
-}
-
-/* ========================================================================== 
-Result Section & Cards
-========================================================================== */
-
-#result {
-    margin-top: 2.5rem;
-    padding: 1.5rem;
-    border-radius: 16px;
-    border: 1px solid #E2E8F0;
-    background: #FFFFFF;
-    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
-    display: none;
+    margin-bottom: 1.5rem;
     text-align: left;
 }
+
+/* ========================================================================== 
+Quiz Interface Elements
+========================================================================== */
+
+.progress-container {
+    width: 100%;
+    background-color: #E2E8F0;
+    height: 8px;
+    border-radius: 9999px;
+    margin-bottom: 1.5rem;
+    overflow: hidden;
+}
+
+.progress-bar {
+    height: 100%;
+    width: 0%;
+    background-color: #1494B9;
+    transition: width 0.3s ease;
+}
+
+.question-card {
+    background: #FFFFFF;
+    border: 1px solid #E2E8F0;
+    border-radius: 12px;
+    padding: 1.5rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+}
+
+.question-title {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #0F172A;
+    margin-bottom: 1rem;
+    text-align: left;
+}
+
+.option-btn {
+    display: block;
+    width: 100%;
+    text-align: left;
+    background: #F8FAFC;
+    border: 1px solid #CBD5E1;
+    border-radius: 8px;
+    padding: 0.85rem 1rem;
+    margin-bottom: 0.75rem;
+    font-family: inherit;
+    font-size: 0.98rem;
+    color: #1E293B;
+    cursor: pointer;
+    transition: all 0.15s ease;
+}
+
+.option-btn:hover {
+    background: #F1F5F9;
+    border-color: #1494B9;
+    transform: translateX(2px);
+}
+
+/* ========================================================================== 
+Results Cards & Styles
+========================================================================== */
 
 .styleBlock {
-    margin-bottom: 1.5rem;
-    padding: 1.25rem 1.5rem;
+    background: #FFFFFF;
+    border: 1px solid #E2E8F0;
     border-radius: 12px;
-    background: #F8FAFC;
-    border-left: 6px solid;
+    padding: 1.25rem 1.5rem;
+    margin-bottom: 1.25rem;
+    border-left: 6px solid #CBD5E1;
+    text-align: left;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
 }
 
 .styleTitle {
-    font-size: 1.35rem;
+    font-size: 1.25rem;
     font-weight: 700;
-    color: #0F172A;
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.35rem;
 }
 
 .styleIdentity {
-    font-size: 1.1rem;
+    font-size: 1.05rem;
+    font-weight: 700;
     color: #1E293B;
     margin-bottom: 0.5rem;
 }
 
 .styleAction {
-    margin-top: 0.85rem;
-    padding-top: 0.75rem;
-    border-top: 1px solid #E2E8F0;
+    background: #F8FAFC;
+    border-radius: 8px;
+    padding: 0.85rem 1rem;
     font-size: 0.95rem;
     color: #334155;
+    margin-bottom: 1rem;
 }
 
+/* Search Terms Block & Copy Buttons */
 .searchTermsBlock {
     margin-top: 1rem;
-    padding: 0.85rem 1rem;
-    background: #F1F5F9;
-    border-radius: 8px;
-    font-size: 0.9rem;
-    color: #334155;
+    padding-top: 0.85rem;
+    border-top: 1px solid #F1F5F9;
 }
 
-.searchTermsBlock strong {
-    display: block;
-    margin-bottom: 0.25rem;
-    color: #0F172A;
-}
-
-.searchTermsBlock ul {
+.search-terms-list {
+    list-style: none;
+    padding-left: 0 !important;
     margin: 0;
-    padding-left: 1.2rem;
-    line-height: 1.5;
 }
 
-.searchTermsBlock code {
+.search-terms-list li {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+    margin-bottom: 0.4rem;
+    padding: 0.25rem 0;
+}
+
+.search-terms-list code {
     font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-    background: #E2E8F0;
-    padding: 2px 6px;
+    background: #F1F5F9;
+    padding: 4px 8px;
     border-radius: 4px;
     font-size: 0.85rem;
     color: #0F172A;
+    word-break: break-word;
 }
 
+.btn-copy {
+    width: auto !important;
+    margin: 0 !important;
+    padding: 0.2rem 0.6rem !important;
+    font-size: 0.75rem !important;
+    font-weight: 700 !important;
+    border-radius: 6px !important;
+    background-color: #E2E8F0 !important;
+    color: #334155 !important;
+    box-shadow: none !important;
+    flex-shrink: 0;
+    cursor: pointer;
+    border: none;
+    transition: all 0.15s ease;
+}
+
+.btn-copy:hover {
+    background-color: #CBD5E1 !important;
+    color: #0F172A !important;
+}
+
+.btn-copy.copied {
+    background-color: #22C55E !important;
+    color: #FFFFFF !important;
+}
+
+/* Refined Primary & Secondary Pill Buttons */
 .cta-container {
+    display: flex;
+    justify-content: center;
     margin-top: 1.25rem;
+}
+
+.btn-pill {
+    display: inline-block;
+    width: auto !important;
+    max-width: 320px;
+    padding: 0.55rem 1.25rem !important;
+    font-size: 0.95rem !important;
+    font-weight: 700;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 9999px;
+    transition: transform 0.15s ease, opacity 0.15s ease;
+}
+
+.btn-pill:hover {
+    opacity: 0.92;
+    transform: translateY(-1px);
 }
 
 /* Responsive */
@@ -287,18 +232,8 @@ Result Section & Cards
     h1 {
         font-size: 1.85rem;
     }
-    .question {
-        padding: 1.15rem;
-    }
-    label {
-        padding: 0.75rem 0.9rem;
-    }
-    label span {
-        font-size: 0.95rem;
-    }
-    button, .btn-pill {
-        font-size: 1rem;
-        padding: 0.75rem 1.25rem;
+    .question-card, .styleBlock {
+        padding: 1rem 1.15rem;
     }
 }
 </style>
@@ -306,262 +241,192 @@ Result Section & Cards
 
 <body>
 
-<div id="quiz"></div>
+<h1>Find Your Climate Stewardship Style</h1>
+<p class="subtitle">Answer 5 quick questions to discover your natural role in community climate action.</p>
 
-<button id="submitBtn" onclick="calculateResults()">See My Results</button>
+<div class="progress-container">
+    <div class="progress-bar" id="progressBar"></div>
+</div>
 
-<div id="result"></div>
+<div class="question-card" id="quizCard">
+    <div class="question-title" id="questionTitle">Loading...</div>
+    <div id="optionsContainer"></div>
+</div>
 
-<button id="retakeBtn" onclick="resetQuiz()" style="display:none;">Retake Quiz</button>
+<div id="resultContainer" style="display: none;"></div>
 
 <script>
-// Style names
-const styleNames = {
-    A: "Driver",
-    B: "Advocate",
-    C: "Visionary",
-    D: "Stabilizer",
-    E: "Architect",
-    F: "Keeper",
-    G: "Connector",
-    H: "Guardian"
-};
-
-// Style blocks with colors, behaviors, action lenses, and search terms
-const styleBlocks = {
-    A: {
+// Quiz Metadata & Questions
+const styles = {
+    Driver: {
         color: "#E32322",
-        identity: "<strong>You move things forward.</strong>",
-        behavior: "Drivers turn ideas into action. You help people shift from hesitation to momentum by offering direction, confidence, and a clear first step.",
-        action: "<strong>Orientation Lens:</strong> Focus on immediate, high-momentum entry points. Look for direct action calls, active teams, and clear project shifts.",
-        searchTerms: [
-            "lead a local cleanup volunteer shift",
-            "conservation project coordinator volunteer",
-            "community action team climate volunteer",
-            "invasive species removal volunteer lead"
-        ]
+        identity: "Direct Action & High Momentum",
+        behavior: "You thrive when jumping straight into action and leading physical campaigns.",
+        action: "Focus on rapid-response events, direct mobilization, and visible projects.",
+        searchTerms: ["climate rally coordinator", "action leader", "rapid response campaign"]
     },
-    B: {
+    Advocate: {
         color: "#F18E1C",
-        identity: "<strong>You build enthusiasm.</strong>",
-        behavior: "Advocates make climate care feel human. You spark interest, amplify messages, and help people connect emotionally with what matters.",
-        action: "<strong>Orientation Lens:</strong> Look for opportunities to share stories, encourage participation, and bring warmth and expression to community initiatives.",
-        searchTerms: [
-            "environmental outreach volunteer",
-            "climate communications ambassador program",
-            "community engagement volunteer conservation",
-            "environmental education storytelling volunteer"
-        ]
+        identity: "Public Voice & Storytelling",
+        behavior: "You excel at communicating big ideas and inspiring public support.",
+        action: "Focus on social campaigns, community presentations, and writing outreach materials.",
+        searchTerms: ["climate storyteller", "community outreach volunteer", "campaign writer"]
     },
-    C: {
+    Visionary: {
         color: "#F2DA14",
-        identity: "<strong>You expand what’s possible.</strong>",
-        behavior: "Visionaries imagine new futures. You offer fresh perspectives, creative approaches, and alternative paths that help teams break old patterns.",
-        action: "<strong>Orientation Lens:</strong> Look for spaces that value imagination, experimentation, circular/zero-waste ideas, and creative problem-solving.",
-        searchTerms: [
-            "climate innovation workshop near me",
-            "sustainability design sprint",
-            "environmental problem solving volunteer",
-            "climate action brainstorming session"
-        ]
+        identity: "Future Concepts & Innovation",
+        behavior: "You see creative solutions and love building new community possibilities.",
+        action: "Focus on design labs, local innovation sprints, and vision mapping.",
+        searchTerms: ["urban innovation lab", "rewilding design", "sustainability strategist"]
     },
-    D: {
+    Stabilizer: {
         color: "#5A9129",
-        identity: "<strong>You keep things steady.</strong>",
-        behavior: "Stabilizers sustain long-term care. You show up consistently, maintain continuity, and help climate efforts endure over time.",
-        action: "<strong>Orientation Lens:</strong> Look for recurring stewardship tasks, habitat adoption, trail maintenance, or ongoing monitoring programs.",
-        searchTerms: [
-            "habitat restoration volunteer",
-            "community garden volunteer",
-            "trail maintenance volunteer program",
-            "watershed monitoring volunteer"
-        ]
+        identity: "Consistent Care & Habitual Support",
+        behavior: "You keep local efforts strong through steady, dependable ongoing care.",
+        action: "Focus on recurring park maintenance, community gardens, or habitat restoration.",
+        searchTerms: ["community garden volunteer", "tree planting crew", "trail steward"]
     },
-    E: {
+    Architect: {
         color: "#2A71B0",
-        identity: "<strong>You make things make sense.</strong>",
-        behavior: "Architects bring structure and clarity. You organize details, design systems, and create processes that make climate action coordinated and effective.",
-        action: "<strong>Orientation Lens:</strong> Look for operational needs, project logistics, administrative support, planning committees, or workflow design.",
-        searchTerms: [
-            "environmental project logistics volunteer",
-            "nonprofit operations volunteer sustainability",
-            "event planning volunteer conservation",
-            "administrative support volunteer climate"
-        ]
+        identity: "Systems Design & Logistics",
+        behavior: "You make sure plans are organized, efficient, and built to last.",
+        action: "Focus on project logistics, volunteer databases, and event planning.",
+        searchTerms: ["nonprofit operations volunteer", "data coordinator", "event logistics manager"]
     },
-    F: {
+    Keeper: {
         color: "#002060",
-        identity: "<strong>You honor what lasts.</strong>",
-        behavior: "Keepers protect meaning and memory. You notice what’s irreplaceable, uphold values, and help communities stay rooted in purpose.",
-        action: "<strong>Orientation Lens:</strong> Look for long-view initiatives like land trusts, heritage site conservation, ecological history documentation, or advisory roles.",
-        searchTerms: [
-            "land trust volunteer opportunities",
-            "watershed council volunteer",
-            "environmental history preservation",
-            "community ecological monitoring"
-        ]
+        identity: "Heritage Protection & Tradition",
+        behavior: "You protect established community wisdom, land heritage, and local history.",
+        action: "Focus on land trust preservation, seed saving, and historical restoration.",
+        searchTerms: ["land trust volunteer", "heritage seed saver", "historical ecology"]
     },
-    G: {
+    Connector: {
         color: "#6D398B",
-        identity: "<strong>You bring people together.</strong>",
-        behavior: "Connectors build trust and belonging. You sense what people need, ease tension, and create environments where collaboration can thrive.",
-        action: "<strong>Orientation Lens:</strong> Look for relational roles such as meeting facilitation, welcoming newcomers, community dialogues, or bridging perspectives.",
-        searchTerms: [
-            "community climate conversation facilitator",
-            "environmental justice community liaison volunteer",
-            "climate dialogue circle",
-            "sustainability community engagement volunteer"
-        ]
+        identity: "Relationship Building & Trust",
+        behavior: "You bring people together and build bridges across diverse community groups.",
+        action: "Focus on community welcoming, liaison roles, and collaborative meetings.",
+        searchTerms: ["community liaison", "volunteer host", "coalition builder"]
     },
-    H: {
+    Guardian: {
         color: "#EE8BFD",
-        identity: "<strong>You protect what’s vulnerable.</strong>",
-        behavior: "Guardians defend people, places, and principles. You step in when something is at risk and help groups stay courageous, accountable, and principled.",
-        action: "<strong>Orientation Lens:</strong> Look for advocacy efforts, environmental justice groups, habitat protection teams, or legal/policy observer roles.",
-        searchTerms: [
-            "climate justice volunteer",
-            "environmental defense policy volunteer",
-            "environmental accountability advocacy",
-            "legal observer climate action"
-        ]
+        identity: "Protector & Policy Watchdog",
+        behavior: "You stand up for local environmental rights and policy accountability.",
+        action: "Focus on legal observation, policy monitoring, and environmental justice.",
+        searchTerms: ["environmental justice watchdog", "policy observer", "civic monitor"]
     }
 };
 
-// Questions matrix
 const questions = [
-    [
-        "When a group needs to make a decision, you are most likely to…",
-        ["A", "get things moving and push for a clear call to action."],
-        ["C", "offer a fresh, unexpected angle or alternative route."],
-        ["E", "outline a structured process for evaluating choices."],
-        ["G", "check in on how everyone is feeling about the options."]
-    ],
-    [
-        "When someone you know feels overwhelmed, you are most likely to…",
-        ["B", "bring warmth and encouragement to lift their spirits."],
-        ["D", "offer steady presence and grounded consistency."],
-        ["F", "remind them of core values and long-term purpose."],
-        ["H", "step in directly to shelter them from extra pressure."]
-    ],
-    [
-        "When you join a new community or climate initiative, you are most likely to…",
-        ["A", "jump right in and grab responsibility for a key task."],
-        ["C", "brainstorm creative ideas to expand the project's scope."],
-        ["E", "design or refine the workflow, systems, or schedule."],
-        ["G", "introduce people to each other and foster community."]
-    ],
-    [
-        "When unexpected challenges disrupt plans, you are most likely to…",
-        ["B", "rally morale and keep everyone motivated."],
-        ["D", "maintain continuity and keep routine tasks running steady."],
-        ["F", "anchor the team in why this work matters historically."],
-        ["H", "defend team boundaries and protect vulnerable resources."]
-    ],
-    [
-        "When you learn something urgent about a cause you care about, you are most likely to…",
-        ["A", "take immediate action and encourage others to act now."],
-        ["B", "share the story passionately to inspire emotion and awareness."],
-        ["C", "imagine new, unconventional solutions to address it."],
-        ["E", "analyze the system behind it to organize a logical response."]
-    ],
-    [
-        "When volunteering your time, you feel most fulfilled when you…",
-        ["D", "provide reliable, ongoing support behind the scenes."],
-        ["F", "preserve important knowledge, stories, or local heritage."],
-        ["G", "facilitate dialogues and make newcomers feel welcome."],
-        ["H", "advocate for those whose voices or rights are at risk."]
-    ],
-    [
-        "When a project or group conversation gets completely stuck, you are most likely to…",
-        ["A", "propose a simple, immediate step to restore momentum."],
-        ["C", "reframe the entire problem to break open fresh possibilities."],
-        ["E", "break down the roadblock into clear, manageable steps."],
-        ["G", "ease tension by helping people listen to each other."]
-    ],
-    [
-        "When community news feels heavy or discouraging, you are most likely to…",
-        ["B", "highlight stories of hope and positive impact."],
-        ["D", "focus on daily habits and persistent, quiet care."],
-        ["F", "reflect on past resilience to honor what endures."],
-        ["H", "stand up against injustice and shield those affected."]
-    ],
-    [
-        "When someone asks for your advice or guidance, you are most likely to…",
-        ["A", "give them one direct, actionable next step."],
-        ["B", "encourage their confidence and validate their feeling."],
-        ["C", "help them see the situation from a creative vantage point."],
-        ["E", "help them map out a systematic plan."]
-    ],
-    [
-        "When imagining your best contribution to community care, you see yourself as someone who…",
-        ["D", "keeps foundational efforts stable over the long haul."],
-        ["F", "guards the principles, memory, and heart of the work."],
-        ["G", "bridges divides and weaves people together."],
-        ["H", "stands up boldly to safeguard vulnerable places or groups."]
-    ]
+    {
+        title: "1. A local park needs care. Where do you naturally step in?",
+        options: [
+            { text: "Organize a fast-paced cleanup day with tools ready.", style: "Driver" },
+            { text: "Write posters and tell neighbors why the park matters.", style: "Advocate" },
+            { text: "Imagine new ways to redesign the park with native plants.", style: "Visionary" },
+            { text: "Show up every Saturday to water plants and weed beds.", style: "Stabilizer" }
+        ]
+    },
+    {
+        title: "2. Your neighborhood is hosting a sustainability fair. What's your role?",
+        options: [
+            { text: "Manage the schedule, sign-in sheets, and volunteer shifts.", style: "Architect" },
+            { text: "Document the local history of green spaces for display.", style: "Keeper" },
+            { text: "Greet visitors and connect different local groups together.", style: "Connector" },
+            { text: "Review safety guidelines and ensure fair access for everyone.", style: "Guardian" }
+        ]
+    },
+    {
+        title: "3. When faced with a new climate goal, you feel most energized by:",
+        options: [
+            { text: "Setting bold targets and jumping directly into action.", style: "Driver" },
+            { text: "Brainstorming creative, out-of-the-box ideas.", style: "Visionary" },
+            { text: "Organizing the step-by-step plan to make it run smoothly.", style: "Architect" },
+            { text: "Welcoming new people so everyone feels part of the team.", style: "Connector" }
+        ]
+    },
+    {
+        title: "4. What kind of impact feels most rewarding to you?",
+        options: [
+            { text: "Inspiring dozens of people to care about a shared cause.", style: "Advocate" },
+            { text: "Seeing steady, tangible improvement over months and years.", style: "Stabilizer" },
+            { text: "Safeguarding vital natural habitats from harm.", style: "Keeper" },
+            { text: "Holding local leaders accountable to environmental promises.", style: "Guardian" }
+        ]
+    },
+    {
+        title: "5. How do you prefer to spend a free weekend volunteer afternoon?",
+        options: [
+            { text: "Leading a fast-moving physical work crew.", style: "Driver" },
+            { text: "Designing map concepts or future rewilding plans.", style: "Visionary" },
+            { text: "Maintaining trail lines or caring for native trees.", style: "Stabilizer" },
+            { text: "Hosting a welcoming table to chat with passing neighbors.", style: "Connector" }
+        ]
+    }
 ];
 
-// Render quiz
-const quizDiv = document.getElementById("quiz");
+let currentQuestion = 0;
+const scores = {};
 
-questions.forEach((q, i) => {
-    const block = document.createElement("div");
-    block.className = "question";
+// Initialize scores
+Object.keys(styles).forEach(style => { scores[style] = 0; });
 
-    let html = `<p>${i+1}. ${q[0]}</p>`;
-    q.slice(1).forEach(ans => {
-        html += `
-            <label>
-                <input type="radio" name="q${i+1}" value="${ans[0]}">
-                <span>${ans[1]}</span>
-            </label>`;
+function renderQuestion() {
+    const q = questions[currentQuestion];
+    document.getElementById("questionTitle").textContent = q.title;
+    
+    const container = document.getElementById("optionsContainer");
+    container.innerHTML = "";
+
+    q.options.forEach(opt => {
+        const btn = document.createElement("button");
+        btn.className = "option-btn";
+        btn.textContent = opt.text;
+        btn.onclick = () => selectOption(opt.style);
+        container.appendChild(btn);
     });
 
-    block.innerHTML = html;
-    quizDiv.appendChild(block);
-});
+    const progressPct = ((currentQuestion) / questions.length) * 100;
+    document.getElementById("progressBar").style.width = `${progressPct}%`;
+}
 
-// Highlight radio labels on click
-quizDiv.addEventListener('change', (e) => {
-    if (e.target.type === 'radio') {
-        const questionBlock = e.target.closest('.question');
-        questionBlock.querySelectorAll('label').forEach(lbl => lbl.classList.remove('selected'));
-        e.target.closest('label').classList.add('selected');
+function selectOption(styleKey) {
+    if (scores[styleKey] !== undefined) {
+        scores[styleKey]++;
     }
-});
 
-// Calculate & Display Results
+    currentQuestion++;
+
+    if (currentQuestion < questions.length) {
+        renderQuestion();
+    } else {
+        calculateResults();
+    }
+}
+
 function calculateResults() {
-    const scores = { A: 0, B: 0, C: 0, D: 0, E: 0, F: 0, G: 0, H: 0 };
+    document.getElementById("progressBar").style.width = "100%";
+    document.getElementById("quizCard").style.display = "none";
 
-    for (let i = 1; i <= 10; i++) {
-        const selected = document.querySelector(`input[name="q${i}"]:checked`);
-        if (!selected) {
-            alert("Please answer all 10 questions to see your results.");
-            return;
-        }
-        scores[selected.value]++;
-    }
-
-    const sorted = Object.entries(scores).sort((a, b) => {
-        if (b[1] !== a[1]) return b[1] - a[1];
-        return 0.5 - Math.random();
-    });
-
+    // Sort scores
+    const sorted = Object.entries(scores).sort((a, b) => b[1] - a[1]);
     const primaryKey = sorted[0][0];
     const secondaryKey = sorted[1][0];
 
-    const primaryName = styleNames[primaryKey];
-    const secondaryName = styleNames[secondaryKey];
+    const primaryBlock = styles[primaryKey];
+    const secondaryBlock = styles[secondaryKey];
 
-    const primaryBlock = styleBlocks[primaryKey];
-    const secondaryBlock = styleBlocks[secondaryKey];
-
-    const result = document.getElementById("result");
-    result.style.display = "block";
+    const primaryName = primaryKey;
+    const secondaryName = secondaryKey;
 
     const primaryUrl = `directory.html?style=${encodeURIComponent(primaryName)}`;
     const secondaryUrl = `directory.html?style=${encodeURIComponent(secondaryName)}`;
+
+    // Text contrast logic (Visionary 'C' uses dark text)
+    const primaryTextColor = (primaryKey === 'Visionary') ? '#0F172A' : '#FFFFFF';
+    const secondaryTextColor = (secondaryKey === 'Visionary') ? '#0F172A' : '#FFFFFF';
+
+    const result = document.getElementById("resultContainer");
+    result.style.display = "block";
 
     result.innerHTML = `
         <!-- PRIMARY RESULT CARD -->
@@ -581,20 +446,25 @@ function calculateResults() {
                 <p style="font-size: 0.85rem; color: #64748B; margin: 0.25rem 0 0.5rem 0;">
                     Copy and paste these phrases into search bars on sites like VolunteerMatch, Idealist, or local civic portals:
                 </p>
-                <ul>
-                    ${primaryBlock.searchTerms.map(term => `<li><code>${term}</code></li>`).join('')}
+                <ul class="search-terms-list">
+                    ${primaryBlock.searchTerms.map(term => `
+                        <li>
+                            <code>${term}</code>
+                            <button type="button" class="btn-copy" onclick="copyTerm('${term.replace(/'/g, "\\'")}', this)">Copy</button>
+                        </li>
+                    `).join('')}
                 </ul>
             </div>
 
             <div class="cta-container">
-                <a href="${primaryUrl}" class="btn-pill" style="background-color:${primaryBlock.color}; color:#FFFFFF !important;">
+                <a href="${primaryUrl}" class="btn-pill" style="background-color:${primaryBlock.color}; color:${primaryTextColor} !important;">
                     Explore ${primaryName} Directory &rarr;
                 </a>
             </div>
         </div>
 
-        <!-- SECONDARY RESULT TEASE CARD -->
-        <div class="styleBlock" style="border-left-color:${secondaryBlock.color}; background: #FAF5FF;">
+        <!-- SECONDARY RESULT CARD -->
+        <div class="styleBlock" style="border-left-color:${secondaryBlock.color};">
             <div class="styleTitle" style="font-size: 1.15rem;">
                 Secondary alignment: <span style="color:${secondaryBlock.color};">${secondaryName}</span>
             </div>
@@ -605,9 +475,9 @@ function calculateResults() {
                 ${secondaryBlock.behavior}
             </div>
             
-            <div class="cta-container" style="margin-top: 1rem;">
-                <a href="${secondaryUrl}" class="btn-pill btn-secondary-pill">
-                    Peek ${secondaryName} Directory &rarr;
+            <div class="cta-container">
+                <a href="${secondaryUrl}" class="btn-pill" style="background-color:${secondaryBlock.color}; color:${secondaryTextColor} !important;">
+                    Explore ${secondaryName} Directory &rarr;
                 </a>
             </div>
         </div>
@@ -619,31 +489,25 @@ function calculateResults() {
             </a>.
         </p>
     `;
-
-    document.getElementById("retakeBtn").style.display = "inline-block";
-    
-    setTimeout(() => {
-        result.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }, 50);
 }
 
-// Reset Quiz
-function resetQuiz() {
-    for (let i = 1; i <= 10; i++) {
-        const selected = document.querySelector(`input[name="q${i}"]:checked`);
-        if (selected) selected.checked = false;
-    }
+function copyTerm(text, btnElement) {
+    navigator.clipboard.writeText(text).then(() => {
+        const originalText = btnElement.textContent;
+        btnElement.textContent = "Copied!";
+        btnElement.classList.add("copied");
 
-    document.querySelectorAll('label').forEach(lbl => lbl.classList.remove('selected'));
-
-    const result = document.getElementById("result");
-    result.style.display = "none";
-    result.innerHTML = "";
-
-    document.getElementById("retakeBtn").style.display = "none";
-
-    window.scrollTo({ top: 0, behavior: "smooth" });
+        setTimeout(() => {
+            btnElement.textContent = originalText;
+            btnElement.classList.remove("copied");
+        }, 1800);
+    }).catch(err => {
+        console.error("Failed to copy text: ", err);
+    });
 }
+
+// Initial render
+renderQuestion();
 </script>
 
 </body>
