@@ -1,261 +1,356 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Climate Action Resource Directory</title>
-  <style>
-    :root {
-      --font-sans: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-      --bg-color: #ffffff;
-      --text-main: #1f2937;
-      --text-muted: #6b7280;
-      --border-color: #e5e7eb;
-      
-      /* Climate Color Wheel Palette */
-      --color-driver: #ef4444;     /* Red */
-      --color-advocate: #f97316;   /* Orange */
-      --color-visionary: #eab308;  /* Yellow */
-      --color-stabilizer: #65a30d; /* Green */
-      --color-architect: #0284c7;  /* Blue */
-      --color-keeper: #1e3a8a;     /* Indigo */
-      --color-connector: #7e22ce;  /* Purple */
-      --color-guardian: #d946ef;   /* Violet */
+<meta charset="UTF-8">
+<title>Resource Directory | Climate Color</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<link href="https://fonts.googleapis.com/css2?family=ADLaM+Display&family=Varela+Round&display=swap" rel="stylesheet">
+
+<style>
+/* ========================================================================== 
+Base & Global Styles 
+========================================================================== */
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Varela Round', -apple-system, BlinkMacSystemFont, sans-serif;
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 1rem;
+    line-height: 1.6;
+    background-color: #FFFFFF;
+    color: #212121;
+    -webkit-font-smoothing: antialiased;
+}
+
+h1 {
+    font-family: 'ADLaM Display', cursive, sans-serif;
+    color: #1494B9;
+    font-size: 2.25rem;
+    margin-top: 0;
+    margin-bottom: 0.5rem;
+    text-align: left;
+}
+
+p.subtitle {
+    color: #4B5563;
+    font-size: 1.05rem;
+    margin-bottom: 1.5rem;
+}
+
+/* ========================================================================== 
+Filter Bar & Style Switcher 
+========================================================================== */
+
+.filter-container {
+    background: #F8FAFC;
+    border: 1px solid #E2E8F0;
+    padding: 1rem;
+    border-radius: 12px;
+    margin-bottom: 2rem;
+}
+
+.filter-label {
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: #64748B;
+    margin-bottom: 0.5rem;
+    display: block;
+}
+
+.style-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.style-pill {
+    padding: 0.4rem 0.85rem;
+    border-radius: 9999px;
+    font-size: 0.9rem;
+    font-weight: 700;
+    background-color: #E2E8F0;
+    color: #475569;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    cursor: pointer;
+}
+
+.style-pill:hover {
+    background-color: #CBD5E1;
+    color: #0F172A;
+}
+
+.style-pill.active {
+    color: #FFFFFF !important;
+}
+
+/* ========================================================================== 
+Resource Cards Layout
+========================================================================== */
+
+.resource-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+}
+
+.card {
+    background: #FFFFFF;
+    border: 1px solid #E2E8F0;
+    border-radius: 12px;
+    padding: 1.25rem 1.5rem;
+    border-left: 6px solid #CBD5E1; /* Default grey left-border */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.05);
+}
+
+.card-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #0F172A;
+    margin: 0 0 0.35rem 0;
+}
+
+.card-description {
+    font-size: 0.98rem;
+    color: #334155;
+    margin-bottom: 0.85rem;
+}
+
+.lens-block {
+    margin-top: 0.85rem;
+    padding-top: 0.75rem;
+    border-top: 1px solid #F1F5F9;
+    font-size: 0.9rem;
+    color: #475569;
+}
+
+.lens-block strong {
+    color: #0F172A;
+}
+
+.card-link {
+    display: inline-block;
+    margin-top: 0.85rem;
+    font-weight: 700;
+    font-size: 0.95rem;
+    color: #1494B9;
+    text-decoration: none;
+}
+
+.card-link:hover {
+    text-decoration: underline;
+}
+
+.nav-back {
+    display: inline-block;
+    margin-bottom: 1rem;
+    font-size: 0.9rem;
+    color: #64748B;
+    text-decoration: none;
+}
+
+.nav-back:hover {
+    color: #1494B9;
+}
+
+/* Responsive */
+@media (max-width: 640px) {
+    body {
+        padding: 0.85rem;
     }
-
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: var(--font-sans); color: var(--text-main); background: var(--bg-color); padding: 20px; line-height: 1.5; }
-
-    /* Controls Header */
-    .controls-container { max-width: 1200px; margin: 0 auto 24px; display: flex; flex-direction: column; gap: 12px; }
-
-    /* Filter Pills */
-    .filter-pills { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
-    .pill {
-      border: 1px solid var(--border-color);
-      padding: 6px 14px; border-radius: 20px; font-size: 14px; font-weight: 600;
-      cursor: pointer; transition: all 0.2s ease; user-select: none;
-      opacity: 0.85;
+    h1 {
+        font-size: 1.85rem;
     }
-    .pill:hover { opacity: 1; transform: translateY(-1px); }
-    .pill.active { opacity: 1; transform: translateY(-1px); box-shadow: 0 2px 6px rgba(0,0,0,0.15); border-color: transparent; }
-    
-    /* Individual Pill Color Schemes */
-    .pill[data-style="all"] { background: #374151; color: #ffffff; }
-    .pill[data-style="Driver"] { background: #fef2f2; color: #b91c1c; border-color: #fca5a5; }
-    .pill[data-style="Driver"].active { background: var(--color-driver); color: #ffffff; }
-
-    .pill[data-style="Advocate"] { background: #fff7ed; color: #c2410c; border-color: #fdba74; }
-    .pill[data-style="Advocate"].active { background: var(--color-advocate); color: #ffffff; }
-
-    .pill[data-style="Visionary"] { background: #fefce8; color: #854d0e; border-color: #fde047; }
-    .pill[data-style="Visionary"].active { background: var(--color-visionary); color: #000000; }
-
-    .pill[data-style="Stabilizer"] { background: #f7fee7; color: #3f6212; border-color: #bef264; }
-    .pill[data-style="Stabilizer"].active { background: var(--color-stabilizer); color: #ffffff; }
-
-    .pill[data-style="Architect"] { background: #f0f9ff; color: #0369a1; border-color: #7dd3fc; }
-    .pill[data-style="Architect"].active { background: var(--color-architect); color: #ffffff; }
-
-    .pill[data-style="Keeper"] { background: #eff6ff; color: #1e3a8a; border-color: #93c5fd; }
-    .pill[data-style="Keeper"].active { background: var(--color-keeper); color: #ffffff; }
-
-    .pill[data-style="Connector"] { background: #faf5ff; color: #6b21a8; border-color: #d8b4fe; }
-    .pill[data-style="Connector"].active { background: var(--color-connector); color: #ffffff; }
-
-    .pill[data-style="Guardian"] { background: #fdf4ff; color: #a21caf; border-color: #f0abfc; }
-    .pill[data-style="Guardian"].active { background: var(--color-guardian); color: #ffffff; }
-
-    .results-count { font-size: 14px; color: var(--text-muted); margin-top: 4px; }
-
-    /* Resource Cards Grid */
-    .grid {
-      max-width: 1200px; margin: 0 auto; display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 20px;
-    }
-
     .card {
-      border: 1px solid var(--border-color); border-radius: 10px; padding: 20px;
-      background: #fff; display: flex; flex-direction: column; justify-content: space-between;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.05); transition: transform 0.2s ease, box-shadow 0.2s ease;
-      border-left: 6px solid var(--border-color);
+        padding: 1rem 1.15rem;
     }
-    .card:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
-
-    /* Border Colors by Style */
-    .card[data-style="Driver"] { border-left-color: var(--color-driver); }
-    .card[data-style="Advocate"] { border-left-color: var(--color-advocate); }
-    .card[data-style="Visionary"] { border-left-color: var(--color-visionary); }
-    .card[data-style="Stabilizer"] { border-left-color: var(--color-stabilizer); }
-    .card[data-style="Architect"] { border-left-color: var(--color-architect); }
-    .card[data-style="Keeper"] { border-left-color: var(--color-keeper); }
-    .card[data-style="Connector"] { border-left-color: var(--color-connector); }
-    .card[data-style="Guardian"] { border-left-color: var(--color-guardian); }
-
-    .card-meta { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; gap: 8px; }
-    .badge-style {
-      font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px;
-      padding: 2px 8px; border-radius: 4px; background: #f3f4f6; color: var(--text-main);
-    }
-    .category-tag { font-size: 12px; color: var(--text-muted); font-weight: 500; }
-
-    .card-title { font-size: 18px; font-weight: 700; margin-bottom: 8px; line-height: 1.3; }
-    .card-title a { color: var(--text-main); text-decoration: none; }
-    .card-title a:hover { color: #2563eb; text-decoration: underline; }
-
-    .card-desc { font-size: 14px; color: #4b5563; margin-bottom: 16px; flex-grow: 1; }
-
-    .card-footer { 
-      display: flex; 
-      justify-content: space-between; 
-      align-items: center; 
-      font-size: 13px; 
-      font-weight: 600; 
-      color: #2563eb; 
-      text-decoration: none;
-    }
-    .card-footer:hover { text-decoration: underline; }
-    .external-link-icon { width: 14px; height: 14px; fill: currentColor; }
-    
-    .no-results { grid-column: 1 / -1; text-align: center; padding: 40px; color: var(--text-muted); font-size: 16px; }
-  </style>
+}
+</style>
 </head>
+
 <body>
 
-  <div class="controls-container">
-    <div class="filter-pills" id="styleFilters">
-      <button class="pill active" data-style="all">All Styles</button>
-      <button class="pill" data-style="Driver">Driver</button>
-      <button class="pill" data-style="Advocate">Advocate</button>
-      <button class="pill" data-style="Visionary">Visionary</button>
-      <button class="pill" data-style="Stabilizer">Stabilizer</button>
-      <button class="pill" data-style="Architect">Architect</button>
-      <button class="pill" data-style="Keeper">Keeper</button>
-      <button class="pill" data-style="Connector">Connector</button>
-      <button class="pill" data-style="Guardian">Guardian</button>
-    </div>
+<a href="quiz.html" class="nav-back">&larr; Retake Stewardship Quiz</a>
 
-    <div class="results-count" id="resultsCount">Loading resources...</div>
-  </div>
+<h1>Directory & Resources</h1>
+<p class="subtitle" id="directorySubtitle">Browse community platforms and climate entry points tailored to your stewardship approach.</p>
 
-  <div class="grid" id="resourceGrid"></div>
+<div class="filter-container">
+    <span class="filter-label">Filter by Stewardship Style:</span>
+    <div class="style-pills" id="stylePillsContainer"></div>
+</div>
 
-  <script>
-    const styleOrder = {
-      "Driver": 1,
-      "Advocate": 2,
-      "Visionary": 3,
-      "Stabilizer": 4,
-      "Architect": 5,
-      "Keeper": 6,
-      "Connector": 7,
-      "Guardian": 8
-    };
+<div class="resource-list" id="resourceList"></div>
 
-    let resources = [];
-    let currentStyle = 'all';
+<script>
+// Style Metadata
+const styles = {
+    Driver: { color: "#E32322", key: "A" },
+    Advocate: { color: "#F18E1C", key: "B" },
+    Visionary: { color: "#F2DA14", key: "C" },
+    Stabilizer: { color: "#5A9129", key: "D" },
+    Architect: { color: "#2A71B0", key: "E" },
+    Keeper: { color: "#002060", key: "F" },
+    Connector: { color: "#6D398B", key: "G" },
+    Guardian: { color: "#EE8BFD", key: "H" }
+};
 
-    const styleFilters = document.getElementById('styleFilters');
-    const resourceGrid = document.getElementById('resourceGrid');
-    const resultsCount = document.getElementById('resultsCount');
-
-    // Parse URL parameter to check for initial style filter (e.g. ?style=Driver)
-    function setInitialStyleFromURL() {
-      const urlParams = new URLSearchParams(window.location.search);
-      const styleParam = urlParams.get('style');
-
-      if (styleParam) {
-        // Search for matching pill regardless of casing
-        const matchingPill = Array.from(document.querySelectorAll('.pill')).find(
-          pill => pill.getAttribute('data-style').toLowerCase() === styleParam.toLowerCase()
-        );
-
-        if (matchingPill) {
-          document.querySelectorAll('.pill').forEach(p => p.classList.remove('active'));
-          matchingPill.classList.add('active');
-          currentStyle = matchingPill.getAttribute('data-style');
+// Directory Items with Orientation Lenses for each style
+const resources = [
+    {
+        title: "350.org Local Groups",
+        description: "A global grassroots network raising awareness and taking direct action to end fossil fuels and build community-led renewable energy.",
+        url: "https://350.org",
+        lenses: {
+            Driver: "Jump right onto local event planning shifts and direct campaign action calls.",
+            Advocate: "Use their campaign kits to host story circles and community rallies.",
+            Visionary: "Explore creative direct-action concepts and local energy transition models.",
+            Stabilizer: "Provide steady background support for recurring campaign planning meetings.",
+            Architect: "Help coordinate local group logistics, email lists, and volunteer shifts.",
+            Keeper: "Align campaigns with historical local environmental justice milestones.",
+            Connector: "Facilitate discussions between different local groups to unite efforts.",
+            Guardian: "Stand on the front lines of local climate justice and policy accountability campaigns."
         }
-      }
+    },
+    {
+        title: "VolunteerMatch (Environment)",
+        description: "An open search engine connecting passionate volunteers with local environmental non-profits, habitat groups, and civic initiatives.",
+        url: "https://www.volunteermatch.org",
+        lenses: {
+            Driver: "Search for immediate, high-momentum roles like cleanup leads or event coordinators.",
+            Advocate: "Search for public outreach, storytelling, and community education openings.",
+            Visionary: "Look for innovation labs, design sprints, or emerging social enterprises.",
+            Stabilizer: "Filter for recurring ongoing needs like tree planting, weeding, or trail maintenance.",
+            Architect: "Filter for operational, database, or administrative support roles.",
+            Keeper: "Find local historical land trusts, heritage parks, and ecological monitoring teams.",
+            Connector: "Seek out volunteer coordinator, welcoming host, or community liaison roles.",
+            Guardian: "Look for legal observer roles, advocacy groups, and environmental rights causes."
+        }
+    },
+    {
+        title: "Citizens' Climate Lobby (CCL)",
+        description: "A nonpartisan advocacy organization focused on national climate policies, climate diplomacy, and bipartisan solutions.",
+        url: "https://citizensclimatelobby.org",
+        lenses: {
+            Driver: "Lead Congressional lobby meetings and push for concrete legislative votes.",
+            Advocate: "Write op-eds, letters to the editor, and host outreach tables at community events.",
+            Visionary: "Draft alternative policy proposals and explore new economic transition models.",
+            Stabilizer: "Maintain regular correspondence schedules and local chapter meeting records.",
+            Architect: "Organize lobby day logistics, constituent meeting schedules, and policy tracking data.",
+            Keeper: "Ensure policy efforts honor long-standing community traditions and civic trust.",
+            Connector: "Build bridges across partisan divides and build relational trust with leaders.",
+            Guardian: "Ensure policy proposals prioritize vulnerable frontline communities."
+        }
+    },
+    {
+        title: "iNaturalist Community Science",
+        description: "A joint initiative by the California Academy of Sciences and National Geographic where citizens document biodiversity to support ecological research.",
+        url: "https://www.inaturalist.org",
+        lenses: {
+            Driver: "Organize BioBlitz competitions to map local species in rapid shifts.",
+            Advocate: "Share fascinating local species finds on social platforms to inspire wonder.",
+            Visionary: "Use biodiversity map data to propose new urban rewilding zones.",
+            Stabilizer: "Consistently track flora and fauna in one specific local park over many years.",
+            Architect: "Help verify identification tags and categorize regional biodiversity data.",
+            Keeper: "Document rare native species to safeguard local ecological heritage.",
+            Connector: "Host group nature walks that bring beginners and experienced naturalists together.",
+            Guardian: "Monitor endangered species habitats to flag threats or illegal encroachment."
+        }
     }
+];
 
-    // Fetch resources from external JSON file
-    async function loadResources() {
-      try {
-        const response = await fetch('resources.json');
-        if (!response.ok) throw new Error('Failed to load JSON file.');
-        
-        resources = await response.json();
-        
-        // Sort according to spectrum order
-        resources.sort((a, b) => {
-          return (styleOrder[a["Inner Ring Style"]] || 99) - (styleOrder[b["Inner Ring Style"]] || 99);
-        });
+// Read URL Parameter
+const urlParams = new URLSearchParams(window.location.search);
+let selectedStyle = urlParams.get('style');
 
-        // Set initial filter based on URL parameter before initial render
-        setInitialStyleFromURL();
-        renderCards();
-      } catch (error) {
-        console.error(error);
-        resultsCount.textContent = 'Error loading resources.';
-        resourceGrid.innerHTML = `<div class="no-results">Unable to load resources. Make sure resources.json is in the same folder and served via a local or live web server.</div>`;
-      }
+// Normalize matching (case-insensitive check against keys)
+if (selectedStyle) {
+    const foundKey = Object.keys(styles).find(s => s.toLowerCase() === selectedStyle.toLowerCase());
+    selectedStyle = foundKey || null;
+}
+
+// Render Filter Pills
+const pillsContainer = document.getElementById("stylePillsContainer");
+
+// "All Styles" Pill
+const allPill = document.createElement("a");
+allPill.className = `style-pill ${!selectedStyle ? 'active' : ''}`;
+allPill.textContent = "All Styles";
+allPill.href = "directory.html";
+if (!selectedStyle) allPill.style.backgroundColor = "#0F172A";
+pillsContainer.appendChild(allPill);
+
+Object.entries(styles).forEach(([styleName, config]) => {
+    const pill = document.createElement("a");
+    const isActive = selectedStyle === styleName;
+    pill.className = `style-pill ${isActive ? 'active' : ''}`;
+    pill.textContent = styleName;
+    pill.href = `directory.html?style=${encodeURIComponent(styleName)}`;
+    
+    if (isActive) {
+        pill.style.backgroundColor = config.color;
     }
+    
+    pillsContainer.appendChild(pill);
+});
 
-    function renderCards() {
-      const filtered = resources.filter(item => {
-        const style = item["Inner Ring Style"] || '';
-        return currentStyle === 'all' || style.toLowerCase() === currentStyle.toLowerCase();
-      });
+// Render Cards
+const resourceList = document.getElementById("resourceList");
+const subtitle = document.getElementById("directorySubtitle");
 
-      resultsCount.textContent = `Showing ${filtered.length} of ${resources.length} resources`;
+if (selectedStyle && styles[selectedStyle]) {
+    subtitle.innerHTML = `Showing orientation lenses tailored for <strong style="color:${styles[selectedStyle].color}">${selectedStyle}s</strong>.`;
+}
 
-      if (filtered.length === 0) {
-        resourceGrid.innerHTML = `<div class="no-results">No resources found for this style.</div>`;
-        return;
-      }
+resources.forEach(res => {
+    const card = document.createElement("div");
+    card.className = "card";
+    
+    const activeColor = selectedStyle ? styles[selectedStyle].color : "#CBD5E1";
+    card.style.borderLeftColor = activeColor;
 
-      resourceGrid.innerHTML = filtered.map(item => `
-        <div class="card" data-style="${item["Inner Ring Style"] || ''}">
-          <div>
-            <div class="card-meta">
-              <span class="badge-style">${item["Inner Ring Style"] || 'General'} • ${item["Outer Ring Action"] || 'Action'}</span>
-              <span class="category-tag">${item["Primary Category"] || ''}</span>
+    let lensText = "";
+    if (selectedStyle && res.lenses[selectedStyle]) {
+        lensText = `
+            <div class="lens-block">
+                <strong>${selectedStyle} Orientation:</strong> ${res.lenses[selectedStyle]}
             </div>
-            <h3 class="card-title">
-              <a href="${item.URL}" target="_blank" rel="noopener noreferrer">${item["Resource Title"]}</a>
-            </h3>
-            <p class="card-desc">${item.Description || ''}</p>
-          </div>
-          <a href="${item.URL}" target="_blank" rel="noopener noreferrer" class="card-footer">
-            <span>Explore Resource</span>
-            <svg class="external-link-icon" viewBox="0 0 20 20">
-              <path d="M11 3a1 1 0 100 2h2.586l-6.293 6.293a1 1 0 101.414 1.414L15 6.414V9a1 1 0 102 0V4a1 1 0 00-1-1h-5z"/>
-              <path d="M5 5a2 2 0 00-2 2v8a2 2 0 002 2h8a2 2 0 002-2v-3a1 1 0 10-2 0v3H5V7h3a1 1 0 000-2H5z"/>
-            </svg>
-          </a>
-        </div>
-      `).join('');
+        `;
+    } else {
+        // Default view showing all style highlights briefly
+        lensText = `
+            <div class="lens-block" style="font-size: 0.85rem; color: #64748B;">
+                <em>Select a Stewardship Style above to see specific engagement tips.</em>
+            </div>
+        `;
     }
 
-    // Event Listener for Pill Filter Controls
-    styleFilters.addEventListener('click', (e) => {
-      if (e.target.classList.contains('pill')) {
-        document.querySelectorAll('.pill').forEach(p => p.classList.remove('active'));
-        e.target.classList.add('active');
-        currentStyle = e.target.getAttribute('data-style');
-        
-        // Optionally update the address bar URL without reloading the page
-        const newUrl = currentStyle === 'all' 
-          ? window.location.pathname 
-          : `${window.location.pathname}?style=${encodeURIComponent(currentStyle)}`;
-        window.history.replaceState(null, '', newUrl);
+    card.innerHTML = `
+        <div class="card-title">${res.title}</div>
+        <div class="card-description">${res.description}</div>
+        ${lensText}
+        <a href="${res.url}" target="_blank" class="card-link" style="color:${selectedStyle ? styles[selectedStyle].color : '#1494B9'};">
+            Visit Website &rarr;
+        </a>
+    `;
 
-        renderCards();
-      }
-    });
+    resourceList.appendChild(card);
+});
+</script>
 
-    // Initialize
-    loadResources();
-  </script>
 </body>
 </html>
