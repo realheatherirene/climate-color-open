@@ -25,6 +25,25 @@ body {
     -webkit-font-smoothing: antialiased;
 }
 /* ========================================================================== 
+Header Styles
+========================================================================== */
+.quiz-header {
+    text-align: left;
+    margin-bottom: 1.5rem;
+}
+.quiz-header h1 {
+    font-family: 'ADLaM Display', 'Varela Round', sans-serif;
+    font-size: 2rem;
+    color: #0F172A;
+    margin: 0 0 0.25rem 0;
+    line-height: 1.2;
+}
+.quiz-header p {
+    font-size: 1rem;
+    color: #64748B;
+    margin: 0;
+}
+/* ========================================================================== 
 Quiz Interface Elements
 ========================================================================== */
 .progress-container {
@@ -143,6 +162,12 @@ Results Cards & Styles
 </style>
 </head>
 <body>
+
+<header class="quiz-header">
+    <h1>Climate Color Quiz</h1>
+    <p>A short, anonymous self-assessment that unlocks your stewardship style</p>
+</header>
+
 <div class="progress-container">
     <div class="progress-bar" id="progressBar"></div>
 </div>
@@ -244,7 +269,7 @@ function calculateResults() {
             </div>
             
             <div class="cta-container">
-                <a href="${primaryStrengthsUrl}" target="_blank" rel="noopener noreferrer" class="btn-pill-soft" style="background-color: #F1F5F9; border-color: #CBD5E1; color: #334155 !important;">
+                <a href="${primaryStrengthsUrl}" target="_blank" rel="noopener noreferrer" class="btn-pill-soft" style="background-color: ${primaryBlock.color}14; border-color: ${primaryBlock.color}40; color: ${primaryBlock.color} !important;">
                     Explore ${primaryName} Climate Strengths &rarr;
                 </a>
                 <a href="${primaryUrl}" class="btn-pill-soft" style="background-color: ${primaryBlock.color}14; border-color: ${primaryBlock.color}40; color: ${primaryBlock.color} !important;">
@@ -266,7 +291,7 @@ function calculateResults() {
             </div>
             
             <div class="cta-container">
-                <a href="${secondaryStrengthsUrl}" target="_blank" rel="noopener noreferrer" class="btn-pill-soft" style="background-color: #F1F5F9; border-color: #CBD5E1; color: #334155 !important;">
+                <a href="${secondaryStrengthsUrl}" target="_blank" rel="noopener noreferrer" class="btn-pill-soft" style="background-color: ${secondaryBlock.color}14; border-color: ${secondaryBlock.color}40; color: ${secondaryBlock.color} !important;">
                     Explore ${secondaryName} Climate Strengths &rarr;
                 </a>
                 <a href="${secondaryUrl}" class="btn-pill-soft" style="background-color: ${secondaryBlock.color}14; border-color: ${secondaryBlock.color}40; color: ${secondaryBlock.color} !important;">
