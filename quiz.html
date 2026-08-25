@@ -110,6 +110,8 @@ Results Cards & Styles
 /* Soft, Left-Justified Pill Buttons */
 .cta-container {
     display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
     justify-content: flex-start;
     margin-top: 1.25rem;
 }
@@ -197,6 +199,18 @@ function calculateResults() {
     document.getElementById("progressBar").style.width = "100%";
     document.getElementById("quizCard").style.display = "none";
     
+    // Map style names to their corresponding color URL paths
+    const styleColorSlugs = {
+        Driver: "red",
+        Advocate: "orange",
+        Visionary: "yellow",
+        Stabilizer: "green",
+        Architect: "blue",
+        Keeper: "indigo",
+        Connector: "purple",
+        Guardian: "violet"
+    };
+
     // Sort scores
     const sorted = Object.entries(scores).sort((a, b) => b[1] - a[1]);
     const primaryKey = sorted[0][0];
@@ -206,9 +220,14 @@ function calculateResults() {
     const primaryName = primaryKey;
     const secondaryName = secondaryKey;
     
+    // Directory URLs
     const primaryUrl = `directory.html?style=${encodeURIComponent(primaryName)}`;
     const secondaryUrl = `directory.html?style=${encodeURIComponent(secondaryName)}`;
     
+    // Climate Color Strengths URLs
+    const primaryStrengthsUrl = `https://climatecolor.com/${styleColorSlugs[primaryName] || ''}`;
+    const secondaryStrengthsUrl = `https://climatecolor.com/${styleColorSlugs[secondaryName] || ''}`;
+
     const result = document.getElementById("resultContainer");
     result.style.display = "block";
     result.innerHTML = `
@@ -225,6 +244,9 @@ function calculateResults() {
             </div>
             
             <div class="cta-container">
+                <a href="${primaryStrengthsUrl}" target="_blank" rel="noopener noreferrer" class="btn-pill-soft" style="background-color: #F1F5F9; border-color: #CBD5E1; color: #334155 !important;">
+                    Explore ${primaryName} Climate Strengths &rarr;
+                </a>
                 <a href="${primaryUrl}" class="btn-pill-soft" style="background-color: ${primaryBlock.color}14; border-color: ${primaryBlock.color}40; color: ${primaryBlock.color} !important;">
                     Explore ${primaryName} Climate Actions &rarr;
                 </a>
@@ -244,6 +266,9 @@ function calculateResults() {
             </div>
             
             <div class="cta-container">
+                <a href="${secondaryStrengthsUrl}" target="_blank" rel="noopener noreferrer" class="btn-pill-soft" style="background-color: #F1F5F9; border-color: #CBD5E1; color: #334155 !important;">
+                    Explore ${secondaryName} Climate Strengths &rarr;
+                </a>
                 <a href="${secondaryUrl}" class="btn-pill-soft" style="background-color: ${secondaryBlock.color}14; border-color: ${secondaryBlock.color}40; color: ${secondaryBlock.color} !important;">
                     Explore ${secondaryName} Climate Actions &rarr;
                 </a>
