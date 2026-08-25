@@ -165,10 +165,10 @@ Results Cards & Styles
 <header class="quiz-header">
     <h1>Climate Color Quiz</h1>
     <p>Complete all ten questions to unlock your stewardship style. View the Climate Color 
-            <a href="https://climatecolor.com/quiz-faq" target="_blank" rel="noopener noreferrer" style="color:#1494B8; font-weight: bold;">
-                Quiz FAQ
-            </a>.
-        </p>
+        <a href="https://climatecolor.com/quiz-faq" target="_blank" rel="noopener noreferrer" style="color:#1494B8; font-weight: bold;">
+            Quiz FAQ
+        </a>.
+    </p>
 </header>
 <div class="progress-container">
     <div class="progress-bar" id="progressBar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-label="Quiz progress"></div>
@@ -192,7 +192,17 @@ if (typeof styles !== 'undefined') {
 }
 
 function renderQuestion() {
-    if (typeof questions === 'undefined' || !questions[currentQuestion]) return;
+    const card = document.getElementById("quizCard");
+    
+    // Safety Boundary: Catch missing or failed script loads
+    if (typeof questions === 'undefined' || typeof styles === 'undefined') {
+        card.innerHTML = `<div class="question-title" style="color:#E32322;">
+            Unable to load quiz data module. Please refresh the page or check script connections.
+        </div>`;
+        return;
+    }
+    
+    if (!questions[currentQuestion]) return;
     const q = questions[currentQuestion];
     document.getElementById("questionTitle").textContent = q.title;
     
@@ -253,10 +263,13 @@ function calculateResults() {
         return selectionHistory.lastIndexOf(b[0]) - selectionHistory.lastIndexOf(a[0]);
     });
 
-    const primaryKey = sorted[0][0];
-    const secondaryKey = sorted[1][0];
+    const primaryKey = sorted[0] ? sorted[0][0] : Object.keys(styles)[0];
+    
+    // Defensive check: If secondary style has 0 points or doesn't exist, fall back safely
+    const secondaryKey = (sorted[1] && sorted[1][1] > 0) ? sorted[1][0] : primaryKey;
+
     const primaryBlock = styles[primaryKey];
-    const secondaryBlock = styles[secondaryKey];
+    const secondaryBlock = styles[secondaryKey] || primaryBlock;
     const primaryName = primaryKey;
     const secondaryName = secondaryKey;
     
@@ -268,7 +281,7 @@ function calculateResults() {
     const primaryStrengthsUrl = `https://climatecolor.com/${styleColorSlugs[primaryName] || ''}`;
     const secondaryStrengthsUrl = `https://climatecolor.com/${styleColorSlugs[secondaryName] || ''}`;
 
-    // Inline background styles fallback to rgba if rgb property exists
+    // Inline background styles with rgba fallbacks
     const primaryBg = primaryBlock.rgb ? `rgba(${primaryBlock.rgb}, 0.08)` : `${primaryBlock.color}14`;
     const primaryBorder = primaryBlock.rgb ? `rgba(${primaryBlock.rgb}, 0.25)` : `${primaryBlock.color}40`;
     const secondaryBg = secondaryBlock.rgb ? `rgba(${secondaryBlock.rgb}, 0.08)` : `${secondaryBlock.color}14`;
@@ -298,6 +311,7 @@ function calculateResults() {
                 </a>
             </div>
         </div>
+        
         <!-- SECONDARY RESULT CARD -->
         <div class="styleBlock" style="border-left-color:${secondaryBlock.color};">
             <div class="styleTitle" style="font-size: 1.15rem;">
@@ -319,6 +333,7 @@ function calculateResults() {
                 </a>
             </div>
         </div>
+
         <p style="margin-top: 1.25rem; text-align: left; font-size: 0.9rem;">
             Or view how your styles connect on 
             <a href="https://climatecolor.com/wheel" target="_blank" rel="noopener noreferrer" style="color:#1494B8; font-weight: bold;">
@@ -330,8 +345,10 @@ function calculateResults() {
     result.focus();
 }
 
-// Initial render
-renderQuestion();
+// Ensure execution waits until DOM content is loaded
+document.addEventListener("DOMContentLoaded", () => {
+    renderQuestion();
+});
 </script>
 </body>
 </html>
