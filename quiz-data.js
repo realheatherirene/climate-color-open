@@ -1,8 +1,8 @@
 // quiz-data.js
-
 const styles = {
     Driver: {
         color: "#E32322",
+        rgb: "227, 35, 34",
         identity: "Direct Action & High Momentum",
         behavior: "You thrive when jumping straight into action and leading physical campaigns.",
         action: "Focus on rapid-response events, direct mobilization, and visible projects.",
@@ -10,6 +10,7 @@ const styles = {
     },
     Advocate: {
         color: "#F18E1C",
+        rgb: "241, 142, 28",
         identity: "Public Voice & Storytelling",
         behavior: "You excel at communicating big ideas and inspiring public support.",
         action: "Focus on social campaigns, community presentations, and writing outreach materials.",
@@ -17,6 +18,7 @@ const styles = {
     },
     Visionary: {
         color: "#9A7B00",
+        rgb: "154, 123, 0",
         identity: "Future Concepts & Innovation",
         behavior: "You see creative solutions and love building new community possibilities.",
         action: "Focus on design labs, local innovation sprints, and vision mapping.",
@@ -24,6 +26,7 @@ const styles = {
     },
     Stabilizer: {
         color: "#5A9129",
+        rgb: "90, 145, 41",
         identity: "Consistent Care & Habitual Support",
         behavior: "You keep local efforts strong through steady, dependable ongoing care.",
         action: "Focus on recurring park maintenance, community gardens, or habitat restoration.",
@@ -31,6 +34,7 @@ const styles = {
     },
     Architect: {
         color: "#2A71B0",
+        rgb: "42, 113, 176",
         identity: "Systems Design & Logistics",
         behavior: "You make sure plans are organized, efficient, and built to last.",
         action: "Focus on project logistics, volunteer databases, and event planning.",
@@ -38,6 +42,7 @@ const styles = {
     },
     Keeper: {
         color: "#002060",
+        rgb: "0, 32, 96",
         identity: "Heritage Protection & Tradition",
         behavior: "You protect established community wisdom, land heritage, and local history.",
         action: "Focus on land trust preservation, seed saving, and historical restoration.",
@@ -45,6 +50,7 @@ const styles = {
     },
     Connector: {
         color: "#6D398B",
+        rgb: "109, 57, 139",
         identity: "Relationship Building & Trust",
         behavior: "You bring people together and build bridges across diverse community groups.",
         action: "Focus on community welcoming, liaison roles, and collaborative meetings.",
@@ -52,6 +58,7 @@ const styles = {
     },
     Guardian: {
         color: "#D946EF",
+        rgb: "217, 70, 239",
         identity: "Protector & Policy Watchdog",
         behavior: "You stand up for local environmental rights and policy accountability.",
         action: "Focus on legal observation, policy monitoring, and environmental justice.",
@@ -130,6 +137,24 @@ const questions = [
             { text: "Pass down knowledge and protect local ecological heritage.", style: "Keeper" },
             { text: "Nurture continuous strong relationships across the community.", style: "Connector" },
             { text: "Monitor legal policies and protect local environmental rights.", style: "Guardian" }
+        ]
+    },
+    {
+        title: "9. What kind of outcome matters most to you at the end of a campaign?",
+        options: [
+            { text: "Seeing immediate, physical change on the ground.", style: "Driver" },
+            { text: "Knowing local heritage and natural ecological wisdom are preserved.", style: "Keeper" },
+            { text: "Inspiring widespread public shifts in mindset and awareness.", style: "Advocate" },
+            { text: "Designing a fresh, innovative framework that other groups can replicate.", style: "Visionary" }
+        ]
+    },
+    {
+        title: "10. How do you prefer to invest your personal energy over the long term?",
+        options: [
+            { text: "Showing up for routine, ongoing maintenance and practical support.", style: "Stabilizer" },
+            { text: "Building dependable background systems and managing logistics.", style: "Architect" },
+            { text: "Connecting isolated groups and maintaining strong community trust.", style: "Connector" },
+            { text: "Staying vigilant against harmful policy decisions and standing up for civic rights.", style: "Guardian" }
         ]
     }
 ];
