@@ -89,10 +89,10 @@ Quiz Interface Elements
     cursor: pointer;
     transition: all 0.15s ease;
 }
-.option-btn:hover {
+.option-btn:hover, .option-btn:focus {
     background: #F1F5F9;
     border-color: #1494B9;
-    transform: translateX(2px);
+    outline: none;
 }
 /* ========================================================================== 
 Results Cards & Styles
@@ -162,31 +162,29 @@ Results Cards & Styles
 </style>
 </head>
 <body>
-
 <header class="quiz-header">
     <h1>Climate Color Quiz</h1>
-    <p>Complete all eight questions to unlock your stewardship style. View the Climate Color 
-            <a href="https://climatecolor.com/quiz-faq" target="_blank" style="color:#1494B8; font-weight: bold;">
+    <p>Complete all ten questions to unlock your stewardship style. View the Climate Color 
+            <a href="https://climatecolor.com/quiz-faq" target="_blank" rel="noopener noreferrer" style="color:#1494B8; font-weight: bold;">
                 Quiz FAQ
             </a>.
         </p>
 </header>
-
 <div class="progress-container">
-    <div class="progress-bar" id="progressBar"></div>
+    <div class="progress-bar" id="progressBar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-label="Quiz progress"></div>
 </div>
 <div class="question-card" id="quizCard">
-    <div class="question-title" id="questionTitle">Loading...</div>
+    <div class="question-title" id="questionTitle" aria-live="polite">Loading...</div>
     <div id="optionsContainer"></div>
 </div>
-<div id="resultContainer" style="display: none;"></div>
+<div id="resultContainer" tabindex="-1" aria-live="polite" style="display: none; outline: none;"></div>
 
 <!-- External Data Module -->
 <script src="quiz-data.js"></script>
-
 <script>
 let currentQuestion = 0;
 const scores = {};
+const selectionHistory = [];
 
 // Initialize scores dynamically from external quiz-data.js
 if (typeof styles !== 'undefined') {
@@ -195,7 +193,6 @@ if (typeof styles !== 'undefined') {
 
 function renderQuestion() {
     if (typeof questions === 'undefined' || !questions[currentQuestion]) return;
-
     const q = questions[currentQuestion];
     document.getElementById("questionTitle").textContent = q.title;
     
@@ -203,18 +200,23 @@ function renderQuestion() {
     container.innerHTML = "";
     q.options.forEach(opt => {
         const btn = document.createElement("button");
+        btn.type = "button";
         btn.className = "option-btn";
         btn.textContent = opt.text;
         btn.onclick = () => selectOption(opt.style);
         container.appendChild(btn);
     });
-    const progressPct = ((currentQuestion) / questions.length) * 100;
-    document.getElementById("progressBar").style.width = `${progressPct}%`;
+
+    const progressPct = Math.round((currentQuestion / questions.length) * 100);
+    const progressBar = document.getElementById("progressBar");
+    progressBar.style.width = `${progressPct}%`;
+    progressBar.setAttribute("aria-valuenow", progressPct);
 }
 
 function selectOption(styleKey) {
     if (scores[styleKey] !== undefined) {
         scores[styleKey]++;
+        selectionHistory.push(styleKey);
     }
     currentQuestion++;
     if (currentQuestion < questions.length) {
@@ -225,7 +227,10 @@ function selectOption(styleKey) {
 }
 
 function calculateResults() {
-    document.getElementById("progressBar").style.width = "100%";
+    const progressBar = document.getElementById("progressBar");
+    progressBar.style.width = "100%";
+    progressBar.setAttribute("aria-valuenow", 100);
+    
     document.getElementById("quizCard").style.display = "none";
     
     // Map style names to their corresponding color URL paths
@@ -240,8 +245,14 @@ function calculateResults() {
         Guardian: "violet"
     };
 
-    // Sort scores
-    const sorted = Object.entries(scores).sort((a, b) => b[1] - a[1]);
+    // Sort by highest score; break ties by which style was selected most recently
+    const sorted = Object.entries(scores).sort((a, b) => {
+        if (b[1] !== a[1]) {
+            return b[1] - a[1];
+        }
+        return selectionHistory.lastIndexOf(b[0]) - selectionHistory.lastIndexOf(a[0]);
+    });
+
     const primaryKey = sorted[0][0];
     const secondaryKey = sorted[1][0];
     const primaryBlock = styles[primaryKey];
@@ -256,6 +267,12 @@ function calculateResults() {
     // Climate Color Strengths URLs
     const primaryStrengthsUrl = `https://climatecolor.com/${styleColorSlugs[primaryName] || ''}`;
     const secondaryStrengthsUrl = `https://climatecolor.com/${styleColorSlugs[secondaryName] || ''}`;
+
+    // Inline background styles fallback to rgba if rgb property exists
+    const primaryBg = primaryBlock.rgb ? `rgba(${primaryBlock.rgb}, 0.08)` : `${primaryBlock.color}14`;
+    const primaryBorder = primaryBlock.rgb ? `rgba(${primaryBlock.rgb}, 0.25)` : `${primaryBlock.color}40`;
+    const secondaryBg = secondaryBlock.rgb ? `rgba(${secondaryBlock.rgb}, 0.08)` : `${secondaryBlock.color}14`;
+    const secondaryBorder = secondaryBlock.rgb ? `rgba(${secondaryBlock.rgb}, 0.25)` : `${secondaryBlock.color}40`;
 
     const result = document.getElementById("resultContainer");
     result.style.display = "block";
@@ -273,15 +290,14 @@ function calculateResults() {
             </div>
             
             <div class="cta-container">
-                <a href="${primaryStrengthsUrl}" target="_blank" rel="noopener noreferrer" class="btn-pill-soft" style="background-color: ${primaryBlock.color}14; border-color: ${primaryBlock.color}40; color: ${primaryBlock.color} !important;">
+                <a href="${primaryStrengthsUrl}" target="_blank" rel="noopener noreferrer" class="btn-pill-soft" style="background-color: ${primaryBg}; border-color: ${primaryBorder}; color: ${primaryBlock.color} !important;">
                     Explore ${primaryName} Climate Strengths &rarr;
                 </a>
-                <a href="${primaryUrl}" class="btn-pill-soft" style="background-color: ${primaryBlock.color}14; border-color: ${primaryBlock.color}40; color: ${primaryBlock.color} !important;">
+                <a href="${primaryUrl}" class="btn-pill-soft" style="background-color: ${primaryBg}; border-color: ${primaryBorder}; color: ${primaryBlock.color} !important;">
                     Explore ${primaryName} Climate Actions &rarr;
                 </a>
             </div>
         </div>
-
         <!-- SECONDARY RESULT CARD -->
         <div class="styleBlock" style="border-left-color:${secondaryBlock.color};">
             <div class="styleTitle" style="font-size: 1.15rem;">
@@ -295,22 +311,23 @@ function calculateResults() {
             </div>
             
             <div class="cta-container">
-                <a href="${secondaryStrengthsUrl}" target="_blank" rel="noopener noreferrer" class="btn-pill-soft" style="background-color: ${secondaryBlock.color}14; border-color: ${secondaryBlock.color}40; color: ${secondaryBlock.color} !important;">
+                <a href="${secondaryStrengthsUrl}" target="_blank" rel="noopener noreferrer" class="btn-pill-soft" style="background-color: ${secondaryBg}; border-color: ${secondaryBorder}; color: ${secondaryBlock.color} !important;">
                     Explore ${secondaryName} Climate Strengths &rarr;
                 </a>
-                <a href="${secondaryUrl}" class="btn-pill-soft" style="background-color: ${secondaryBlock.color}14; border-color: ${secondaryBlock.color}40; color: ${secondaryBlock.color} !important;">
+                <a href="${secondaryUrl}" class="btn-pill-soft" style="background-color: ${secondaryBg}; border-color: ${secondaryBorder}; color: ${secondaryBlock.color} !important;">
                     Explore ${secondaryName} Climate Actions &rarr;
                 </a>
             </div>
         </div>
-
         <p style="margin-top: 1.25rem; text-align: left; font-size: 0.9rem;">
             Or view how your styles connect on 
-            <a href="https://climatecolor.com/wheel" target="_blank" style="color:#1494B8; font-weight: bold;">
+            <a href="https://climatecolor.com/wheel" target="_blank" rel="noopener noreferrer" style="color:#1494B8; font-weight: bold;">
                 The Climate Color Wheel
             </a>.
         </p>
     `;
+
+    result.focus();
 }
 
 // Initial render
