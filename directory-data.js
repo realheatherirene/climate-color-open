@@ -1,4 +1,3 @@
-<script>
 const styles = {
     "All Styles": { color: "#334155" },
     Driver: { color: "#E32322" },
@@ -116,4 +115,3 @@ const resources = [
     { title: "Global Greengrants EJ Hub", styles: ["Guardian"], type: "Justice", desc: "Global network providing direct micro-grants, grassroots toolkits, and local governance resources for frontline defenders.", url: "https://www.greengrants.org/" },
     { title: "NAACP Environmental Justice Program", styles: ["Guardian"], type: "Justice", desc: "Research reports, policy toolkits, and civic engagement guides focusing on energy access and environmental equity.", url: "https://naacp.org/know-issues/environmental-climate-justice" }
 ];
-</script>
