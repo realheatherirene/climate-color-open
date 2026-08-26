@@ -24,14 +24,10 @@
         padding: 1.5rem;
     }
 
-    header {
-        margin-bottom: 1.5rem;
-    }
-
     h1 {
         font-size: 2rem;
         font-weight: 700;
-        margin-bottom: 0.75rem;
+        margin-bottom: 1rem;
     }
 
     .intro {
@@ -44,10 +40,10 @@
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
         gap: 1.25rem;
-        margin-top: 1rem;
+        margin-top: 1.5rem;
     }
 
-    article.style-card {
+    .style-card {
         background: white;
         padding: 1.25rem;
         border-radius: 12px;
@@ -56,8 +52,8 @@
         transition: transform 0.2s ease, box-shadow 0.2s ease;
     }
 
-    article.style-card:hover,
-    article.style-card:focus-within {
+    .style-card:hover,
+    .style-card:focus-within {
         transform: translateY(-3px);
         box-shadow: 0 4px 10px rgba(0,0,0,0.08);
         outline: none;
@@ -102,28 +98,24 @@
 </head>
 
 <body>
-<a href="#main" style="position:absolute;left:-999px;top:-999px;">Skip to content</a>
-
 <div class="wrapper">
-    <header>
-        <h1>Explore All Climate Stewardship Styles</h1>
-        <p class="intro">
-            Each stewardship style reflects a unique way of contributing to climate resilience.
-            Choose a style below to explore its strengths, behaviors, and action pathways.
-        </p>
-    </header>
 
-    <main id="main">
-        <div id="styleGrid" class="style-grid"></div>
+    <h1>Explore All Climate Stewardship Styles</h1>
+    <p class="intro">
+        Each stewardship style reflects a unique way of contributing to climate resilience.
+        Choose a style below to explore its strengths, behaviors, and action pathways.
+    </p>
 
-        <div class="cta-container">
-            <a href="quiz.html" class="btn-pill-soft">Take the Quiz</a>
-            <a href="https://climatecolor.com/wheel" target="_blank" rel="noopener noreferrer"
-               class="btn-pill-soft" style="color:#1494B8;">
-                Climate Color Wheel →
-            </a>
-        </div>
-    </main>
+    <div id="styleGrid" class="style-grid"></div>
+
+    <div class="cta-container">
+        <a href="quiz.html" class="btn-pill-soft">Take the Quiz</a>
+        <a href="https://climatecolor.com/wheel" target="_blank" rel="noopener noreferrer"
+           class="btn-pill-soft" style="color:#1494B8;">
+            Climate Color Wheel →
+        </a>
+    </div>
+
 </div>
 
 <script type="module">
@@ -133,16 +125,16 @@ function renderIndex() {
     const grid = document.getElementById("styleGrid");
 
     grid.innerHTML = Object.entries(styles).map(([key, data]) => `
-        <article class="style-card" style="border-left-color:${data.color};">
-            <h2 class="style-name" style="color:${data.color};">${key}</h2>
-            <p class="style-identity">${data.identity}</p>
+        <div class="style-card" style="border-left-color:${data.color};">
+            <div class="style-name" style="color:${data.color};">${key}</div>
+            <div class="style-identity">${data.identity}</div>
 
             <a href="directory.html?style=${encodeURIComponent(key)}"
                class="btn-pill-soft"
                aria-label="Explore ${key} style details">
                Explore ${key} →
             </a>
-        </article>
+        </div>
     `).join("");
 }
 
