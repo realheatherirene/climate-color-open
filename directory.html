@@ -4,34 +4,197 @@
 <meta charset="UTF-8">
 <title>Directory | Climate Color</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=ADLaM+Display&family=Varela+Round&display=swap" rel="stylesheet">
 <style>
-/* Original styles unchanged */
-body { font-family: sans-serif; max-width: 800px; margin: 0 auto; padding: 1rem; }
-.resource-card { border: 1px solid #ccc; padding: 1rem; margin-bottom: 1rem; border-left-width: 6px; }
-.filter-container { margin-bottom: 1rem; }
+/* ========================================================================== 
+Base & Global Styles 
+========================================================================== */
+* {
+    box-sizing: border-box;
+}
+body {
+    font-family: 'Varela Round', -apple-system, BlinkMacSystemFont, sans-serif;
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 2rem 1rem 1rem 1rem;
+    line-height: 1.6;
+    background-color: #FFFFFF;
+    color: #212121;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* ========================================================================== 
+Header Styles (Matching Quiz Layout)
+========================================================================== */
+.directory-header {
+    text-align: left;
+    margin-bottom: 1.5rem;
+}
+.directory-header h1 {
+    font-family: 'ADLaM Display', 'Varela Round', sans-serif;
+    font-size: 2rem;
+    color: #1494B9;
+    margin: 0 0 0.25rem 0;
+    line-height: 1.2;
+}
+.directory-header p {
+    font-size: 1rem;
+    color: #64748B;
+    margin: 0;
+}
+
+/* ========================================================================== 
+Directory Controls & Filtering
+========================================================================== */
+.filter-container {
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+.filter-label {
+    font-weight: 700;
+    color: #0F172A;
+    font-size: 0.95rem;
+}
+.filter-select {
+    font-family: inherit;
+    font-size: 0.95rem;
+    padding: 0.5rem 0.85rem;
+    border: 1px solid #CBD5E1;
+    border-radius: 8px;
+    background-color: #F8FAFC;
+    color: #1E293B;
+    cursor: pointer;
+    transition: all 0.15s ease;
+}
+.filter-select:focus {
+    outline: none;
+    border-color: #1494B9;
+}
+
+/* ========================================================================== 
+Resource Card List
+========================================================================== */
+.resource-card {
+    background: #FFFFFF;
+    border: 1px solid #E2E8F0;
+    border-radius: 12px;
+    padding: 1.25rem 1.5rem;
+    margin-bottom: 1.25rem;
+    border-left: 6px solid #CBD5E1;
+    text-align: left;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+.resource-card:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.04);
+}
+.resource-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 0.5rem;
+    margin-bottom: 0.35rem;
+}
+.resource-title {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: #0F172A;
+    text-decoration: none;
+}
+.resource-title:hover {
+    color: #1494B9;
+}
+.resource-type {
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    background-color: #F1F5F9;
+    color: #475569;
+    padding: 0.2rem 0.55rem;
+    border-radius: 4px;
+    white-space: nowrap;
+}
+.resource-desc {
+    font-size: 0.95rem;
+    color: #475569;
+    margin-bottom: 0.85rem;
+}
+
+/* Soft, Left-Justified Pill Buttons */
+.cta-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    justify-content: flex-start;
+}
+.btn-pill-soft {
+    display: inline-block;
+    width: auto !important;
+    padding: 0.35rem 0.85rem !important;
+    font-size: 0.825rem !important;
+    font-weight: 700;
+    text-align: left;
+    text-decoration: none;
+    border-radius: 9999px;
+    border: 1px solid transparent;
+    transition: all 0.15s ease;
+}
+.btn-pill-soft:hover {
+    filter: brightness(0.95);
+    transform: translateY(-1px);
+}
+
+/* Responsive */
+@media (max-width: 640px) {
+    body {
+        padding: 1.25rem 0.85rem 0.85rem 0.85rem;
+    }
+    .resource-card {
+        padding: 1rem 1.15rem;
+    }
+    .resource-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.25rem;
+    }
+}
 </style>
 </head>
 <body>
 
-<h1>Climate Color Directory</h1>
+<header class="directory-header">
+    <h1>Climate Color Directory</h1>
+    <p>Explore tools, projects, and organizations aligned with your unique stewardship style. Take the 
+        <a href="quiz.html" target="_blank" rel="noopener noreferrer" style="color:#1494B8; font-weight: bold;">
+            Stewardship Style Quiz
+        </a>.
+    </p>
+</header>
 
 <div class="filter-container">
-    <label for="styleFilter">Filter by Style: </label>
-    <select id="styleFilter">
+    <label for="styleFilter" class="filter-label">Filter by Style:</label>
+    <select id="styleFilter" class="filter-select">
         <option value="All Styles">All Styles</option>
-        <option value="Driver">Driver</option>
-        <option value="Advocate">Advocate</option>
-        <option value="Visionary">Visionary</option>
-        <option value="Stabilizer">Stabilizer</option>
-        <option value="Architect">Architect</option>
-        <option value="Keeper">Keeper</option>
-        <option value="Connector">Connector</option>
-        <option value="Guardian">Guardian</option>
+        <option value="Driver">Driver (Red)</option>
+        <option value="Advocate">Advocate (Orange)</option>
+        <option value="Visionary">Visionary (Yellow)</option>
+        <option value="Stabilizer">Stabilizer (Green)</option>
+        <option value="Architect">Architect (Blue)</option>
+        <option value="Keeper">Keeper (Indigo)</option>
+        <option value="Connector">Connector (Purple)</option>
+        <option value="Guardian">Guardian (Violet)</option>
     </select>
 </div>
 
-<div id="directoryContainer"></div>
+<main id="directoryContainer" aria-live="polite"></main>
 
+<!-- External Data & Logic Module Integration -->
 <script type="module">
 import { styles, resources } from './directory-data.js';
 
@@ -40,50 +203,66 @@ const styleFilter = document.getElementById('styleFilter');
 
 function renderDirectory(selectedStyle = "All Styles") {
     directoryContainer.innerHTML = "";
+
     const filtered = resources.filter(res => {
         if (selectedStyle === "All Styles") return true;
         return res.styles.includes(selectedStyle);
     });
 
+    if (filtered.length === 0) {
+        directoryContainer.innerHTML = `<p style="color: #64748B;">No resources found for this style.</p>`;
+        return;
+    }
+
     filtered.forEach(item => {
         const primaryStyle = item.styles[0];
-        const styleMeta = styles[primaryStyle] || { color: "#ccc" };
+        const styleMeta = styles[primaryStyle] || { color: "#CBD5E1" };
         
         const card = document.createElement('div');
         card.className = 'resource-card';
         card.style.borderLeftColor = styleMeta.color;
-        
+
+        const tagsHtml = item.styles.map(s => {
+            const sMeta = styles[s] || { color: "#334155" };
+            const bg = sMeta.color + "14";
+            const border = sMeta.color + "40";
+            return `<span class="btn-pill-soft" style="background-color: ${bg}; border-color: ${border}; color: ${sMeta.color} !important;">${s}</span>`;
+        }).join(" ");
+
         card.innerHTML = `
-            <h3><a href="${item.url}" target="_blank">${item.title}</a></h3>
-            <p><strong>Type:</strong> ${item.type}</p>
-            <p>${item.desc}</p>
-            <p><strong>Styles:</strong> ${item.styles.join(", ")}</p>
+            <div class="resource-header">
+                <a href="${item.url}" target="_blank" rel="noopener noreferrer" class="resource-title">
+                    ${item.title} &rarr;
+                </a>
+                <span class="resource-type">${item.type}</span>
+            </div>
+            <div class="resource-desc">${item.desc}</div>
+            <div class="cta-container">
+                ${tagsHtml}
+            </div>
         `;
+
         directoryContainer.appendChild(card);
     });
 }
 
-// Case-insensitive URL parameter match (e.g., ?style=driver matching key "Driver")
+// Check URL Params for deep-linking (e.g. directory.html?style=Driver)
 document.addEventListener('DOMContentLoaded', () => {
     const urlParams = new URLSearchParams(window.location.search);
-    const rawStyleParam = urlParams.get('style');
+    const styleParam = urlParams.get('style');
     
-    if (rawStyleParam) {
-        const styleKeys = Object.keys(styles);
-        const matchedKey = styleKeys.find(key => key.toLowerCase() === rawStyleParam.toLowerCase());
-        
-        if (matchedKey) {
-            styleFilter.value = matchedKey;
-            renderDirectory(matchedKey);
-            return;
-        }
+    if (styleParam && styles[styleParam]) {
+        styleFilter.value = styleParam;
+        renderDirectory(styleParam);
+    } else {
+        renderDirectory("All Styles");
     }
-    renderDirectory("All Styles");
 });
 
 styleFilter.addEventListener('change', (e) => {
     renderDirectory(e.target.value);
 });
 </script>
+
 </body>
 </html>
