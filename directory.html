@@ -2,239 +2,183 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Stewardship Directory | Climate Color</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=ADLaM+Display&family=Varela+Round&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Climate Stewardship Style Directory</title>
+
+<!-- ============================
+     CLEAN, MAINTAINABLE CSS
+============================= -->
 <style>
-* { box-sizing: border-box; }
-body {
-    font-family: 'Varela Round', -apple-system, BlinkMacSystemFont, sans-serif;
-    max-width: 1120px;
-    margin: 0 auto;
-    padding: 2rem 1rem 1rem 1rem;
-    line-height: 1.6;
-    background-color: #FFFFFF;
-    color: #212121;
-    -webkit-font-smoothing: antialiased;
-}
-.filter-pills {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-    margin-bottom: 2rem;
-}
-.pill-btn {
-    border: 1px solid transparent;
-    padding: 0.45rem 0.95rem;
-    border-radius: 9999px;
-    font-family: inherit;
-    font-size: 0.88rem;
-    font-weight: 700;
-    cursor: pointer;
-    transition: all 0.15s ease;
-}
-.pill-btn:hover {
-    transform: translateY(-1px);
-    filter: brightness(0.96);
-}
-.pill-btn.active {
-    background-color: #334155 !important;
-    border-color: #334155 !important;
-    color: #FFFFFF !important;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
-}
-.resource-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1.25rem;
-}
-.styleBlock {
-    background: #FFFFFF;
-    border: 1px solid #E2E8F0;
-    border-radius: 12px;
-    padding: 1.25rem 1.25rem;
-    border-left: 6px solid #CBD5E1;
-    text-align: left;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    transition: transform 0.15s ease, box-shadow 0.15s ease;
-}
-.styleBlock:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-}
-.card-content { margin-bottom: 1rem; }
-.styleTitle {
-    font-size: 1.1rem;
-    font-weight: 700;
-    color: #0F172A;
-    margin-bottom: 0.5rem;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 0.35rem;
-}
-.type-tag {
-    font-size: 0.7rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    padding: 0.15rem 0.55rem;
-    border-radius: 4px;
-    background: #F1F5F9;
-    color: #475569;
-}
-.styleIdentity {
-    font-size: 0.9rem;
-    color: #475569;
-    line-height: 1.45;
-}
-.cta-container {
-    display: flex;
-    justify-content: flex-start;
-    margin-top: auto;
-}
-.btn-pill-soft {
-    display: inline-block;
-    width: auto !important;
-    padding: 0.45rem 1rem !important;
-    font-size: 0.85rem !important;
-    font-weight: 700;
-    text-align: left;
-    text-decoration: none;
-    border-radius: 9999px;
-    border: 1px solid transparent;
-    transition: all 0.15s ease;
-}
-.btn-pill-soft:hover {
-    filter: brightness(0.95);
-    transform: translateY(-1px);
-}
-.empty-state {
-    grid-column: 1 / -1;
-    padding: 3rem 1.5rem;
-    text-align: center;
-    color: #64748B;
-    background: #F8FAFC;
-    border-radius: 12px;
-    border: 1px dashed #CBD5E1;
-}
-@media (max-width: 960px) {
-    .resource-grid { grid-template-columns: repeat(2, 1fr); }
-}
-@media (max-width: 640px) {
-    body { padding: 1.25rem 0.85rem; }
-    .resource-grid { grid-template-columns: 1fr; }
-    .styleBlock { padding: 1rem 1.15rem; }
-}
+    body {
+        font-family: system-ui, sans-serif;
+        background: #f8fafc;
+        color: #1e293b;
+        margin: 0;
+        padding: 0;
+    }
+
+    .wrapper {
+        max-width: 760px;
+        margin: 2rem auto;
+        padding: 1.5rem;
+    }
+
+    .style-header {
+        margin-bottom: 1.5rem;
+    }
+
+    .style-title {
+        font-size: 2rem;
+        font-weight: 700;
+        margin-bottom: 0.25rem;
+    }
+
+    .style-subtitle {
+        font-size: 1.1rem;
+        color: #334155;
+        margin-bottom: 1rem;
+    }
+
+    .style-block {
+        background: white;
+        padding: 1.25rem;
+        border-radius: 12px;
+        border-left: 6px solid transparent;
+        margin-bottom: 1.5rem;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+    }
+
+    .section-title {
+        font-size: 1.25rem;
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+    }
+
+    .muted {
+        color: #334155;
+    }
+
+    .search-term-list {
+        margin-top: 0.75rem;
+        padding-left: 1.25rem;
+    }
+
+    .search-term-list li {
+        margin-bottom: 0.35rem;
+    }
+
+    .cta-container {
+        margin-top: 1.25rem;
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .btn-pill-soft {
+        display: inline-block;
+        padding: 0.65rem 1rem;
+        border-radius: 999px;
+        border: 1px solid #cbd5e1;
+        background: #f1f5f9;
+        text-decoration: none;
+        font-weight: 600;
+        color: #1e293b;
+        transition: background 0.2s, border-color 0.2s;
+    }
+
+    .btn-pill-soft:hover,
+    .btn-pill-soft:focus {
+        background: #e2e8f0;
+        outline: 2px solid #1494B8;
+    }
+
+    .fallback {
+        background: white;
+        padding: 1.5rem;
+        border-radius: 12px;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+        margin-top: 2rem;
+    }
 </style>
 </head>
+
 <body>
-<div class="filter-pills" id="pillContainer"></div>
-<div class="resource-grid" id="resourceContainer"></div>
+<div class="wrapper">
 
-<!-- Load Data JS File Directly -->
-<script src="directory-data.js"></script>
+    <!-- Main Content -->
+    <main id="directoryContent"></main>
 
-<script>
-// Dynamic URL Parsing
-const urlParams = new URLSearchParams(window.location.search);
-let rawStyle = urlParams.get('style');
-let activeStyle = "All Styles";
+</div>
 
-if (rawStyle && typeof styles !== 'undefined') {
-    const cleanInput = decodeURIComponent(rawStyle).trim().toLowerCase();
-    const foundKey = Object.keys(styles).find(s => s.toLowerCase() === cleanInput);
-    if (foundKey) activeStyle = foundKey;
-}
+<!-- ============================
+     CLEAN, CORRECTED JAVASCRIPT
+============================= -->
+<script type="module">
+import { styles } from './directory-data.js';
 
-function renderPills() {
-    const container = document.getElementById("pillContainer");
-    container.innerHTML = "";
-    Object.keys(styles).forEach(key => {
-        const btn = document.createElement("button");
-        btn.className = "pill-btn";
-        btn.textContent = key;
-        
-        const styleInfo = styles[key];
-        if (key === activeStyle) {
-            btn.classList.add("active");
-        } else {
-            if (key === "All Styles") {
-                btn.style.backgroundColor = "#F1F5F9";
-                btn.style.borderColor = "#CBD5E1";
-                btn.style.color = "#334155";
-            } else {
-                btn.style.backgroundColor = `${styleInfo.color}14`;
-                btn.style.borderColor = `${styleInfo.color}40`;
-                btn.style.color = styleInfo.color;
-            }
-        }
-        btn.onclick = () => selectStyle(key);
-        container.appendChild(btn);
-    });
-}
+// Render directory page
+function renderDirectory() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const styleKey = urlParams.get('style');
+    const content = document.getElementById("directoryContent");
 
-function selectStyle(key) {
-    activeStyle = key;
-    const newUrl = new URL(window.location);
-    if (key === 'All Styles') {
-        newUrl.searchParams.delete('style');
-    } else {
-        newUrl.searchParams.set('style', key);
-    }
-    window.history.pushState({}, '', newUrl);
-    renderPills();
-    renderResources();
-}
+    // Fallback UI for invalid or missing style
+    if (!styleKey || !styles[styleKey]) {
+        content.innerHTML = `
+            <div class="fallback">
+                <h1 style="margin-bottom: 0.75rem;">Style Not Found</h1>
+                <p class="muted">The style you’re looking for doesn’t exist or wasn’t provided.</p>
 
-function renderResources() {
-    const container = document.getElementById("resourceContainer");
-    container.innerHTML = "";
-    const filtered = activeStyle === 'All Styles' 
-        ? resources 
-        : resources.filter(res => res.styles.includes(activeStyle));
-        
-    if (filtered.length === 0) {
-        container.innerHTML = `
-            <div class="empty-state">
-                <p>No resources currently listed for <strong>${activeStyle}</strong>.</p>
+                <div class="cta-container">
+                    <a href="quiz.html" class="btn-pill-soft">Take the Quiz</a>
+                    <a href="index.html" class="btn-pill-soft">View All Styles</a>
+                </div>
             </div>
         `;
         return;
     }
-    filtered.forEach(res => {
-        const matchStyle = (activeStyle !== 'All Styles') ? activeStyle : res.styles[0];
-        const cardColor = styles[matchStyle] ? styles[matchStyle].color : "#1494B9";
-        const card = document.createElement("div");
-        card.className = "styleBlock";
-        card.style.borderLeftColor = cardColor;
-        card.innerHTML = `
-            <div class="card-content">
-                <div class="styleTitle">
-                    <span>${res.title}</span>
-                    <span class="type-tag">${res.type}</span>
-                </div>
-                <div class="styleIdentity">${res.desc}</div>
-            </div>
-            
+
+    const data = styles[styleKey];
+
+    content.innerHTML = `
+        <header class="style-header">
+            <h1 class="style-title" style="color:${data.color};">${styleKey}</h1>
+            <p class="style-subtitle">${data.identity}</p>
+        </header>
+
+        <section class="style-block" style="border-left-color:${data.color};">
+            <h2 class="section-title">Behavior</h2>
+            <p class="muted">${data.behavior}</p>
+        </section>
+
+        <section class="style-block" style="border-left-color:${data.color};">
+            <h2 class="section-title">Action Focus</h2>
+            <p>${data.action}</p>
+        </section>
+
+        <section class="style-block" style="border-left-color:${data.color};">
+            <h2 class="section-title">Suggested Search Terms</h2>
+            <ul class="search-term-list">
+                ${data.searchTerms.map(term => `<li>${term}</li>`).join("")}
+            </ul>
+        </section>
+
+        <section class="style-block" style="border-left-color:${data.color};">
+            <h2 class="section-title">Explore More</h2>
             <div class="cta-container">
-                <a href="${res.url}" target="_blank" rel="noopener noreferrer" class="btn-pill-soft" style="background-color: ${cardColor}14; border-color: ${cardColor}40; color: ${cardColor} !important;">
-                    Visit Resource &rarr;
+                <a href="quiz.html" class="btn-pill-soft">Retake the Quiz</a>
+                <a href="index.html" class="btn-pill-soft">View All Styles</a>
+                <a href="https://climatecolor.com/wheel" target="_blank" rel="noopener noreferrer"
+                   class="btn-pill-soft" style="color:${data.color};">
+                    Climate Color Wheel →
                 </a>
             </div>
-        `;
-        container.appendChild(card);
-    });
+        </section>
+    `;
 }
 
-// Initial Execution
-renderPills();
-renderResources();
+document.addEventListener("DOMContentLoaded", renderDirectory);
 </script>
+
 </body>
 </html>
