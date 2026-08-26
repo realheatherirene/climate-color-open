@@ -164,7 +164,7 @@ Results Cards & Styles
 <body>
 <header class="quiz-header">
     <h1>Climate Color Quiz</h1>
-    <p>Complete all ten questions to unlock your stewardship style. View 
+    <p>Complete all eight questions to unlock your stewardship style. View the Climate Color 
         <a href="https://climatecolor.com/quiz-faq" target="_blank" rel="noopener noreferrer" style="color:#1494B8; font-weight: bold;">
             Quiz FAQ
         </a>.
@@ -179,32 +179,26 @@ Results Cards & Styles
 </div>
 <div id="resultContainer" tabindex="-1" aria-live="polite" style="display: none; outline: none;"></div>
 
-<!-- External Data Module -->
-<script src="quiz-data.js"></script>
-<script>
+<!-- External Data Module Integration -->
+<script type="module">
+import { styles, questions } from './quiz-data.js';
+
 let currentQuestion = 0;
+let selectedAudience = 'individual'; // Default fallback mode
 const scores = {};
 const selectionHistory = [];
 
-// Initialize scores dynamically from external quiz-data.js
-if (typeof styles !== 'undefined') {
-    Object.keys(styles).forEach(style => { scores[style] = 0; });
-}
+// Initialize score trackers for all 8 archetypes
+Object.keys(styles).forEach(style => { scores[style] = 0; });
 
 function renderQuestion() {
     const card = document.getElementById("quizCard");
     
-    // Safety Boundary: Catch missing or failed script loads
-    if (typeof questions === 'undefined' || typeof styles === 'undefined') {
-        card.innerHTML = `<div class="question-title" style="color:#E32322;">
-            Unable to load quiz data module. Please refresh the page or check script connections.
-        </div>`;
-        return;
-    }
-    
     if (!questions[currentQuestion]) return;
     const q = questions[currentQuestion];
-    document.getElementById("questionTitle").textContent = q.title;
+    
+    // Dynamic prompt rendering based on audience lens
+    document.getElementById("questionTitle").textContent = `${currentQuestion + 1}. ${q.getPrompt(selectedAudience)}`;
     
     const container = document.getElementById("optionsContainer");
     container.innerHTML = "";
@@ -216,7 +210,7 @@ function renderQuestion() {
         btn.onclick = () => selectOption(opt.style);
         container.appendChild(btn);
     });
-
+    
     const progressPct = Math.round((currentQuestion / questions.length) * 100);
     const progressBar = document.getElementById("progressBar");
     progressBar.style.width = `${progressPct}%`;
@@ -243,7 +237,6 @@ function calculateResults() {
     
     document.getElementById("quizCard").style.display = "none";
     
-    // Map style names to their corresponding color URL paths
     const styleColorSlugs = {
         Driver: "red",
         Advocate: "orange",
@@ -255,7 +248,7 @@ function calculateResults() {
         Guardian: "violet"
     };
 
-    // Sort by highest score; break ties by which style was selected most recently
+    // Sort by highest score; break ties using selection recency
     const sorted = Object.entries(scores).sort((a, b) => {
         if (b[1] !== a[1]) {
             return b[1] - a[1];
@@ -264,24 +257,17 @@ function calculateResults() {
     });
 
     const primaryKey = sorted[0] ? sorted[0][0] : Object.keys(styles)[0];
-    
-    // Defensive check: If secondary style has 0 points or doesn't exist, fall back safely
     const secondaryKey = (sorted[1] && sorted[1][1] > 0) ? sorted[1][0] : primaryKey;
-
+    
     const primaryBlock = styles[primaryKey];
     const secondaryBlock = styles[secondaryKey] || primaryBlock;
-    const primaryName = primaryKey;
-    const secondaryName = secondaryKey;
     
-    // Directory URLs
-    const primaryUrl = `directory.html?style=${encodeURIComponent(primaryName)}`;
-    const secondaryUrl = `directory.html?style=${encodeURIComponent(secondaryName)}`;
+    const primaryUrl = `directory.html?style=${encodeURIComponent(primaryKey)}`;
+    const secondaryUrl = `directory.html?style=${encodeURIComponent(secondaryKey)}`;
     
-    // Climate Color Strengths URLs
-    const primaryStrengthsUrl = `https://climatecolor.com/${styleColorSlugs[primaryName] || ''}`;
-    const secondaryStrengthsUrl = `https://climatecolor.com/${styleColorSlugs[secondaryName] || ''}`;
+    const primaryStrengthsUrl = `https://climatecolor.com/${styleColorSlugs[primaryKey] || ''}`;
+    const secondaryStrengthsUrl = `https://climatecolor.com/${styleColorSlugs[secondaryKey] || ''}`;
 
-    // Inline background styles with rgba fallbacks
     const primaryBg = primaryBlock.rgb ? `rgba(${primaryBlock.rgb}, 0.08)` : `${primaryBlock.color}14`;
     const primaryBorder = primaryBlock.rgb ? `rgba(${primaryBlock.rgb}, 0.25)` : `${primaryBlock.color}40`;
     const secondaryBg = secondaryBlock.rgb ? `rgba(${secondaryBlock.rgb}, 0.08)` : `${secondaryBlock.color}14`;
@@ -290,50 +276,40 @@ function calculateResults() {
     const result = document.getElementById("resultContainer");
     result.style.display = "block";
     result.innerHTML = `
-        <!-- PRIMARY RESULT CARD -->
         <div class="styleBlock" style="border-left-color:${primaryBlock.color}">
             <div class="styleTitle">
-                Your primary style: <span style="color:${primaryBlock.color};">${primaryName}</span>
+                Your primary style: <span style="color:${primaryBlock.color};">${primaryKey}</span>
             </div>
             <div class="styleIdentity">${primaryBlock.identity}</div>
             <div style="margin-bottom: 0.85rem; color: #475569;">${primaryBlock.behavior}</div>
-            
-            <div class="styleAction">
-                ${primaryBlock.action}
-            </div>
-            
+            <div class="styleAction">${primaryBlock.action}</div>
             <div class="cta-container">
                 <a href="${primaryStrengthsUrl}" target="_blank" rel="noopener noreferrer" class="btn-pill-soft" style="background-color: ${primaryBg}; border-color: ${primaryBorder}; color: ${primaryBlock.color} !important;">
-                    Explore ${primaryName} Climate Strengths &rarr;
+                    Explore ${primaryKey} Climate Strengths &rarr;
                 </a>
                 <a href="${primaryUrl}" class="btn-pill-soft" style="background-color: ${primaryBg}; border-color: ${primaryBorder}; color: ${primaryBlock.color} !important;">
-                    Explore ${primaryName} Climate Actions &rarr;
+                    Explore ${primaryKey} Climate Actions &rarr;
                 </a>
             </div>
         </div>
         
-        <!-- SECONDARY RESULT CARD -->
         <div class="styleBlock" style="border-left-color:${secondaryBlock.color};">
             <div class="styleTitle" style="font-size: 1.15rem;">
-                Secondary alignment: <span style="color:${secondaryBlock.color};">${secondaryName}</span>
+                Secondary alignment: <span style="color:${secondaryBlock.color};">${secondaryKey}</span>
             </div>
             <div class="styleIdentity" style="font-size: 0.98rem; margin-bottom: 0.35rem;">
                 ${secondaryBlock.identity}
             </div>
-            <div style="font-size: 0.9rem; color: #475569;">
-                ${secondaryBlock.behavior}
-            </div>
-            
+            <div style="font-size: 0.9rem; color: #475569;">${secondaryBlock.behavior}</div>
             <div class="cta-container">
                 <a href="${secondaryStrengthsUrl}" target="_blank" rel="noopener noreferrer" class="btn-pill-soft" style="background-color: ${secondaryBg}; border-color: ${secondaryBorder}; color: ${secondaryBlock.color} !important;">
-                    Explore ${secondaryName} Climate Strengths &rarr;
+                    Explore ${secondaryKey} Climate Strengths &rarr;
                 </a>
                 <a href="${secondaryUrl}" class="btn-pill-soft" style="background-color: ${secondaryBg}; border-color: ${secondaryBorder}; color: ${secondaryBlock.color} !important;">
-                    Explore ${secondaryName} Climate Actions &rarr;
+                    Explore ${secondaryKey} Climate Actions &rarr;
                 </a>
             </div>
         </div>
-
         <p style="margin-top: 1.25rem; text-align: left; font-size: 0.9rem;">
             Or view how your styles connect on 
             <a href="https://climatecolor.com/wheel" target="_blank" rel="noopener noreferrer" style="color:#1494B8; font-weight: bold;">
@@ -341,12 +317,17 @@ function calculateResults() {
             </a>.
         </p>
     `;
-
     result.focus();
 }
 
-// Ensure execution waits until DOM content is loaded
 document.addEventListener("DOMContentLoaded", () => {
+    // Detect URL Parameter (Option A): quiz.html?mode=workplace or quiz.html?mode=student
+    const urlParams = new URLSearchParams(window.location.search);
+    const mode = urlParams.get('mode');
+    if (mode && ['individual', 'workplace', 'student'].includes(mode)) {
+        selectedAudience = mode;
+    }
+    
     renderQuestion();
 });
 </script>
