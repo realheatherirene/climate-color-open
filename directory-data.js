@@ -1,9 +1,8 @@
-// directory-data.js
-export const styles = {
+const styles = {
     "All Styles": { color: "#334155" },
     Driver: { color: "#E32322" },
     Advocate: { color: "#F18E1C" },
-    Visionary: { color: "#9A7B00" }, // Aligned with high-contrast hex in quiz-data.js
+    Visionary: { color: "#D4B000" },
     Stabilizer: { color: "#5A9129" },
     Architect: { color: "#2A71B0" },
     Keeper: { color: "#002060" },
@@ -11,7 +10,7 @@ export const styles = {
     Guardian: { color: "#D946EF" }
 };
 
-export const resources = [
+const resources = [
     // --- 1. DRIVER (RED) ---
     { title: "Sunrise Movement", styles: ["Driver", "Advocate"], type: "Direct Action", desc: "Youth-led movement organizing rapid political and local action for climate solutions.", url: "https://www.sunrisemovement.org" },
     { title: "350.org", styles: ["Driver", "Guardian"], type: "Campaigning", desc: "Global grassroots network taking direct action on fossil fuel infrastructure.", url: "https://350.org" },
@@ -23,6 +22,7 @@ export const resources = [
     { title: "Patagonia Environmental Grants", styles: ["Driver"], type: "Funding", desc: "Funding for small, action-oriented grassroots groups focused on protecting local ecosystems and regional climate solutions.", url: "https://www.patagonia.com" },
     { title: "Youth Climate Justice Fund Resources", styles: ["Driver"], type: "Youth & Student", desc: "Capacity-building tools, youth mentorship frameworks, and micro-granting models for youth-led groups.", url: "https://ycjf.org" },
     { title: "Clif Family Foundation Grants", styles: ["Driver"], type: "Funding", desc: "Supports community-based organizations working to protect community health and preserve natural resources.", url: "https://cliffamilyfoundation.org" },
+
     // --- 2. ADVOCATE (ORANGE) ---
     { title: "Climate Reality Project", styles: ["Advocate", "Connector"], type: "Public Outreach", desc: "Trainings and communication hubs for public climate advocates and storytellers.", url: "https://www.climaterealityproject.org" },
     { title: "Citizen's Climate Lobby", styles: ["Advocate", "Architect", "Connector"], type: "Civic Advocacy", desc: "Building relationships with lawmakers and training citizen lobbyists across local chapters.", url: "https://citizensclimatelobby.org" },
@@ -36,6 +36,7 @@ export const resources = [
     { title: "CLEAN (Climate Literacy Network)", styles: ["Advocate"], type: "General Field", desc: "Peer-reviewed collection of K–16 educational resources and lesson plans aligned with science standards.", url: "https://cleanet.org" },
     { title: "NOAA Teaching Climate", styles: ["Advocate"], type: "General Field", desc: "Professional development opportunities, climate data visualizers, and interactive tools for educators.", url: "https://www.climate.gov" },
     { title: "Citizens' Climate Education Youth", styles: ["Advocate"], type: "Youth & Student", desc: "Youth-focused education modules, advocacy curricula, campus organizing kits, and leadership training.", url: "https://citizensclimateeducation.org" },
+
     // --- 3. VISIONARY (YELLOW) ---
     { title: "Project Drawdown", styles: ["Visionary", "Architect"], type: "Research & Systems", desc: "Mapping scalable, science-backed solutions and systemic models for climate drawdown.", url: "https://drawdown.org" },
     { title: "B Lab / B Corp Directory", styles: ["Visionary", "Architect"], type: "Economic Design", desc: "Framework and directory supporting sustainable business and ethical economic design.", url: "https://www.bcorporation.net" },
@@ -47,6 +48,7 @@ export const resources = [
     { title: "Young Voices for the Planet (CELF)", styles: ["Visionary"], type: "Youth & Student", desc: "Short films and lesson plans showcasing student-led environmental projects to reframe youth agency.", url: "https://celfeducation.org" },
     { title: "StoryCorps Climate Collection", styles: ["Visionary"], type: "Storytelling", desc: "Curated archive of first-person narratives capturing local landscape changes and personal environmental stewardship.", url: "https://storycorps.org" },
     { title: "NCA5 Teaching & Engagement Resources", styles: ["Visionary"], type: "General Field", desc: "Preserved snapshots of the Fifth National Climate Assessment summaries, visual aids, and regional impact data.", url: "https://web.archive.org/web/20231114220709/https://nca2023.globalchange.gov/" },
+
     // --- 4. STABILIZER (GREEN) ---
     { title: "National Wildlife Federation", styles: ["Stabilizer", "Keeper"], type: "Conservation", desc: "Hands-on habitat protection, local garden certifications, and practical conservation.", url: "https://www.nwf.org" },
     { title: "Local Food Hubs & USDA Directory", styles: ["Stabilizer", "Keeper"], type: "Agriculture", desc: "Practical local agriculture networks for building ongoing neighborhood food resilience.", url: "https://www.usda.gov" },
@@ -61,6 +63,7 @@ export const resources = [
     { title: "AAM Environment & Climate Network", styles: ["Stabilizer"], type: "Key Org", desc: "Operational frameworks and toolkits from AAM to help cultural sites integrate sustainability into operations.", url: "https://www.aam-us.org" },
     { title: "EPA ARC-X Adaptation Center (EDGI)", styles: ["Stabilizer"], type: "Resilience", desc: "Community-archived climate projection datasets and risk assessment workflows preserved by EDGI.", url: "https://envirodatagov.org" },
     { title: "FEMA Community Resilience (Smithsonian)", styles: ["Stabilizer"], type: "Resilience", desc: "Smithsonian-hosted community resilience frameworks and risk management resources adapted from federal models.", url: "https://ssec.si.edu" },
+
     // --- 5. ARCHITECT (BLUE) ---
     { title: "Sierra Club Volunteer Portal", styles: ["Architect", "Stabilizer", "Guardian"], type: "Volunteer Operations", desc: "Database for finding localized outdoor stewardship, cleanups, and watchdogs.", url: "https://www.sierraclub.org" },
     { title: "ICLEI Local Governments", styles: ["Architect"], type: "Municipal Logistics", desc: "Global network of local governments dedicated to systemic municipal sustainability.", url: "https://iclei.org" },
@@ -75,6 +78,7 @@ export const resources = [
     { title: "USGBC LEED for Existing Buildings", styles: ["Architect"], type: "Facilities", desc: "Standards and verification toolkits for green building maintenance, water conservation, and sustainable purchasing.", url: "https://www.usgbc.org" },
     { title: "The Climate Toolkit", styles: ["Architect"], type: "Key Org", desc: "Collaborative network for cultural institutions offering practical goals, tracking metrics, and shared operational strategies.", url: "https://climatetoolkit.org" },
     { title: "ENERGY STAR Non-Profit Workbook (RMI)", styles: ["Architect"], type: "Facilities", desc: "Independent building efficiency guides, benchmarking tools, and energy-saving checklists for non-profit facilities.", url: "https://rmi.org" },
+
     // --- 6. KEEPER (INDIGO) ---
     { title: "Indigenous Environmental Network", styles: ["Keeper", "Guardian"], type: "Heritage & Rights", desc: "Alliance protecting sacred lands, traditional ecological wisdom, and indigenous rights.", url: "https://www.ienearth.org" },
     { title: "Native Seed/SEARCH", styles: ["Keeper", "Stabilizer"], type: "Seed Preservation", desc: "Preserving traditional crop seeds and arid-land agricultural heritage.", url: "https://www.nativeseedsearch.org" },
@@ -85,6 +89,7 @@ export const resources = [
     { title: "World Monuments Fund Resilience", styles: ["Keeper"], type: "Resilience", desc: "Global initiative providing climate risk assessment models and technical guidance to safeguard historic green spaces.", url: "https://www.wmf.org" },
     { title: "Oral History Association Guides", styles: ["Keeper"], type: "Storytelling", desc: "Methodology guides and best practices for documenting community memories of environmental change and land use.", url: "https://oralhistory.org" },
     { title: "Heritage Emergency Task Force (Smithsonian)", styles: ["Keeper"], type: "Resilience", desc: "Smithsonian Institution disaster response guides, salvage procedures, and technical assistance for cultural sites.", url: "https://culturalrescue.si.edu" },
+
     // --- 7. CONNECTOR (PURPLE) ---
     { title: "Transition Network", styles: ["Connector", "Visionary"], type: "Community Building", desc: "Grassroots movement helping communities rebuild local resilience and cooperation.", url: "https://transitionnetwork.org" },
     { title: "VolunteerMatch Climate Hub", styles: ["Connector", "Architect"], type: "Volunteering", desc: "Connecting skilled volunteers with local environmental non-profits and groups.", url: "https://www.volunteermatch.org" },
@@ -97,6 +102,7 @@ export const resources = [
     { title: "Climate Toolkit Youth Network", styles: ["Connector"], type: "Youth & Student", desc: "Youth Climate Summit toolkits and frameworks for engaging young people in institutional decision-making.", url: "https://climatetoolkit.org" },
     { title: "iNaturalist", styles: ["Connector"], type: "Community Sci", desc: "Joint initiative allowing citizens to log plant and animal observations to map local biodiversity shifts.", url: "https://www.inaturalist.org" },
     { title: "Just Transition Alliance Resources", styles: ["Connector"], type: "Justice", desc: "Popular education tools, organizing frameworks, and policy briefs created jointly by labor and community groups.", url: "https://jtalliance.org" },
+
     // --- 8. GUARDIAN (VIOLET) ---
     { title: "Community Environmental Legal Defense Fund", styles: ["Guardian"], type: "Legal Watchdog", desc: "Legal assistance and advocacy protecting rights of nature and community self-governance.", url: "https://celdf.org" },
     { title: "Earthjustice", styles: ["Guardian", "Driver"], type: "Environmental Law", desc: "Nonprofit environmental law organization wielding the power of law to protect health.", url: "https://earthjustice.org" },
