@@ -6,14 +6,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=ADLaM+Display&family=Varela+Round&display=swap" rel="stylesheet">
 <style>
-/* ========================================================================== 
-Base & Global Styles 
-========================================================================== */
-* {
-    box-sizing: border-box;
-}
+* { box-sizing: border-box; }
 body {
     font-family: 'Varela Round', -apple-system, BlinkMacSystemFont, sans-serif;
     max-width: 1120px;
@@ -24,9 +19,6 @@ body {
     color: #212121;
     -webkit-font-smoothing: antialiased;
 }
-/* ========================================================================== 
-Archetype Pill Navigation
-========================================================================== */
 .filter-pills {
     display: flex;
     flex-wrap: wrap;
@@ -53,9 +45,6 @@ Archetype Pill Navigation
     color: #FFFFFF !important;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
 }
-/* ========================================================================== 
-Recipe Card Grid Layout (3-Column Desktop)
-========================================================================== */
 .resource-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -78,9 +67,7 @@ Recipe Card Grid Layout (3-Column Desktop)
     transform: translateY(-2px);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
 }
-.card-content {
-    margin-bottom: 1rem;
-}
+.card-content { margin-bottom: 1rem; }
 .styleTitle {
     font-size: 1.1rem;
     font-weight: 700;
@@ -136,126 +123,45 @@ Recipe Card Grid Layout (3-Column Desktop)
     border-radius: 12px;
     border: 1px dashed #CBD5E1;
 }
-/* ========================================================================== 
-Responsive Breakpoints
-========================================================================== */
 @media (max-width: 960px) {
-    .resource-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
+    .resource-grid { grid-template-columns: repeat(2, 1fr); }
 }
 @media (max-width: 640px) {
-    body {
-        padding: 1.25rem 0.85rem;
-    }
-    .resource-grid {
-        grid-template-columns: 1fr;
-    }
-    .styleBlock {
-        padding: 1rem 1.15rem;
-    }
+    body { padding: 1.25rem 0.85rem; }
+    .resource-grid { grid-template-columns: 1fr; }
+    .styleBlock { padding: 1rem 1.15rem; }
 }
 </style>
 </head>
 <body>
-<nav aria-label="Style filters">
-    <div class="filter-pills" id="pillContainer"></div>
-</nav>
-<main>
-    <div class="resource-grid" id="resourceContainer" aria-live="polite"></div>
-</main>
+<div class="filter-pills" id="pillContainer"></div>
+<div class="resource-grid" id="resourceContainer"></div>
+
+<!-- Load Data Module -->
+<script src="directory-data.html"></script>
+
 <script>
-const styles = {
-    "All Styles": { color: "#334155" },
-    Driver: { color: "#E32322" },
-    Advocate: { color: "#F18E1C" },
-    Visionary: { color: "#D4B000" },
-    Stabilizer: { color: "#5A9129" },
-    Architect: { color: "#2A71B0" },
-    Keeper: { color: "#002060" },
-    Connector: { color: "#6D398B" },
-    Guardian: { color: "#D946EF" }
-};
-
-const resources = [
-    { title: "Sunrise Movement", styles: ["Driver", "Advocate"], type: "Direct Action", desc: "Youth-led movement organizing rapid political and local action for climate solutions.", url: "https://www.sunrisemovement.org" },
-    { title: "350.org", styles: ["Driver", "Guardian"], type: "Campaigning", desc: "Global grassroots network taking direct action on fossil fuel infrastructure.", url: "https://350.org" },
-    { title: "Extinction Rebellion", styles: ["Driver"], type: "Civil Resistance", desc: "International movement using non-violent civil disobedience to compel climate action.", url: "https://rebellion.global" },
-    { title: "Rainforest Action Network", styles: ["Driver", "Guardian"], type: "Corporate Action", desc: "Direct market campaigns targeting global corporate drivers of deforestation.", url: "https://www.ran.org" },
-    { title: "Climate Defiance", styles: ["Driver"], type: "Direct Action", desc: "Youth-led rapid-response network conducting peaceful blockades and disruption.", url: "https://www.climatedefiance.org" },
-    { title: "Climate Reality Project", styles: ["Advocate", "Connector"], type: "Public Outreach", desc: "Trainings and communication hubs for public climate advocates and storytellers.", url: "https://www.climaterealityproject.org" },
-    { title: "Citizen's Climate Lobby", styles: ["Advocate", "Architect", "Connector"], type: "Civic Advocacy", desc: "Building relationships with lawmakers and training citizen lobbyists across local chapters.", url: "https://citizensclimatelobby.org" },
-    { title: "Climate Voices", styles: ["Advocate"], type: "Speakers Bureau", desc: "Connecting local scientists and communicators directly with community audiences.", url: "https://climatevoices.org" },
-    { title: "EcoAmerica", styles: ["Advocate", "Connector"], type: "Faith & Civic", desc: "Building broad-based leadership across faith, health, and local civic sectors.", url: "https://ecoamerica.org" },
-    { title: "The Climate Mobilization", styles: ["Advocate", "Driver"], type: "Policy Mobilization", desc: "Campaigning to declare climate emergencies and mobilize municipal action.", url: "https://www.theclimatemobilization.org" },
-    { title: "InsideClimate News", styles: ["Advocate", "Guardian"], type: "Journalism", desc: "Independent, non-profit news organization covering energy, environmental law, and climate.", url: "https://insideclimatenews.org" },
-    { title: "Project Drawdown", styles: ["Visionary", "Architect"], type: "Research & Systems", desc: "Mapping scalable, science-backed solutions and systemic models for climate drawdown.", url: "https://drawdown.org" },
-    { title: "B Lab / B Corp Directory", styles: ["Visionary", "Architect"], type: "Economic Design", desc: "Framework and directory supporting sustainable business and ethical economic design.", url: "https://www.bcorporation.net" },
-    { title: "Rocky Mountain Institute", styles: ["Visionary", "Architect"], type: "Clean Tech", desc: "Accelerating market-driven transitions to clean energy and zero-carbon building systems.", url: "https://rmi.org" },
-    { title: "Ecovillage Network", styles: ["Visionary", "Stabilizer"], type: "Living Systems", desc: "Global network of regenerative intentional communities and ecological housing.", url: "https://ecovillage.org" },
-    { title: "Dark Mountain Project", styles: ["Visionary", "Keeper"], type: "Cultural Design", desc: "Cultural collective framing new narratives for an age of ecological transition.", url: "https://dark-mountain.net" },
-    { title: "National Wildlife Federation", styles: ["Stabilizer", "Keeper"], type: "Conservation", desc: "Hands-on habitat protection, local garden certifications, and practical conservation.", url: "https://www.nwf.org" },
-    { title: "Local Food Hubs & USDA Directory", styles: ["Stabilizer", "Keeper"], type: "Agriculture", desc: "Practical local agriculture networks for building ongoing neighborhood food resilience.", url: "https://www.usda.gov/local-food-directories" },
-    { title: "Community Garden Association", styles: ["Stabilizer", "Connector"], type: "Community Care", desc: "Resources and neighborhood network maps for building and tending shared gardens.", url: "https://communitygarden.org" },
-    { title: "TreePeople", styles: ["Stabilizer", "Driver"], type: "Urban Forestry", desc: "Hands-on urban tree planting, canopy restoration, and local watershed care.", url: "https://www.treepeople.org" },
-    { title: "Xerces Society", styles: ["Stabilizer", "Keeper"], type: "Invertebrate Care", desc: "Invertebrate conservation, pollinator habitat restoration, and pesticide reduction.", url: "https://www.xerces.org" },
-    { title: "Compost Coalition", styles: ["Stabilizer"], type: "Soil Health", desc: "Decentralized community composting networks converting urban waste to living soil.", url: "https://www.compostfoundation.org" },
-    { title: "Sierra Club Volunteer Portal", styles: ["Architect", "Stabilizer", "Guardian"], type: "Volunteer Operations", desc: "Database for finding localized outdoor stewardship, cleanups, and watchdogs.", url: "https://www.sierraclub.org/get-involved" },
-    { title: "ICLEI Local Governments", styles: ["Architect"], type: "Municipal Logistics", desc: "Global network of local governments dedicated to systemic municipal sustainability.", url: "https://iclei.org" },
-    { title: "Global Footprint Network", styles: ["Architect", "Visionary"], type: "Data Metrics", desc: "Providing accounting frameworks and footprint indicators for resource management.", url: "https://www.footprintnetwork.org" },
-    { title: "Climate Policy Initiative", styles: ["Architect", "Guardian"], type: "Financial Systems", desc: "Analyzing energy policy and public finance systems to maximize investment efficiency.", url: "https://www.climatepolicyinitiative.org" },
-    { title: "Carbon Disclosure Project", styles: ["Architect"], type: "Corporate Reporting", desc: "Managing global disclosure systems for investors, companies, and city operations.", url: "https://www.cdp.net" },
-    { title: "Indigenous Environmental Network", styles: ["Keeper", "Guardian"], type: "Heritage & Rights", desc: "Alliance protecting sacred lands, traditional ecological wisdom, and indigenous rights.", url: "https://www.ienearth.org" },
-    { title: "Native Seed/SEARCH", styles: ["Keeper", "Stabilizer"], type: "Seed Preservation", desc: "Preserving traditional crop seeds and arid-land agricultural heritage.", url: "https://www.nativeseed.org" },
-    { title: "Land Trust Alliance", styles: ["Keeper", "Architect"], type: "Land Conservation", desc: "National network guiding local land trusts in permanent conservation easement protection.", url: "https://www.landtrustalliance.org" },
-    { title: "Society for Ecological Restoration", styles: ["Keeper", "Stabilizer"], type: "Ecology Protection", desc: "Restoring native ecosystem balance and protecting ecological heritage worldwide.", url: "https://www.ser.org" },
-    { title: "Old Growth Forest Network", styles: ["Keeper"], type: "Forest Protection", desc: "Identifying and preserving protected ancient forests across national county networks.", url: "https://www.oldgrowthforest.network" },
-    { title: "Transition Network", styles: ["Connector", "Visionary"], type: "Community Building", desc: "Grassroots movement helping communities rebuild local resilience and cooperation.", url: "https://transitionnetwork.org" },
-    { title: "VolunteerMatch Climate Hub", styles: ["Connector", "Architect"], type: "Volunteering", desc: "Connecting skilled volunteers with local environmental non-profits and groups.", url: "https://www.volunteermatch.org" },
-    { title: "Idealist Environmental Index", styles: ["Connector", "Architect"], type: "Network Portal", desc: "Searchable directory connecting individuals with local climate projects and jobs.", url: "https://www.idealist.org" },
-    { title: "Climate Resilience Leadership Network", styles: ["Connector", "Advocate"], type: "Community Coalitions", desc: "Facilitating cross-sector dialogues and neighborhood resilience circles.", url: "https://resilience.org" },
-    { title: "Green Faith Alliance", styles: ["Connector", "Keeper"], type: "Interfaith Networks", desc: "Mobilizing multi-faith communities for shared local stewardship and justice.", url: "https://greenfaith.org" },
-    { title: "Community Environmental Legal Defense Fund", styles: ["Guardian"], type: "Legal Watchdog", desc: "Legal assistance and advocacy protecting rights of nature and community self-governance.", url: "https://celdf.org" },
-    { title: "Earthjustice", styles: ["Guardian", "Driver"], type: "Environmental Law", desc: "Nonprofit environmental law organization wielding the power of law to protect health.", url: "https://earthjustice.org" },
-    { title: "NRDC Action Fund", styles: ["Guardian", "Advocate"], type: "Policy Accountability", desc: "Holding elected officials accountable for environmental justice and clean energy laws.", url: "https://www.nrdcactionfund.org" },
-    { title: "Environmental Justice Health Alliance", styles: ["Guardian", "Connector"], type: "Fence-line Protection", desc: "Grassroots coalition monitoring industrial pollution impacts on vulnerable communities.", url: "https://ej4all.org" },
-    { title: "FrackTracker Alliance", styles: ["Guardian", "Architect"], type: "Data Watchdog", desc: "Tracking extraction risks through map datasets to inform public health advocates.", url: "https://www.fracktracker.org" },
-    { title: "Center for Biological Diversity", styles: ["Guardian", "Keeper"], type: "Species Protection", desc: "Legal advocacy securing protections for endangered species and public lands.", url: "https://www.biologicaldiversity.org" },
-    { title: "Climate Emergency Fund", styles: ["Driver", "Guardian"], type: "Rapid Funding", desc: "Providing rapid grant funding to disruptive grassroots legal action networks.", url: "https://www.climateemergencyfund.org" },
-    { title: "EPA Local Climate Program (Archive)", styles: ["Architect", "Guardian"], type: "Gov Archive", desc: "Mirrored frameworks for local government climate action, energy efficiency, and municipal planning.", url: "https://web.archive.org/web/epa-local-climate" },
-    { title: "USDA Conservation Program (Mirror)", styles: ["Stabilizer", "Keeper"], type: "Gov Archive", desc: "Archived practices and guidelines for land management, soil health, and agricultural stewardship.", url: "https://web.archive.org/web/usda-csp" },
-    { title: "NOAA Climate Resilience Toolkit", styles: ["Architect", "Visionary"], type: "Gov Portal", desc: "Federal framework and case studies helping communities navigate climate hazards and adaptation.", url: "https://toolkit.climate.gov" },
-    { title: "Climate Data Initiative Archive", styles: ["Architect", "Guardian"], type: "Data Archive", desc: "Archived open-data repositories mapping coastal flooding, ecosystem vulnerability, and urban heat.", url: "https://web.archive.org/web/climate-data" }
-];
-
+// Dynamic URL Parsing
+const urlParams = new URLSearchParams(window.location.search);
+let rawStyle = urlParams.get('style');
 let activeStyle = "All Styles";
 
-function initActiveStyleFromURL() {
-    const urlParams = new URLSearchParams(window.location.search);
-    const rawStyle = urlParams.get('style');
-    if (rawStyle) {
-        const cleanInput = decodeURIComponent(rawStyle).trim().toLowerCase();
-        const foundKey = Object.keys(styles).find(s => s.toLowerCase() === cleanInput);
-        activeStyle = foundKey || "All Styles";
-    } else {
-        activeStyle = "All Styles";
-    }
+if (rawStyle && typeof styles !== 'undefined') {
+    const cleanInput = decodeURIComponent(rawStyle).trim().toLowerCase();
+    const foundKey = Object.keys(styles).find(s => s.toLowerCase() === cleanInput);
+    if (foundKey) activeStyle = foundKey;
 }
 
 function renderPills() {
     const container = document.getElementById("pillContainer");
-    container.replaceChildren();
-    
+    container.innerHTML = "";
     Object.keys(styles).forEach(key => {
         const btn = document.createElement("button");
         btn.className = "pill-btn";
         btn.textContent = key;
         
-        const isSelected = key === activeStyle;
-        btn.setAttribute("aria-pressed", isSelected ? "true" : "false");
-        
         const styleInfo = styles[key];
-        if (isSelected) {
+        if (key === activeStyle) {
             btn.classList.add("active");
         } else {
             if (key === "All Styles") {
@@ -288,87 +194,45 @@ function selectStyle(key) {
 
 function renderResources() {
     const container = document.getElementById("resourceContainer");
-    container.replaceChildren();
-    
+    container.innerHTML = "";
     const filtered = activeStyle === 'All Styles' 
         ? resources 
         : resources.filter(res => res.styles.includes(activeStyle));
         
     if (filtered.length === 0) {
-        const emptyState = document.createElement("div");
-        emptyState.className = "empty-state";
-        const emptyMsg = document.createElement("p");
-        emptyMsg.textContent = "No resources currently listed for ";
-        const boldStyle = document.createElement("strong");
-        boldStyle.textContent = activeStyle;
-        emptyMsg.appendChild(boldStyle);
-        emptyMsg.appendChild(document.createTextNode("."));
-        emptyState.appendChild(emptyMsg);
-        container.appendChild(emptyState);
+        container.innerHTML = `
+            <div class="empty-state">
+                <p>No resources currently listed for <strong>${activeStyle}</strong>.</p>
+            </div>
+        `;
         return;
     }
-    
     filtered.forEach(res => {
         const matchStyle = (activeStyle !== 'All Styles') ? activeStyle : res.styles[0];
         const cardColor = styles[matchStyle] ? styles[matchStyle].color : "#1494B9";
-        
         const card = document.createElement("div");
         card.className = "styleBlock";
         card.style.borderLeftColor = cardColor;
-        
-        const cardContent = document.createElement("div");
-        cardContent.className = "card-content";
-        
-        const styleTitle = document.createElement("div");
-        styleTitle.className = "styleTitle";
-        
-        const titleSpan = document.createElement("span");
-        titleSpan.textContent = res.title;
-        
-        const typeTag = document.createElement("span");
-        typeTag.className = "type-tag";
-        typeTag.textContent = res.type;
-        
-        styleTitle.appendChild(titleSpan);
-        styleTitle.appendChild(typeTag);
-        
-        const styleIdentity = document.createElement("div");
-        styleIdentity.className = "styleIdentity";
-        styleIdentity.textContent = res.desc;
-        
-        cardContent.appendChild(styleTitle);
-        cardContent.appendChild(styleIdentity);
-        
-        const ctaContainer = document.createElement("div");
-        ctaContainer.className = "cta-container";
-        
-        const link = document.createElement("a");
-        link.href = res.url;
-        link.target = "_blank";
-        link.rel = "noopener noreferrer";
-        link.className = "btn-pill-soft";
-        link.style.backgroundColor = `${cardColor}14`;
-        link.style.borderColor = `${cardColor}40`;
-        link.style.color = cardColor;
-        link.textContent = "Visit Resource \u2192";
-        
-        ctaContainer.appendChild(link);
-        
-        card.appendChild(cardContent);
-        card.appendChild(ctaContainer);
-        
+        card.innerHTML = `
+            <div class="card-content">
+                <div class="styleTitle">
+                    <span>${res.title}</span>
+                    <span class="type-tag">${res.type}</span>
+                </div>
+                <div class="styleIdentity">${res.desc}</div>
+            </div>
+            
+            <div class="cta-container">
+                <a href="${res.url}" target="_blank" rel="noopener noreferrer" class="btn-pill-soft" style="background-color: ${cardColor}14; border-color: ${cardColor}40; color: ${cardColor} !important;">
+                    Visit Resource &rarr;
+                </a>
+            </div>
+        `;
         container.appendChild(card);
     });
 }
 
-window.addEventListener('popstate', () => {
-    initActiveStyleFromURL();
-    renderPills();
-    renderResources();
-});
-
-// Initial Render
-initActiveStyleFromURL();
+// Initial Execution
 renderPills();
 renderResources();
 </script>
