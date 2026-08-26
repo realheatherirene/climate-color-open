@@ -1,5 +1,6 @@
 // quiz-data.js
-const styles = {
+
+export const styles = {
     Driver: {
         color: "#E32322",
         rgb: "227, 35, 34",
@@ -66,95 +67,118 @@ const styles = {
     }
 };
 
-const questions = [
+const scenes = {
+    individual: {
+        q1: "A local environmental issue needs urgent attention.",
+        q2: "A neighborhood sustainability fair is being organized.",
+        q3: "A new environmental project goal is being set.",
+        q4: "A community initiative is entering its second year.",
+        q5: "A new municipal policy is open for public comment.",
+        q6: "A local group is organizing its workflow.",
+        q7: "A community project is kicking off today.",
+        q8: "A local habitat is facing long-term pressures."
+    },
+    workplace: {
+        q1: "Your division needs to rapidly reduce its carbon footprint.",
+        q2: "A cross-departmental sustainability plan is launching.",
+        q3: "Your team is setting annual sustainability targets.",
+        q4: "An internal eco-initiative needs ongoing operational support.",
+        q5: "New corporate environmental standards are proposed.",
+        q6: "A cross-functional green team is structuring its workflow.",
+        q7: "A major workplace sustainability project launches today.",
+        q8: "Your organization is updating its long-term stewardship policies."
+    },
+    student: {
+        q1: "Your school campus wants to dramatically reduce waste.",
+        q2: "A campus eco-club event is being planned.",
+        q3: "Your student group is choosing a semester project.",
+        q4: "A campus garden project needs ongoing support.",
+        q5: "The school board is reviewing environmental policies.",
+        q6: "Your project group is organizing responsibilities.",
+        q7: "A campus sustainability campaign kicks off today.",
+        q8: "A student coalition is protecting local green spaces."
+    }
+};
+
+export const questions = [
     {
-        title: "1. A local park needs care. Where do you naturally step in?",
+        id: "q1",
+        getPrompt: (aud) => scenes[aud]?.q1 || scenes.individual.q1,
         options: [
-            { text: "Organize a fast-paced cleanup day with tools ready.", style: "Driver" },
-            { text: "Write posters and tell neighbors why the park matters.", style: "Advocate" },
-            { text: "Imagine new ways to redesign the park with native plants.", style: "Visionary" },
-            { text: "Show up every Saturday to water plants and weed beds.", style: "Stabilizer" }
+            { text: "Rally people and kick off immediate action.", style: "Driver" },
+            { text: "Craft the narrative to inspire support.", style: "Advocate" },
+            { text: "Brainstorm bold, unconventional solutions.", style: "Visionary" },
+            { text: "Establish steady, daily maintenance routines.", style: "Stabilizer" }
         ]
     },
     {
-        title: "2. Your neighborhood is hosting a sustainability fair. What's your role?",
+        id: "q2",
+        getPrompt: (aud) => scenes[aud]?.q2 || scenes.individual.q2,
         options: [
-            { text: "Manage the schedule, sign-in sheets, and volunteer shifts.", style: "Architect" },
-            { text: "Document the local history of green spaces for display.", style: "Keeper" },
-            { text: "Greet visitors and connect different local groups together.", style: "Connector" },
-            { text: "Review safety guidelines and ensure fair access for everyone.", style: "Guardian" }
+            { text: "Build databases and organize logistics.", style: "Architect" },
+            { text: "Honor local history and ecological wisdom.", style: "Keeper" },
+            { text: "Connect diverse groups to build trust.", style: "Connector" },
+            { text: "Review policies to safeguard community rights.", style: "Guardian" }
         ]
     },
     {
-        title: "3. When faced with a new climate goal, you feel most energized by:",
+        id: "q3",
+        getPrompt: (aud) => scenes[aud]?.q3 || scenes.individual.q3,
         options: [
-            { text: "Setting bold targets and jumping directly into action.", style: "Driver" },
-            { text: "Brainstorming creative, out-of-the-box ideas.", style: "Visionary" },
-            { text: "Organizing the step-by-step plan to make it run smoothly.", style: "Architect" },
-            { text: "Welcoming new people so everyone feels part of the team.", style: "Connector" }
+            { text: "Set ambitious targets and drive quick wins.", style: "Driver" },
+            { text: "Share compelling stories across local media.", style: "Advocate" },
+            { text: "Design fresh, scalable models for the future.", style: "Visionary" },
+            { text: "Ensure practical, long-term operational upkeep.", style: "Stabilizer" }
         ]
     },
     {
-        title: "4. What kind of impact feels most rewarding to you?",
+        id: "q4",
+        getPrompt: (aud) => scenes[aud]?.q4 || scenes.individual.q4,
         options: [
-            { text: "Inspiring dozens of people to care about a shared cause.", style: "Advocate" },
-            { text: "Seeing steady, tangible improvement over months and years.", style: "Stabilizer" },
-            { text: "Safeguarding vital natural habitats from harm.", style: "Keeper" },
-            { text: "Holding local leaders accountable to environmental promises.", style: "Guardian" }
+            { text: "Streamline scheduling and task management.", style: "Architect" },
+            { text: "Preserve heritage seeds, land, and traditions.", style: "Keeper" },
+            { text: "Welcome newcomers and facilitate open dialogue.", style: "Connector" },
+            { text: "Monitor compliance and hold leaders accountable.", style: "Guardian" }
         ]
     },
     {
-        title: "5. A new municipal environmental policy is being proposed. You choose to:",
+        id: "q5",
+        getPrompt: (aud) => scenes[aud]?.q5 || scenes.individual.q5,
         options: [
-            { text: "Rally people to show up at public hearings for direct pressure.", style: "Driver" },
-            { text: "Write articles or social posts to explain the impact to voters.", style: "Advocate" },
-            { text: "Draft alternative long-term vision maps for city council.", style: "Visionary" },
-            { text: "Analyze the exact wording to ensure vulnerable communities are protected.", style: "Guardian" }
+            { text: "Mobilize direct public turn-out and pressure.", style: "Driver" },
+            { text: "Publish clear breakdowns to educate voters.", style: "Advocate" },
+            { text: "Propose creative policy alternatives.", style: "Visionary" },
+            { text: "Maintain steady support for existing green services.", style: "Stabilizer" }
         ]
     },
     {
-        title: "6. How do you prefer to handle team organization during a project?",
+        id: "q6",
+        getPrompt: (aud) => scenes[aud]?.q6 || scenes.individual.q6,
         options: [
-            { text: "Build database systems and schedule logistics for everyone.", style: "Architect" },
-            { text: "Ensure traditional community wisdom and history guide decision-making.", style: "Keeper" },
-            { text: "Facilitate open dialog and resolve conflicts between members.", style: "Connector" },
-            { text: "Maintain steady, reliable weekly check-ins to keep work on track.", style: "Stabilizer" }
+            { text: "Create administrative systems and records.", style: "Architect" },
+            { text: "Ensure traditional wisdom guides decisions.", style: "Keeper" },
+            { text: "Bridge differences and resolve team conflicts.", style: "Connector" },
+            { text: "Audit terms to protect vulnerable groups.", style: "Guardian" }
         ]
     },
     {
-        title: "7. What is your primary focus when starting a new initiative?",
+        id: "q7",
+        getPrompt: (aud) => scenes[aud]?.q7 || scenes.individual.q7,
         options: [
-            { text: "Generating immediate energy and getting things moving.", style: "Driver" },
-            { text: "Framing the compelling story that wins people over.", style: "Advocate" },
-            { text: "Designing bold, sustainable models for the future.", style: "Visionary" },
-            { text: "Establishing a reliable, long-term operational routine.", style: "Stabilizer" }
+            { text: "Generate energy and start physical execution.", style: "Driver" },
+            { text: "Frame the vision to win public hearts and minds.", style: "Advocate" },
+            { text: "Map visionary possibilities for upcoming years.", style: "Visionary" },
+            { text: "Coordinate dependable weekly volunteer efforts.", style: "Stabilizer" }
         ]
     },
     {
-        title: "8. How do you ensure community projects stay resilient over time?",
+        id: "q8",
+        getPrompt: (aud) => scenes[aud]?.q8 || scenes.individual.q8,
         options: [
-            { text: "Set up efficient administrative frameworks and records.", style: "Architect" },
-            { text: "Pass down knowledge and protect local ecological heritage.", style: "Keeper" },
-            { text: "Nurture continuous strong relationships across the community.", style: "Connector" },
-            { text: "Monitor legal policies and protect local environmental rights.", style: "Guardian" }
-        ]
-    },
-    {
-        title: "9. What kind of outcome matters most to you at the end of a campaign?",
-        options: [
-            { text: "Seeing immediate, physical change on the ground.", style: "Driver" },
-            { text: "Knowing local heritage and natural ecological wisdom are preserved.", style: "Keeper" },
-            { text: "Inspiring widespread public shifts in mindset and awareness.", style: "Advocate" },
-            { text: "Designing a fresh, innovative framework that other groups can replicate.", style: "Visionary" }
-        ]
-    },
-    {
-        title: "10. How do you prefer to invest your personal energy over the long term?",
-        options: [
-            { text: "Showing up for routine, ongoing maintenance and practical support.", style: "Stabilizer" },
-            { text: "Building dependable background systems and managing logistics.", style: "Architect" },
-            { text: "Connecting isolated groups and maintaining strong community trust.", style: "Connector" },
-            { text: "Staying vigilant against harmful policy decisions and standing up for civic rights.", style: "Guardian" }
+            { text: "Structure data tools to track impact metrics.", style: "Architect" },
+            { text: "Protect historical knowledge and land rights.", style: "Keeper" },
+            { text: "Nurture ongoing relationships across networks.", style: "Connector" },
+            { text: "Enforce environmental regulations and oversight.", style: "Guardian" }
         ]
     }
 ];
