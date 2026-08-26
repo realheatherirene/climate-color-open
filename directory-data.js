@@ -3,7 +3,7 @@ export const styles = {
     "All Styles": { color: "#334155" },
     Driver: { color: "#E32322" },
     Advocate: { color: "#F18E1C" },
-    Visionary: { color: "#9A7B00" }, // Updated to match high-contrast hex in quiz-data.js
+    Visionary: { color: "#9A7B00" }, // Aligned with high-contrast hex in quiz-data.js
     Stabilizer: { color: "#5A9129" },
     Architect: { color: "#2A71B0" },
     Keeper: { color: "#002060" },
