@@ -1,5 +1,4 @@
 // quiz-data.js
-
 export const styles = {
     Driver: {
         color: "#E32322",
