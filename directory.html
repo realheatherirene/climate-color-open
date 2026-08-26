@@ -7,8 +7,10 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=ADLaM+Display&family=Varela+Round&display=swap" rel="stylesheet">
+
 <style>
 * { box-sizing: border-box; }
+
 body {
     font-family: 'Varela Round', -apple-system, BlinkMacSystemFont, sans-serif;
     max-width: 1120px;
@@ -19,12 +21,37 @@ body {
     color: #212121;
     -webkit-font-smoothing: antialiased;
 }
+
+/* ==========================================================================
+   Header Styles (matching Quiz page)
+   ========================================================================== */
+.quiz-header {
+    text-align: left;
+    margin-bottom: 1.5rem;
+}
+.quiz-header h1 {
+    font-family: 'ADLaM Display', 'Varela Round', sans-serif;
+    font-size: 2rem;
+    color: #1494B9;
+    margin: 0 0 0.25rem 0;
+    line-height: 1.2;
+}
+.quiz-header p {
+    font-size: 1rem;
+    color: #64748B;
+    margin: 0;
+}
+
+/* ==========================================================================
+   Directory Styles
+   ========================================================================== */
 .filter-pills {
     display: flex;
     flex-wrap: wrap;
     gap: 0.5rem;
     margin-bottom: 2rem;
 }
+
 .pill-btn {
     border: 1px solid transparent;
     padding: 0.45rem 0.95rem;
@@ -45,11 +72,13 @@ body {
     color: #FFFFFF !important;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
 }
+
 .resource-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 1.25rem;
 }
+
 .styleBlock {
     background: #FFFFFF;
     border: 1px solid #E2E8F0;
@@ -67,7 +96,9 @@ body {
     transform: translateY(-2px);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
 }
+
 .card-content { margin-bottom: 1rem; }
+
 .styleTitle {
     font-size: 1.1rem;
     font-weight: 700;
@@ -78,6 +109,7 @@ body {
     align-items: flex-start;
     gap: 0.35rem;
 }
+
 .type-tag {
     font-size: 0.7rem;
     font-weight: 700;
@@ -88,16 +120,19 @@ body {
     background: #F1F5F9;
     color: #475569;
 }
+
 .styleIdentity {
     font-size: 0.9rem;
     color: #475569;
     line-height: 1.45;
 }
+
 .cta-container {
     display: flex;
     justify-content: flex-start;
     margin-top: auto;
 }
+
 .btn-pill-soft {
     display: inline-block;
     width: auto !important;
@@ -114,6 +149,7 @@ body {
     filter: brightness(0.95);
     transform: translateY(-1px);
 }
+
 .empty-state {
     grid-column: 1 / -1;
     padding: 3rem 1.5rem;
@@ -123,6 +159,7 @@ body {
     border-radius: 12px;
     border: 1px dashed #CBD5E1;
 }
+
 @media (max-width: 960px) {
     .resource-grid { grid-template-columns: repeat(2, 1fr); }
 }
@@ -133,14 +170,11 @@ body {
 }
 </style>
 </head>
+
 <body>
-    <header class="quiz-header">
-    <h1>Climate Color Quiz</h1>
-    <p>Complete all eight questions to unlock your stewardship style. View the Climate Color 
-        <a href="https://climatecolor.com/quiz-faq" target="_blank" rel="noopener noreferrer" style="color:#1494B8; font-weight: bold;">
-            Quiz FAQ
-        </a>.
-    </p>
+<header class="quiz-header">
+    <h1>Stewardship Wheel Directory</h1>
+    <p>A categorized list of all Stewardship Wheel resources.</p>
 </header>
 <div class="filter-pills" id="pillContainer"></div>
 <div class="resource-grid" id="resourceContainer"></div>
