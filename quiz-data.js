@@ -73,7 +73,7 @@ export const climateColorCodeNames = {
         Connector: "The People Sentinel"
     }
 };
-const scenes = {
+export const scenes = {
     individual: {
         q1: "A spot in your neighborhood has been neglected, and neighbors show up to fix it.",
         q2: "Someone nearby needs help, and a few people start organizing support.",
