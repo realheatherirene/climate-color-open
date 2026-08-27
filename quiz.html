@@ -229,7 +229,10 @@ function selectOption(styleKey) {
         calculateResults();
     }
 }
-
+function getCombinedLabel(primaryKey, secondaryKey) {
+    if (primaryKey === secondaryKey) return ""; 
+    return climateColorCodeNames?.[primaryKey]?.[secondaryKey] || "";
+}
 function calculateResults() {
     const progressBar = document.getElementById("progressBar");
     progressBar.style.width = "100%";
@@ -275,7 +278,25 @@ function calculateResults() {
 
     const result = document.getElementById("resultContainer");
     result.style.display = "block";
-    result.innerHTML = `
+    result.innerHTML = 
+        const combinedLabel = getCombinedLabel(primaryKey, secondaryKey);
+
+let combinedBlock = "";
+if (combinedLabel) {
+    combinedBlock = `
+        <div class="styleBlock" style="border-left-color:${primaryBlock.color}; margin-bottom:1.5rem;">
+            <div class="styleTitle" style="font-size:1.4rem;">
+                Your Climate Color Code:
+                <span style="color:${primaryBlock.color};">${primaryKey}</span>–<span style="color:${secondaryBlock.color};">${secondaryKey}</span>
+            </div>
+            <div style="font-size:1.05rem; color:#475569; margin-top:0.35rem;">
+                ${combinedLabel}
+            </div>
+        </div>
+    `;
+}
+
+result.innerHTML = combinedBlock + 
         <div class="styleBlock" style="border-left-color:${primaryBlock.color}">
             <div class="styleTitle">
                 Your primary style: <span style="color:${primaryBlock.color};">${primaryKey}</span>
