@@ -123,54 +123,45 @@ body {
 .card-content { margin-bottom: 1rem; }
 
 .styleTitle {
-    font-size: 1.1rem;
+    font-size: 1.15rem;
     font-weight: 700;
     color: #0F172A;
     margin-bottom: 0.5rem;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 0.35rem;
+    line-height: 1.3;
 }
 
-.type-tag {
-    font-size: 0.7rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    padding: 0.15rem 0.55rem;
-    border-radius: 4px;
-    background: #F1F5F9;
-    color: #475569;
+.styleTitle a {
+    color: inherit;
+    text-decoration: none;
+    transition: color 0.15s ease;
+}
+
+.styleTitle a:hover {
+    color: #1494B9;
 }
 
 .styleIdentity {
     font-size: 0.9rem;
     color: #475569;
     line-height: 1.45;
+    margin-bottom: 1rem;
 }
 
-.cta-container {
+.style-tags-container {
     display: flex;
-    justify-content: flex-start;
+    flex-wrap: wrap;
+    gap: 0.4rem;
     margin-top: auto;
 }
 
-.btn-pill-soft {
+.style-tag-pill {
     display: inline-block;
-    width: auto !important;
-    padding: 0.45rem 1rem !important;
-    font-size: 0.85rem !important;
+    padding: 0.25rem 0.75rem;
+    font-size: 0.8rem;
     font-weight: 700;
-    text-align: left;
-    text-decoration: none;
     border-radius: 9999px;
     border: 1px solid transparent;
-    transition: all 0.15s ease;
-}
-.btn-pill-soft:hover {
-    filter: brightness(0.95);
-    transform: translateY(-1px);
+    user-select: none;
 }
 
 .empty-state {
@@ -288,6 +279,7 @@ function renderResources() {
     container.innerHTML = "";
 
     const filtered = resources.filter(res => {
+        // Includes resources matched via either primary or secondary styles
         const matchesStyle =
             activeStyle === "All Styles" || res.styles.includes(activeStyle);
 
@@ -295,7 +287,8 @@ function renderResources() {
             searchQuery === "" ||
             res.title.toLowerCase().includes(searchQuery) ||
             res.desc.toLowerCase().includes(searchQuery) ||
-            res.type.toLowerCase().includes(searchQuery);
+            res.type.toLowerCase().includes(searchQuery) ||
+            res.styles.some(s => s.toLowerCase().includes(searchQuery));
 
         return matchesStyle && matchesSearch;
     });
@@ -310,24 +303,45 @@ function renderResources() {
     }
 
     filtered.forEach(res => {
-        const matchStyle = (activeStyle !== 'All Styles') ? activeStyle : res.styles[0];
+        const matchStyle = (activeStyle !== 'All Styles' && res.styles.includes(activeStyle)) 
+            ? activeStyle 
+            : res.styles[0];
         const cardColor = styles[matchStyle] ? styles[matchStyle].color : "#1494B9";
+
+        // Place the currently active filter tag first, or default to the primary style tag
+        const sortedStyles = [...res.styles].sort((a, b) => {
+            if (a === activeStyle) return -1;
+            if (b === activeStyle) return 1;
+            return 0;
+        });
+
+        // Static visual pills for all style associations
+        const stylePillsHtml = sortedStyles.map(styleName => {
+            const sInfo = styles[styleName];
+            const color = sInfo ? sInfo.color : "#334155";
+            return `
+                <span class="style-tag-pill" 
+                      style="background-color: ${color}14; border-color: ${color}40; color: ${color};">
+                    ${styleName}
+                </span>
+            `;
+        }).join('');
+
         const card = document.createElement("div");
         card.className = "styleBlock";
         card.style.borderLeftColor = cardColor;
         card.innerHTML = `
             <div class="card-content">
                 <div class="styleTitle">
-                    <span>${res.title}</span>
-                    <span class="type-tag">${res.type}</span>
+                    <a href="${res.url}" target="_blank" rel="noopener noreferrer">
+                        ${res.title} &rarr;
+                    </a>
                 </div>
                 <div class="styleIdentity">${res.desc}</div>
             </div>
             
-            <div class="cta-container">
-                <a href="${res.url}" target="_blank" rel="noopener noreferrer" class="btn-pill-soft" style="background-color: ${cardColor}14; border-color: ${cardColor}40; color: ${cardColor} !important;">
-                    Visit Resource &rarr;
-                </a>
+            <div class="style-tags-container">
+                ${stylePillsHtml}
             </div>
         `;
         container.appendChild(card);
