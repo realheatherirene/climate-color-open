@@ -147,21 +147,47 @@ body {
     margin-bottom: 1rem;
 }
 
-.style-tags-container {
+/* Styles converted to colored text indicators */
+.style-text-container {
     display: flex;
     flex-wrap: wrap;
+    align-items: center;
     gap: 0.4rem;
+    margin-bottom: 1rem;
+}
+
+.style-text-item {
+    font-size: 0.82rem;
+    font-weight: 700;
+    user-select: none;
+}
+
+.style-text-separator {
+    color: #CBD5E1;
+    font-size: 0.8rem;
+}
+
+.cta-container {
+    display: flex;
+    justify-content: flex-start;
     margin-top: auto;
 }
 
-.style-tag-pill {
+.btn-pill-soft {
     display: inline-block;
-    padding: 0.25rem 0.75rem;
-    font-size: 0.8rem;
+    width: auto !important;
+    padding: 0.45rem 1rem !important;
+    font-size: 0.85rem !important;
     font-weight: 700;
+    text-align: left;
+    text-decoration: none;
     border-radius: 9999px;
     border: 1px solid transparent;
-    user-select: none;
+    transition: all 0.15s ease;
+}
+.btn-pill-soft:hover {
+    filter: brightness(0.95);
+    transform: translateY(-1px);
 }
 
 .empty-state {
@@ -279,7 +305,6 @@ function renderResources() {
     container.innerHTML = "";
 
     const filtered = resources.filter(res => {
-        // Includes resources matched via either primary or secondary styles
         const matchesStyle =
             activeStyle === "All Styles" || res.styles.includes(activeStyle);
 
@@ -308,22 +333,23 @@ function renderResources() {
             : res.styles[0];
         const cardColor = styles[matchStyle] ? styles[matchStyle].color : "#1494B9";
 
-        // Place the currently active filter tag first, or default to the primary style tag
+        // Place active filter or primary style first
         const sortedStyles = [...res.styles].sort((a, b) => {
             if (a === activeStyle) return -1;
             if (b === activeStyle) return 1;
             return 0;
         });
 
-        // Static visual pills for all style associations
-        const stylePillsHtml = sortedStyles.map(styleName => {
+        // Generate styled text indicators for associated styles
+        const styleTextHtml = sortedStyles.map((styleName, idx) => {
             const sInfo = styles[styleName];
             const color = sInfo ? sInfo.color : "#334155";
+            const separator = idx < sortedStyles.length - 1 ? `<span class="style-text-separator">•</span>` : '';
             return `
-                <span class="style-tag-pill" 
-                      style="background-color: ${color}14; border-color: ${color}40; color: ${color};">
+                <span class="style-text-item" style="color: ${color};">
                     ${styleName}
                 </span>
+                ${separator}
             `;
         }).join('');
 
@@ -334,14 +360,19 @@ function renderResources() {
             <div class="card-content">
                 <div class="styleTitle">
                     <a href="${res.url}" target="_blank" rel="noopener noreferrer">
-                        ${res.title} &rarr;
+                        ${res.title}
                     </a>
                 </div>
                 <div class="styleIdentity">${res.desc}</div>
+                <div class="style-text-container">
+                    ${styleTextHtml}
+                </div>
             </div>
             
-            <div class="style-tags-container">
-                ${stylePillsHtml}
+            <div class="cta-container">
+                <a href="${res.url}" target="_blank" rel="noopener noreferrer" class="btn-pill-soft" style="background-color: ${cardColor}14; border-color: ${cardColor}40; color: ${cardColor} !important;">
+                    Visit Resource &rarr;
+                </a>
             </div>
         `;
         container.appendChild(card);
