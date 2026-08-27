@@ -1,255 +1,384 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Stewardship Resources Directory</title>
-    <script src="directory-data.js"></script>
-    <style>
-        :root {
-            --bg-color: #f8fafc;
-            --card-bg: #ffffff;
-            --text-main: #0f172a;
-            --text-muted: #64748b;
-            --border-color: #e2e8f0;
-        }
+<meta charset="UTF-8">
+<title>Stewardship Directory | Climate Color</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=ADLaM+Display&family=Varela+Round&display=swap" rel="stylesheet">
 
-        body {
-            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-main);
-            margin: 0;
-            padding: 2rem;
-            line-height: 1.5;
-        }
+<style>
+* { box-sizing: border-box; }
 
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
+body {
+    font-family: 'Varela Round', -apple-system, BlinkMacSystemFont, sans-serif;
+    max-width: 1120px;
+    margin: 0 auto;
+    padding: 2rem 1rem 1rem 1rem;
+    line-height: 1.6;
+    background-color: #FFFFFF;
+    color: #212121;
+    -webkit-font-smoothing: antialiased;
+}
 
-        header {
-            margin-bottom: 2rem;
-        }
+/* ==========================================================================
+   Header Styles
+   ========================================================================== */
+.quiz-header {
+    text-align: left;
+    margin-bottom: 1.5rem;
+}
+.quiz-header h1 {
+    font-family: 'ADLaM Display', 'Varela Round', sans-serif;
+    font-size: 2rem;
+    color: #1494B9;
+    margin: 0 0 0.25rem 0;
+    line-height: 1.2;
+}
+.quiz-header p {
+    font-size: 1rem;
+    color: #64748B;
+    margin: 0;
+}
 
-        h1 {
-            font-size: 2rem;
-            margin-bottom: 0.5rem;
-        }
+/* ==========================================================================
+   Search Bar
+   ========================================================================== */
+.search-bar {
+    width: 100%;
+    margin-bottom: 1.5rem;
+}
+.search-input {
+    width: 100%;
+    padding: 0.65rem 1rem;
+    font-size: 0.95rem;
+    border-radius: 9999px;
+    border: 1px solid #CBD5E1;
+    background: #F8FAFC;
+    color: #334155;
+    transition: all 0.15s ease;
+}
+.search-input:focus {
+    outline: none;
+    border-color: #1494B9;
+    box-shadow: 0 0 0 3px #1494B933;
+}
 
-        .filter-bar {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-            margin-bottom: 2rem;
-        }
+/* ==========================================================================
+   Directory Styles
+   ========================================================================== */
+.filter-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 2rem;
+}
 
-        .filter-btn {
-            background-color: var(--card-bg);
-            border: 1px solid var(--border-color);
-            color: var(--text-main);
-            padding: 0.5rem 1rem;
-            border-radius: 6px;
-            cursor: pointer;
-            font-weight: 500;
-            transition: all 0.2s ease;
-        }
+.pill-btn {
+    border: 1px solid transparent;
+    padding: 0.45rem 0.95rem;
+    border-radius: 9999px;
+    font-family: inherit;
+    font-size: 0.88rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.15s ease;
+}
+.pill-btn:hover {
+    transform: translateY(-1px);
+    filter: brightness(0.96);
+}
+.pill-btn.active {
+    background-color: #334155 !important;
+    border-color: #334155 !important;
+    color: #FFFFFF !important;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+}
 
-        .filter-btn:hover {
-            border-color: #cbd5e1;
-            background-color: #f1f5f9;
-        }
+.resource-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.25rem;
+}
 
-        .filter-btn.active {
-            color: #ffffff;
-            border-color: transparent;
-        }
+.styleBlock {
+    background: #FFFFFF;
+    border: 1px solid #E2E8F0;
+    border-radius: 12px;
+    padding: 1.25rem 1.25rem;
+    border-left: 6px solid #CBD5E1;
+    text-align: left;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+.styleBlock:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
 
-        .directory-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-            gap: 1.5rem;
-        }
+.card-content { margin-bottom: 0.5rem; }
 
-        .resource-card {
-            background-color: var(--card-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            padding: 1.25rem;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
-        }
+.styleTitle {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: #0F172A;
+    margin-bottom: 0.5rem;
+    line-height: 1.3;
+}
 
-        .resource-card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-        }
+.styleTitle a {
+    color: inherit;
+    text-decoration: none;
+    transition: color 0.15s ease;
+}
 
-        .card-header {
-            margin-bottom: 0.75rem;
-        }
+.styleTitle a:hover {
+    color: #1494B9;
+}
 
-        .resource-title {
-            font-size: 1.125rem;
-            font-weight: 600;
-            margin: 0 0 0.5rem 0;
-            color: var(--text-main);
-            text-decoration: none;
-            display: inline-block;
-        }
+.styleIdentity {
+    font-size: 0.9rem;
+    color: #475569;
+    line-height: 1.45;
+    margin-bottom: 0.5rem;
+}
 
-        .resource-title:hover {
-            text-decoration: underline;
-        }
+/* Styled text indicators without dot separators */
+.style-text-container {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.6rem;
+    margin-bottom: 0.75rem;
+}
 
-        .resource-type {
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            color: var(--text-muted);
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-        }
+.style-text-item {
+    font-size: 0.82rem;
+    font-weight: 700;
+    user-select: none;
+}
 
-        .resource-desc {
-            font-size: 0.9rem;
-            color: #334155;
-            margin-bottom: 1.25rem;
-            flex-grow: 1;
-        }
+.cta-container {
+    display: flex;
+    justify-content: flex-start;
+    margin-top: auto;
+}
 
-        /* Text-only badges preserving natural list order */
-        .card-badges {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-            align-items: center;
-            font-size: 0.8rem;
-            font-weight: 600;
-        }
+/* Universal neutral styling for the button */
+.btn-pill-soft {
+    display: inline-block;
+    width: auto !important;
+    padding: 0.45rem 1rem !important;
+    font-size: 0.85rem !important;
+    font-weight: 700;
+    text-align: left;
+    text-decoration: none;
+    border-radius: 9999px;
+    border: 1px solid #CBD5E1;
+    background-color: #F8FAFC;
+    color: #334155 !important;
+    transition: all 0.15s ease;
+}
+.btn-pill-soft:hover {
+    background-color: #E2E8F0;
+    border-color: #94A3B8;
+    transform: translateY(-1px);
+}
 
-        .style-badge {
-            color: var(--text-muted);
-        }
+.empty-state {
+    grid-column: 1 / -1;
+    padding: 3rem 1.5rem;
+    text-align: center;
+    color: #64748B;
+    background: #F8FAFC;
+    border-radius: 12px;
+    border: 1px dashed #CBD5E1;
+}
 
-        .badge-separator {
-            color: #cbd5e1;
-            user-select: none;
-        }
-    </style>
+@media (max-width: 960px) {
+    .resource-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 640px) {
+    body { padding: 1.25rem 0.85rem; }
+    .resource-grid { grid-template-columns: 1fr; }
+    .styleBlock { padding: 1rem 1.15rem; }
+}
+</style>
 </head>
+
 <body>
+<header class="quiz-header">
+    <h1>Climate Color Directory</h1>
+    <p>Browse resources suggested for your stewardship style</p>
+</header>
 
-    <div class="container">
-        <header>
-            <h1>Stewardship Resources Directory</h1>
-            <p>Explore resources filtered by stewardship action styles.</p>
-        </header>
+<!-- Search Bar -->
+<div class="search-bar">
+    <input id="searchInput" class="search-input" placeholder="Search resources…">
+</div>
 
-        <div class="filter-bar" id="filterBar"></div>
+<div class="filter-pills" id="pillContainer"></div>
+<div class="resource-grid" id="resourceContainer"></div>
 
-        <div class="directory-grid" id="directoryGrid"></div>
-    </div>
+<script src="directory-data.js"></script>
 
-    <script>
-        let currentFilter = "All Styles";
+<script>
+// Dynamic URL Parsing
+const urlParams = new URLSearchParams(window.location.search);
+let rawStyle = urlParams.get('style');
+let activeStyle = "All Styles";
+let searchQuery = "";
 
-        // URL Alias Mapping to match hex color profiles
-        const urlStyleMap = {
-            all: "All Styles",
-            driver: "Driver",
-            advocate: "Advocate",
-            visionary: "Visionary",
-            stabilizer: "Stabilizer",
-            architect: "Architect",
-            keeper: "Keeper",
-            purple: "Connector",
-            connector: "Connector",
-            violet: "Guardian",
-            guardian: "Guardian"
-        };
+// Color-to-Style Alias Map
+const styleAliases = {
+    red: "Driver",
+    orange: "Advocate",
+    yellow: "Visionary",
+    green: "Stabilizer",
+    blue: "Architect",
+    indigo: "Keeper",
+    purple: "Connector",
+    violet: "Guardian"
+};
 
-        function initDirectory() {
-            // Check for initial filter set via URL parameters
-            const urlParams = new URLSearchParams(window.location.search);
-            const styleParam = urlParams.get('style')?.toLowerCase();
+// Style parsing
+if (rawStyle && typeof styles !== 'undefined') {
+    const cleanInput = decodeURIComponent(rawStyle).trim().toLowerCase();
+    const resolvedName = styleAliases[cleanInput] || cleanInput;
+    const foundKey = Object.keys(styles).find(s => s.toLowerCase() === resolvedName.toLowerCase());
+    if (foundKey) activeStyle = foundKey;
+}
 
-            if (styleParam && urlStyleMap[styleParam]) {
-                currentFilter = urlStyleMap[styleParam];
+// Search listener
+document.getElementById("searchInput").addEventListener("input", (e) => {
+    searchQuery = e.target.value.toLowerCase().trim();
+    renderResources();
+});
+
+function renderPills() {
+    const container = document.getElementById("pillContainer");
+    container.innerHTML = "";
+    Object.keys(styles).forEach(key => {
+        const btn = document.createElement("button");
+        btn.className = "pill-btn";
+        btn.textContent = key;
+        
+        const styleInfo = styles[key];
+        if (key === activeStyle) {
+            btn.classList.add("active");
+        } else {
+            if (key === "All Styles") {
+                btn.style.backgroundColor = "#F1F5F9";
+                btn.style.borderColor = "#CBD5E1";
+                btn.style.color = "#334155";
+            } else {
+                btn.style.backgroundColor = `${styleInfo.color}14`;
+                btn.style.borderColor = `${styleInfo.color}40`;
+                btn.style.color = styleInfo.color;
             }
-
-            renderFilterButtons();
-            renderResources();
         }
+        btn.onclick = () => selectStyle(key);
+        container.appendChild(btn);
+    });
+}
 
-        function renderFilterButtons() {
-            const filterBar = document.getElementById('filterBar');
-            filterBar.innerHTML = '';
+function selectStyle(key) {
+    activeStyle = key;
+    const newUrl = new URL(window.location);
+    if (key === 'All Styles') {
+        newUrl.searchParams.delete('style');
+    } else {
+        newUrl.searchParams.set('style', key);
+    }
+    window.history.pushState({}, '', newUrl);
+    renderPills();
+    renderResources();
+}
 
-            Object.keys(styles).forEach(styleName => {
-                const btn = document.createElement('button');
-                btn.className = `filter-btn ${styleName === currentFilter ? 'active' : ''}`;
-                btn.textContent = styleName;
+function renderResources() {
+    const container = document.getElementById("resourceContainer");
+    container.innerHTML = "";
 
-                if (styleName === currentFilter) {
-                    btn.style.backgroundColor = styles[styleName].color;
-                }
+    const filtered = resources.filter(res => {
+        const matchesStyle =
+            activeStyle === "All Styles" || res.styles.includes(activeStyle);
 
-                btn.addEventListener('click', () => {
-                    currentFilter = styleName;
-                    renderFilterButtons();
-                    renderResources();
-                });
+        const matchesSearch =
+            searchQuery === "" ||
+            res.title.toLowerCase().includes(searchQuery) ||
+            res.desc.toLowerCase().includes(searchQuery) ||
+            res.type.toLowerCase().includes(searchQuery) ||
+            res.styles.some(s => s.toLowerCase().includes(searchQuery));
 
-                filterBar.appendChild(btn);
-            });
-        }
+        return matchesStyle && matchesSearch;
+    });
 
-        function renderResources() {
-            const grid = document.getElementById('directoryGrid');
-            grid.innerHTML = '';
+    if (filtered.length === 0) {
+        container.innerHTML = `
+            <div class="empty-state">
+                <p>No resources match your search.</p>
+            </div>
+        `;
+        return;
+    }
 
-            // Filter items based on active selection
-            const filteredResources = resources.filter(res => {
-                if (currentFilter === "All Styles") return true;
-                return res.styles.includes(currentFilter);
-            });
+    filtered.forEach(res => {
+        const matchStyle = (activeStyle !== 'All Styles' && res.styles.includes(activeStyle)) 
+            ? activeStyle 
+            : res.styles[0];
+        const cardColor = styles[matchStyle] ? styles[matchStyle].color : "#1494B9";
 
-            filteredResources.forEach(res => {
-                // 1. Dynamic Active Highlight: Border matches current filter or defaults to primary style
-                const activeStyleKey = (currentFilter !== "All Styles") ? currentFilter : res.styles[0];
-                const activeColor = styles[activeStyleKey]?.color || "#334155";
+        // Place active filter or primary style first
+        const sortedStyles = [...res.styles].sort((a, b) => {
+            if (a === activeStyle) return -1;
+            if (b === activeStyle) return 1;
+            return 0;
+        });
 
-                // 2. Multi-Tag Badges: Text-only, preserving exact relevance order (res.styles)
-                const badgeMarkup = res.styles
-                    .map(styleName => `<span class="style-badge">${styleName}</span>`)
-                    .join('<span class="badge-separator">•</span>');
+        // Generate styled text indicators without dots
+        const styleTextHtml = sortedStyles.map(styleName => {
+            const sInfo = styles[styleName];
+            const color = sInfo ? sInfo.color : "#334155";
+            return `
+                <span class="style-text-item" style="color: ${color};">
+                    ${styleName}
+                </span>
+            `;
+        }).join('');
 
-                const card = document.createElement('div');
-                card.className = 'resource-card';
-                card.style.borderLeft = `5px solid ${activeColor}`;
+        const card = document.createElement("div");
+        card.className = "styleBlock";
+        card.style.borderLeftColor = cardColor;
+        card.innerHTML = `
+            <div class="card-content">
+                <div class="styleTitle">
+                    <a href="${res.url}" target="_blank" rel="noopener noreferrer">
+                        ${res.title}
+                    </a>
+                </div>
+                <div class="styleIdentity">${res.desc}</div>
+                <div class="style-text-container">
+                    ${styleTextHtml}
+                </div>
+            </div>
+            
+            <div class="cta-container">
+                <a href="${res.url}" target="_blank" rel="noopener noreferrer" class="btn-pill-soft">
+                    Visit Resource &rarr;
+                </a>
+            </div>
+        `;
+        container.appendChild(card);
+    });
+}
 
-                card.innerHTML = `
-                    <div>
-                        <div class="resource-type">${res.type}</div>
-                        <a href="${res.url}" target="_blank" rel="noopener noreferrer" class="resource-title">
-                            ${res.title}
-                        </a>
-                        <p class="resource-desc">${res.desc}</p>
-                    </div>
-                    <div class="card-badges">
-                        ${badgeMarkup}
-                    </div>
-                `;
-
-                grid.appendChild(card);
-            });
-        }
-
-        document.addEventListener('DOMContentLoaded', initDirectory);
-    </script>
+// Initial Execution
+renderPills();
+renderResources();
+</script>
 </body>
 </html>
