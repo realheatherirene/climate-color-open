@@ -317,6 +317,9 @@ function renderResources() {
         return matchesStyle && matchesSearch;
     });
 
+    // Alphabetical sort by title
+    filtered.sort((a, b) => a.title.localeCompare(b.title));
+
     if (filtered.length === 0) {
         container.innerHTML = `
             <div class="empty-state">
