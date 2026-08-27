@@ -107,7 +107,7 @@ body {
     border: 1px solid #E2E8F0;
     border-radius: 12px;
     padding: 1.25rem 1.25rem;
-    border-left: 6px solid #CBD5E1;
+    border-left: 6px solid #CBD5E1; /* Single neutral border aligned with buttons */
     text-align: left;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
     display: flex;
@@ -327,11 +327,6 @@ function renderResources() {
     }
 
     filtered.forEach(res => {
-        const matchStyle = (activeStyle !== 'All Styles' && res.styles.includes(activeStyle)) 
-            ? activeStyle 
-            : res.styles[0];
-        const cardColor = styles[matchStyle] ? styles[matchStyle].color : "#1494B9";
-
         // Generate styled text indicators in exact data array order (relevance order)
         const styleTextHtml = res.styles.map(styleName => {
             const sInfo = styles[styleName];
@@ -345,7 +340,6 @@ function renderResources() {
 
         const card = document.createElement("div");
         card.className = "styleBlock";
-        card.style.borderLeftColor = cardColor;
         card.innerHTML = `
             <div class="card-content">
                 <div class="styleTitle">
