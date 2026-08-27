@@ -43,9 +43,9 @@ const resources = [
     { title: "Dark Mountain Project", styles: ["Visionary", "Keeper"], type: "Cultural Design", desc: "Cultural collective framing new narratives for an age of ecological transition.", url: "https://dark-mountain.net" },
     { title: "Climate Color Community", styles: ["Visionary"], type: "General Field", desc: "An ecosystem of peers and projects that make climate action feel clear, grounded, and aligned with your strengths.", url: "https://climatecolor.com" },
     { title: "Museums for Climate Action", styles: ["Visionary"], type: "Key Org", desc: "Global initiative providing open-source exhibition concepts and creative research models for cultural institutions.", url: "https://www.museumsforclimateaction.org" },
-    { title: "Young Voices for the Planet", styles: ["Visionary"], type: "Youth & Student", desc: "Short films and lesson plans showcasing student-led environmental projects to reframe youth agency.", url: "https://www.youngvoicesfortheplanet.com" },
+    { title: "Young Voices for the Planet", styles: ["Visionary"], type: "Youth & Student", desc: "Short films and lesson plans showcasing student-led environmental projects to reframe youth agency.", url: "https://www.youngvoicesfortheplanet.org" },
     { title: "StoryCorps Climate Collection", styles: ["Visionary"], type: "Storytelling", desc: "Curated archive of first-person narratives capturing local landscape changes and personal environmental stewardship.", url: "https://storycorps.org" },
-    { title: "NCA5 Teaching & Engagement Resources", styles: ["Visionary"], type: "General Field", desc: "Fifth National Climate Assessment summaries, visual aids, and regional impact data.", url: "https://nca2023.globalchange.gov" },
+    { title: "NCA5 Teaching & Engagement Resources", styles: ["Visionary"], type: "General Field", desc: "Fifth National Climate Assessment summaries, visual aids, and regional impact data.", url: "https://www.nca2023.globalchange.gov" },
 
     // --- 4. STABILIZER (GREEN) ---
     { title: "National Wildlife Federation", styles: ["Stabilizer", "Keeper"], type: "Conservation", desc: "Hands-on habitat protection, local garden certifications, and practical conservation.", url: "https://www.nwf.org" },
@@ -77,10 +77,10 @@ const resources = [
     { title: "ENERGY STAR Non-Profit Workbook (RMI)", styles: ["Architect"], type: "Facilities", desc: "Independent building efficiency guides, benchmarking tools, and energy-saving checklists for non-profit facilities.", url: "https://rmi.org" },
 
     // --- 6. KEEPER (INDIGO) ---
-    { title: "Indigenous Environmental Network", styles: ["Keeper", "Guardian"], type: "Heritage & Rights", desc: "Alliance protecting sacred lands, traditional ecological wisdom, and indigenous rights.", url: "https://www.ienearth.org" },
+    { title: "Indigenous Environmental Network", styles: ["Keeper", "Guardian"], type: "Heritage & Rights", desc: "Alliance protecting sacred lands, traditional ecological wisdom, and indigenous rights.", url: "https://ienearth.org" },
     { title: "Land Trust Alliance", styles: ["Keeper", "Architect"], type: "Land Conservation", desc: "National network guiding local land trusts in permanent conservation easement protection.", url: "https://www.landtrustalliance.org" },
     { title: "Society for Ecological Restoration", styles: ["Keeper", "Stabilizer"], type: "Ecology Protection", desc: "Restoring native ecosystem balance and protecting ecological heritage worldwide.", url: "https://www.ser.org" },
-    { title: "Old Growth Forest Network", styles: ["Keeper"], type: "Forest Protection", desc: "Identifying and preserving protected ancient forests across national county networks.", url: "https://www.oldgrowthforest.org" },
+    { title: "Old Growth Forest Network", styles: ["Keeper"], type: "Forest Protection", desc: "Identifying and preserving protected ancient forests across national county networks.", url: "https://www.oldgrowthforest.org/" },
     { title: "Indigenous Climate Hub", styles: ["Keeper"], type: "Storytelling", desc: "Indigenous-led platform sharing traditional ecological knowledge and community climate adaptation projects.", url: "https://indigenousclimatehub.ca" },
     { title: "World Monuments Fund Resilience", styles: ["Keeper"], type: "Resilience", desc: "Global initiative providing climate risk assessment models and technical guidance to safeguard historic green spaces.", url: "https://www.wmf.org" },
     { title: "Oral History Association Guides", styles: ["Keeper"], type: "Storytelling", desc: "Methodology guides and best practices for documenting community memories of environmental change and land use.", url: "https://oralhistory.org" },
@@ -104,7 +104,7 @@ const resources = [
     { title: "Earthjustice", styles: ["Guardian", "Driver"], type: "Environmental Law", desc: "Nonprofit environmental law organization wielding the power of law to protect health.", url: "https://earthjustice.org" },
     { title: "NRDC Action Fund", styles: ["Guardian", "Advocate"], type: "Policy Accountability", desc: "Holding elected officials accountable for environmental justice and clean energy laws.", url: "https://www.nrdcactionfund.org" },
     { title: "Environmental Justice Health Alliance", styles: ["Guardian", "Connector"], type: "Fence-line Protection", desc: "Grassroots coalition monitoring industrial pollution impacts on vulnerable communities.", url: "https://ej4all.org" },
-    { title: "FrackTracker Alliance", styles: ["Guardian", "Architect"], type: "Data Watchdog", desc: "Tracking extraction risks through map datasets to inform public health advocates.", url: "https://www.fracktracker.org" },
+    { title: "FrackTracker Alliance", styles: ["Guardian", "Architect"], type: "Data Watchdog", desc: "Tracking extraction risks through map datasets to inform public health advocates.", url: "https://fracktracker.org" },
     { title: "Center for Biological Diversity", styles: ["Guardian", "Keeper"], type: "Species Protection", desc: "Legal advocacy securing protections for endangered species and public lands.", url: "https://www.biologicaldiversity.org" },
     { title: "Climate Emergency Fund", styles: ["Guardian", "Driver"], type: "Rapid Funding", desc: "Providing rapid grant funding to disruptive grassroots legal action networks.", url: "https://www.climateemergencyfund.org" },
     { title: "Sabin Center Litigation Database", styles: ["Guardian"], type: "Legal & Policy", desc: "Maintained by Columbia Law School, tracking climate litigation cases and administrative petitions across courts.", url: "https://climatecasechart.com" },
