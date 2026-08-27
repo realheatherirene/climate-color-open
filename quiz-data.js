@@ -68,34 +68,34 @@ export const styles = {
 
 const scenes = {
     individual: {
-        q1: "A local environmental issue needs urgent attention.",
-        q2: "A neighborhood sustainability fair is being organized.",
-        q3: "A new environmental project goal is being set.",
-        q4: "A community initiative is entering its second year.",
-        q5: "A new municipal policy is open for public comment.",
-        q6: "A local group is organizing its workflow.",
-        q7: "A community project is kicking off today.",
-        q8: "A local habitat is facing long-term pressures."
+        q1: "A situation in your community needs people to get involved. You are most likely to…",
+        q2: "A neighborhood event is being planned and volunteers are gathering. You are most likely to…",
+        q3: "A group is deciding on a new shared goal. You are most likely to…",
+        q4: "A community project is entering its second year. You are most likely to…",
+        q5: "A public issue is being discussed and people are weighing in. You are most likely to…",
+        q6: "A local group is organizing how it will work together. You are most likely to…",
+        q7: "A new community effort is kicking off today. You are most likely to…",
+        q8: "A long-term challenge in your area needs steady attention. You are most likely to…"
     },
     workplace: {
-        q1: "Your division needs to rapidly reduce its carbon footprint.",
-        q2: "A cross-departmental sustainability plan is launching.",
-        q3: "Your team is setting annual sustainability targets.",
-        q4: "An internal eco-initiative needs ongoing operational support.",
-        q5: "New corporate environmental standards are proposed.",
-        q6: "A cross-functional green team is structuring its workflow.",
-        q7: "A major workplace sustainability project launches today.",
-        q8: "Your organization is updating its long-term stewardship policies."
+        q1: "Your team needs to respond quickly to a new challenge. You are most likely to…",
+        q2: "A cross-department event is being organized. You are most likely to…",
+        q3: "Your team is setting new goals for the year. You are most likely to…",
+        q4: "An internal initiative needs ongoing support. You are most likely to…",
+        q5: "A company-wide issue is open for employee input. You are most likely to…",
+        q6: "A cross-functional team is structuring its workflow. You are most likely to…",
+        q7: "A major workplace project launches today. You are most likely to…",
+        q8: "Your organization is planning for long-term responsibilities. You are most likely to…"
     },
     student: {
-        q1: "Your school campus wants to dramatically reduce waste.",
-        q2: "A campus eco-club event is being planned.",
-        q3: "Your student group is choosing a semester project.",
-        q4: "A campus garden project needs ongoing support.",
-        q5: "The school board is reviewing environmental policies.",
-        q6: "Your project group is organizing responsibilities.",
-        q7: "A campus sustainability campaign kicks off today.",
-        q8: "A student coalition is protecting local green spaces."
+        q1: "Your school needs students to help with a new situation. You are most likely to…",
+        q2: "A campus event is being planned. You are most likely to…",
+        q3: "Your student group is choosing a project for the semester. You are most likely to…",
+        q4: "A campus initiative needs ongoing support. You are most likely to…",
+        q5: "A school-wide issue is being reviewed. You are most likely to…",
+        q6: "Your project group is organizing responsibilities. You are most likely to…",
+        q7: "A student-led effort kicks off today. You are most likely to…",
+        q8: "A long-term campus challenge needs steady attention. You are most likely to…"
     }
 };
 
@@ -104,20 +104,20 @@ export const questions = [
     id: "q1",
     getPrompt: (aud) => scenes[aud]?.q1 || scenes.individual.q1,
     options: [
-        { text: "Jump in and get people moving right away.", style: "Driver" },
-        { text: "Explain the issue in a way that helps people care.", style: "Advocate" },
-        { text: "Step back and imagine a different way to solve it.", style: "Visionary" },
-        { text: "Create a steady plan that keeps support going over time.", style: "Stabilizer" }
+        { text: "Get people moving and take the first step together.", style: "Driver" },
+        { text: "Explain the situation in a way that helps people feel connected.", style: "Advocate" },
+        { text: "Look for a fresh angle that opens new possibilities.", style: "Visionary" },
+        { text: "Create a steady plan that keeps things going over time.", style: "Stabilizer" }
     ]
 },
     {
     id: "q2",
     getPrompt: (aud) => scenes[aud]?.q2 || scenes.individual.q2,
     options: [
-        { text: "Organize the moving parts so everything runs smoothly.", style: "Architect" },
-        { text: "Make sure traditions, lessons, and history guide the event.", style: "Keeper" },
-        { text: "Bring people together so everyone feels welcome and included.", style: "Connector" },
-        { text: "Watch for risks and make sure the effort stays principled.", style: "Guardian" }
+        { text: "Organize the details so the effort runs smoothly.", style: "Architect" },
+        { text: "Make sure important lessons and values aren’t forgotten.", style: "Keeper" },
+        { text: "Help people feel welcome and build trust in the group.", style: "Connector" },
+        { text: "Watch for risks and help the group stay true to its principles.", style: "Guardian" }
     ]
 },
     {
@@ -125,9 +125,9 @@ export const questions = [
     getPrompt: (aud) => scenes[aud]?.q3 || scenes.individual.q3,
     options: [
         { text: "Set clear goals and push the project into motion.", style: "Driver" },
-        { text: "Share a message that inspires people to join in.", style: "Advocate" },
-        { text: "Offer a fresh angle that opens new possibilities.", style: "Visionary" },
-        { text: "Build a practical routine that keeps the work going long-term.", style: "Stabilizer" }
+        { text: "Share a message that motivates people to join in.", style: "Advocate" },
+        { text: "Offer a creative idea that changes how the group sees the challenge.", style: "Visionary" },
+        { text: "Build a practical routine that keeps the work steady and reliable.", style: "Stabilizer" }
     ]
 },
     {
@@ -135,19 +135,19 @@ export const questions = [
     getPrompt: (aud) => scenes[aud]?.q4 || scenes.individual.q4,
     options: [
         { text: "Create structure so tasks and timelines stay clear.", style: "Architect" },
-        { text: "Protect what’s meaningful and make sure it isn’t lost.", style: "Keeper" },
+        { text: "Protect what’s meaningful and make sure it continues.", style: "Keeper" },
         { text: "Help people communicate openly and feel connected.", style: "Connector" },
-        { text: "Hold the group accountable to its values and commitments.", style: "Guardian" }
+        { text: "Hold the group accountable to its shared values.", style: "Guardian" }
     ]
 },
     {
     id: "q5",
     getPrompt: (aud) => scenes[aud]?.q5 || scenes.individual.q5,
     options: [
-        { text: "Mobilize people quickly to respond with visible action.", style: "Driver" },
-        { text: "Break down the issue clearly so the public understands it.", style: "Advocate" },
-        { text: "Suggest creative alternatives that could improve the policy.", style: "Visionary" },
-        { text: "Support the services already helping the community stay steady.", style: "Stabilizer" }
+        { text: "Mobilize people quickly and respond with clear action.", style: "Driver" },
+        { text: "Break things down so everyone understands what’s at stake.", style: "Advocate" },
+        { text: "Suggest imaginative alternatives that could improve the situation.", style: "Visionary" },
+        { text: "Support the steady routines that keep the group grounded.", style: "Stabilizer" }
     ]
 },
     {
@@ -176,7 +176,7 @@ export const questions = [
     options: [
         { text: "Organize tools and information so progress can be tracked.", style: "Architect" },
         { text: "Care for what’s fragile and ensure it’s protected over time.", style: "Keeper" },
-        { text: "Maintain relationships that keep the community connected.", style: "Connector" },
+        { text: "Maintain relationships that keep the group connected.", style: "Connector" },
         { text: "Stand firm when something vulnerable needs defending.", style: "Guardian" }
     ]
 }
