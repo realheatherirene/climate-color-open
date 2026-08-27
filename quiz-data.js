@@ -106,80 +106,80 @@ export const questions = [
         id: "q1",
         getPrompt: (aud) => scenes[aud]?.q1 || scenes.individual.q1,
         options: [
-            { text: "You get people moving and take the first step together.", style: "Driver" },
-            { text: "You explain things in a way that helps people feel connected.", style: "Advocate" },
-            { text: "You look for a fresh angle that opens new possibilities.", style: "Visionary" },
-            { text: "You create a steady plan that keeps things going over time.", style: "Stabilizer" }
+            { text: "I jump in and get things moving.", style: "Driver" },
+            { text: "I speak up so people understand what's happening.", style: "Advocate" },
+            { text: "I look at the situation from a different angle.", style: "Visionary" },
+            { text: "I look for a steady way forward.", style: "Stabilizer" }
         ]
     },
     {
         id: "q2",
         getPrompt: (aud) => scenes[aud]?.q2 || scenes.individual.q2,
         options: [
-            { text: "You organize the details so the effort runs smoothly.", style: "Architect" },
-            { text: "You make sure important lessons and values aren’t forgotten.", style: "Keeper" },
-            { text: "You help people feel welcome and build trust in the group.", style: "Connector" },
-            { text: "You watch for risks and help the group stay true to its principles.", style: "Guardian" }
+            { text: "I break things into clear steps.", style: "Architect" },
+            { text: "I remember what has mattered before.", style: "Keeper" },
+            { text: "I notice how people are relating.", style: "Connector" },
+            { text: "I notice when something feels off.", style: "Guardian" }
         ]
     },
     {
         id: "q3",
         getPrompt: (aud) => scenes[aud]?.q3 || scenes.individual.q3,
         options: [
-            { text: "You set clear goals and push the project into motion.", style: "Driver" },
-            { text: "You share a message that motivates people to join in.", style: "Advocate" },
-            { text: "You offer a creative idea that changes how the group sees the challenge.", style: "Visionary" },
-            { text: "You build a practical routine that keeps the work reliable.", style: "Stabilizer" }
+            { text: "I take the first step without hesitation.", style: "Driver" },
+            { text: "I share my thoughts to help others follow along.", style: "Advocate" },
+            { text: "I imagine how things could unfold.", style: "Visionary" },
+            { text: "I stick with what works once it’s working.", style: "Stabilizer" }
         ]
     },
     {
         id: "q4",
         getPrompt: (aud) => scenes[aud]?.q4 || scenes.individual.q4,
         options: [
-            { text: "You create structure so tasks and timelines stay clear.", style: "Architect" },
-            { text: "You protect what’s meaningful and make sure it continues.", style: "Keeper" },
-            { text: "You help people communicate openly and feel connected.", style: "Connector" },
-            { text: "You hold the group accountable to its shared values.", style: "Guardian" }
+            { text: "I figure out what needs to happen first.", style: "Architect" },
+            { text: "I bring up lessons we've learned before.", style: "Keeper" },
+            { text: "I check in on how others are feeling.", style: "Connector" },
+            { text: "I pay attention to who might be missed.", style: "Guardian" }
         ]
     },
     {
         id: "q5",
         getPrompt: (aud) => scenes[aud]?.q5 || scenes.individual.q5,
         options: [
-            { text: "You mobilize people quickly and respond with clear action.", style: "Driver" },
-            { text: "You break things down so everyone understands what’s at stake.", style: "Advocate" },
-            { text: "You suggest imaginative alternatives that could improve the situation.", style: "Visionary" },
-            { text: "You support the steady rhythms that keep the group grounded.", style: "Stabilizer" }
+            { text: "I act quickly when something needs attention.", style: "Driver" },
+            { text: "I explain things in simple terms.", style: "Advocate" },
+            { text: "I notice ideas that aren’t being discussed yet.", style: "Visionary" },
+            { text: "I help keep the pace manageable.", style: "Stabilizer" }
         ]
     },
     {
         id: "q6",
         getPrompt: (aud) => scenes[aud]?.q6 || scenes.individual.q6,
         options: [
-            { text: "You build a simple system that keeps everyone organized.", style: "Architect" },
-            { text: "You ensure long-held knowledge and values shape decisions.", style: "Keeper" },
-            { text: "You bridge differences and help the team work in harmony.", style: "Connector" },
-            { text: "You check for fairness and protect anyone who might be overlooked.", style: "Guardian" }
+            { text: "I line things up so they make sense.", style: "Architect" },
+            { text: "I think about what should stay the same.", style: "Keeper" },
+            { text: "I look for shared understanding in the group.", style: "Connector" },
+            { text: "I speak up when something doesn’t sit right.", style: "Guardian" }
         ]
     },
     {
         id: "q7",
         getPrompt: (aud) => scenes[aud]?.q7 || scenes.individual.q7,
         options: [
-            { text: "You kick off the effort with energy and direction.", style: "Driver" },
-            { text: "You share the purpose in a way that brings people on board.", style: "Advocate" },
-            { text: "You sketch out long-term possibilities and future pathways.", style: "Visionary" },
-            { text: "You set up dependable weekly patterns that keep the project strong.", style: "Stabilizer" }
+            { text: "I get things started.", style: "Driver" },
+            { text: "I put things into words when the group needs clarity.", style: "Advocate" },
+            { text: "I think about where this could lead.", style: "Visionary" },
+            { text: "I stay consistent.", style: "Stabilizer" }
         ]
     },
     {
         id: "q8",
         getPrompt: (aud) => scenes[aud]?.q8 || scenes.individual.q8,
         options: [
-            { text: "You organize tools and information so progress can be tracked.", style: "Architect" },
-            { text: "You care for what’s fragile and ensure it’s protected over time.", style: "Keeper" },
-            { text: "You maintain relationships that keep the group connected.", style: "Connector" },
-            { text: "You stand firm when something vulnerable needs defending.", style: "Guardian" }
+            { text: "I keep track of details so nothing gets lost.", style: "Architect" },
+            { text: "I hold onto the meaning behind the work.", style: "Keeper" },
+            { text: "I make it easier for people to be together.", style: "Connector" },
+            { text: "I watch for signs that something needs attention.", style: "Guardian" }
         ]
     }
 ];
