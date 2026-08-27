@@ -189,4 +189,55 @@ export const questions = [
             { text: "I watch for signs that something needs attention.", style: "Guardian" }
         ]
     }
+};
+
+export const styles = {
+    Driver: {
+        color: "#E63946",
+        identity: "You initiate momentum.",
+        behavior: "You act quickly and help things begin.",
+        action: "Start small climate actions and help others get moving."
+    },
+    Advocate: {
+        color: "#F77F00",
+        identity: "You clarify and communicate.",
+        behavior: "You help people understand what matters.",
+        action: "Share climate insights and help others stay informed."
+    },
+    Visionary: {
+        color: "#FFD60A",
+        identity: "You imagine possibilities.",
+        behavior: "You see new angles and future pathways.",
+        action: "Explore creative climate solutions and inspire others."
+    },
+    Stabilizer: {
+        color: "#2A9D8F",
+        identity: "You keep things steady.",
+        behavior: "You maintain consistency and reliability.",
+        action: "Support ongoing climate efforts with dependable follow‑through."
+    },
+    Architect: {
+        color: "#457B9D",
+        identity: "You organize systems.",
+        behavior: "You break things into steps and build structure.",
+        action: "Create plans and frameworks that make climate action easier."
+    },
+    Keeper: {
+        color: "#4B3F72",
+        identity: "You preserve meaning.",
+        behavior: "You remember what matters and carry it forward.",
+        action: "Protect climate values and help maintain long‑term commitments."
+    },
+    Connector: {
+        color: "#7B2CBF",
+        identity: "You bring people together.",
+        behavior: "You notice relationships and build cohesion.",
+        action: "Help groups collaborate and stay connected around climate work."
+    },
+    Guardian: {
+        color: "#5E548E",
+        identity: "You watch what’s important.",
+        behavior: "You notice risks and protect what needs care.",
+        action: "Monitor climate issues and help safeguard vulnerable areas."
+    }
 ];
