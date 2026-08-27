@@ -120,7 +120,7 @@ body {
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
 }
 
-.card-content { margin-bottom: 1rem; }
+.card-content { margin-bottom: 0.5rem; }
 
 .styleTitle {
     font-size: 1.15rem;
@@ -144,16 +144,16 @@ body {
     font-size: 0.9rem;
     color: #475569;
     line-height: 1.45;
-    margin-bottom: 1rem;
+    margin-bottom: 0.5rem;
 }
 
-/* Styles converted to colored text indicators */
+/* Styled text indicators without dot separators */
 .style-text-container {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    gap: 0.4rem;
-    margin-bottom: 1rem;
+    gap: 0.6rem;
+    margin-bottom: 0.75rem;
 }
 
 .style-text-item {
@@ -162,17 +162,13 @@ body {
     user-select: none;
 }
 
-.style-text-separator {
-    color: #CBD5E1;
-    font-size: 0.8rem;
-}
-
 .cta-container {
     display: flex;
     justify-content: flex-start;
     margin-top: auto;
 }
 
+/* Universal neutral styling for the button */
 .btn-pill-soft {
     display: inline-block;
     width: auto !important;
@@ -182,11 +178,14 @@ body {
     text-align: left;
     text-decoration: none;
     border-radius: 9999px;
-    border: 1px solid transparent;
+    border: 1px solid #CBD5E1;
+    background-color: #F8FAFC;
+    color: #334155 !important;
     transition: all 0.15s ease;
 }
 .btn-pill-soft:hover {
-    filter: brightness(0.95);
+    background-color: #E2E8F0;
+    border-color: #94A3B8;
     transform: translateY(-1px);
 }
 
@@ -340,16 +339,14 @@ function renderResources() {
             return 0;
         });
 
-        // Generate styled text indicators for associated styles
-        const styleTextHtml = sortedStyles.map((styleName, idx) => {
+        // Generate styled text indicators without dots
+        const styleTextHtml = sortedStyles.map(styleName => {
             const sInfo = styles[styleName];
             const color = sInfo ? sInfo.color : "#334155";
-            const separator = idx < sortedStyles.length - 1 ? `<span class="style-text-separator">•</span>` : '';
             return `
                 <span class="style-text-item" style="color: ${color};">
                     ${styleName}
                 </span>
-                ${separator}
             `;
         }).join('');
 
@@ -370,7 +367,7 @@ function renderResources() {
             </div>
             
             <div class="cta-container">
-                <a href="${res.url}" target="_blank" rel="noopener noreferrer" class="btn-pill-soft" style="background-color: ${cardColor}14; border-color: ${cardColor}40; color: ${cardColor} !important;">
+                <a href="${res.url}" target="_blank" rel="noopener noreferrer" class="btn-pill-soft">
                     Visit Resource &rarr;
                 </a>
             </div>
