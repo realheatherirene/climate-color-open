@@ -239,7 +239,7 @@ function calculateResults() {
     progressBar.setAttribute("aria-valuenow", 100);
     
     document.getElementById("quizCard").style.display = "none";
-    
+
     const styleColorSlugs = {
         Driver: "red",
         Advocate: "orange",
@@ -261,13 +261,13 @@ function calculateResults() {
 
     const primaryKey = sorted[0] ? sorted[0][0] : Object.keys(styles)[0];
     const secondaryKey = (sorted[1] && sorted[1][1] > 0) ? sorted[1][0] : primaryKey;
-    
+
     const primaryBlock = styles[primaryKey];
     const secondaryBlock = styles[secondaryKey] || primaryBlock;
-    
+
     const primaryUrl = `directory.html?style=${encodeURIComponent(primaryKey)}`;
     const secondaryUrl = `directory.html?style=${encodeURIComponent(secondaryKey)}`;
-    
+
     const primaryStrengthsUrl = `https://climatecolor.com/${styleColorSlugs[primaryKey] || ''}`;
     const secondaryStrengthsUrl = `https://climatecolor.com/${styleColorSlugs[secondaryKey] || ''}`;
 
@@ -276,27 +276,31 @@ function calculateResults() {
     const secondaryBg = secondaryBlock.rgb ? `rgba(${secondaryBlock.rgb}, 0.08)` : `${secondaryBlock.color}14`;
     const secondaryBorder = secondaryBlock.rgb ? `rgba(${secondaryBlock.rgb}, 0.25)` : `${secondaryBlock.color}40`;
 
+    // --- Climate Color Code Label ---
+    const combinedLabel = (primaryKey !== secondaryKey)
+        ? (climateColorCodeNames?.[primaryKey]?.[secondaryKey] || "")
+        : "";
+
+    let combinedBlock = "";
+    if (combinedLabel) {
+        combinedBlock = `
+            <div class="styleBlock" style="border-left-color:${primaryBlock.color}; margin-bottom:1.5rem;">
+                <div class="styleTitle" style="font-size:1.4rem;">
+                    Your Climate Color Code:
+                    <span style="color:${primaryBlock.color};">${primaryKey}</span>–<span style="color:${secondaryBlock.color};">${secondaryKey}</span>
+                </div>
+                <div style="font-size:1.05rem; color:#475569; margin-top:0.35rem;">
+                    ${combinedLabel}
+                </div>
+            </div>
+        `;
+    }
+
+    // --- Render Results ---
     const result = document.getElementById("resultContainer");
     result.style.display = "block";
-    result.innerHTML = 
-        const combinedLabel = getCombinedLabel(primaryKey, secondaryKey);
 
-let combinedBlock = "";
-if (combinedLabel) {
-    combinedBlock = `
-        <div class="styleBlock" style="border-left-color:${primaryBlock.color}; margin-bottom:1.5rem;">
-            <div class="styleTitle" style="font-size:1.4rem;">
-                Your Climate Color Code:
-                <span style="color:${primaryBlock.color};">${primaryKey}</span>–<span style="color:${secondaryBlock.color};">${secondaryKey}</span>
-            </div>
-            <div style="font-size:1.05rem; color:#475569; margin-top:0.35rem;">
-                ${combinedLabel}
-            </div>
-        </div>
-    `;
-}
-
-result.innerHTML = combinedBlock + 
+    result.innerHTML = combinedBlock + `
         <div class="styleBlock" style="border-left-color:${primaryBlock.color}">
             <div class="styleTitle">
                 Your primary style: <span style="color:${primaryBlock.color};">${primaryKey}</span>
@@ -331,6 +335,7 @@ result.innerHTML = combinedBlock +
                 </a>
             </div>
         </div>
+
         <p style="margin-top: 1.25rem; text-align: left; font-size: 0.9rem;">
             Or view how your styles connect on 
             <a href="https://climatecolor.com/wheel" target="_blank" rel="noopener noreferrer" style="color:#1494B8; font-weight: bold;">
@@ -338,6 +343,7 @@ result.innerHTML = combinedBlock +
             </a>.
         </p>
     `;
+
     result.focus();
 }
 
