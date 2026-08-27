@@ -1,16 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Stewardship Style Quiz | Climate Color</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=ADLaM+Display&family=Varela+Round&display=swap" rel="stylesheet">
+<style>
+/* ========================================================================== 
+Base & Global Styles 
+========================================================================== */
+* {
+    box-sizing: border-box;
+}
+body {
+    font-family: 'Varela Round', -apple-system, BlinkMacSystemFont, sans-serif;
+    max-width: 720px;
+    margin: 0;
+    padding: 2rem 1rem 1rem 1rem;
+    line-height: 1.6;
+    background-color: #FFFFFF;
+    color: #212121;
+    -webkit-font-smoothing: antialiased;
+}
+/* ========================================================================== 
+Header Styles
+========================================================================== */
+.quiz-header {
+    text-align: left;
+    margin-bottom: 1.5rem;
+}
+.quiz-header h1 {
+    font-family: 'ADLaM Display', 'Varela Round', sans-serif;
+    font-size: 2rem;
+    color: #1494B9;
+    margin: 0 0 0.25rem 0;
+    line-height: 1.2;
+}
+.quiz-header p {
+    font-size: 1rem;
+    color: #64748B;
+    margin: 0;
+}
+/* ========================================================================== 
+Quiz Interface Elements
+========================================================================== */
+.progress-container {
+    width: 100%;
+    background-color: #E2E8F0;
+    height: 8px;
+    border-radius: 9999px;
+    margin-bottom: 1.5rem;
+    overflow: hidden;
+}
+.progress-bar {
+    height: 100%;
+    width: 0%;
+    background-color: #1494B9;
+    transition: width 0.3s ease;
+}
+.question-card {
+    background: #FFFFFF;
+    border: 1px solid #E2E8F0;
+    border-radius: 12px;
+    padding: 1.5rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+}
+.question-title {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #0F172A;
+    margin-bottom: 1rem;
+    text-align: left;
+}
+.option-btn {
+    display: block;
+    width: 100%;
+    text-align: left;
+    background: #F8FAFC;
+    border: 1px solid #CBD5E1;
+    border-radius: 8px;
+    padding: 0.85rem 1rem;
+    margin-bottom: 0.75rem;
+    font-family: inherit;
+    font-size: 0.98rem;
+    color: #1E293B;
+    cursor: pointer;
+    transition: all 0.15s ease;
+}
+.option-btn:hover, .option-btn:focus {
+    background: #F1F5F9;
+    border-color: #1494B9;
+    outline: none;
+}
+/* ========================================================================== 
+Results Cards & Styles
+========================================================================== */
+.styleBlock {
+    background: #FFFFFF;
+    border: 1px solid #E2E8F0;
+    border-radius: 12px;
+    padding: 1.25rem 1.5rem;
+    margin-bottom: 1.25rem;
+    border-left: 6px solid #CBD5E1;
+    text-align: left;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+}
+.styleTitle {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-bottom: 0.35rem;
+}
+.styleIdentity {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: #1E293B;
+    margin-bottom: 0.5rem;
+}
+.styleAction {
+    background: #F8FAFC;
+    border-radius: 8px;
+    padding: 0.85rem 1rem;
+    font-size: 0.95rem;
+    color: #334155;
+    margin-bottom: 1rem;
+}
+/* Soft, Left-Justified Pill Buttons */
+.cta-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    justify-content: flex-start;
+    margin-top: 1.25rem;
+}
+.btn-pill-soft {
+    display: inline-block;
+    width: auto !important;
+    padding: 0.5rem 1.15rem !important;
+    font-size: 0.9rem !important;
+    font-weight: 700;
+    text-align: left;
+    text-decoration: none;
+    border-radius: 9999px;
+    border: 1px solid transparent;
+    transition: all 0.15s ease;
+}
+.btn-pill-soft:hover {
+    filter: brightness(0.95);
+    transform: translateY(-1px);
+}
+/* Responsive */
+@media (max-width: 640px) {
+    body {
+        padding: 1.25rem 0.85rem 0.85rem 0.85rem;
+    }
+    .question-card, .styleBlock {
+        padding: 1rem 1.15rem;
+    }
+}
+</style>
+</head>
+<body>
+<header class="quiz-header">
+    <h1>Climate Color Quiz</h1>
+    <p>a self-assessment that unlocks your stewardship style | 8 questions | anonymous | 
+        <a href="https://climatecolor.com/quiz-faq" target="_blank" rel="noopener noreferrer" style="color:#1494B8; font-weight: bold;">
+            FAQ
+        </a>
+    </p>
+</header>
+<div class="progress-container">
+    <div class="progress-bar" id="progressBar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-label="Quiz progress"></div>
+</div>
+<div class="question-card" id="quizCard">
+    <div class="question-title" id="questionTitle" aria-live="polite">Loading...</div>
+    <div id="optionsContainer"></div>
+</div>
+<div id="resultContainer" tabindex="-1" aria-live="polite" style="display: none; outline: none;"></div>
+
+<!-- External Data Module Integration -->
+<script type="module">
 import { styles, questions } from './quiz-data.js';
 
 let currentQuestion = 0;
-let selectedAudience = 'individual';
+let selectedAudience = 'individual'; // Default fallback mode
 const scores = {};
 const selectionHistory = [];
 
+// Initialize score trackers for all 8 archetypes
 Object.keys(styles).forEach(style => { scores[style] = 0; });
 
 function renderQuestion() {
+    const card = document.getElementById("quizCard");
+    
     if (!questions[currentQuestion]) return;
     const q = questions[currentQuestion];
     
+    // Dynamic prompt rendering based on audience lens
     document.getElementById("questionTitle").textContent = `${currentQuestion + 1}. ${q.getPrompt(selectedAudience)}`;
     
     const container = document.getElementById("optionsContainer");
@@ -43,15 +230,6 @@ function selectOption(styleKey) {
     }
 }
 
-function getAlphaColor(colorHex, alphaHex) {
-    // Normalizes 3-digit hex to 6-digit hex before appending alpha
-    if (colorHex.startsWith('#') && colorHex.length === 4) {
-        const r = colorHex[1], g = colorHex[2], b = colorHex[3];
-        return `#${r}${r}${g}${g}${b}${b}${alphaHex}`;
-    }
-    return colorHex.startsWith('#') ? `${colorHex}${alphaHex}` : colorHex;
-}
-
 function calculateResults() {
     const progressBar = document.getElementById("progressBar");
     progressBar.style.width = "100%";
@@ -60,17 +238,22 @@ function calculateResults() {
     document.getElementById("quizCard").style.display = "none";
     
     const styleColorSlugs = {
-        Driver: "red", Advocate: "orange", Visionary: "yellow", Stabilizer: "green",
-        Architect: "blue", Keeper: "indigo", Connector: "purple", Guardian: "violet"
+        Driver: "red",
+        Advocate: "orange",
+        Visionary: "yellow",
+        Stabilizer: "green",
+        Architect: "blue",
+        Keeper: "indigo",
+        Connector: "purple",
+        Guardian: "violet"
     };
 
-    // Tie-breaker: Compare higher score first; if equal, choose the one selected most recently in history
+    // Sort by highest score; break ties using selection recency
     const sorted = Object.entries(scores).sort((a, b) => {
-        if (b[1] !== a[1]) return b[1] - a[1];
-        
-        const lastIdxA = selectionHistory.lastIndexOf(a[0]);
-        const lastIdxB = selectionHistory.lastIndexOf(b[0]);
-        return lastIdxB - lastIdxA;
+        if (b[1] !== a[1]) {
+            return b[1] - a[1];
+        }
+        return selectionHistory.lastIndexOf(b[0]) - selectionHistory.lastIndexOf(a[0]);
     });
 
     const primaryKey = sorted[0] ? sorted[0][0] : Object.keys(styles)[0];
@@ -79,10 +262,16 @@ function calculateResults() {
     const primaryBlock = styles[primaryKey];
     const secondaryBlock = styles[secondaryKey] || primaryBlock;
     
-    const primaryBg = primaryBlock.rgb ? `rgba(${primaryBlock.rgb}, 0.08)` : getAlphaColor(primaryBlock.color, '14');
-    const primaryBorder = primaryBlock.rgb ? `rgba(${primaryBlock.rgb}, 0.25)` : getAlphaColor(primaryBlock.color, '40');
-    const secondaryBg = secondaryBlock.rgb ? `rgba(${secondaryBlock.rgb}, 0.08)` : getAlphaColor(secondaryBlock.color, '14');
-    const secondaryBorder = secondaryBlock.rgb ? `rgba(${secondaryBlock.rgb}, 0.25)` : getAlphaColor(secondaryBlock.color, '40');
+    const primaryUrl = `directory.html?style=${encodeURIComponent(primaryKey)}`;
+    const secondaryUrl = `directory.html?style=${encodeURIComponent(secondaryKey)}`;
+    
+    const primaryStrengthsUrl = `https://climatecolor.com/${styleColorSlugs[primaryKey] || ''}`;
+    const secondaryStrengthsUrl = `https://climatecolor.com/${styleColorSlugs[secondaryKey] || ''}`;
+
+    const primaryBg = primaryBlock.rgb ? `rgba(${primaryBlock.rgb}, 0.08)` : `${primaryBlock.color}14`;
+    const primaryBorder = primaryBlock.rgb ? `rgba(${primaryBlock.rgb}, 0.25)` : `${primaryBlock.color}40`;
+    const secondaryBg = secondaryBlock.rgb ? `rgba(${secondaryBlock.rgb}, 0.08)` : `${secondaryBlock.color}14`;
+    const secondaryBorder = secondaryBlock.rgb ? `rgba(${secondaryBlock.rgb}, 0.25)` : `${secondaryBlock.color}40`;
 
     const result = document.getElementById("resultContainer");
     result.style.display = "block";
@@ -95,10 +284,10 @@ function calculateResults() {
             <div style="margin-bottom: 0.85rem; color: #475569;">${primaryBlock.behavior}</div>
             <div class="styleAction">${primaryBlock.action}</div>
             <div class="cta-container">
-                <a href="https://climatecolor.com/${styleColorSlugs[primaryKey] || ''}" target="_blank" rel="noopener noreferrer" class="btn-pill-soft" style="background-color: ${primaryBg}; border-color: ${primaryBorder}; color: ${primaryBlock.color} !important;">
+                <a href="${primaryStrengthsUrl}" target="_blank" rel="noopener noreferrer" class="btn-pill-soft" style="background-color: ${primaryBg}; border-color: ${primaryBorder}; color: ${primaryBlock.color} !important;">
                     Explore ${primaryKey} Climate Strengths &rarr;
                 </a>
-                <a href="directory.html?style=${encodeURIComponent(primaryKey)}" class="btn-pill-soft" style="background-color: ${primaryBg}; border-color: ${primaryBorder}; color: ${primaryBlock.color} !important;">
+                <a href="${primaryUrl}" class="btn-pill-soft" style="background-color: ${primaryBg}; border-color: ${primaryBorder}; color: ${primaryBlock.color} !important;">
                     Explore ${primaryKey} Climate Actions &rarr;
                 </a>
             </div>
@@ -113,10 +302,10 @@ function calculateResults() {
             </div>
             <div style="font-size: 0.9rem; color: #475569;">${secondaryBlock.behavior}</div>
             <div class="cta-container">
-                <a href="https://climatecolor.com/${styleColorSlugs[secondaryKey] || ''}" target="_blank" rel="noopener noreferrer" class="btn-pill-soft" style="background-color: ${secondaryBg}; border-color: ${secondaryBorder}; color: ${secondaryBlock.color} !important;">
+                <a href="${secondaryStrengthsUrl}" target="_blank" rel="noopener noreferrer" class="btn-pill-soft" style="background-color: ${secondaryBg}; border-color: ${secondaryBorder}; color: ${secondaryBlock.color} !important;">
                     Explore ${secondaryKey} Climate Strengths &rarr;
                 </a>
-                <a href="directory.html?style=${encodeURIComponent(secondaryKey)}" class="btn-pill-soft" style="background-color: ${secondaryBg}; border-color: ${secondaryBorder}; color: ${secondaryBlock.color} !important;">
+                <a href="${secondaryUrl}" class="btn-pill-soft" style="background-color: ${secondaryBg}; border-color: ${secondaryBorder}; color: ${secondaryBlock.color} !important;">
                     Explore ${secondaryKey} Climate Actions &rarr;
                 </a>
             </div>
@@ -132,10 +321,15 @@ function calculateResults() {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
+    // Detect URL Parameter (Option A): quiz.html?mode=workplace or quiz.html?mode=student
     const urlParams = new URLSearchParams(window.location.search);
     const mode = urlParams.get('mode');
     if (mode && ['individual', 'workplace', 'student'].includes(mode)) {
         selectedAudience = mode;
     }
+    
     renderQuestion();
 });
+</script>
+</body>
+</html>
