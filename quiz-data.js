@@ -101,83 +101,83 @@ const scenes = {
 
 export const questions = [
     {
-        id: "q1",
-        getPrompt: (aud) => scenes[aud]?.q1 || scenes.individual.q1,
-        options: [
-            { text: "Rally people and kick off immediate action.", style: "Driver" },
-            { text: "Craft the narrative to inspire support.", style: "Advocate" },
-            { text: "Brainstorm bold, unconventional solutions.", style: "Visionary" },
-            { text: "Establish steady, daily maintenance routines.", style: "Stabilizer" }
-        ]
-    },
+    id: "q1",
+    getPrompt: (aud) => scenes[aud]?.q1 || scenes.individual.q1,
+    options: [
+        { text: "Jump in and get people moving right away.", style: "Driver" },
+        { text: "Explain the issue in a way that helps people care.", style: "Advocate" },
+        { text: "Step back and imagine a different way to solve it.", style: "Visionary" },
+        { text: "Create a steady plan that keeps support going over time.", style: "Stabilizer" }
+    ]
+},
     {
-        id: "q2",
-        getPrompt: (aud) => scenes[aud]?.q2 || scenes.individual.q2,
-        options: [
-            { text: "Build databases and organize logistics.", style: "Architect" },
-            { text: "Honor local history and ecological wisdom.", style: "Keeper" },
-            { text: "Connect diverse groups to build trust.", style: "Connector" },
-            { text: "Review policies to safeguard community rights.", style: "Guardian" }
-        ]
-    },
+    id: "q2",
+    getPrompt: (aud) => scenes[aud]?.q2 || scenes.individual.q2,
+    options: [
+        { text: "Organize the moving parts so everything runs smoothly.", style: "Architect" },
+        { text: "Make sure traditions, lessons, and history guide the event.", style: "Keeper" },
+        { text: "Bring people together so everyone feels welcome and included.", style: "Connector" },
+        { text: "Watch for risks and make sure the effort stays principled.", style: "Guardian" }
+    ]
+},
     {
-        id: "q3",
-        getPrompt: (aud) => scenes[aud]?.q3 || scenes.individual.q3,
-        options: [
-            { text: "Set ambitious targets and drive quick wins.", style: "Driver" },
-            { text: "Share compelling stories across local media.", style: "Advocate" },
-            { text: "Design fresh, scalable models for the future.", style: "Visionary" },
-            { text: "Ensure practical, long-term operational upkeep.", style: "Stabilizer" }
-        ]
-    },
+    id: "q3",
+    getPrompt: (aud) => scenes[aud]?.q3 || scenes.individual.q3,
+    options: [
+        { text: "Set clear goals and push the project into motion.", style: "Driver" },
+        { text: "Share a message that inspires people to join in.", style: "Advocate" },
+        { text: "Offer a fresh angle that opens new possibilities.", style: "Visionary" },
+        { text: "Build a practical routine that keeps the work going long-term.", style: "Stabilizer" }
+    ]
+},
     {
-        id: "q4",
-        getPrompt: (aud) => scenes[aud]?.q4 || scenes.individual.q4,
-        options: [
-            { text: "Streamline scheduling and task management.", style: "Architect" },
-            { text: "Preserve heritage seeds, land, and traditions.", style: "Keeper" },
-            { text: "Welcome newcomers and facilitate open dialogue.", style: "Connector" },
-            { text: "Monitor compliance and hold leaders accountable.", style: "Guardian" }
-        ]
-    },
+    id: "q4",
+    getPrompt: (aud) => scenes[aud]?.q4 || scenes.individual.q4,
+    options: [
+        { text: "Create structure so tasks and timelines stay clear.", style: "Architect" },
+        { text: "Protect what’s meaningful and make sure it isn’t lost.", style: "Keeper" },
+        { text: "Help people communicate openly and feel connected.", style: "Connector" },
+        { text: "Hold the group accountable to its values and commitments.", style: "Guardian" }
+    ]
+},
     {
-        id: "q5",
-        getPrompt: (aud) => scenes[aud]?.q5 || scenes.individual.q5,
-        options: [
-            { text: "Mobilize direct public turn-out and pressure.", style: "Driver" },
-            { text: "Publish clear breakdowns to educate voters.", style: "Advocate" },
-            { text: "Propose creative policy alternatives.", style: "Visionary" },
-            { text: "Maintain steady support for existing green services.", style: "Stabilizer" }
-        ]
-    },
+    id: "q5",
+    getPrompt: (aud) => scenes[aud]?.q5 || scenes.individual.q5,
+    options: [
+        { text: "Mobilize people quickly to respond with visible action.", style: "Driver" },
+        { text: "Break down the issue clearly so the public understands it.", style: "Advocate" },
+        { text: "Suggest creative alternatives that could improve the policy.", style: "Visionary" },
+        { text: "Support the services already helping the community stay steady.", style: "Stabilizer" }
+    ]
+},
     {
-        id: "q6",
-        getPrompt: (aud) => scenes[aud]?.q6 || scenes.individual.q6,
-        options: [
-            { text: "Create administrative systems and records.", style: "Architect" },
-            { text: "Ensure traditional wisdom guides decisions.", style: "Keeper" },
-            { text: "Bridge differences and resolve team conflicts.", style: "Connector" },
-            { text: "Audit terms to protect vulnerable groups.", style: "Guardian" }
-        ]
-    },
+    id: "q6",
+    getPrompt: (aud) => scenes[aud]?.q6 || scenes.individual.q6,
+    options: [
+        { text: "Build a simple system that keeps everyone organized.", style: "Architect" },
+        { text: "Make sure long-held knowledge and values shape decisions.", style: "Keeper" },
+        { text: "Bridge differences and help the team work in harmony.", style: "Connector" },
+        { text: "Check for fairness and protect anyone who might be overlooked.", style: "Guardian" }
+    ]
+},
     {
-        id: "q7",
-        getPrompt: (aud) => scenes[aud]?.q7 || scenes.individual.q7,
-        options: [
-            { text: "Generate energy and start physical execution.", style: "Driver" },
-            { text: "Frame the vision to win public hearts and minds.", style: "Advocate" },
-            { text: "Map visionary possibilities for upcoming years.", style: "Visionary" },
-            { text: "Coordinate dependable weekly volunteer efforts.", style: "Stabilizer" }
-        ]
-    },
+    id: "q7",
+    getPrompt: (aud) => scenes[aud]?.q7 || scenes.individual.q7,
+    options: [
+        { text: "Kick off the effort with energy and clear direction.", style: "Driver" },
+        { text: "Share the purpose in a way that brings people on board.", style: "Advocate" },
+        { text: "Sketch out long-term possibilities and future pathways.", style: "Visionary" },
+        { text: "Set up reliable weekly rhythms that keep the project strong.", style: "Stabilizer" }
+    ]
+},
     {
-        id: "q8",
-        getPrompt: (aud) => scenes[aud]?.q8 || scenes.individual.q8,
-        options: [
-            { text: "Structure data tools to track impact metrics.", style: "Architect" },
-            { text: "Protect historical knowledge and land rights.", style: "Keeper" },
-            { text: "Nurture ongoing relationships across networks.", style: "Connector" },
-            { text: "Enforce environmental regulations and oversight.", style: "Guardian" }
-        ]
-    }
+    id: "q8",
+    getPrompt: (aud) => scenes[aud]?.q8 || scenes.individual.q8,
+    options: [
+        { text: "Organize tools and information so progress can be tracked.", style: "Architect" },
+        { text: "Care for what’s fragile and ensure it’s protected over time.", style: "Keeper" },
+        { text: "Maintain relationships that keep the community connected.", style: "Connector" },
+        { text: "Stand firm when something vulnerable needs defending.", style: "Guardian" }
+    ]
+}
 ];
