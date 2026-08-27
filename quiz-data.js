@@ -68,116 +68,118 @@ export const styles = {
 
 const scenes = {
     individual: {
-        q1: "A situation in your community needs people to get involved. You are most likely to…",
-        q2: "A neighborhood event is being planned and volunteers are gathering. You are most likely to…",
-        q3: "A group is deciding on a new shared goal. You are most likely to…",
-        q4: "A community project is entering its second year. You are most likely to…",
-        q5: "A public issue is being discussed and people are weighing in. You are most likely to…",
-        q6: "A local group is organizing how it will work together. You are most likely to…",
-        q7: "A new community effort is kicking off today. You are most likely to…",
-        q8: "A long-term challenge in your area needs steady attention. You are most likely to…"
+        q1: "A shared space in your neighborhood needs attention and people are stepping in.",
+        q2: "Neighbors are organizing a small volunteer effort to help with a local need.",
+        q3: "A group is deciding how to tackle a community task together.",
+        q4: "A community project needs people to keep showing up week after week.",
+        q5: "People are gathered to talk through a problem affecting your neighborhood.",
+        q6: "A local volunteer group is figuring out roles and responsibilities.",
+        q7: "A new community service effort begins today and volunteers are arriving.",
+        q8: "Something in your area needs long-term care and steady hands."
     },
+
     workplace: {
-        q1: "Your team needs to respond quickly to a new challenge. You are most likely to…",
-        q2: "A cross-department event is being organized. You are most likely to…",
-        q3: "Your team is setting new goals for the year. You are most likely to…",
-        q4: "An internal initiative needs ongoing support. You are most likely to…",
-        q5: "A company-wide issue is open for employee input. You are most likely to…",
-        q6: "A cross-functional team is structuring its workflow. You are most likely to…",
-        q7: "A major workplace project launches today. You are most likely to…",
-        q8: "Your organization is planning for long-term responsibilities. You are most likely to…"
+        q1: "Your team faces a challenge that needs quick, thoughtful action.",
+        q2: "Coworkers are organizing a volunteer or service activity together.",
+        q3: "Your team is choosing how to approach a project that requires shared effort.",
+        q4: "An ongoing workplace initiative needs people who will reliably support it.",
+        q5: "People at work are discussing an issue that impacts the whole team.",
+        q6: "A cross-team group is figuring out how to divide responsibilities.",
+        q7: "A major team project begins today and people are gathering to start.",
+        q8: "Your organization is planning for responsibilities that will require long-term commitment."
     },
+
     student: {
-        q1: "Your school needs students to help with a new situation. You are most likely to…",
-        q2: "A campus event is being planned. You are most likely to…",
-        q3: "Your student group is choosing a project for the semester. You are most likely to…",
-        q4: "A campus initiative needs ongoing support. You are most likely to…",
-        q5: "A school-wide issue is being reviewed. You are most likely to…",
-        q6: "Your project group is organizing responsibilities. You are most likely to…",
-        q7: "A student-led effort kicks off today. You are most likely to…",
-        q8: "A long-term campus challenge needs steady attention. You are most likely to…"
+        q1: "Your school needs students to help with a shared task that matters.",
+        q2: "People on campus are organizing a volunteer activity.",
+        q3: "Your student group is choosing how to approach a project that requires teamwork.",
+        q4: "A campus effort needs students who will keep showing up.",
+        q5: "Students are gathered to talk through an issue affecting the school.",
+        q6: "Your project group is figuring out how to divide roles and responsibilities.",
+        q7: "A student-led service effort begins today and people are arriving.",
+        q8: "Something on campus needs long-term care and dependable attention."
     }
 };
 
 export const questions = [
     {
-    id: "q1",
-    getPrompt: (aud) => scenes[aud]?.q1 || scenes.individual.q1,
-    options: [
-        { text: "Get people moving and take the first step together.", style: "Driver" },
-        { text: "Explain the situation in a way that helps people feel connected.", style: "Advocate" },
-        { text: "Look for a fresh angle that opens new possibilities.", style: "Visionary" },
-        { text: "Create a steady plan that keeps things going over time.", style: "Stabilizer" }
-    ]
-},
+        id: "q1",
+        getPrompt: (aud) => scenes[aud]?.q1 || scenes.individual.q1,
+        options: [
+            { text: "You get people moving and take the first step together.", style: "Driver" },
+            { text: "You explain things in a way that helps people feel connected.", style: "Advocate" },
+            { text: "You look for a fresh angle that opens new possibilities.", style: "Visionary" },
+            { text: "You create a steady plan that keeps things going over time.", style: "Stabilizer" }
+        ]
+    },
     {
-    id: "q2",
-    getPrompt: (aud) => scenes[aud]?.q2 || scenes.individual.q2,
-    options: [
-        { text: "Organize the details so the effort runs smoothly.", style: "Architect" },
-        { text: "Make sure important lessons and values aren’t forgotten.", style: "Keeper" },
-        { text: "Help people feel welcome and build trust in the group.", style: "Connector" },
-        { text: "Watch for risks and help the group stay true to its principles.", style: "Guardian" }
-    ]
-},
+        id: "q2",
+        getPrompt: (aud) => scenes[aud]?.q2 || scenes.individual.q2,
+        options: [
+            { text: "You organize the details so the effort runs smoothly.", style: "Architect" },
+            { text: "You make sure important lessons and values aren’t forgotten.", style: "Keeper" },
+            { text: "You help people feel welcome and build trust in the group.", style: "Connector" },
+            { text: "You watch for risks and help the group stay true to its principles.", style: "Guardian" }
+        ]
+    },
     {
-    id: "q3",
-    getPrompt: (aud) => scenes[aud]?.q3 || scenes.individual.q3,
-    options: [
-        { text: "Set clear goals and push the project into motion.", style: "Driver" },
-        { text: "Share a message that motivates people to join in.", style: "Advocate" },
-        { text: "Offer a creative idea that changes how the group sees the challenge.", style: "Visionary" },
-        { text: "Build a practical routine that keeps the work steady and reliable.", style: "Stabilizer" }
-    ]
-},
+        id: "q3",
+        getPrompt: (aud) => scenes[aud]?.q3 || scenes.individual.q3,
+        options: [
+            { text: "You set clear goals and push the project into motion.", style: "Driver" },
+            { text: "You share a message that motivates people to join in.", style: "Advocate" },
+            { text: "You offer a creative idea that changes how the group sees the challenge.", style: "Visionary" },
+            { text: "You build a practical routine that keeps the work reliable.", style: "Stabilizer" }
+        ]
+    },
     {
-    id: "q4",
-    getPrompt: (aud) => scenes[aud]?.q4 || scenes.individual.q4,
-    options: [
-        { text: "Create structure so tasks and timelines stay clear.", style: "Architect" },
-        { text: "Protect what’s meaningful and make sure it continues.", style: "Keeper" },
-        { text: "Help people communicate openly and feel connected.", style: "Connector" },
-        { text: "Hold the group accountable to its shared values.", style: "Guardian" }
-    ]
-},
+        id: "q4",
+        getPrompt: (aud) => scenes[aud]?.q4 || scenes.individual.q4,
+        options: [
+            { text: "You create structure so tasks and timelines stay clear.", style: "Architect" },
+            { text: "You protect what’s meaningful and make sure it continues.", style: "Keeper" },
+            { text: "You help people communicate openly and feel connected.", style: "Connector" },
+            { text: "You hold the group accountable to its shared values.", style: "Guardian" }
+        ]
+    },
     {
-    id: "q5",
-    getPrompt: (aud) => scenes[aud]?.q5 || scenes.individual.q5,
-    options: [
-        { text: "Mobilize people quickly and respond with clear action.", style: "Driver" },
-        { text: "Break things down so everyone understands what’s at stake.", style: "Advocate" },
-        { text: "Suggest imaginative alternatives that could improve the situation.", style: "Visionary" },
-        { text: "Support the steady routines that keep the group grounded.", style: "Stabilizer" }
-    ]
-},
+        id: "q5",
+        getPrompt: (aud) => scenes[aud]?.q5 || scenes.individual.q5,
+        options: [
+            { text: "You mobilize people quickly and respond with clear action.", style: "Driver" },
+            { text: "You break things down so everyone understands what’s at stake.", style: "Advocate" },
+            { text: "You suggest imaginative alternatives that could improve the situation.", style: "Visionary" },
+            { text: "You support the steady rhythms that keep the group grounded.", style: "Stabilizer" }
+        ]
+    },
     {
-    id: "q6",
-    getPrompt: (aud) => scenes[aud]?.q6 || scenes.individual.q6,
-    options: [
-        { text: "Build a simple system that keeps everyone organized.", style: "Architect" },
-        { text: "Make sure long-held knowledge and values shape decisions.", style: "Keeper" },
-        { text: "Bridge differences and help the team work in harmony.", style: "Connector" },
-        { text: "Check for fairness and protect anyone who might be overlooked.", style: "Guardian" }
-    ]
-},
+        id: "q6",
+        getPrompt: (aud) => scenes[aud]?.q6 || scenes.individual.q6,
+        options: [
+            { text: "You build a simple system that keeps everyone organized.", style: "Architect" },
+            { text: "You ensure long-held knowledge and values shape decisions.", style: "Keeper" },
+            { text: "You bridge differences and help the team work in harmony.", style: "Connector" },
+            { text: "You check for fairness and protect anyone who might be overlooked.", style: "Guardian" }
+        ]
+    },
     {
-    id: "q7",
-    getPrompt: (aud) => scenes[aud]?.q7 || scenes.individual.q7,
-    options: [
-        { text: "Kick off the effort with energy and clear direction.", style: "Driver" },
-        { text: "Share the purpose in a way that brings people on board.", style: "Advocate" },
-        { text: "Sketch out long-term possibilities and future pathways.", style: "Visionary" },
-        { text: "Set up reliable weekly rhythms that keep the project strong.", style: "Stabilizer" }
-    ]
-},
+        id: "q7",
+        getPrompt: (aud) => scenes[aud]?.q7 || scenes.individual.q7,
+        options: [
+            { text: "You kick off the effort with energy and direction.", style: "Driver" },
+            { text: "You share the purpose in a way that brings people on board.", style: "Advocate" },
+            { text: "You sketch out long-term possibilities and future pathways.", style: "Visionary" },
+            { text: "You set up dependable weekly patterns that keep the project strong.", style: "Stabilizer" }
+        ]
+    },
     {
-    id: "q8",
-    getPrompt: (aud) => scenes[aud]?.q8 || scenes.individual.q8,
-    options: [
-        { text: "Organize tools and information so progress can be tracked.", style: "Architect" },
-        { text: "Care for what’s fragile and ensure it’s protected over time.", style: "Keeper" },
-        { text: "Maintain relationships that keep the group connected.", style: "Connector" },
-        { text: "Stand firm when something vulnerable needs defending.", style: "Guardian" }
-    ]
-}
+        id: "q8",
+        getPrompt: (aud) => scenes[aud]?.q8 || scenes.individual.q8,
+        options: [
+            { text: "You organize tools and information so progress can be tracked.", style: "Architect" },
+            { text: "You care for what’s fragile and ensure it’s protected over time.", style: "Keeper" },
+            { text: "You maintain relationships that keep the group connected.", style: "Connector" },
+            { text: "You stand firm when something vulnerable needs defending.", style: "Guardian" }
+        ]
+    }
 ];
