@@ -197,8 +197,7 @@ body {
 <body>
 <header class="quiz-header">
     <h1>Climate Color Directory</h1>
-    <p>Browse resources suggested for your stewardship style
-    </p>
+    <p>Browse resources suggested for your stewardship style</p>
 </header>
 
 <!-- Search Bar -->
@@ -218,10 +217,23 @@ let rawStyle = urlParams.get('style');
 let activeStyle = "All Styles";
 let searchQuery = "";
 
+// Color-to-Style Alias Map
+const styleAliases = {
+    red: "Driver",
+    orange: "Advocate",
+    yellow: "Visionary",
+    green: "Stabilizer",
+    blue: "Architect",
+    indigo: "Keeper",
+    purple: "Connector",
+    violet: "Guardian"
+};
+
 // Style parsing
 if (rawStyle && typeof styles !== 'undefined') {
     const cleanInput = decodeURIComponent(rawStyle).trim().toLowerCase();
-    const foundKey = Object.keys(styles).find(s => s.toLowerCase() === cleanInput);
+    const resolvedName = styleAliases[cleanInput] || cleanInput;
+    const foundKey = Object.keys(styles).find(s => s.toLowerCase() === resolvedName.toLowerCase());
     if (foundKey) activeStyle = foundKey;
 }
 
