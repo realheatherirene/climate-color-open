@@ -23,7 +23,7 @@ body {
 }
 
 /* ==========================================================================
-   Header Styles (matching Quiz page)
+   Header Styles
    ========================================================================== */
 .quiz-header {
     text-align: left;
@@ -40,6 +40,29 @@ body {
     font-size: 1rem;
     color: #64748B;
     margin: 0;
+}
+
+/* ==========================================================================
+   Search Bar
+   ========================================================================== */
+.search-bar {
+    width: 100%;
+    margin-bottom: 1.5rem;
+}
+.search-input {
+    width: 100%;
+    padding: 0.65rem 1rem;
+    font-size: 0.95rem;
+    border-radius: 9999px;
+    border: 1px solid #CBD5E1;
+    background: #F8FAFC;
+    color: #334155;
+    transition: all 0.15s ease;
+}
+.search-input:focus {
+    outline: none;
+    border-color: #1494B9;
+    box-shadow: 0 0 0 3px #1494B933;
 }
 
 /* ==========================================================================
@@ -180,10 +203,15 @@ body {
         </a>.
     </p>
 </header>
+
+<!-- Search Bar -->
+<div class="search-bar">
+    <input id="searchInput" class="search-input" placeholder="Search resources…">
+</div>
+
 <div class="filter-pills" id="pillContainer"></div>
 <div class="resource-grid" id="resourceContainer"></div>
 
-<!-- Load Data JS File Directly -->
 <script src="directory-data.js"></script>
 
 <script>
@@ -191,12 +219,20 @@ body {
 const urlParams = new URLSearchParams(window.location.search);
 let rawStyle = urlParams.get('style');
 let activeStyle = "All Styles";
+let searchQuery = "";
 
+// Style parsing
 if (rawStyle && typeof styles !== 'undefined') {
     const cleanInput = decodeURIComponent(rawStyle).trim().toLowerCase();
     const foundKey = Object.keys(styles).find(s => s.toLowerCase() === cleanInput);
     if (foundKey) activeStyle = foundKey;
 }
+
+// Search listener
+document.getElementById("searchInput").addEventListener("input", (e) => {
+    searchQuery = e.target.value.toLowerCase().trim();
+    renderResources();
+});
 
 function renderPills() {
     const container = document.getElementById("pillContainer");
@@ -241,18 +277,29 @@ function selectStyle(key) {
 function renderResources() {
     const container = document.getElementById("resourceContainer");
     container.innerHTML = "";
-    const filtered = activeStyle === 'All Styles' 
-        ? resources 
-        : resources.filter(res => res.styles.includes(activeStyle));
-        
+
+    const filtered = resources.filter(res => {
+        const matchesStyle =
+            activeStyle === "All Styles" || res.styles.includes(activeStyle);
+
+        const matchesSearch =
+            searchQuery === "" ||
+            res.title.toLowerCase().includes(searchQuery) ||
+            res.desc.toLowerCase().includes(searchQuery) ||
+            res.type.toLowerCase().includes(searchQuery);
+
+        return matchesStyle && matchesSearch;
+    });
+
     if (filtered.length === 0) {
         container.innerHTML = `
             <div class="empty-state">
-                <p>No resources currently listed for <strong>${activeStyle}</strong>.</p>
+                <p>No resources match your search.</p>
             </div>
         `;
         return;
     }
+
     filtered.forEach(res => {
         const matchStyle = (activeStyle !== 'All Styles') ? activeStyle : res.styles[0];
         const cardColor = styles[matchStyle] ? styles[matchStyle].color : "#1494B9";
