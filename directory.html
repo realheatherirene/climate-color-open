@@ -332,15 +332,8 @@ function renderResources() {
             : res.styles[0];
         const cardColor = styles[matchStyle] ? styles[matchStyle].color : "#1494B9";
 
-        // Place active filter or primary style first
-        const sortedStyles = [...res.styles].sort((a, b) => {
-            if (a === activeStyle) return -1;
-            if (b === activeStyle) return 1;
-            return 0;
-        });
-
-        // Generate styled text indicators without dots
-        const styleTextHtml = sortedStyles.map(styleName => {
+        // Generate styled text indicators in exact data array order (relevance order)
+        const styleTextHtml = res.styles.map(styleName => {
             const sInfo = styles[styleName];
             const color = sInfo ? sInfo.color : "#334155";
             return `
