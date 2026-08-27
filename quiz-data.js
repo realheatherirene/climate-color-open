@@ -68,36 +68,36 @@ export const styles = {
 
 const scenes = {
     individual: {
-        q1: "A shared space in your neighborhood needs attention and people are stepping in.",
-        q2: "Neighbors are organizing a small volunteer effort to help with a local need.",
-        q3: "A group is deciding how to tackle a community task together.",
-        q4: "A community project needs people to keep showing up week after week.",
-        q5: "People are gathered to talk through a problem affecting your neighborhood.",
-        q6: "A local volunteer group is figuring out roles and responsibilities.",
-        q7: "A new community service effort begins today and volunteers are arriving.",
-        q8: "Something in your area needs long-term care and steady hands."
+        q1: "A spot in your neighborhood has been neglected, and neighbors show up to fix it.",
+        q2: "Someone nearby needs help, and a few people start organizing support.",
+        q3: "Neighbors gather to decide how to handle a specific community task.",
+        q4: "A weekly neighborhood project depends on people showing up regularly.",
+        q5: "People on your block meet to talk through a local problem.",
+        q6: "A volunteer group in your area is sorting out who will do what.",
+        q7: "A new neighborhood project kicks off today and volunteers arrive.",
+        q8: "Something in your community needs long-term attention and steady involvement."
     },
 
     workplace: {
-        q1: "Your team faces a challenge that needs quick, thoughtful action.",
-        q2: "Coworkers are organizing a volunteer or service activity together.",
-        q3: "Your team is choosing how to approach a project that requires shared effort.",
-        q4: "An ongoing workplace initiative needs people who will reliably support it.",
-        q5: "People at work are discussing an issue that impacts the whole team.",
-        q6: "A cross-team group is figuring out how to divide responsibilities.",
-        q7: "A major team project begins today and people are gathering to start.",
-        q8: "Your organization is planning for responsibilities that will require long-term commitment."
+        q1: "Your team faces a problem that affects everyone and needs a quick response.",
+        q2: "Coworkers put together a volunteer effort to help a local cause.",
+        q3: "Your team meets to choose how to approach a shared project.",
+        q4: "A recurring responsibility at work needs reliable follow-through.",
+        q5: "People at work gather to discuss an issue affecting the whole team.",
+        q6: "A cross-team group meets to divide responsibilities for a joint project.",
+        q7: "A major project launches today and the team gathers to begin.",
+        q8: "Your organization prepares for responsibilities that will last over time."
     },
 
     student: {
-        q1: "Your school needs students to help with a shared task that matters.",
-        q2: "People on campus are organizing a volunteer activity.",
-        q3: "Your student group is choosing how to approach a project that requires teamwork.",
-        q4: "A campus effort needs students who will keep showing up.",
-        q5: "Students are gathered to talk through an issue affecting the school.",
-        q6: "Your project group is figuring out how to divide roles and responsibilities.",
-        q7: "A student-led service effort begins today and people are arriving.",
-        q8: "Something on campus needs long-term care and dependable attention."
+        q1: "Your school asks students to help with a task that affects daily campus life.",
+        q2: "Students organize a volunteer effort to support a specific campus need.",
+        q3: "Your student group meets to choose how to tackle a shared project.",
+        q4: "A campus project needs students who will keep showing up each week.",
+        q5: "Students gather to talk through an issue affecting the school community.",
+        q6: "Your project group meets to divide roles for a shared assignment.",
+        q7: "A student-led project begins today and people arrive to start.",
+        q8: "Something on campus needs long-term care and dependable involvement."
     }
 };
 
