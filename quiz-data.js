@@ -1,79 +1,72 @@
 // quiz-data.js
-export const climateColorCodeNames = {
+export const styles = {
     Driver: {
-        Advocate: "The Forward Voice",
-        Visionary: "The Bold Imagineer",
-        Stabilizer: "The Steady Starter",
-        Architect: "The Tactical Mover",
-        Keeper: "The Grounded Initiator",
-        Connector: "The Rally Builder",
-        Guardian: "The Watchful Activator"
+        color: "#E32322",
+        rgb: "227, 35, 34",
+        identity: "Direct Action & High Momentum",
+        behavior: "You thrive when jumping straight into action and leading physical campaigns.",
+        action: "Focus on rapid-response events, direct mobilization, and visible projects.",
+        searchTerms: ["climate rally coordinator", "action leader", "rapid response campaign"]
     },
     Advocate: {
-        Driver: "The Spark Communicator",
-        Visionary: "The Future Speaker",
-        Stabilizer: "The Steady Voice",
-        Architect: "The Clear Planner",
-        Keeper: "The Story Holder",
-        Connector: "The Bridge Speaker",
-        Guardian: "The Truth Caller"
+        color: "#F18E1C",
+        rgb: "241, 142, 28",
+        identity: "Public Voice & Storytelling",
+        behavior: "You excel at communicating big ideas and inspiring public support.",
+        action: "Focus on social campaigns, community presentations, and writing outreach materials.",
+        searchTerms: ["climate storyteller", "community outreach volunteer", "campaign writer"]
     },
     Visionary: {
-        Driver: "The Dynamic Dreamer",
-        Advocate: "The Idea Messenger",
-        Stabilizer: "The Rooted Dreamer",
-        Architect: "The Pattern Builder",
-        Keeper: "The Story Weaver",
-        Connector: "The Insight Gatherer",
-        Guardian: "The Principle Seer"
+        color: "#9A7B00",
+        rgb: "154, 123, 0",
+        identity: "Future Concepts & Innovation",
+        behavior: "You see creative solutions and love building new community possibilities.",
+        action: "Focus on design labs, local innovation sprints, and vision mapping.",
+        searchTerms: ["urban innovation lab", "rewilding design", "sustainability strategist"]
     },
     Stabilizer: {
-        Driver: "The Grounded Mover",
-        Advocate: "The Calm Communicator",
-        Visionary: "The Quiet Innovator",
-        Architect: "The Rhythm Builder",
-        Keeper: "The Tradition Steward",
-        Connector: "The Steady Harmonizer",
-        Guardian: "The Consistent Watcher"
+        color: "#5A9129",
+        rgb: "90, 145, 41",
+        identity: "Consistent Care & Habitual Support",
+        behavior: "You keep local efforts strong through steady, dependable ongoing care.",
+        action: "Focus on recurring park maintenance, community gardens, or habitat restoration.",
+        searchTerms: ["community garden volunteer", "tree planting crew", "trail steward"]
     },
     Architect: {
-        Driver: "The Precision Starter",
-        Advocate: "The Clear Organizer",
-        Visionary: "The Structure Dreamer",
-        Stabilizer: "The System Keeper",
-        Keeper: "The Order Steward",
-        Connector: "The Network Builder",
-        Guardian: "The Systems Watcher"
+        color: "#2A71B0",
+        rgb: "42, 113, 176",
+        identity: "Systems Design & Logistics",
+        behavior: "You make sure plans are organized, efficient, and built to last.",
+        action: "Focus on project logistics, volunteer databases, and event planning.",
+        searchTerms: ["nonprofit operations volunteer", "data coordinator", "event logistics manager"]
     },
     Keeper: {
-        Driver: "The Heritage Activator",
-        Advocate: "The Meaning Messenger",
-        Visionary: "The Legacy Imagineer",
-        Stabilizer: "The Continuity Holder",
-        Architect: "The Archive Builder",
-        Connector: "The Story Gatherer",
-        Guardian: "The Tradition Watcher"
+        color: "#002060",
+        rgb: "0, 32, 96",
+        identity: "Heritage Protection & Tradition",
+        behavior: "You protect established community wisdom, land heritage, and local history.",
+        action: "Focus on land trust preservation, seed saving, and historical restoration.",
+        searchTerms: ["land trust volunteer", "heritage seed saver", "historical ecology"]
     },
     Connector: {
-        Driver: "The Social Starter",
-        Advocate: "The Warm Communicator",
-        Visionary: "The Insight Connector",
-        Stabilizer: "The Steady Unifier",
-        Architect: "The Coordination Weaver",
-        Keeper: "The Memory Connector",
-        Guardian: "The Trust Protector"
+        color: "#6D398B",
+        rgb: "109, 57, 139",
+        identity: "Relationship Building & Trust",
+        behavior: "You bring people together and build bridges across diverse community groups.",
+        action: "Focus on community welcoming, liaison roles, and collaborative meetings.",
+        searchTerms: ["community liaison", "volunteer host", "coalition builder"]
     },
     Guardian: {
-        Driver: "The Protective Activator",
-        Advocate: "The Clear Watcher",
-        Visionary: "The Future Sentinel",
-        Stabilizer: "The Steady Sentinel",
-        Architect: "The Order Sentinel",
-        Keeper: "The Heritage Sentinel",
-        Connector: "The People Sentinel"
+        color: "#D946EF",
+        rgb: "217, 70, 239",
+        identity: "Protector & Policy Watchdog",
+        behavior: "You stand up for local environmental rights and policy accountability.",
+        action: "Focus on legal observation, policy monitoring, and environmental justice.",
+        searchTerms: ["environmental justice watchdog", "policy observer", "civic monitor"]
     }
 };
-export const scenes = {
+
+const scenes = {
     individual: {
         q1: "A spot in your neighborhood has been neglected, and neighbors show up to fix it.",
         q2: "Someone nearby needs help, and a few people start organizing support.",
@@ -188,56 +181,5 @@ export const questions = [
             { text: "I make it easier for people to be together.", style: "Connector" },
             { text: "I watch for signs that something needs attention.", style: "Guardian" }
         ]
-    }
-};
-
-export const styles = {
-    Driver: {
-        color: "#E63946",
-        identity: "You initiate momentum.",
-        behavior: "You act quickly and help things begin.",
-        action: "Start small climate actions and help others get moving."
-    },
-    Advocate: {
-        color: "#F77F00",
-        identity: "You clarify and communicate.",
-        behavior: "You help people understand what matters.",
-        action: "Share climate insights and help others stay informed."
-    },
-    Visionary: {
-        color: "#FFD60A",
-        identity: "You imagine possibilities.",
-        behavior: "You see new angles and future pathways.",
-        action: "Explore creative climate solutions and inspire others."
-    },
-    Stabilizer: {
-        color: "#2A9D8F",
-        identity: "You keep things steady.",
-        behavior: "You maintain consistency and reliability.",
-        action: "Support ongoing climate efforts with dependable follow‑through."
-    },
-    Architect: {
-        color: "#457B9D",
-        identity: "You organize systems.",
-        behavior: "You break things into steps and build structure.",
-        action: "Create plans and frameworks that make climate action easier."
-    },
-    Keeper: {
-        color: "#4B3F72",
-        identity: "You preserve meaning.",
-        behavior: "You remember what matters and carry it forward.",
-        action: "Protect climate values and help maintain long‑term commitments."
-    },
-    Connector: {
-        color: "#7B2CBF",
-        identity: "You bring people together.",
-        behavior: "You notice relationships and build cohesion.",
-        action: "Help groups collaborate and stay connected around climate work."
-    },
-    Guardian: {
-        color: "#5E548E",
-        identity: "You watch what’s important.",
-        behavior: "You notice risks and protect what needs care.",
-        action: "Monitor climate issues and help safeguard vulnerable areas."
     }
 ];
