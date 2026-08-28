@@ -132,8 +132,7 @@ Results Cards & Styles
     flex-wrap: wrap;
     gap: 0.5rem;
     justify-content: flex-start;
-    margin-top: 0;
-    margin-bottom: 1.25rem;
+    margin-top: 1.25rem;
 }
 .btn-pill-soft {
     display: inline-block;
@@ -304,9 +303,6 @@ function renderReveal(primaryKey, secondaryKey) {
     const secondaryBg = `rgba(${secondary.rgb}, 0.08)`;
     const secondaryBorder = `rgba(${secondary.rgb}, 0.25)`;
 
-    // Summary payload for quick-copy sharing
-    const summaryText = `My Climate Type: ${primaryKey} + ${secondaryKey}\n\nPrimary Style: ${primaryKey}\nTheme: ${primary.theme}\nWhere I Shine: ${primaryActionText}\n\nStewardship Pattern:\n${patternText}\n\nDiscover your style: https://climatecolor.com/quiz`;
-
     const result = document.getElementById("resultContainer");
     result.style.display = "block";
     result.innerHTML = `
@@ -323,22 +319,19 @@ function renderReveal(primaryKey, secondaryKey) {
             <div class="styleAction">
                 <strong>Where you shine:</strong> ${primaryActionText}
             </div>
-            <div style="font-size: 0.88rem; color: #64748B; font-style: italic;">
+            <div style="font-size: 0.88rem; color: #64748B; font-style: italic; margin-bottom: 1rem;">
                 <strong>Gentle watchouts:</strong> ${primary.watchouts}
             </div>
-        </div>
 
-        <!-- Buttons for Primary Style + Quick Copy Button -->
-        <div class="cta-container">
-            <a href="https://climatecolor.com/${primary.slug}" target="_blank" rel="noopener noreferrer" class="btn-pill-soft" style="background-color: ${primaryBg}; border-color: ${primaryBorder}; color: ${primary.color} !important;">
-                Explore ${primaryKey} Strengths &rarr;
-            </a>
-            <a href="directory.html?style=${encodeURIComponent(primaryKey)}" class="btn-pill-soft" style="background-color: ${primaryBg}; border-color: ${primaryBorder}; color: ${primary.color} !important;">
-                Explore ${primaryKey} Actions &rarr;
-            </a>
-            <button id="copyBtn" class="btn-pill-soft" style="background-color: #F1F5F9; border-color: #CBD5E1; color: #334155 !important;">
-                📋 Copy Summary
-            </button>
+            <!-- Embedded Buttons for Primary Style -->
+            <div class="cta-container">
+                <a href="https://climatecolor.com/${primary.slug}" target="_blank" rel="noopener noreferrer" class="btn-pill-soft" style="background-color: ${primaryBg}; border-color: ${primaryBorder}; color: ${primary.color} !important;">
+                    Explore ${primaryKey} Strengths &rarr;
+                </a>
+                <a href="directory.html?style=${encodeURIComponent(primaryKey)}" class="btn-pill-soft" style="background-color: ${primaryBg}; border-color: ${primaryBorder}; color: ${primary.color} !important;">
+                    Explore ${primaryKey} Actions &rarr;
+                </a>
+            </div>
         </div>
 
         <!-- Card 2: Secondary Stewardship Card -->
@@ -354,19 +347,19 @@ function renderReveal(primaryKey, secondaryKey) {
             <div class="styleAction" style="font-size: 0.9rem;">
                 <strong>Where you shine:</strong> ${secondaryActionText}
             </div>
-            <div style="font-size: 0.85rem; color: #64748B; font-style: italic;">
+            <div style="font-size: 0.85rem; color: #64748B; font-style: italic; margin-bottom: 1rem;">
                 <strong>Gentle watchouts:</strong> ${secondary.watchouts}
             </div>
-        </div>
 
-        <!-- Buttons for Secondary Style -->
-        <div class="cta-container">
-            <a href="https://climatecolor.com/${secondary.slug}" target="_blank" rel="noopener noreferrer" class="btn-pill-soft" style="background-color: ${secondaryBg}; border-color: ${secondaryBorder}; color: ${secondary.color} !important;">
-                Explore ${secondaryKey} Strengths &rarr;
-            </a>
-            <a href="directory.html?style=${encodeURIComponent(secondaryKey)}" class="btn-pill-soft" style="background-color: ${secondaryBg}; border-color: ${secondaryBorder}; color: ${secondary.color} !important;">
-                Explore ${secondaryKey} Actions &rarr;
-            </a>
+            <!-- Embedded Buttons for Secondary Style -->
+            <div class="cta-container">
+                <a href="https://climatecolor.com/${secondary.slug}" target="_blank" rel="noopener noreferrer" class="btn-pill-soft" style="background-color: ${secondaryBg}; border-color: ${secondaryBorder}; color: ${secondary.color} !important;">
+                    Explore ${secondaryKey} Strengths &rarr;
+                </a>
+                <a href="directory.html?style=${encodeURIComponent(secondaryKey)}" class="btn-pill-soft" style="background-color: ${secondaryBg}; border-color: ${secondaryBorder}; color: ${secondary.color} !important;">
+                    Explore ${secondaryKey} Actions &rarr;
+                </a>
+            </div>
         </div>
 
         <!-- Card 3: Climate Type & Combined Stewardship Pattern -->
@@ -386,15 +379,6 @@ function renderReveal(primaryKey, secondaryKey) {
             </a>
         </p>
     `;
-
-    // Attach click listener for clipboard action
-    document.getElementById("copyBtn").onclick = () => {
-        navigator.clipboard.writeText(summaryText).then(() => {
-            const btn = document.getElementById("copyBtn");
-            btn.textContent = "✓ Copied!";
-            setTimeout(() => { btn.textContent = "📋 Copy Summary"; }, 2500);
-        });
-    };
 
     result.focus();
 }
