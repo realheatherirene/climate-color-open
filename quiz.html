@@ -132,7 +132,8 @@ Results Cards & Styles
     flex-wrap: wrap;
     gap: 0.5rem;
     justify-content: flex-start;
-    margin-top: 1.25rem;
+    margin-top: 0;
+    margin-bottom: 1.25rem;
 }
 .btn-pill-soft {
     display: inline-block;
@@ -294,18 +295,22 @@ function renderReveal(primaryKey, secondaryKey) {
     const patternText = combinedPatterns[primaryKey]?.[secondaryKey] || 
         `You bring a unique combination of ${primaryKey} initiative and ${secondaryKey} perspective to community stewardship.`;
 
-    const actionText = primary.action.replace(/^Your gift shines when /i, "You shine when ");
+    const primaryActionText = primary.action.replace(/^Your gift shines when /i, "You shine when ");
+    const secondaryActionText = secondary.action.replace(/^Your gift shines when /i, "You shine when ");
 
     const primaryBg = `rgba(${primary.rgb}, 0.08)`;
     const primaryBorder = `rgba(${primary.rgb}, 0.25)`;
 
+    const secondaryBg = `rgba(${secondary.rgb}, 0.08)`;
+    const secondaryBorder = `rgba(${secondary.rgb}, 0.25)`;
+
     // Summary payload for quick-copy sharing
-    const summaryText = `My Climate Type: ${primaryKey} + ${secondaryKey}\n\nPrimary Style: ${primaryKey}\nTheme: ${primary.theme}\nWhere I Shine: ${actionText}\n\nStewardship Pattern:\n${patternText}\n\nDiscover your style: https://climatecolor.com/quiz`;
+    const summaryText = `My Climate Type: ${primaryKey} + ${secondaryKey}\n\nPrimary Style: ${primaryKey}\nTheme: ${primary.theme}\nWhere I Shine: ${primaryActionText}\n\nStewardship Pattern:\n${patternText}\n\nDiscover your style: https://climatecolor.com/quiz`;
 
     const result = document.getElementById("resultContainer");
     result.style.display = "block";
     result.innerHTML = `
-        <!-- Primary Stewardship Card -->
+        <!-- Card 1: Primary Stewardship Card -->
         <div class="styleBlock" style="border-left-color: ${primary.color};">
             <div class="styleTitle" style="color: #1E293B; font-size: 1.35rem; margin-bottom: 0.5rem;">
                 Your primary stewardship style is <span style="color: ${primary.color};">${primaryKey}</span>
@@ -316,15 +321,15 @@ function renderReveal(primaryKey, secondaryKey) {
             <div class="styleIdentity">${primary.identity}</div>
             <div style="margin-bottom: 0.85rem; color: #334155;">${primary.behavior}</div>
             <div class="styleAction">
-                <strong>Where you shine:</strong> ${actionText}
+                <strong>Where you shine:</strong> ${primaryActionText}
             </div>
             <div style="font-size: 0.88rem; color: #64748B; font-style: italic;">
                 <strong>Gentle watchouts:</strong> ${primary.watchouts}
             </div>
         </div>
 
-        <!-- Action Links & Quick Win Clipboard Button -->
-        <div class="cta-container" style="margin-top: 0; margin-bottom: 1.25rem;">
+        <!-- Buttons for Primary Style + Quick Copy Button -->
+        <div class="cta-container">
             <a href="https://climatecolor.com/${primary.slug}" target="_blank" rel="noopener noreferrer" class="btn-pill-soft" style="background-color: ${primaryBg}; border-color: ${primaryBorder}; color: ${primary.color} !important;">
                 Explore ${primaryKey} Strengths &rarr;
             </a>
@@ -336,11 +341,36 @@ function renderReveal(primaryKey, secondaryKey) {
             </button>
         </div>
 
-        <!-- Secondary Alignment & Stewardship Pattern Card -->
-        <div class="styleBlock" style="border-left-color: ${secondary.color}; background: #F8FAFC; border-color: #E2E8F0; border-left-width: 6px;">
-            <div style="color: #475569; font-size: 0.95rem; margin-bottom: 0.25rem;">
-                Your secondary stewardship style is <span style="color: ${secondary.color}; font-weight: 700;">${secondaryKey}</span>
+        <!-- Card 2: Secondary Stewardship Card -->
+        <div class="styleBlock" style="border-left-color: ${secondary.color};">
+            <div class="styleTitle" style="color: #1E293B; font-size: 1.15rem; margin-bottom: 0.5rem;">
+                Your secondary stewardship style is <span style="color: ${secondary.color};">${secondaryKey}</span>
             </div>
+            <div style="font-size: 0.8rem; font-weight: 700; color: #64748B; text-transform: uppercase; margin-bottom: 0.75rem;">
+                THEME: ${secondary.theme.toUpperCase()}
+            </div>
+            <div class="styleIdentity" style="font-size: 0.95rem;">${secondary.identity}</div>
+            <div style="margin-bottom: 0.85rem; color: #334155; font-size: 0.92rem;">${secondary.behavior}</div>
+            <div class="styleAction" style="font-size: 0.9rem;">
+                <strong>Where you shine:</strong> ${secondaryActionText}
+            </div>
+            <div style="font-size: 0.85rem; color: #64748B; font-style: italic;">
+                <strong>Gentle watchouts:</strong> ${secondary.watchouts}
+            </div>
+        </div>
+
+        <!-- Buttons for Secondary Style -->
+        <div class="cta-container">
+            <a href="https://climatecolor.com/${secondary.slug}" target="_blank" rel="noopener noreferrer" class="btn-pill-soft" style="background-color: ${secondaryBg}; border-color: ${secondaryBorder}; color: ${secondary.color} !important;">
+                Explore ${secondaryKey} Strengths &rarr;
+            </a>
+            <a href="directory.html?style=${encodeURIComponent(secondaryKey)}" class="btn-pill-soft" style="background-color: ${secondaryBg}; border-color: ${secondaryBorder}; color: ${secondary.color} !important;">
+                Explore ${secondaryKey} Actions &rarr;
+            </a>
+        </div>
+
+        <!-- Card 3: Climate Type & Combined Stewardship Pattern -->
+        <div class="styleBlock" style="border-left-color: ${primary.color}; background: #F8FAFC; border-color: #E2E8F0; border-left-width: 6px;">
             <div class="styleTitle" style="color: #1E293B; font-size: 1.35rem; margin-bottom: 0.75rem;">
                 Your climate type is <span style="color: ${primary.color};">${primaryKey}</span> + <span style="color: ${secondary.color};">${secondaryKey}</span>
             </div>
