@@ -184,7 +184,7 @@ Results Cards & Styles
 <div id="resultContainer" tabindex="-1" aria-live="polite" style="display: none; outline: none;"></div>
 
 <script type="module">
-import { questions, styles, secondarySyntheses, combinedPatterns } from './quiz-data.js';
+import { questions, styles, combinedPatterns } from './quiz-data.js';
 
 let currentQuestion = 0;
 const scores = {};
@@ -290,9 +290,6 @@ function renderReveal(primaryKey, secondaryKey) {
     const primary = styles[primaryKey];
     const secondary = styles[secondaryKey] || primary;
 
-    const synthesisText = secondarySyntheses[primaryKey]?.[secondaryKey] || 
-        `Your secondary style of ${secondaryKey} supports and balances your primary ${primaryKey} strengths.`;
-    
     const patternText = combinedPatterns[primaryKey]?.[secondaryKey] || 
         `You bring a unique combination of ${primaryKey} initiative and ${secondaryKey} perspective to community stewardship.`;
 
@@ -304,14 +301,11 @@ function renderReveal(primaryKey, secondaryKey) {
     result.innerHTML = `
         <!-- Primary Stewardship Card -->
         <div class="styleBlock" style="border-left-color: ${primary.color};">
-            <div style="text-transform: uppercase; font-size: 0.75rem; letter-spacing: 0.08em; font-weight: 700; color: #64748B; margin-bottom: 0.25rem;">
-                Primary Stewardship Style
-            </div>
-            <div class="styleTitle" style="color: ${primary.color};">
-                ${primaryKey}
+            <div class="styleTitle" style="color: #1E293B; font-size: 1.35rem; margin-bottom: 0.5rem;">
+                Your primary stewardship style is <span style="color: ${primary.color};">${primaryKey}</span>
             </div>
             <div style="font-size: 0.85rem; font-weight: 700; color: #64748B; text-transform: uppercase; margin-bottom: 0.75rem;">
-                Theme: ${primary.theme}
+                THEME: ${primary.theme.toUpperCase()}
             </div>
             <div class="styleIdentity">${primary.identity}</div>
             <div style="margin-bottom: 0.85rem; color: #334155;">${primary.behavior}</div>
@@ -323,37 +317,31 @@ function renderReveal(primaryKey, secondaryKey) {
             </div>
         </div>
 
-        <!-- Secondary Alignment Synthesis Card -->
-        <div class="styleBlock" style="border-left-color: ${secondary.color};">
-            <div style="text-transform: uppercase; font-size: 0.75rem; letter-spacing: 0.08em; font-weight: 700; color: #64748B; margin-bottom: 0.25rem;">
-                Secondary Alignment
-            </div>
-            <div class="styleTitle" style="color: ${secondary.color};">
-                ${primaryKey} + ${secondaryKey}
-            </div>
-            <div style="font-size: 0.95rem; color: #334155; margin-bottom: 0.25rem;">
-                ${synthesisText}
-            </div>
-        </div>
-
-        <!-- Combined Pattern Card -->
-        <div class="styleBlock" style="border-left-color: #0F172A; background: #F8FAFC;">
-            <div style="text-transform: uppercase; font-size: 0.75rem; letter-spacing: 0.08em; font-weight: 700; color: #64748B; margin-bottom: 0.25rem;">
-                Your Stewardship Pattern
-            </div>
-            <div style="font-size: 1.05rem; font-weight: 700; color: #0F172A; line-height: 1.5;">
-                ${patternText}
-            </div>
-        </div>
-
-        <!-- Action Links -->
-        <div class="cta-container">
+        <!-- Action Links (Moved directly under primary card) -->
+        <div class="cta-container" style="margin-top: 0; margin-bottom: 1.25rem;">
             <a href="https://climatecolor.com/${primary.slug}" target="_blank" rel="noopener noreferrer" class="btn-pill-soft" style="background-color: ${primaryBg}; border-color: ${primaryBorder}; color: ${primary.color} !important;">
                 Explore ${primaryKey} Strengths &rarr;
             </a>
             <a href="directory.html?style=${encodeURIComponent(primaryKey)}" class="btn-pill-soft" style="background-color: ${primaryBg}; border-color: ${primaryBorder}; color: ${primary.color} !important;">
                 Explore ${primaryKey} Actions &rarr;
             </a>
+        </div>
+
+        <!-- Secondary Alignment Card -->
+        <div class="styleBlock" style="border-left-color: ${secondary.color};">
+            <div class="styleTitle" style="color: #1E293B; font-size: 1.2rem; margin-bottom: 0;">
+                Your secondary stewardship style is <span style="color: ${secondary.color};">${secondaryKey}</span>
+            </div>
+        </div>
+
+        <!-- Combined Pattern Card -->
+        <div class="styleBlock" style="border-left-color: #0F172A; background: #F8FAFC;">
+            <div style="text-transform: uppercase; font-size: 0.75rem; letter-spacing: 0.08em; font-weight: 700; color: #64748B; margin-bottom: 0.25rem;">
+                YOUR STEWARDSHIP PATTERN
+            </div>
+            <div style="font-size: 1.05rem; font-weight: 700; color: #334155; line-height: 1.5;">
+                ${patternText}
+            </div>
         </div>
 
         <p style="margin-top: 1.5rem; text-align: left; font-size: 0.9rem; color: #64748B;">
