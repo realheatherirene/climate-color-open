@@ -166,7 +166,7 @@ Results Cards & Styles
 
 <header class="quiz-header">
     <h1>Climate Color Quiz</h1>
-    <p>Discover your stewardship style | 30 questions | anonymous | 
+    <p>Discover your stewardship style | 32 questions | anonymous | 
         <a href="https://climatecolor.com/quiz-faq" target="_blank" rel="noopener noreferrer" style="color:#1494B8; font-weight: bold;">
             FAQ
         </a>
@@ -189,11 +189,10 @@ import { questions, styles, combinedPatterns } from './quiz-data.js';
 
 let currentQuestion = 0;
 const scores = {};
-const typeCountsByStyle = {};
 
+// Initialize scores for all 8 stewardship styles
 Object.keys(styles).forEach(style => { 
     scores[style] = 0;
-    typeCountsByStyle[style] = { relational: 0, clarity: 0, momentum: 0, meaning: 0, insight: 0 };
 });
 
 function renderQuestion() {
@@ -210,7 +209,7 @@ function renderQuestion() {
         btn.type = "button";
         btn.className = "option-btn";
         btn.textContent = opt.text;
-        btn.onclick = () => selectOption(opt.style, q.type);
+        btn.onclick = () => selectOption(opt.style);
         container.appendChild(btn);
     });
     
@@ -220,10 +219,9 @@ function renderQuestion() {
     progressBar.setAttribute("aria-valuenow", progressPct);
 }
 
-function selectOption(styleKey, questionType) {
+function selectOption(styleKey) {
     if (scores[styleKey] !== undefined) {
         scores[styleKey]++;
-        typeCountsByStyle[styleKey][questionType]++;
     }
     currentQuestion++;
     if (currentQuestion < questions.length) {
@@ -233,56 +231,45 @@ function selectOption(styleKey, questionType) {
     }
 }
 
-function breakTies(tiedStyles) {
-    return tiedStyles.sort((a, b) => {
-        const aTypes = typeCountsByStyle[a];
-        const bTypes = typeCountsByStyle[b];
-
-        if (bTypes.relational !== aTypes.relational) return bTypes.relational - aTypes.relational;
-        if (bTypes.clarity !== aTypes.clarity) return bTypes.clarity - aTypes.clarity;
-        if (bTypes.momentum !== aTypes.momentum) return bTypes.momentum - aTypes.momentum;
-        if (bTypes.meaning !== aTypes.meaning) return bTypes.meaning - aTypes.meaning;
-        
-        return 0;
-    });
-}
-
 function calculateResults() {
     document.getElementById("progressBar").style.width = "100%";
     document.getElementById("quizCard").style.display = "none";
 
-    const scoreMap = {};
-    Object.entries(scores).forEach(([style, score]) => {
-        if (!scoreMap[score]) scoreMap[score] = [];
-        scoreMap[score].push(style);
+    // 4 Bipolar Axes Definitions (8 items per axis = 100%)
+    const axes = [
+        { poleA: "Driver", poleB: "Stabilizer" },
+        { poleA: "Advocate", poleB: "Connector" },
+        { poleA: "Architect", poleB: "Guardian" },
+        { poleA: "Visionary", poleB: "Keeper" }
+    ];
+
+    // Calculate Preference Strength & Winner per Axis
+    const axisWinners = axes.map(axis => {
+        const scoreA = scores[axis.poleA];
+        const scoreB = scores[axis.poleB];
+        const winner = scoreA >= scoreB ? axis.poleA : axis.poleB;
+        const winningScore = Math.max(scoreA, scoreB);
+        const margin = Math.abs(scoreA - scoreB);
+        const pciPct = Math.round((winningScore / 8) * 100);
+
+        return {
+            winner,
+            winningScore,
+            margin,
+            pciPct
+        };
     });
 
-    const sortedScores = Object.keys(scoreMap).map(Number).sort((a, b) => b - a);
-
-    let primaryKey = "";
-    let secondaryKey = "";
-
-    const highestScore = sortedScores[0];
-    const topTied = scoreMap[highestScore];
-
-    if (topTied.length === 1) {
-        primaryKey = topTied[0];
-    } else {
-        primaryKey = breakTies(topTied)[0];
-    }
-
-    if (topTied.length > 1) {
-        const remainingTop = topTied.filter(s => s !== primaryKey);
-        secondaryKey = breakTies(remainingTop)[0];
-    } else {
-        const secondHighestScore = sortedScores[1];
-        if (secondHighestScore !== undefined) {
-            const secondTied = scoreMap[secondHighestScore];
-            secondaryKey = (secondTied.length === 1) ? secondTied[0] : breakTies(secondTied)[0];
-        } else {
-            secondaryKey = primaryKey;
+    // Rank dominant axis winners by highest raw total score & preference clarity margin
+    axisWinners.sort((a, b) => {
+        if (b.winningScore !== a.winningScore) {
+            return b.winningScore - a.winningScore;
         }
-    }
+        return b.margin - a.margin;
+    });
+
+    const primaryKey = axisWinners[0].winner;
+    const secondaryKey = axisWinners[1].winner;
 
     renderReveal(primaryKey, secondaryKey);
 }
