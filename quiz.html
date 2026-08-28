@@ -16,7 +16,7 @@ Base & Global Styles
 }
 body {
     font-family: 'Varela Round', -apple-system, BlinkMacSystemFont, sans-serif;
-    max-width: 880px; /* Widened to give option buttons more horizontal room */
+    max-width: 880px;
     margin: 0 auto;
     padding: 2rem 1rem 1rem 1rem;
     line-height: 1.6;
@@ -81,7 +81,7 @@ Quiz Interface Elements
     background: #F8FAFC;
     border: 1px solid #CBD5E1;
     border-radius: 8px;
-    padding: 0.85rem 1rem;
+    padding: 0.75rem 1.25rem;
     margin-bottom: 0.75rem;
     font-family: inherit;
     font-size: 0.98rem;
@@ -293,6 +293,9 @@ function renderReveal(primaryKey, secondaryKey) {
     const patternText = combinedPatterns[primaryKey]?.[secondaryKey] || 
         `You bring a unique combination of ${primaryKey} initiative and ${secondaryKey} perspective to community stewardship.`;
 
+    // Adjust string to match "You shine..." format
+    const actionText = primary.action.replace(/^Your gift shines when /i, "You shine when ");
+
     const primaryBg = `rgba(${primary.rgb}, 0.08)`;
     const primaryBorder = `rgba(${primary.rgb}, 0.25)`;
 
@@ -309,15 +312,15 @@ function renderReveal(primaryKey, secondaryKey) {
             </div>
             <div class="styleIdentity">${primary.identity}</div>
             <div style="margin-bottom: 0.85rem; color: #334155;">${primary.behavior}</div>
-            <div class="styleAction" style="border-left: 3px solid ${primary.color}; padding-left: 0.75rem;">
-                <strong>Where your gift shines:</strong> ${primary.action}
+            <div class="styleAction">
+                <strong>Where you shine:</strong> ${actionText}
             </div>
             <div style="font-size: 0.88rem; color: #64748B; font-style: italic;">
                 <strong>Gentle watchouts:</strong> ${primary.watchouts}
             </div>
         </div>
 
-        <!-- Action Links (Moved directly under primary card) -->
+        <!-- Action Links -->
         <div class="cta-container" style="margin-top: 0; margin-bottom: 1.25rem;">
             <a href="https://climatecolor.com/${primary.slug}" target="_blank" rel="noopener noreferrer" class="btn-pill-soft" style="background-color: ${primaryBg}; border-color: ${primaryBorder}; color: ${primary.color} !important;">
                 Explore ${primaryKey} Strengths &rarr;
@@ -327,19 +330,15 @@ function renderReveal(primaryKey, secondaryKey) {
             </a>
         </div>
 
-        <!-- Secondary Alignment Card -->
-        <div class="styleBlock" style="border-left-color: ${secondary.color};">
-            <div class="styleTitle" style="color: #1E293B; font-size: 1.2rem; margin-bottom: 0;">
+        <!-- Combined Secondary Alignment & Stewardship Pattern Card -->
+        <div class="styleBlock" style="border-left-color: ${secondary.color}; background: #F8FAFC; border-color: #E2E8F0; border-left-width: 6px;">
+            <div class="styleTitle" style="color: #475569; font-size: 1.15rem; margin-bottom: 0.75rem;">
                 Your secondary stewardship style is <span style="color: ${secondary.color};">${secondaryKey}</span>
             </div>
-        </div>
-
-        <!-- Combined Pattern Card -->
-        <div class="styleBlock" style="border-left-color: #0F172A; background: #F8FAFC;">
-            <div style="text-transform: uppercase; font-size: 0.75rem; letter-spacing: 0.08em; font-weight: 700; color: #64748B; margin-bottom: 0.25rem;">
+            <div style="text-transform: uppercase; font-size: 0.75rem; letter-spacing: 0.08em; font-weight: 700; color: #94A3B8; margin-bottom: 0.35rem;">
                 YOUR STEWARDSHIP PATTERN
             </div>
-            <div style="font-size: 1.05rem; font-weight: 700; color: #334155; line-height: 1.5;">
+            <div style="font-size: 1rem; font-weight: 700; color: #475569; line-height: 1.5;">
                 ${patternText}
             </div>
         </div>
