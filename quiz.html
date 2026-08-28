@@ -1,335 +1,200 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<title>Stewardship Style Quiz | Climate Color</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=ADLaM+Display&family=Varela+Round&display=swap" rel="stylesheet">
-<style>
-/* ========================================================================== 
-Base & Global Styles 
-========================================================================== */
-* {
-    box-sizing: border-box;
-}
-body {
-    font-family: 'Varela Round', -apple-system, BlinkMacSystemFont, sans-serif;
-    max-width: 720px;
-    margin: 0;
-    padding: 2rem 1rem 1rem 1rem;
-    line-height: 1.6;
-    background-color: #FFFFFF;
-    color: #212121;
-    -webkit-font-smoothing: antialiased;
-}
-/* ========================================================================== 
-Header Styles
-========================================================================== */
-.quiz-header {
-    text-align: left;
-    margin-bottom: 1.5rem;
-}
-.quiz-header h1 {
-    font-family: 'ADLaM Display', 'Varela Round', sans-serif;
-    font-size: 2rem;
-    color: #1494B9;
-    margin: 0 0 0.25rem 0;
-    line-height: 1.2;
-}
-.quiz-header p {
-    font-size: 1rem;
-    color: #64748B;
-    margin: 0;
-}
-/* ========================================================================== 
-Quiz Interface Elements
-========================================================================== */
-.progress-container {
-    width: 100%;
-    background-color: #E2E8F0;
-    height: 8px;
-    border-radius: 9999px;
-    margin-bottom: 1.5rem;
-    overflow: hidden;
-}
-.progress-bar {
-    height: 100%;
-    width: 0%;
-    background-color: #1494B9;
-    transition: width 0.3s ease;
-}
-.question-card {
-    background: #FFFFFF;
-    border: 1px solid #E2E8F0;
-    border-radius: 12px;
-    padding: 1.5rem;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
-}
-.question-title {
-    font-size: 1.2rem;
-    font-weight: 700;
-    color: #0F172A;
-    margin-bottom: 1rem;
-    text-align: left;
-}
-.option-btn {
-    display: block;
-    width: 100%;
-    text-align: left;
-    background: #F8FAFC;
-    border: 1px solid #CBD5E1;
-    border-radius: 8px;
-    padding: 0.85rem 1rem;
-    margin-bottom: 0.75rem;
-    font-family: inherit;
-    font-size: 0.98rem;
-    color: #1E293B;
-    cursor: pointer;
-    transition: all 0.15s ease;
-}
-.option-btn:hover, .option-btn:focus {
-    background: #F1F5F9;
-    border-color: #1494B9;
-    outline: none;
-}
-/* ========================================================================== 
-Results Cards & Styles
-========================================================================== */
-.styleBlock {
-    background: #FFFFFF;
-    border: 1px solid #E2E8F0;
-    border-radius: 12px;
-    padding: 1.25rem 1.5rem;
-    margin-bottom: 1.25rem;
-    border-left: 6px solid #CBD5E1;
-    text-align: left;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
-}
-.styleTitle {
-    font-size: 1.25rem;
-    font-weight: 700;
-    margin-bottom: 0.35rem;
-}
-.styleIdentity {
-    font-size: 1.05rem;
-    font-weight: 700;
-    color: #1E293B;
-    margin-bottom: 0.5rem;
-}
-.styleAction {
-    background: #F8FAFC;
-    border-radius: 8px;
-    padding: 0.85rem 1rem;
-    font-size: 0.95rem;
-    color: #334155;
-    margin-bottom: 1rem;
-}
-/* Soft, Left-Justified Pill Buttons */
-.cta-container {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-    justify-content: flex-start;
-    margin-top: 1.25rem;
-}
-.btn-pill-soft {
-    display: inline-block;
-    width: auto !important;
-    padding: 0.5rem 1.15rem !important;
-    font-size: 0.9rem !important;
-    font-weight: 700;
-    text-align: left;
-    text-decoration: none;
-    border-radius: 9999px;
-    border: 1px solid transparent;
-    transition: all 0.15s ease;
-}
-.btn-pill-soft:hover {
-    filter: brightness(0.95);
-    transform: translateY(-1px);
-}
-/* Responsive */
-@media (max-width: 640px) {
-    body {
-        padding: 1.25rem 0.85rem 0.85rem 0.85rem;
-    }
-    .question-card, .styleBlock {
-        padding: 1rem 1.15rem;
-    }
-}
-</style>
-</head>
-<body>
-<header class="quiz-header">
-    <h1>Climate Color Quiz</h1>
-    <p>Discover your stewardship style | 8 questions | anonymous | 
-        <a href="https://climatecolor.com/quiz-faq" target="_blank" rel="noopener noreferrer" style="color:#1494B8; font-weight: bold;">
-            FAQ
-        </a>
-    </p>
-</header>
-<div class="progress-container">
-    <div class="progress-bar" id="progressBar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-label="Quiz progress"></div>
-</div>
-<div class="question-card" id="quizCard">
-    <div class="question-title" id="questionTitle" aria-live="polite">Loading...</div>
-    <div id="optionsContainer"></div>
-</div>
-<div id="resultContainer" tabindex="-1" aria-live="polite" style="display: none; outline: none;"></div>
-
-<!-- External Data Module Integration -->
 <script type="module">
-import { styles, questions } from './quiz-data.js';
+import { questions, styles, secondarySyntheses, combinedPatterns } from './quiz-data.js';
 
 let currentQuestion = 0;
-let selectedAudience = 'individual'; // Default fallback mode
 const scores = {};
-const selectionHistory = [];
+const typeCountsByStyle = {};
 
-// Initialize score trackers for all 8 archetypes
-Object.keys(styles).forEach(style => { scores[style] = 0; });
+// 1. Initialize scoring matrices
+Object.keys(styles).forEach(style => { 
+  scores[style] = 0;
+  typeCountsByStyle[style] = { relational: 0, clarity: 0, momentum: 0, meaning: 0, insight: 0 };
+});
 
 function renderQuestion() {
-    const card = document.getElementById("quizCard");
-    
-    if (!questions[currentQuestion]) return;
-    const q = questions[currentQuestion];
-    
-    // Dynamic prompt rendering based on audience lens
-    document.getElementById("questionTitle").textContent = `${currentQuestion + 1}. ${q.getPrompt(selectedAudience)}`;
-    
-    const container = document.getElementById("optionsContainer");
-    container.innerHTML = "";
-    q.options.forEach(opt => {
-        const btn = document.createElement("button");
-        btn.type = "button";
-        btn.className = "option-btn";
-        btn.textContent = opt.text;
-        btn.onclick = () => selectOption(opt.style);
-        container.appendChild(btn);
-    });
-    
-    const progressPct = Math.round((currentQuestion / questions.length) * 100);
-    const progressBar = document.getElementById("progressBar");
-    progressBar.style.width = `${progressPct}%`;
-    progressBar.setAttribute("aria-valuenow", progressPct);
+  const card = document.getElementById("quizCard");
+  if (!questions[currentQuestion]) return;
+  
+  const q = questions[currentQuestion];
+  document.getElementById("questionTitle").textContent = `${currentQuestion + 1}. ${q.prompt}`;
+  
+  const container = document.getElementById("optionsContainer");
+  container.innerHTML = "";
+  
+  q.options.forEach(opt => {
+    const btn = document.createElement("button");
+    btn.type = "button";
+    btn.className = "option-btn";
+    btn.textContent = opt.text;
+    btn.onclick = () => selectOption(opt.style, q.type);
+    container.appendChild(btn);
+  });
+  
+  const progressPct = Math.round((currentQuestion / questions.length) * 100);
+  const progressBar = document.getElementById("progressBar");
+  progressBar.style.width = `${progressPct}%`;
+  progressBar.setAttribute("aria-valuenow", progressPct);
 }
 
-function selectOption(styleKey) {
-    if (scores[styleKey] !== undefined) {
-        scores[styleKey]++;
-        selectionHistory.push(styleKey);
-    }
-    currentQuestion++;
-    if (currentQuestion < questions.length) {
-        renderQuestion();
-    } else {
-        calculateResults();
-    }
+function selectOption(styleKey, questionType) {
+  if (scores[styleKey] !== undefined) {
+    scores[styleKey]++;
+    typeCountsByStyle[styleKey][questionType]++;
+  }
+  currentQuestion++;
+  if (currentQuestion < questions.length) {
+    renderQuestion();
+  } else {
+    calculateResults();
+  }
+}
+
+// 2. Multi-tier Tie-breaking Engine (as specified in logic documentation)
+function breakTies(tiedStyles) {
+  return tiedStyles.sort((a, b) => {
+    const aTypes = typeCountsByStyle[a];
+    const bTypes = typeCountsByStyle[b];
+
+    // Priority 1: Relational frequency
+    if (bTypes.relational !== aTypes.relational) return bTypes.relational - aTypes.relational;
+    // Priority 2: Clarity/Structure frequency
+    if (bTypes.clarity !== aTypes.clarity) return bTypes.clarity - aTypes.clarity;
+    // Priority 3: Momentum/Energy frequency
+    if (bTypes.momentum !== aTypes.momentum) return bTypes.momentum - aTypes.momentum;
+    // Priority 4: Meaning/Purpose frequency
+    if (bTypes.meaning !== aTypes.meaning) return bTypes.meaning - aTypes.meaning;
+    
+    return 0;
+  });
 }
 
 function calculateResults() {
-    const progressBar = document.getElementById("progressBar");
-    progressBar.style.width = "100%";
-    progressBar.setAttribute("aria-valuenow", 100);
-    
-    document.getElementById("quizCard").style.display = "none";
-    
-    const styleColorSlugs = {
-        Driver: "red",
-        Advocate: "orange",
-        Visionary: "yellow",
-        Stabilizer: "green",
-        Architect: "blue",
-        Keeper: "indigo",
-        Connector: "purple",
-        Guardian: "violet"
-    };
+  document.getElementById("progressBar").style.width = "100%";
+  document.getElementById("quizCard").style.display = "none";
 
-    // Sort by highest score; break ties using selection recency
-    const sorted = Object.entries(scores).sort((a, b) => {
-        if (b[1] !== a[1]) {
-            return b[1] - a[1];
-        }
-        return selectionHistory.lastIndexOf(b[0]) - selectionHistory.lastIndexOf(a[0]);
-    });
+  // Group styles by score
+  const scoreMap = {};
+  Object.entries(scores).forEach(([style, score]) => {
+    if (!scoreMap[score]) scoreMap[score] = [];
+    scoreMap[score].push(style);
+  });
 
-    const primaryKey = sorted[0] ? sorted[0][0] : Object.keys(styles)[0];
-    const secondaryKey = (sorted[1] && sorted[1][1] > 0) ? sorted[1][0] : primaryKey;
-    
-    const primaryBlock = styles[primaryKey];
-    const secondaryBlock = styles[secondaryKey] || primaryBlock;
-    
-    const primaryUrl = `directory.html?style=${encodeURIComponent(primaryKey)}`;
-    const secondaryUrl = `directory.html?style=${encodeURIComponent(secondaryKey)}`;
-    
-    const primaryStrengthsUrl = `https://climatecolor.com/${styleColorSlugs[primaryKey] || ''}`;
-    const secondaryStrengthsUrl = `https://climatecolor.com/${styleColorSlugs[secondaryKey] || ''}`;
+  const sortedScores = Object.keys(scoreMap).map(Number).sort((a, b) => b - a);
 
-    const primaryBg = primaryBlock.rgb ? `rgba(${primaryBlock.rgb}, 0.08)` : `${primaryBlock.color}14`;
-    const primaryBorder = primaryBlock.rgb ? `rgba(${primaryBlock.rgb}, 0.25)` : `${primaryBlock.color}40`;
-    const secondaryBg = secondaryBlock.rgb ? `rgba(${secondaryBlock.rgb}, 0.08)` : `${secondaryBlock.color}14`;
-    const secondaryBorder = secondaryBlock.rgb ? `rgba(${secondaryBlock.rgb}, 0.25)` : `${secondaryBlock.color}40`;
+  let primaryKey = "";
+  let secondaryKey = "";
 
-    const result = document.getElementById("resultContainer");
-    result.style.display = "block";
-    result.innerHTML = `
-        <div class="styleBlock" style="border-left-color:${primaryBlock.color}">
-            <div class="styleTitle">
-                Your primary style: <span style="color:${primaryBlock.color};">${primaryKey}</span>
-            </div>
-            <div class="styleIdentity">${primaryBlock.identity}</div>
-            <div style="margin-bottom: 0.85rem; color: #475569;">${primaryBlock.behavior}</div>
-            <div class="styleAction">${primaryBlock.action}</div>
-            <div class="cta-container">
-                <a href="${primaryStrengthsUrl}" target="_blank" rel="noopener noreferrer" class="btn-pill-soft" style="background-color: ${primaryBg}; border-color: ${primaryBorder}; color: ${primaryBlock.color} !important;">
-                    Explore ${primaryKey} Climate Strengths &rarr;
-                </a>
-                <a href="${primaryUrl}" class="btn-pill-soft" style="background-color: ${primaryBg}; border-color: ${primaryBorder}; color: ${primaryBlock.color} !important;">
-                    Explore ${primaryKey} Climate Actions &rarr;
-                </a>
-            </div>
-        </div>
-        
-        <div class="styleBlock" style="border-left-color:${secondaryBlock.color};">
-            <div class="styleTitle" style="font-size: 1.15rem;">
-                Secondary alignment: <span style="color:${secondaryBlock.color};">${secondaryKey}</span>
-            </div>
-            <div class="styleIdentity" style="font-size: 0.98rem; margin-bottom: 0.35rem;">
-                ${secondaryBlock.identity}
-            </div>
-            <div style="font-size: 0.9rem; color: #475569;">${secondaryBlock.behavior}</div>
-            <div class="cta-container">
-                <a href="${secondaryStrengthsUrl}" target="_blank" rel="noopener noreferrer" class="btn-pill-soft" style="background-color: ${secondaryBg}; border-color: ${secondaryBorder}; color: ${secondaryBlock.color} !important;">
-                    Explore ${secondaryKey} Climate Strengths &rarr;
-                </a>
-                <a href="${secondaryUrl}" class="btn-pill-soft" style="background-color: ${secondaryBg}; border-color: ${secondaryBorder}; color: ${secondaryBlock.color} !important;">
-                    Explore ${secondaryKey} Climate Actions &rarr;
-                </a>
-            </div>
-        </div>
-        <p style="margin-top: 1.25rem; text-align: left; font-size: 0.9rem;">
-            Or view how your styles connect on 
-            <a href="https://climatecolor.com/wheel" target="_blank" rel="noopener noreferrer" style="color:#1494B8; font-weight: bold;">
-                The Climate Color Wheel
-            </a>.
-        </p>
-    `;
-    result.focus();
+  // Identify Primary Style
+  const highestScore = sortedScores[0];
+  const topTied = scoreMap[highestScore];
+
+  if (topTied.length === 1) {
+    primaryKey = topTied[0];
+  } else {
+    primaryKey = breakTies(topTied)[0];
+  }
+
+  // Identify Secondary Style
+  if (topTied.length > 1) {
+    // If there was a tie for 1st place, secondary comes from the remaining tied styles
+    const remainingTop = topTied.filter(s => s !== primaryKey);
+    secondaryKey = breakTies(remainingTop)[0];
+  } else {
+    // Otherwise, pick from the second-highest score group
+    const secondHighestScore = sortedScores[1];
+    if (secondHighestScore !== undefined) {
+      const secondTied = scoreMap[secondHighestScore];
+      secondaryKey = (secondTied.length === 1) ? secondTied[0] : breakTies(secondTied)[0];
+    } else {
+      secondaryKey = primaryKey;
+    }
+  }
+
+  renderReveal(primaryKey, secondaryKey);
+}
+
+// 3. Render Results Profile Reveal Cards
+function renderReveal(primaryKey, secondaryKey) {
+  const primary = styles[primaryKey];
+  const secondary = styles[secondaryKey] || primary;
+
+  const synthesisText = secondarySyntheses[primaryKey]?.[secondaryKey] || 
+    `Your secondary style of ${secondaryKey} supports and balances your primary ${primaryKey} strengths.`;
+  
+  const patternText = combinedPatterns[primaryKey]?.[secondaryKey] || 
+    `You bring a unique combination of ${primaryKey} initiative and ${secondaryKey} perspective to community stewardship.`;
+
+  const primaryBg = `rgba(${primary.rgb}, 0.08)`;
+  const primaryBorder = `rgba(${primary.rgb}, 0.25)`;
+
+  const result = document.getElementById("resultContainer");
+  result.style.display = "block";
+  result.innerHTML = `
+    <!-- Primary Stewardship Reveal Card -->
+    <div class="styleBlock" style="border-left-color: ${primary.color};">
+      <div style="text-transform: uppercase; font-size: 0.75rem; letter-spacing: 0.08em; font-weight: 700; color: #64748B; margin-bottom: 0.25rem;">
+        Primary Stewardship Style
+      </div>
+      <div class="styleTitle" style="font-size: 1.6rem; color: ${primary.color}; margin-bottom: 0.25rem;">
+        ${primaryKey}
+      </div>
+      <div style="font-size: 0.85rem; font-weight: 700; color: #64748B; text-transform: uppercase; margin-bottom: 0.75rem;">
+        Theme: ${primary.theme}
+      </div>
+      <div class="styleIdentity">${primary.identity}</div>
+      <div style="margin-bottom: 0.85rem; color: #334155;">${primary.behavior}</div>
+      <div class="styleAction" style="border-left: 3px solid ${primary.color}; padding-left: 0.75rem; margin-bottom: 0.85rem;">
+        <strong>Where your gift shines:</strong> ${primary.action}
+      </div>
+      <div style="font-size: 0.88rem; color: #64748B; font-style: italic;">
+        <strong>Gentle watchouts:</strong> ${primary.watchouts}
+      </div>
+    </div>
+
+    <!-- Secondary Alignment Synthesis Card -->
+    <div class="styleBlock" style="border-left-color: ${secondary.color};">
+      <div style="text-transform: uppercase; font-size: 0.75rem; letter-spacing: 0.08em; font-weight: 700; color: #64748B; margin-bottom: 0.25rem;">
+        Secondary Alignment
+      </div>
+      <div class="styleTitle" style="font-size: 1.3rem; color: ${secondary.color}; margin-bottom: 0.5rem;">
+        ${primaryKey} + ${secondaryKey}
+      </div>
+      <div style="font-size: 0.95rem; color: #334155; margin-bottom: 0.75rem;">
+        ${synthesisText}
+      </div>
+    </div>
+
+    <!-- Emotional Payoff: Combined Pattern Card -->
+    <div class="styleBlock" style="border-left-color: #0F172A; background: #F8FAFC;">
+      <div style="text-transform: uppercase; font-size: 0.75rem; letter-spacing: 0.08em; font-weight: 700; color: #64748B; margin-bottom: 0.25rem;">
+        Your Stewardship Pattern
+      </div>
+      <div style="font-size: 1.05rem; font-weight: 700; color: #0F172A; line-height: 1.5;">
+        ${patternText}
+      </div>
+    </div>
+
+    <!-- Soft CTA Action Area -->
+    <div class="cta-container" style="margin-top: 1.5rem;">
+      <a href="https://climatecolor.com/${primary.slug}" target="_blank" rel="noopener noreferrer" class="btn-pill-soft" style="background-color: ${primaryBg}; border-color: ${primaryBorder}; color: ${primary.color} !important;">
+        Explore ${primaryKey} Strengths &rarr;
+      </a>
+      <a href="directory.html?style=${encodeURIComponent(primaryKey)}" class="btn-pill-soft" style="background-color: ${primaryBg}; border-color: ${primaryBorder}; color: ${primary.color} !important;">
+        Explore ${primaryKey} Actions &rarr;
+      </a>
+    </div>
+
+    <p style="margin-top: 1.5rem; text-align: left; font-size: 0.9rem; color: #64748B;">
+      View how your primary and secondary styles connect on 
+      <a href="https://climatecolor.com/wheel" target="_blank" rel="noopener noreferrer" style="color: #1494B8; font-weight: bold;">
+        The Climate Color Wheel &rarr;
+      </a>
+    </p>
+  `;
+  result.focus();
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-    // Detect URL Parameter (Option A): quiz.html?mode=workplace or quiz.html?mode=student
-    const urlParams = new URLSearchParams(window.location.search);
-    const mode = urlParams.get('mode');
-    if (mode && ['individual', 'workplace', 'student'].includes(mode)) {
-        selectedAudience = mode;
-    }
-    
-    renderQuestion();
+  renderQuestion();
 });
 </script>
-</body>
-</html>
