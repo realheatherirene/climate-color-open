@@ -1,274 +1,307 @@
 // quiz-data.js
 
 export const questions = [
+  // =========================================================================
+  // AXIS 1: PACING (Driver vs. Stabilizer)
+  // =========================================================================
   {
     id: 1,
+    axis: "Pacing",
     prompt: "A small group is considering taking on a shared task. You tend to…",
-    type: "momentum",
     options: [
-      { text: "Offer a quick nudge so the group can get moving", style: "Driver" },
-      { text: "Share a warm note that helps people feel excited to begin", style: "Advocate" }
+      { text: "Offer a quick nudge so the group can get moving right away", style: "Driver" },
+      { text: "Establish a steady, manageable rhythm before getting started", style: "Stabilizer" }
     ]
   },
   {
     id: 2,
+    axis: "Pacing",
     prompt: "A shared effort is slowing down. You tend to…",
-    type: "momentum",
     options: [
-      { text: "Take on one small piece to help keep things moving", style: "Stabilizer" },
-      { text: "Suggest a clear next step the group can take", style: "Driver" }
+      { text: "Suggest a clear next step to regain momentum immediately", style: "Driver" },
+      { text: "Take on one practical task to keep current progress steady", style: "Stabilizer" }
     ]
   },
   {
     id: 3,
-    prompt: "A small problem pops up in a shared space. You tend to…",
-    type: "relational",
+    axis: "Pacing",
+    prompt: "A group is drifting without a clear path forward. You tend to…",
     options: [
-      { text: "Suggest a simple fix that could resolve it", style: "Driver" },
-      { text: "Check whether anyone is affected and respond accordingly", style: "Guardian" }
+      { text: "Inject fresh direction to accelerate the pace of decision-making", style: "Driver" },
+      { text: "Help re-establish a reliable baseline so people can regain focus", style: "Stabilizer" }
     ]
   },
   {
     id: 4,
-    prompt: "A group is moving quickly and losing sight of purpose. You tend to…",
-    type: "meaning",
+    axis: "Pacing",
+    prompt: "When a project hits a lull or plateau, your instinct is to…",
     options: [
-      { text: "Offer a reminder of the core intention behind the work", style: "Keeper" },
-      { text: "Help clarify the main goal so people can refocus", style: "Architect" }
+      { text: "Introduce a bold starting point to re-energize forward progress", style: "Driver" },
+      { text: "Maintain steady routines until natural momentum returns", style: "Stabilizer" }
     ]
   },
   {
     id: 5,
-    prompt: "A group is drifting without a clear path. You tend to…",
-    type: "clarity",
+    axis: "Pacing",
+    prompt: "When leading or supporting a simple initiative, you focus on…",
     options: [
-      { text: "Offer a simple next step to help regain focus", style: "Driver" },
-      { text: "Share a grounding reminder of the group’s purpose", style: "Guardian" }
+      { text: "Reaching key milestones quickly to maintain progress", style: "Driver" },
+      { text: "Pacing work sustainably so the team avoids burnout", style: "Stabilizer" }
     ]
   },
   {
     id: 6,
-    prompt: "A shared document has become cluttered. You tend to…",
-    type: "clarity",
+    axis: "Pacing",
+    prompt: "A task needs volunteers in your community. You tend to…",
     options: [
-      { text: "Reorganize the information into a clearer structure", style: "Architect" },
-      { text: "Point out a few helpful pieces others might appreciate", style: "Connector" }
+      { text: "Step up immediately to spur action by example", style: "Driver" },
+      { text: "Quietly handle behind-the-scenes work to support ongoing flow", style: "Stabilizer" }
     ]
   },
   {
     id: 7,
-    prompt: "A group receives an update that’s confusing. You tend to…",
-    type: "clarity",
+    axis: "Pacing",
+    prompt: "When a discussion stalls, you prefer to…",
     options: [
-      { text: "Write a short, clear explanation of what it means", style: "Architect" },
-      { text: "Share a grounding message to help people feel steady", style: "Keeper" }
+      { text: "Propose a simple decision right now to break the bottleneck", style: "Driver" },
+      { text: "Give people space to process at their own natural speed", style: "Stabilizer" }
     ]
   },
   {
     id: 8,
-    prompt: "A community member shares a lengthy update. You tend to…",
-    type: "clarity",
+    axis: "Pacing",
+    prompt: "Your primary contribution to group momentum is…",
     options: [
-      { text: "Pull out the key points for others", style: "Architect" },
-      { text: "Respond with a warm note of appreciation", style: "Advocate" }
+      { text: "Sparking initiation and pushing past inertia", style: "Driver" },
+      { text: "Providing consistent follow-through and operational calm", style: "Stabilizer" }
     ]
   },
+
+  // =========================================================================
+  // AXIS 2: RELATIONAL REACH (Advocate vs. Connector)
+  // =========================================================================
   {
     id: 9,
-    prompt: "A conversation is getting tangled. You tend to…",
-    type: "clarity",
+    axis: "Relational",
+    prompt: "A small opportunity is shared with your community. You tend to…",
     options: [
-      { text: "Summarize the main points to help everyone regroup", style: "Architect" },
-      { text: "Offer a grounding reflection to steady the tone", style: "Keeper" }
+      { text: "Highlight why it matters broadly to inspire wider participation", style: "Advocate" },
+      { text: "Send it directly to a specific person who would benefit", style: "Connector" }
     ]
   },
   {
     id: 10,
-    prompt: "Someone suggests a new way to improve a shared space. You tend to…",
-    type: "insight",
+    axis: "Relational",
+    prompt: "You come across a useful resource for your community. You tend to…",
     options: [
-      { text: "Explore how the idea could open up new directions", style: "Visionary" },
-      { text: "Consider how the idea fits into what’s already working", style: "Keeper" }
+      { text: "Share it widely in a main channel with an encouraging note", style: "Advocate" },
+      { text: "Reach out 1-on-1 to someone who might appreciate it", style: "Connector" }
     ]
   },
   {
     id: 11,
-    prompt: "People are discussing a challenge they’re unsure how to approach. You tend to…",
-    type: "insight",
+    axis: "Relational",
+    prompt: "A newcomer joins a group you belong to. You tend to…",
     options: [
-      { text: "Offer a fresh angle that opens up new possibilities", style: "Visionary" },
-      { text: "Name one practical thing that could help right now", style: "Stabilizer" }
+      { text: "Give a warm public welcome to spark energy in the room", style: "Advocate" },
+      { text: "Check in with them privately to help them feel comfortable", style: "Connector" }
     ]
   },
   {
     id: 12,
-    prompt: "People are tossing out ideas. You tend to…",
-    type: "insight",
+    axis: "Relational",
+    prompt: "A community member shares a personal milestone or win. You tend to…",
     options: [
-      { text: "Suggest a creative angle that opens new possibilities", style: "Visionary" },
-      { text: "Point out one idea that could work well right away", style: "Stabilizer" }
+      { text: "Celebrate publicly with enthusiasm to build shared joy", style: "Advocate" },
+      { text: "Send a thoughtful personal message of connection", style: "Connector" }
     ]
   },
   {
     id: 13,
-    prompt: "Someone asks what you think about a small idea. You tend to…",
-    type: "insight",
+    axis: "Relational",
+    prompt: "When encouraging participation in an event, you prefer to…",
     options: [
-      { text: "Offer a creative possibility they may not have considered", style: "Visionary" },
-      { text: "Offer a steady, practical thought they can use", style: "Stabilizer" }
+      { text: "Amplify enthusiasm across the whole group", style: "Advocate" },
+      { text: "Build relational trust through personal invitations", style: "Connector" }
     ]
   },
   {
     id: 14,
-    prompt: "A newcomer joins a group you’re part of. You tend to…",
-    type: "relational",
+    axis: "Relational",
+    prompt: "During a quiet moment in a group exchange, you naturally…",
     options: [
-      { text: "Offer a simple overview to help them get oriented", style: "Advocate" },
-      { text: "Reach out with a gentle welcome to help them feel at ease", style: "Guardian" }
+      { text: "Share an uplifting reflection to boost overall energy", style: "Advocate" },
+      { text: "Notice who is quiet and reach out privately to listen", style: "Connector" }
     ]
   },
   {
     id: 15,
-    prompt: "A small opportunity is shared with your community. You tend to…",
-    type: "relational",
+    axis: "Relational",
+    prompt: "You notice someone hesitating to participate. You tend to…",
     options: [
-      { text: "Highlight why it might interest people", style: "Advocate" },
-      { text: "Share it directly with someone who might appreciate it", style: "Connector" }
+      { text: "Share why their presence adds value to inspire them to join", style: "Advocate" },
+      { text: "Offer quiet personal support so they feel safe stepping in", style: "Connector" }
     ]
   },
   {
     id: 16,
-    prompt: "A person is quiet during a group exchange. You tend to…",
-    type: "relational",
+    axis: "Relational",
+    prompt: "Your strength in relational stewardship is best described as…",
     options: [
-      { text: "Check in privately to help them feel included", style: "Connector" },
-      { text: "Share a grounding message with the group", style: "Guardian" }
+      { text: "Rallying people around shared warmth and enthusiasm", style: "Advocate" },
+      { text: "Nurturing deep 1-on-1 trust and individual belonging", style: "Connector" }
     ]
   },
+
+  // =========================================================================
+  // AXIS 3: OPERATIONAL FRAMING (Architect vs. Guardian)
+  // =========================================================================
   {
     id: 17,
-    prompt: "A person hesitates before participating. You tend to…",
-    type: "relational",
+    axis: "Operations",
+    prompt: "A shared document or space has become messy and chaotic. You tend to…",
     options: [
-      { text: "Give a gentle push that helps them feel ready", style: "Driver" },
-      { text: "Offer reassurance that they can join in their own way", style: "Guardian" }
+      { text: "Reorganize the content into a clear, logical structure", style: "Architect" },
+      { text: "Check in on group members to ensure no one feels overwhelmed", style: "Guardian" }
     ]
   },
   {
     id: 18,
-    prompt: "A person shares a small personal moment. You tend to…",
-    type: "relational",
+    axis: "Operations",
+    prompt: "A group receives a complex or confusing update. You tend to…",
     options: [
-      { text: "Respond with warm encouragement", style: "Advocate" },
-      { text: "Check in privately to offer gentle support", style: "Connector" }
+      { text: "Synthesize the update into concise, easy-to-digest points", style: "Architect" },
+      { text: "Provide a reassuring message to maintain emotional safety", style: "Guardian" }
     ]
   },
   {
     id: 19,
-    prompt: "A group reaches a small milestone. You tend to…",
-    type: "meaning",
+    axis: "Operations",
+    prompt: "A discussion is getting tangled and tense. You tend to…",
     options: [
-      { text: "Share a message that builds enthusiasm", style: "Advocate" },
-      { text: "Name something meaningful about the moment", style: "Keeper" }
+      { text: "Outline the core points clearly to help everyone regroup", style: "Architect" },
+      { text: "Offer a grounding reflection to restore safety and care", style: "Guardian" }
     ]
   },
   {
     id: 20,
-    prompt: "A simple task needs volunteers. You tend to…",
-    type: "momentum",
+    axis: "Operations",
+    prompt: "When a team is starting a project, your priority is to…",
     options: [
-      { text: "Take it on to help keep things moving", style: "Stabilizer" },
-      { text: "Encourage someone who might enjoy doing it", style: "Advocate" }
+      { text: "Define clear systems, goals, and operational frameworks", style: "Architect" },
+      { text: "Establish shared norms, boundaries, and mutual care", style: "Guardian" }
     ]
   },
   {
     id: 21,
-    prompt: "People seem tired or distracted. You tend to…",
-    type: "momentum",
+    axis: "Operations",
+    prompt: "A small problem or conflict pops up in a group space. You tend to…",
     options: [
-      { text: "Share something that sparks renewed interest", style: "Advocate" },
-      { text: "Help reestablish a steady pace", style: "Stabilizer" }
+      { text: "Analyze the issue and propose a structured fix", style: "Architect" },
+      { text: "Assess the human impact and protect group wellbeing", style: "Guardian" }
     ]
   },
   {
     id: 22,
-    prompt: "You come across something useful for your community. You tend to…",
-    type: "relational",
+    axis: "Operations",
+    prompt: "When information is scattered across channels, your instinct is to…",
     options: [
-      { text: "Share it widely with a short note about why it matters", style: "Advocate" },
-      { text: "Send it directly to someone who might benefit", style: "Connector" }
+      { text: "Build a central index or summary for better clarity", style: "Architect" },
+      { text: "Ensure everyone feels supported navigating the confusion", style: "Guardian" }
     ]
   },
   {
     id: 23,
-    prompt: "A person hesitates before joining a small activity. You tend to…",
-    type: "relational",
+    axis: "Operations",
+    prompt: "When someone asks for help understanding a decision, you tend to…",
     options: [
-      { text: "Give a gentle push that helps them feel ready", style: "Driver" },
-      { text: "Offer reassurance that they can join at their own pace", style: "Guardian" }
+      { text: "Break down the logic and facts behind it simply", style: "Architect" },
+      { text: "Reassure them and validate their feelings about the change", style: "Guardian" }
     ]
   },
   {
     id: 24,
-    prompt: "A discussion is getting tangled. You tend to…",
-    type: "clarity",
+    axis: "Operations",
+    prompt: "Your main focus when supporting group process is…",
     options: [
-      { text: "Summarize the main points to help everyone regroup", style: "Architect" },
-      { text: "Offer a grounding reflection to steady the tone", style: "Keeper" }
+      { text: "Creating systematic clarity and functional coherence", style: "Architect" },
+      { text: "Safeguarding emotional health and healthy boundaries", style: "Guardian" }
     ]
   },
+
+  // =========================================================================
+  // AXIS 4: PURPOSE ALIGNMENT (Visionary vs. Keeper)
+  // =========================================================================
   {
     id: 25,
-    prompt: "A person shares something positive. You tend to…",
-    type: "meaning",
+    axis: "Purpose",
+    prompt: "Someone suggests a new idea for a shared initiative. You tend to…",
     options: [
-      { text: "Celebrate it with enthusiasm", style: "Advocate" },
-      { text: "Name why the moment feels meaningful", style: "Keeper" }
+      { text: "Explore how the idea could open up novel directions", style: "Visionary" },
+      { text: "Consider how the idea aligns with foundational values", style: "Keeper" }
     ]
   },
   {
     id: 26,
-    prompt: "A person is confused by a small detail. You tend to…",
-    type: "clarity",
+    axis: "Purpose",
+    prompt: "A group is losing focus during a long-term effort. You tend to…",
     options: [
-      { text: "Explain it clearly and simply", style: "Architect" },
-      { text: "Offer reassurance that confusion is normal", style: "Connector" }
+      { text: "Offer a fresh angle or creative pivot to re-inspire them", style: "Visionary" },
+      { text: "Remind everyone of the core purpose that brought them together", style: "Keeper" }
     ]
   },
   {
     id: 27,
-    prompt: "People are unsure how to begin. You tend to…",
-    type: "clarity",
+    axis: "Purpose",
+    prompt: "When approaching a complex community challenge, you prefer to…",
     options: [
-      { text: "Offer a simple starting point", style: "Driver" },
-      { text: "Share a grounding reminder to help everyone settle", style: "Guardian" }
+      { text: "Reframe the problem to reveal unconventional possibilities", style: "Visionary" },
+      { text: "Anchor your approach in shared history and proven principles", style: "Keeper" }
     ]
   },
   {
     id: 28,
-    prompt: "A community member mentions something they’re struggling with. You tend to…",
-    type: "relational",
+    axis: "Purpose",
+    prompt: "In group discussions about future plans, you tend to focus on…",
     options: [
-      { text: "Offer a new way of looking at the situation", style: "Visionary" },
-      { text: "Offer a steady, reassuring presence", style: "Stabilizer" }
+      { text: "Imagining bold possibilities and emerging horizons", style: "Visionary" },
+      { text: "Preserving the essential meaning and identity of the work", style: "Keeper" }
     ]
   },
   {
     id: 29,
-    prompt: "A shared resource feels overwhelming. You tend to…",
-    type: "clarity",
+    axis: "Purpose",
+    prompt: "When evaluating a proposed change, your priority is assessing…",
     options: [
-      { text: "Simplify it into a more usable format", style: "Architect" },
-      { text: "Highlight one part that might be especially helpful", style: "Connector" }
+      { text: "What new opportunities or growth it could unlock", style: "Visionary" },
+      { text: "Whether it stays true to original commitments and values", style: "Keeper" }
     ]
   },
   {
     id: 30,
-    prompt: "A person asks how to approach a small decision. You tend to…",
-    type: "clarity",
+    axis: "Purpose",
+    prompt: "When someone asks for input on a small concept, you offer…",
     options: [
-      { text: "Suggest a simple next step they can take", style: "Driver" },
-      { text: "Share a thoughtful reflection that might help them choose", style: "Guardian" }
+      { text: "An expansive thought that broadens their perspective", style: "Visionary" },
+      { text: "A grounding insight that connects back to core intent", style: "Keeper" }
+    ]
+  },
+  {
+    id: 31,
+    axis: "Purpose",
+    prompt: "A team reaches a major milestone. You naturally highlight…",
+    options: [
+      { text: "Where this success enables the group to venture next", style: "Visionary" },
+      { text: "Why this milestone feels deeply meaningful to the mission", style: "Keeper" }
+    ]
+  },
+  {
+    id: 32,
+    axis: "Purpose",
+    prompt: "Your core gift to community alignment is…",
+    options: [
+      { text: "Expanding horizons and illuminating creative possibilities", style: "Visionary" },
+      { text: "Stewarding depth, purpose, and foundational continuity", style: "Keeper" }
     ]
   }
 ];
@@ -400,7 +433,7 @@ export const secondarySyntheses = {
     Stabilizer: "Your Stabilizer side helps you maintain clarity over time. You bring structure shaped by steadiness. You help groups stay organized through change.",
     Connector: "Your Connector side helps you clarify complexity with relational intuition. You bring structure shaped by care. You make understanding feel human.",
     Keeper: "Your Keeper side helps you organize information anchored in purpose. You bring clarity shaped by meaning. You help groups understand what matters most.",
-    Guardian: "Your Guardian side helps you clarify boundaries and protect group tone. You bring structure shaped by care. You help groups understand how to move safely."
+    Guardian: "Your Guardian side helps you clarify boundaries and protect group tone. You bring structure shaped by care. You help groups navigate sensitive moments clearly."
   },
   Keeper: {
     Driver: "Your Driver side helps you move things forward while keeping them anchored. You bring direction rooted in meaning, making sure progress stays true to core purpose.",
@@ -421,13 +454,13 @@ export const secondarySyntheses = {
     Guardian: "Your Guardian side helps you protect people with intuition and steadiness. You bring care shaped by safety. You help groups feel emotionally secure."
   },
   Guardian: {
-    Driver: "Your Driver side helps you protect people while moving things forward. You bring safety shaped by direction. You help groups advance without losing emotional grounding.",
-    Advocate: "Your Advocate side helps you encourage participation gently and warmly. You bring safety shaped by enthusiasm. You help groups feel supported and invited.",
+    Driver: "Your Driver side helps you protect people while moving things forward. You bring safety shaped by direction and clarity.",
+    Advocate: "Your Advocate side helps you encourage participation gently and warmly. You help groups feel invited, supported, and emotionally grounded.",
     Visionary: "Your Visionary side helps you introduce new ideas in ways that feel safe. You bring protection shaped by possibility. You help groups explore without overwhelm.",
     Stabilizer: "Your Stabilizer side helps you protect people with steady, ongoing care. You bring safety shaped by reliability. You help groups feel consistently supported.",
-    Architect: "Your Architect side helps you clarify boundaries and protect tone with understanding. You bring safety shaped by structure. You help groups navigate sensitive moments clearly.",
-    Connector: "Your Connector side helps you protect people with relational intuition. You bring safety shaped by care. You help groups feel emotionally secure.",
-    Keeper: "Your Keeper side helps you protect both people and purpose. You bring safety shaped by meaning. You help groups stay grounded in what matters most."
+    Architect: "Your Architect side helps you clarify boundaries and protect tone. You help groups navigate sensitive moments with structure and understanding.",
+    Connector: "Your Connector side helps you feel safe, supported, and genuinely seen. You protect group tone while offering quiet relational care.",
+    Keeper: "Your Keeper side helps you safeguard both people and purpose. You help groups stay grounded in what matters most while protecting emotional wellbeing."
   }
 };
 
@@ -475,7 +508,7 @@ export const combinedPatterns = {
     Stabilizer: "You maintain clarity over time. You help groups stay organized, steady, and coherent through transitions.",
     Connector: "You make understanding feel human. You clarify complexity with relational intuition and care.",
     Keeper: "You organize information anchored in purpose. You help groups understand what matters most and stay connected to it.",
-    Guardian: "You clarify boundaries and protect tone. You help groups navigate sensitive moments with structure and steadiness."
+    Guardian: "You clarify boundaries and protect tone. You help groups navigate sensitive moments with structure and understanding."
   },
   Keeper: {
     Driver: "You help groups start strong while staying anchored in purpose. You bring direction grounded in meaning.",
