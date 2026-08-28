@@ -108,8 +108,9 @@ Results Cards & Styles
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
 }
 .styleTitle {
+    font-size: 1.25rem;
     font-weight: 700;
-    line-height: 1.2;
+    margin-bottom: 0.35rem;
 }
 .styleIdentity {
     font-size: 1.05rem;
@@ -123,7 +124,9 @@ Results Cards & Styles
     padding: 0.85rem 1rem;
     font-size: 0.95rem;
     color: #334155;
+    margin-bottom: 1rem;
 }
+/* Soft, Left-Justified Pill Buttons */
 .cta-container {
     display: flex;
     flex-wrap: wrap;
@@ -147,7 +150,7 @@ Results Cards & Styles
     filter: brightness(0.95);
     transform: translateY(-1px);
 }
-/* Responsive adjustments */
+/* Responsive */
 @media (max-width: 640px) {
     body {
         padding: 1.25rem 0.85rem 0.85rem 0.85rem;
@@ -187,7 +190,6 @@ let currentQuestion = 0;
 const scores = {};
 const typeCountsByStyle = {};
 
-// Initialize score trackers and category frequencies for all 8 archetypes
 Object.keys(styles).forEach(style => { 
     scores[style] = 0;
     typeCountsByStyle[style] = { relational: 0, clarity: 0, momentum: 0, meaning: 0, insight: 0 };
@@ -230,19 +232,14 @@ function selectOption(styleKey, questionType) {
     }
 }
 
-// Multi-tier tie-breaking engine
 function breakTies(tiedStyles) {
     return tiedStyles.sort((a, b) => {
         const aTypes = typeCountsByStyle[a];
         const bTypes = typeCountsByStyle[b];
 
-        // Tier A/1: Relational questions
         if (bTypes.relational !== aTypes.relational) return bTypes.relational - aTypes.relational;
-        // Tier B/2: Clarity & Structure questions
         if (bTypes.clarity !== aTypes.clarity) return bTypes.clarity - aTypes.clarity;
-        // Tier C/3: Momentum & Energy questions
         if (bTypes.momentum !== aTypes.momentum) return bTypes.momentum - aTypes.momentum;
-        // Tier D/4: Meaning & Purpose questions
         if (bTypes.meaning !== aTypes.meaning) return bTypes.meaning - aTypes.meaning;
         
         return 0;
@@ -253,7 +250,6 @@ function calculateResults() {
     document.getElementById("progressBar").style.width = "100%";
     document.getElementById("quizCard").style.display = "none";
 
-    // Group styles by score
     const scoreMap = {};
     Object.entries(scores).forEach(([style, score]) => {
         if (!scoreMap[score]) scoreMap[score] = [];
@@ -265,7 +261,6 @@ function calculateResults() {
     let primaryKey = "";
     let secondaryKey = "";
 
-    // Determine Primary Style
     const highestScore = sortedScores[0];
     const topTied = scoreMap[highestScore];
 
@@ -275,7 +270,6 @@ function calculateResults() {
         primaryKey = breakTies(topTied)[0];
     }
 
-    // Determine Secondary Style
     if (topTied.length > 1) {
         const remainingTop = topTied.filter(s => s !== primaryKey);
         secondaryKey = breakTies(remainingTop)[0];
@@ -313,7 +307,7 @@ function renderReveal(primaryKey, secondaryKey) {
             <div style="text-transform: uppercase; font-size: 0.75rem; letter-spacing: 0.08em; font-weight: 700; color: #64748B; margin-bottom: 0.25rem;">
                 Primary Stewardship Style
             </div>
-            <div class="styleTitle" style="font-size: 1.6rem; color: ${primary.color}; margin-bottom: 0.25rem;">
+            <div class="styleTitle" style="color: ${primary.color};">
                 ${primaryKey}
             </div>
             <div style="font-size: 0.85rem; font-weight: 700; color: #64748B; text-transform: uppercase; margin-bottom: 0.75rem;">
@@ -321,7 +315,7 @@ function renderReveal(primaryKey, secondaryKey) {
             </div>
             <div class="styleIdentity">${primary.identity}</div>
             <div style="margin-bottom: 0.85rem; color: #334155;">${primary.behavior}</div>
-            <div class="styleAction" style="border-left: 3px solid ${primary.color}; padding-left: 0.75rem; margin-bottom: 0.85rem;">
+            <div class="styleAction" style="border-left: 3px solid ${primary.color}; padding-left: 0.75rem;">
                 <strong>Where your gift shines:</strong> ${primary.action}
             </div>
             <div style="font-size: 0.88rem; color: #64748B; font-style: italic;">
@@ -334,7 +328,7 @@ function renderReveal(primaryKey, secondaryKey) {
             <div style="text-transform: uppercase; font-size: 0.75rem; letter-spacing: 0.08em; font-weight: 700; color: #64748B; margin-bottom: 0.25rem;">
                 Secondary Alignment
             </div>
-            <div class="styleTitle" style="font-size: 1.3rem; color: ${secondary.color}; margin-bottom: 0.5rem;">
+            <div class="styleTitle" style="color: ${secondary.color};">
                 ${primaryKey} + ${secondaryKey}
             </div>
             <div style="font-size: 0.95rem; color: #334155; margin-bottom: 0.25rem;">
@@ -353,7 +347,7 @@ function renderReveal(primaryKey, secondaryKey) {
         </div>
 
         <!-- Action Links -->
-        <div class="cta-container" style="margin-top: 1.5rem;">
+        <div class="cta-container">
             <a href="https://climatecolor.com/${primary.slug}" target="_blank" rel="noopener noreferrer" class="btn-pill-soft" style="background-color: ${primaryBg}; border-color: ${primaryBorder}; color: ${primary.color} !important;">
                 Explore ${primaryKey} Strengths &rarr;
             </a>
