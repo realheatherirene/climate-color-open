@@ -145,6 +145,7 @@ Results Cards & Styles
     border-radius: 9999px;
     border: 1px solid transparent;
     transition: all 0.15s ease;
+    cursor: pointer;
 }
 .btn-pill-soft:hover {
     filter: brightness(0.95);
@@ -298,6 +299,9 @@ function renderReveal(primaryKey, secondaryKey) {
     const primaryBg = `rgba(${primary.rgb}, 0.08)`;
     const primaryBorder = `rgba(${primary.rgb}, 0.25)`;
 
+    // Summary payload for quick-copy sharing
+    const summaryText = `My Climate Type: ${primaryKey} + ${secondaryKey}\n\nPrimary Style: ${primaryKey}\nTheme: ${primary.theme}\nWhere I Shine: ${actionText}\n\nStewardship Pattern:\n${patternText}\n\nDiscover your style: https://climatecolor.com/quiz`;
+
     const result = document.getElementById("resultContainer");
     result.style.display = "block";
     result.innerHTML = `
@@ -319,7 +323,7 @@ function renderReveal(primaryKey, secondaryKey) {
             </div>
         </div>
 
-        <!-- Action Links -->
+        <!-- Action Links & Quick Win Clipboard Button -->
         <div class="cta-container" style="margin-top: 0; margin-bottom: 1.25rem;">
             <a href="https://climatecolor.com/${primary.slug}" target="_blank" rel="noopener noreferrer" class="btn-pill-soft" style="background-color: ${primaryBg}; border-color: ${primaryBorder}; color: ${primary.color} !important;">
                 Explore ${primaryKey} Strengths &rarr;
@@ -327,6 +331,9 @@ function renderReveal(primaryKey, secondaryKey) {
             <a href="directory.html?style=${encodeURIComponent(primaryKey)}" class="btn-pill-soft" style="background-color: ${primaryBg}; border-color: ${primaryBorder}; color: ${primary.color} !important;">
                 Explore ${primaryKey} Actions &rarr;
             </a>
+            <button id="copyBtn" class="btn-pill-soft" style="background-color: #F1F5F9; border-color: #CBD5E1; color: #334155 !important;">
+                📋 Copy Summary
+            </button>
         </div>
 
         <!-- Secondary Alignment & Stewardship Pattern Card -->
@@ -349,6 +356,16 @@ function renderReveal(primaryKey, secondaryKey) {
             </a>
         </p>
     `;
+
+    // Attach click listener for clipboard action
+    document.getElementById("copyBtn").onclick = () => {
+        navigator.clipboard.writeText(summaryText).then(() => {
+            const btn = document.getElementById("copyBtn");
+            btn.textContent = "✓ Copied!";
+            setTimeout(() => { btn.textContent = "📋 Copy Summary"; }, 2500);
+        });
+    };
+
     result.focus();
 }
 
