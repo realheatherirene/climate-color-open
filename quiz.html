@@ -2,21 +2,18 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Stewardship Style Quiz | Climate Color</title>
+<title>Stewardship Quiz | Climate Color</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=ADLaM+Display&family=Varela+Round&display=swap" rel="stylesheet">
+
 <style>
-/* ========================================================================== 
-Base & Global Styles 
-========================================================================== */
-* {
-    box-sizing: border-box;
-}
+* { box-sizing: border-box; }
+
 body {
     font-family: 'Varela Round', -apple-system, BlinkMacSystemFont, sans-serif;
-    max-width: 880px;
+    max-width: 800px;
     margin: 0 auto;
     padding: 2rem 1rem 1rem 1rem;
     line-height: 1.6;
@@ -24,9 +21,8 @@ body {
     color: #212121;
     -webkit-font-smoothing: antialiased;
 }
-/* ========================================================================== 
-Header Styles
-========================================================================== */
+
+/* Header Styles */
 .quiz-header {
     text-align: left;
     margin-bottom: 1.5rem;
@@ -43,15 +39,14 @@ Header Styles
     color: #64748B;
     margin: 0;
 }
-/* ========================================================================== 
-Quiz Interface Elements
-========================================================================== */
+
+/* Progress Bar */
 .progress-container {
     width: 100%;
-    background-color: #E2E8F0;
     height: 8px;
+    background-color: #E2E8F0;
     border-radius: 9999px;
-    margin-bottom: 1.5rem;
+    margin-bottom: 2rem;
     overflow: hidden;
 }
 .progress-bar {
@@ -60,170 +55,327 @@ Quiz Interface Elements
     background-color: #1494B9;
     transition: width 0.3s ease;
 }
-.question-card {
+
+/* Question & Option Cards */
+.quiz-card {
     background: #FFFFFF;
     border: 1px solid #E2E8F0;
     border-radius: 12px;
-    padding: 1.5rem;
+    padding: 1.75rem;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+    margin-bottom: 2rem;
 }
-.question-title {
+.question-number {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: #64748B;
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+}
+.question-text {
     font-size: 1.2rem;
     font-weight: 700;
     color: #0F172A;
-    margin-bottom: 1rem;
-    text-align: left;
+    margin-bottom: 1.5rem;
+    line-height: 1.4;
+}
+
+.options-container {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
 }
 .option-btn {
-    display: block;
     width: 100%;
     text-align: left;
-    background: #F8FAFC;
-    border: 1px solid #CBD5E1;
+    padding: 1rem 1.25rem;
+    border: 1.5px solid #CBD5E1;
     border-radius: 8px;
-    padding: 0.75rem 1.25rem;
-    margin-bottom: 0.75rem;
+    background: #F8FAFC;
+    color: #334155;
     font-family: inherit;
     font-size: 0.98rem;
-    color: #1E293B;
     cursor: pointer;
     transition: all 0.15s ease;
 }
-.option-btn:hover, .option-btn:focus {
-    background: #F1F5F9;
+.option-btn:hover {
     border-color: #1494B9;
-    outline: none;
+    background: #F0F9FF;
+    transform: translateY(-1px);
 }
-/* ========================================================================== 
-Results Cards & Styles
-========================================================================== */
+
+/* Sticky Persistence Bar */
+.sticky-results-bar {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: #FFFFFF;
+    border-bottom: 1px solid #E2E8F0;
+    padding: 0.75rem 1rem;
+    margin: -2rem -1rem 1.5rem -1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+}
+.sticky-actions {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+}
+.btn-sm-action {
+    padding: 0.4rem 0.85rem !important;
+    font-size: 0.82rem !important;
+    border-radius: 9999px;
+    font-weight: 700;
+    border: 1px solid #CBD5E1;
+    background: #F8FAFC;
+    color: #334155 !important;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    text-decoration: none;
+}
+.btn-sm-action:hover {
+    background: #E2E8F0;
+}
+.btn-sm-primary {
+    background: #1494B9 !important;
+    color: #FFFFFF !important;
+    border-color: #1494B9 !important;
+}
+
+/* Results Cards */
 .styleBlock {
     background: #FFFFFF;
     border: 1px solid #E2E8F0;
     border-radius: 12px;
-    padding: 1.25rem 1.5rem;
-    margin-bottom: 1.25rem;
+    padding: 1.5rem;
     border-left: 6px solid #CBD5E1;
     text-align: left;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+    margin-bottom: 1.5rem;
 }
 .styleTitle {
-    font-size: 1.25rem;
     font-weight: 700;
-    margin-bottom: 0.35rem;
+    line-height: 1.3;
 }
 .styleIdentity {
-    font-size: 1.05rem;
-    font-weight: 700;
-    color: #1E293B;
-    margin-bottom: 0.5rem;
+    font-size: 1rem;
+    color: #0F172A;
+    line-height: 1.5;
+    margin-bottom: 0.75rem;
 }
 .styleAction {
-    background: #F8FAFC;
-    border-radius: 8px;
-    padding: 0.85rem 1rem;
-    font-size: 0.95rem;
+    font-size: 0.92rem;
     color: #334155;
-    margin-bottom: 1rem;
+    margin-bottom: 0.75rem;
 }
-/* Soft, Left-Justified Pill Buttons */
+
+/* Button & Pill Utilities */
 .cta-container {
     display: flex;
+    gap: 0.75rem;
     flex-wrap: wrap;
-    gap: 0.5rem;
-    justify-content: flex-start;
-    margin-top: 1.25rem;
+    margin-top: 1rem;
 }
 .btn-pill-soft {
     display: inline-block;
-    width: auto !important;
-    padding: 0.5rem 1.15rem !important;
-    font-size: 0.9rem !important;
+    padding: 0.5rem 1.1rem;
+    font-size: 0.88rem;
     font-weight: 700;
-    text-align: left;
     text-decoration: none;
     border-radius: 9999px;
-    border: 1px solid transparent;
+    border: 1px solid #CBD5E1;
+    background-color: #F8FAFC;
+    color: #334155 !important;
     transition: all 0.15s ease;
-    cursor: pointer;
 }
 .btn-pill-soft:hover {
-    filter: brightness(0.95);
     transform: translateY(-1px);
+    filter: brightness(0.96);
 }
-/* Responsive */
+
 @media (max-width: 640px) {
-    body {
-        padding: 1.25rem 0.85rem 0.85rem 0.85rem;
-    }
-    .question-card, .styleBlock {
-        padding: 1rem 1.15rem;
-    }
+    body { padding: 1.25rem 0.85rem; }
+    .quiz-card { padding: 1.25rem; }
+    .cta-container { flex-direction: column; gap: 0.5rem; }
+    .btn-pill-soft { width: 100%; text-align: center; }
 }
 </style>
 </head>
-<body>
 
+<body>
 <header class="quiz-header">
-    <h1>Climate Color Quiz</h1>
-    <p>Discover your stewardship style | 32 questions | anonymous | 
-        <a href="https://climatecolor.com/quiz-faq" target="_blank" rel="noopener noreferrer" style="color:#1494B8; font-weight: bold;">
-            FAQ
-        </a>
-    </p>
+    <h1>Climate Stewardship Quiz</h1>
+    <p>Discover your primary and secondary stewardship styles</p>
 </header>
 
 <div class="progress-container">
-    <div class="progress-bar" id="progressBar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-label="Quiz progress"></div>
+    <div id="progressBar" class="progress-bar"></div>
 </div>
 
-<div class="question-card" id="quizCard">
-    <div class="question-title" id="questionTitle" aria-live="polite">Loading questions...</div>
-    <div id="optionsContainer"></div>
+<div id="quizCard" class="quiz-card">
+    <div id="questionNumber" class="question-number">Question 1 of 32</div>
+    <div id="questionText" class="question-text"></div>
+    <div id="optionsContainer" class="options-container"></div>
 </div>
 
-<div id="resultContainer" tabindex="-1" aria-live="polite" style="display: none; outline: none;"></div>
+<div id="resultContainer" style="display: none;"></div>
 
-<script type="module">
-import { questions, styles, secondarySyntheses, combinedPatterns } from './quiz-data.js';
+<script src="directory-data.js"></script>
+
+<script>
+// 32 Assessment Questions
+const questions = [
+    // Axis 1: PACE (Driver vs. Stabilizer)
+    { id: 1, text: "When facing a new community issue, what is your immediate instinct?", options: [ { text: "Take immediate action to get things moving fast.", style: "Driver" }, { text: "Step back, establish structure, and ensure stability first.", style: "Stabilizer" } ] },
+    { id: 2, text: "How do you handle project timelines?", options: [ { text: "Push for rapid execution and quick wins.", style: "Driver" }, { text: "Focus on consistent, sustainable pacing for the long haul.", style: "Stabilizer" } ] },
+    { id: 3, text: "What frustrates you most during group planning?", options: [ { text: "Endless discussions without concrete decisions.", style: "Driver" }, { text: "Rushing into action without a solid operational process.", style: "Stabilizer" } ] },
+    { id: 4, text: "In a crisis, what role do you naturally step into?", options: [ { text: "The decisive leader rallying people to move.", style: "Driver" }, { text: "The calming force grounding the team and organizing logistics.", style: "Stabilizer" } ] },
+    { id: 5, text: "How do you define progress?", options: [ { text: "Bold milestones hit and barriers broken.", style: "Driver" }, { text: "Reliable systems built and steady improvements maintained.", style: "Stabilizer" } ] },
+    { id: 6, text: "When goals are set, you tend to focus on:", options: [ { text: "Reaching the finish line as quickly and directly as possible.", style: "Driver" }, { text: "Building dependable workflows so no steps are missed.", style: "Stabilizer" } ] },
+    { id: 7, text: "What is your preference for organizational change?", options: [ { text: "Disruptive innovation and fast pivots.", style: "Driver" }, { text: "Thoughtful evolution and foundational stability.", style: "Stabilizer" } ] },
+    { id: 8, text: "Your work style is best described as:", options: [ { text: "High-energy, direct, and momentum-driven.", style: "Driver" }, { text: "Methodical, reliable, and detail-oriented.", style: "Stabilizer" } ] },
+
+    // Axis 2: PEOPLE (Advocate vs. Connector)
+    { id: 9, text: "How do you prefer to drive social or environmental change?", options: [ { text: "Speaking out boldly to challenge policies and norms.", style: "Advocate" }, { text: "Building bridges and fostering relationships across groups.", style: "Connector" } ] },
+    { id: 10, text: "What is your primary focus in team meetings?", options: [ { text: "Ensuring marginalized voices and core values are championed.", style: "Advocate" }, { text: "Finding common ground and helping members collaborate smoothly.", style: "Connector" } ] },
+    { id: 11, text: "When conflict arises, you usually:", options: [ { text: "Stand firm on principle and address inequities directly.", style: "Advocate" }, { text: "Facilitate dialogue to mend trust and seek consensus.", style: "Connector" } ] },
+    { id: 12, text: "Your greatest strength in advocacy is:", options: [ { text: "Persuasive messaging and passionate defense of a cause.", style: "Advocate" }, { text: "Networking, coalition-building, and connecting people to resources.", style: "Connector" } ] },
+    { id: 13, text: "What motivates you to join an initiative?", options: [ { text: "Fighting against systemic injustice or environmental harm.", style: "Advocate" }, { text: "Uniting diverse individuals around a shared community vision.", style: "Connector" } ] },
+    { id: 14, text: "In public outreach, you prefer to:", options: [ { text: "Rally people around a clear, urgent call to justice.", style: "Advocate" }, { text: "Host collaborative spaces where everyone feels included.", style: "Connector" } ] },
+    { id: 15, text: "How do you measure community impact?", options: [ { text: "By policy shifts and rights protected.", style: "Advocate" }, { text: "By the strength and trust within the relational network.", style: "Connector" } ] },
+    { id: 16, text: "When starting a campaign, your first step is to:", options: [ { text: "Draft a clear declaration of purpose and demands.", style: "Advocate" }, { text: "Reach out to partner organizations and key community members.", style: "Connector" } ] },
+
+    // Axis 3: PLACE (Architect vs. Guardian)
+    { id: 17, text: "When looking at your local environment, you tend to think about:", options: [ { text: "Redesigning infrastructure and systems for future resilience.", style: "Architect" }, { text: "Protecting existing ecosystems, heritage, and local wisdom.", style: "Guardian" } ] },
+    { id: 18, text: "What type of projects excite you most?", options: [ { text: "Building scalable blueprints, green technology, or framework models.", style: "Architect" }, { text: "Hands-on conservation, habitat restoration, and stewardship of place.", style: "Guardian" } ] },
+    { id: 19, text: "How do you approach resource management?", options: [ { text: "Optimizing technical design and resource efficiency.", style: "Architect" }, { text: "Safeguarding natural spaces and honoring ecological limits.", style: "Guardian" } ] },
+    { id: 20, text: "What is your main priority for urban or rural spaces?", options: [ { text: "Innovative structural re-engineering and smart planning.", style: "Architect" }, { text: "Deep care, maintenance, and defense against degradation.", style: "Guardian" } ] },
+    { id: 21, text: "Your analytical focus usually lands on:", options: [ { text: "System architecture, data flows, and structural design.", style: "Architect" }, { text: "Ecosystem balance, historical context, and local biodiversity.", style: "Guardian" } ] },
+    { id: 22, text: "When solving ecological challenges, you lean toward:", options: [ { text: "Engineering novel, systemic solutions.", style: "Architect" }, { text: "Nurturing and restoring proven natural processes.", style: "Guardian" } ] },
+    { id: 23, text: "You feel most fulfilled when:", options: [ { text: "A complex new system blueprint is successfully launched.", style: "Architect" }, { text: "A local habitat or community sanctuary is preserved and thriving.", style: "Guardian" } ] },
+    { id: 24, text: "Your spatial perspective is primarily focused on:", options: [ { text: "Future structural transformation.", style: "Architect" }, { text: "Present protection and historical continuity.", style: "Guardian" } ] },
+
+    // Axis 4: PURPOSE (Visionary vs. Keeper)
+    { id: 25, text: "What guides your overall perspective on climate action?", options: [ { text: "Imagining bold future possibilities and revolutionary ideas.", style: "Visionary" }, { text: "Preserving institutional knowledge, traditions, and core values.", style: "Keeper" } ] },
+    { id: 26, text: "When planning for the long term, you focus on:", options: [ { text: "Transformative visions that inspire radical change.", style: "Visionary" }, { text: "Documenting lessons learned and ensuring continuity over time.", style: "Keeper" } ] },
+    { id: 27, text: "How do you inspire others?", options: [ { text: "Painting a vivid picture of a regenerated future.", style: "Visionary" }, { text: "Sharing historical wisdom, stories, and proven principles.", style: "Keeper" } ] },
+    { id: 28, text: "What is your approach to tradition?", options: [ { text: "Challenge it to make room for breakthrough innovation.", style: "Visionary" }, { text: "Honor and adapt it to keep essential wisdom alive.", style: "Keeper" } ] },
+    { id: 29, text: "In discussions, you are most likely to ask:", options: [ { text: "'What if we thought completely outside existing bounds?'", style: "Visionary" }, { text: "'What can past experience teach us about this moment?'", style: "Keeper" } ] },
+    { id: 30, text: "Your creative energy is driven by:", options: [ { text: "Exploring uncharted territory and original concepts.", style: "Visionary" }, { text: "Curating, archiving, and holding space for foundational truths.", style: "Keeper" } ] },
+    { id: 31, text: "What do you consider your greatest contribution?", options: [ { text: "Sparking paradigm shifts and bold new paradigms.", style: "Visionary" }, { text: "Maintaining integrity, memory, and steady purpose.", style: "Keeper" } ] },
+    { id: 32, text: "When facing uncertainty, you rely on:", options: [ { text: "Forward-looking intuition and expansive imagination.", style: "Visionary" }, { text: "Grounded wisdom and time-tested principles.", style: "Keeper" } ] }
+];
+
+// Secondary Syntheses Definitions
+const secondarySyntheses = {
+    Driver: {
+        Advocate: "You combine decisive momentum with bold advocacy, mobilizing rapid action to challenge injustice.",
+        Visionary: "You merge fast-paced execution with expansive vision, turning radical future ideas into immediate reality.",
+        Stabilizer: "You balance swift action with grounding structures, ensuring rapid progress without sacrificing operational stability.",
+        Architect: "You pair high-energy drive with strategic design, building resilient systems at a fast, decisive pace.",
+        Keeper: "You combine clear direction with deep respect for core values, advancing goals while honoring institutional memory.",
+        Connector: "You pair swift execution with relational warmth, bringing diverse stakeholders together for fast collective action.",
+        Guardian: "You combine proactive initiative with protective care, taking swift action to safeguard local environments."
+    },
+    Advocate: {
+        Driver: "You blend passionate advocacy with rapid execution, turning principled demands into swift, tangible momentum.",
+        Visionary: "You combine social justice advocacy with expansive vision, inspiring movement building for long-term transformation.",
+        Stabilizer: "You pair bold advocacy with practical stability, ensuring cause-driven efforts have reliable, sustainable support.",
+        Architect: "You merge voice-giving advocacy with systemic design, embedding equity and fairness directly into framework blueprints.",
+        Keeper: "You combine public advocacy with traditional wisdom, championing causes while upholding core cultural memory.",
+        Connector: "You pair vocal advocacy with bridge-building skills, uniting coalitions around essential social and environmental rights.",
+        Guardian: "You blend principled advocacy with ecological defense, standing firmly to protect both community and place."
+    },
+    Visionary: {
+        Driver: "You pair radical imagination with swift execution, ensuring bold future ideas lead to immediate impact.",
+        Advocate: "You combine transformative vision with vocal advocacy, inspiring communities to fight for a better future.",
+        Stabilizer: "You balance visionary ideals with structured processes, turning abstract possibilities into workable long-term systems.",
+        Architect: "You merge big-picture imagination with technical architecture, designing scalable models for tomorrow's world.",
+        Keeper: "You bridge the future and the past, weaving timeless wisdom into visionary concepts for holistic innovation.",
+        Connector: "You pair expansive concepts with relational networking, rallying diverse groups around a shared dream.",
+        Guardian: "You combine future-focused imagination with environmental protection, envisioning new ways to restore natural harmony."
+    },
+    Stabilizer: {
+        Driver: "You balance systematic stability with rapid initiative, creating efficient workflows that sustain steady momentum.",
+        Advocate: "You pair reliable operational structure with passionate advocacy, giving cause-based movements a solid foundation.",
+        Visionary: "You ground bold visionary concepts into clear, actionable, and repeatable operational systems.",
+        Architect: "You combine practical organization with technical framework design, ensuring structural blueprints are flawlessly maintained.",
+        Keeper: "You pair methodical stability with historical preservation, keeping organizational processes consistent over time.",
+        Connector: "You combine structured workflows with relational care, providing steady coordination for collaborative networks.",
+        Guardian: "You pair operational reliability with ecological stewardship, maintaining dependable systems for habitat care."
+    },
+    Architect: {
+        Driver: "You combine technical design with rapid drive, building high-impact structural solutions at an accelerated pace.",
+        Advocate: "You pair framework design with social advocacy, constructing systems that explicitly serve equity and justice.",
+        Visionary: "You merge structural architecture with expansive vision, creating tangible blueprints for transformative change.",
+        Stabilizer: "You pair complex design with steady operational care, building frameworks that run smoothly and reliably.",
+        Keeper: "You combine system design with institutional memory, building modern solutions rooted in proven knowledge.",
+        Connector: "You pair structural planning with network building, designing open frameworks that encourage broad participation.",
+        Guardian: "You merge technical infrastructure design with ecological stewardship, building in harmony with natural systems."
+    },
+    Keeper: {
+        Driver: "You balance deep respect for core wisdom with swift action, ensuring rapid movement stays anchored to core values.",
+        Advocate: "You pair historical memory with vocal advocacy, drawing on past struggles to champion present causes.",
+        Visionary: "You bridge past wisdom with future possibilities, ensuring visionary ideas maintain structural and cultural integrity.",
+        Stabilizer: "You combine traditional preservation with methodical organization, keeping core standards intact.",
+        Architect: "You pair institutional knowledge with technical system design, building modern frameworks on proven foundations.",
+        Connector: "You merge cultural stewardship with relational connections, using shared stories to unite communities.",
+        Guardian: "You combine historical continuity with place-based protection, safeguarding both cultural heritage and natural environments."
+    },
+    Connector: {
+        Driver: "You pair relational warmth with rapid drive, aligning group energy for quick, collaborative execution.",
+        Advocate: "You combine coalition-building with strong advocacy, amplifying diverse voices into unified action.",
+        Visionary: "You pair community networking with expansive vision, weaving individual ideas into a collective future.",
+        Stabilizer: "You combine relationship building with dependable structure, keeping networks supported and organized.",
+        Architect: "You pair community alignment with systemic design, creating collaborative environments where infrastructure succeeds.",
+        Keeper: "You blend community care with historical memory, strengthening relationships through shared heritage.",
+        Guardian: "You pair relational connection with local stewardship, mobilizing neighborhood networks to protect place."
+    },
+    Guardian: {
+        Driver: "You combine protective care with swift initiative, moving decisively when local environments need defense.",
+        Advocate: "You pair environmental protection with bold advocacy, standing up for vulnerable ecosystems and places.",
+        Visionary: "You merge local ecological care with forward-thinking vision, preserving land while innovating restoration techniques.",
+        Stabilizer: "You pair natural habitat care with steady maintenance, providing consistent stewardship for local places.",
+        Architect: "You combine ecological defense with technical design, engineering solutions that protect living systems.",
+        Keeper: "You pair environmental stewardship with traditional wisdom, preserving ecological and cultural heritage.",
+        Connector: "You pair place-based stewardship with community connection, inviting neighbors into hands-on conservation."
+    }
+};
 
 let currentQuestion = 0;
-const scores = {};
-
-// Initialize scores for all 8 stewardship styles
-Object.keys(styles).forEach(style => { 
-    scores[style] = 0;
-});
+let scores = {
+    Driver: 0, Stabilizer: 0,
+    Advocate: 0, Connector: 0,
+    Architect: 0, Guardian: 0,
+    Visionary: 0, Keeper: 0
+};
 
 function renderQuestion() {
-    if (!questions[currentQuestion]) return;
-    
     const q = questions[currentQuestion];
-    document.getElementById("questionTitle").textContent = `${currentQuestion + 1}. ${q.prompt}`;
+    document.getElementById("questionNumber").textContent = `Question ${currentQuestion + 1} of ${questions.length}`;
+    document.getElementById("questionText").textContent = q.text;
     
+    const pct = ((currentQuestion) / questions.length) * 100;
+    document.getElementById("progressBar").style.width = `${pct}%`;
+
     const container = document.getElementById("optionsContainer");
     container.innerHTML = "";
-    
+
     q.options.forEach(opt => {
         const btn = document.createElement("button");
-        btn.type = "button";
         btn.className = "option-btn";
         btn.textContent = opt.text;
         btn.onclick = () => selectOption(opt.style);
         container.appendChild(btn);
     });
-    
-    const progressPct = Math.round((currentQuestion / questions.length) * 100);
-    const progressBar = document.getElementById("progressBar");
-    progressBar.style.width = `${progressPct}%`;
-    progressBar.setAttribute("aria-valuenow", progressPct);
 }
 
 function selectOption(styleKey) {
-    if (scores[styleKey] !== undefined) {
-        scores[styleKey]++;
-    }
+    scores[styleKey]++;
     currentQuestion++;
+
     if (currentQuestion < questions.length) {
         renderQuestion();
     } else {
@@ -235,7 +387,6 @@ function calculateResults() {
     document.getElementById("progressBar").style.width = "100%";
     document.getElementById("quizCard").style.display = "none";
 
-    // 4 Bipolar 4P Axes Definitions (8 items per axis = 100%)
     const axes = [
         { anchor: "PACE", poleA: "Driver", poleB: "Stabilizer" },
         { anchor: "PEOPLE", poleA: "Advocate", poleB: "Connector" },
@@ -243,7 +394,6 @@ function calculateResults() {
         { anchor: "PURPOSE", poleA: "Visionary", poleB: "Keeper" }
     ];
 
-    // Calculate Preference Strength & Winner per 4P Axis
     const axisWinners = axes.map(axis => {
         const scoreA = scores[axis.poleA];
         const scoreB = scores[axis.poleB];
@@ -252,32 +402,31 @@ function calculateResults() {
         const margin = Math.abs(scoreA - scoreB);
         const pciPct = Math.round((winningScore / 8) * 100);
 
-        return {
-            anchor: axis.anchor,
-            winner,
-            winningScore,
-            margin,
-            pciPct
-        };
+        return { anchor: axis.anchor, winner, winningScore, margin, pciPct };
     });
 
-    // Rank dominant axis winners by highest raw total score & preference clarity margin
     axisWinners.sort((a, b) => {
-        if (b.winningScore !== a.winningScore) {
-            return b.winningScore - a.winningScore;
-        }
+        if (b.winningScore !== a.winningScore) return b.winningScore - a.winningScore;
         return b.margin - a.margin;
     });
 
-    // Primary style determination
     const primaryKey = axisWinners[0].winner;
     
-    // Fallback logic for secondary style to ensure distinct selection
     let secondaryKey = axisWinners[1].winner;
     if (secondaryKey === primaryKey) {
         const nonMatchingWinner = axisWinners.find(w => w.winner !== primaryKey);
         secondaryKey = nonMatchingWinner ? nonMatchingWinner.winner : (primaryKey === "Driver" ? "Stabilizer" : "Driver");
     }
+
+    // 1. Storage Save
+    localStorage.setItem('climatecolor_primary', primaryKey);
+    localStorage.setItem('climatecolor_secondary', secondaryKey);
+
+    // 2. Sync URL Parameters
+    const currentUrl = new URL(window.location);
+    currentUrl.searchParams.set('primary', primaryKey);
+    currentUrl.searchParams.set('secondary', secondaryKey);
+    window.history.pushState({}, '', currentUrl);
 
     renderReveal(primaryKey, secondaryKey, axisWinners);
 }
@@ -286,9 +435,7 @@ function renderReveal(primaryKey, secondaryKey, axisWinners) {
     const primary = styles[primaryKey];
     const secondary = styles[secondaryKey] || primary;
 
-    // Retrieve specific synthesis text or fallback to combined pattern
     const synthesisText = secondarySyntheses[primaryKey]?.[secondaryKey] || 
-        combinedPatterns[primaryKey]?.[secondaryKey] || 
         `You bring a unique combination of ${primaryKey} initiative and ${secondaryKey} perspective to community stewardship.`;
 
     const primaryActionText = primary.action.replace(/^Your gift shines when /i, "You shine when ");
@@ -296,13 +443,27 @@ function renderReveal(primaryKey, secondaryKey, axisWinners) {
 
     const primaryBg = `rgba(${primary.rgb}, 0.08)`;
     const primaryBorder = `rgba(${primary.rgb}, 0.25)`;
-
     const secondaryBg = `rgba(${secondary.rgb}, 0.08)`;
     const secondaryBorder = `rgba(${secondary.rgb}, 0.25)`;
 
     const result = document.getElementById("resultContainer");
     result.style.display = "block";
     result.innerHTML = `
+        <!-- Sticky Persistence & Share Bar -->
+        <div class="sticky-results-bar">
+            <div style="font-size: 0.85rem; font-weight: 700; color: #0F172A;">
+                Results Saved: <span style="color: ${primary.color};">${primaryKey}</span> / <span style="color: ${secondary.color};">${secondaryKey}</span>
+            </div>
+            <div class="sticky-actions">
+                <button onclick="copyQuizLink('${primaryKey}', '${secondaryKey}')" class="btn-sm-action btn-sm-primary">
+                    📋 Copy Link
+                </button>
+                <button onclick="resetQuiz()" class="btn-sm-action">
+                    🔄 Retake
+                </button>
+            </div>
+        </div>
+
         <!-- Card 1: Primary Stewardship Card -->
         <div class="styleBlock" style="border-left-color: ${primary.color};">
             <div class="styleTitle" style="color: #1E293B; font-size: 1.35rem; margin-bottom: 0.5rem;">
@@ -320,7 +481,6 @@ function renderReveal(primaryKey, secondaryKey, axisWinners) {
                 <strong>Gentle watchouts:</strong> ${primary.watchouts}
             </div>
 
-            <!-- Embedded Buttons for Primary Style -->
             <div class="cta-container">
                 <a href="https://climatecolor.com/${primary.slug}" target="_blank" rel="noopener noreferrer" class="btn-pill-soft" style="background-color: ${primaryBg}; border-color: ${primaryBorder}; color: ${primary.color} !important;">
                     Explore ${primaryKey} Strengths &rarr;
@@ -348,7 +508,6 @@ function renderReveal(primaryKey, secondaryKey, axisWinners) {
                 <strong>Gentle watchouts:</strong> ${secondary.watchouts}
             </div>
 
-            <!-- Embedded Buttons for Secondary Style -->
             <div class="cta-container">
                 <a href="https://climatecolor.com/${secondary.slug}" target="_blank" rel="noopener noreferrer" class="btn-pill-soft" style="background-color: ${secondaryBg}; border-color: ${secondaryBorder}; color: ${secondary.color} !important;">
                     Explore ${secondaryKey} Strengths &rarr;
@@ -359,7 +518,7 @@ function renderReveal(primaryKey, secondaryKey, axisWinners) {
             </div>
         </div>
 
-        <!-- Card 3: Simplified & Actionable Integration -->
+        <!-- Card 3: Integration Summary -->
         <div class="styleBlock" style="border-left-color: ${primary.color}; background: #F8FAFC; border-color: #E2E8F0; border-left-width: 6px;">
             <div class="styleTitle" style="color: #1E293B; font-size: 1.25rem; margin-bottom: 0.5rem;">
                 How Your Styles Work Together
@@ -381,20 +540,39 @@ function renderReveal(primaryKey, secondaryKey, axisWinners) {
                 </ul>
             </div>
         </div>
-
-        <p style="margin-top: 1.5rem; text-align: left; font-size: 0.9rem; color: #64748B;">
-            View the 
-            <a href="https://climatecolor.com/wheel" target="_blank" rel="noopener noreferrer" style="color: #1494B8; font-weight: bold;">
-                Climate Color Wheel &rarr;
-            </a>
-        </p>
     `;
-
-    result.focus();
 }
 
+// Global Actions
+window.copyQuizLink = function(primaryKey, secondaryKey) {
+    const shareUrl = `${window.location.origin}${window.location.pathname}?primary=${primaryKey}&secondary=${secondaryKey}`;
+    navigator.clipboard.writeText(shareUrl).then(() => {
+        alert("Link copied to clipboard! You can paste or bookmark this URL to return to your results anytime.");
+    });
+};
+
+window.resetQuiz = function() {
+    localStorage.removeItem('climatecolor_primary');
+    localStorage.removeItem('climatecolor_secondary');
+    window.location.href = window.location.pathname;
+};
+
+// Initialization Check
 document.addEventListener("DOMContentLoaded", () => {
-    renderQuestion();
+    const urlParams = new URLSearchParams(window.location.search);
+    const paramPrimary = urlParams.get('primary');
+    const paramSecondary = urlParams.get('secondary');
+    
+    const savedPrimary = paramPrimary || localStorage.getItem('climatecolor_primary');
+    const savedSecondary = paramSecondary || localStorage.getItem('climatecolor_secondary');
+
+    if (savedPrimary && typeof styles !== 'undefined' && styles[savedPrimary]) {
+        document.getElementById("progressBar").style.width = "100%";
+        document.getElementById("quizCard").style.display = "none";
+        renderReveal(savedPrimary, savedSecondary || savedPrimary, []);
+    } else {
+        renderQuestion();
+    }
 });
 </script>
 </body>
