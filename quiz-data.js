@@ -2,11 +2,11 @@
 
 export const questions = [
   // =========================================================================
-  // AXIS 1: PACING (Driver vs. Stabilizer)
+  // AXIS 1: PACE (Driver vs. Stabilizer)
   // =========================================================================
   {
     id: 1,
-    axis: "Pacing",
+    axis: "Pace",
     prompt: "A small group is considering taking on a shared task. You tend to…",
     options: [
       { text: "Offer a quick nudge so the group can get moving right away", style: "Driver" },
@@ -15,7 +15,7 @@ export const questions = [
   },
   {
     id: 2,
-    axis: "Pacing",
+    axis: "Pace",
     prompt: "A shared effort is slowing down. You tend to…",
     options: [
       { text: "Suggest a clear next step to regain momentum immediately", style: "Driver" },
@@ -24,7 +24,7 @@ export const questions = [
   },
   {
     id: 3,
-    axis: "Pacing",
+    axis: "Pace",
     prompt: "A group is drifting without a clear path forward. You tend to…",
     options: [
       { text: "Inject fresh direction to accelerate the pace of decision-making", style: "Driver" },
@@ -33,7 +33,7 @@ export const questions = [
   },
   {
     id: 4,
-    axis: "Pacing",
+    axis: "Pace",
     prompt: "When a project hits a lull or plateau, your instinct is to…",
     options: [
       { text: "Introduce a bold starting point to re-energize forward progress", style: "Driver" },
@@ -42,7 +42,7 @@ export const questions = [
   },
   {
     id: 5,
-    axis: "Pacing",
+    axis: "Pace",
     prompt: "When leading or supporting a simple initiative, you focus on…",
     options: [
       { text: "Reaching key milestones quickly to maintain progress", style: "Driver" },
@@ -51,7 +51,7 @@ export const questions = [
   },
   {
     id: 6,
-    axis: "Pacing",
+    axis: "Pace",
     prompt: "A task needs volunteers in your community. You tend to…",
     options: [
       { text: "Step up immediately to spur action by example", style: "Driver" },
@@ -60,7 +60,7 @@ export const questions = [
   },
   {
     id: 7,
-    axis: "Pacing",
+    axis: "Pace",
     prompt: "When a discussion stalls, you prefer to…",
     options: [
       { text: "Propose a simple decision right now to break the bottleneck", style: "Driver" },
@@ -69,7 +69,7 @@ export const questions = [
   },
   {
     id: 8,
-    axis: "Pacing",
+    axis: "Pace",
     prompt: "Your primary contribution to group momentum is…",
     options: [
       { text: "Sparking initiation and pushing past inertia", style: "Driver" },
@@ -78,11 +78,11 @@ export const questions = [
   },
 
   // =========================================================================
-  // AXIS 2: RELATIONAL REACH (Advocate vs. Connector)
+  // AXIS 2: PEOPLE (Advocate vs. Connector)
   // =========================================================================
   {
     id: 9,
-    axis: "Relational",
+    axis: "People",
     prompt: "A small opportunity is shared with your community. You tend to…",
     options: [
       { text: "Highlight why it matters broadly to inspire wider participation", style: "Advocate" },
@@ -91,7 +91,7 @@ export const questions = [
   },
   {
     id: 10,
-    axis: "Relational",
+    axis: "People",
     prompt: "You come across a useful resource for your community. You tend to…",
     options: [
       { text: "Share it widely in a main channel with an encouraging note", style: "Advocate" },
@@ -100,7 +100,7 @@ export const questions = [
   },
   {
     id: 11,
-    axis: "Relational",
+    axis: "People",
     prompt: "A newcomer joins a group you belong to. You tend to…",
     options: [
       { text: "Give a warm public welcome to spark energy in the room", style: "Advocate" },
@@ -109,7 +109,7 @@ export const questions = [
   },
   {
     id: 12,
-    axis: "Relational",
+    axis: "People",
     prompt: "A community member shares a personal milestone or win. You tend to…",
     options: [
       { text: "Celebrate publicly with enthusiasm to build shared joy", style: "Advocate" },
@@ -118,7 +118,7 @@ export const questions = [
   },
   {
     id: 13,
-    axis: "Relational",
+    axis: "People",
     prompt: "When encouraging participation in an event, you prefer to…",
     options: [
       { text: "Amplify enthusiasm across the whole group", style: "Advocate" },
@@ -127,7 +127,7 @@ export const questions = [
   },
   {
     id: 14,
-    axis: "Relational",
+    axis: "People",
     prompt: "During a quiet moment in a group exchange, you naturally…",
     options: [
       { text: "Share an uplifting reflection to boost overall energy", style: "Advocate" },
@@ -136,7 +136,7 @@ export const questions = [
   },
   {
     id: 15,
-    axis: "Relational",
+    axis: "People",
     prompt: "You notice someone hesitating to participate. You tend to…",
     options: [
       { text: "Share why their presence adds value to inspire them to join", style: "Advocate" },
@@ -145,7 +145,7 @@ export const questions = [
   },
   {
     id: 16,
-    axis: "Relational",
+    axis: "People",
     prompt: "Your strength in relational stewardship is best described as…",
     options: [
       { text: "Rallying people around shared warmth and enthusiasm", style: "Advocate" },
@@ -154,11 +154,11 @@ export const questions = [
   },
 
   // =========================================================================
-  // AXIS 3: OPERATIONAL FRAMING (Architect vs. Guardian)
+  // AXIS 3: PLACE (Architect vs. Guardian)
   // =========================================================================
   {
     id: 17,
-    axis: "Operations",
+    axis: "Place",
     prompt: "A shared document or space has become messy and chaotic. You tend to…",
     options: [
       { text: "Reorganize the content into a clear, logical structure", style: "Architect" },
@@ -167,7 +167,7 @@ export const questions = [
   },
   {
     id: 18,
-    axis: "Operations",
+    axis: "Place",
     prompt: "A group receives a complex or confusing update. You tend to…",
     options: [
       { text: "Synthesize the update into concise, easy-to-digest points", style: "Architect" },
@@ -176,7 +176,7 @@ export const questions = [
   },
   {
     id: 19,
-    axis: "Operations",
+    axis: "Place",
     prompt: "A discussion is getting tangled and tense. You tend to…",
     options: [
       { text: "Outline the core points clearly to help everyone regroup", style: "Architect" },
@@ -185,7 +185,7 @@ export const questions = [
   },
   {
     id: 20,
-    axis: "Operations",
+    axis: "Place",
     prompt: "When a team is starting a project, your priority is to…",
     options: [
       { text: "Define clear systems, goals, and operational frameworks", style: "Architect" },
@@ -194,7 +194,7 @@ export const questions = [
   },
   {
     id: 21,
-    axis: "Operations",
+    axis: "Place",
     prompt: "A small problem or conflict pops up in a group space. You tend to…",
     options: [
       { text: "Analyze the issue and propose a structured fix", style: "Architect" },
@@ -203,7 +203,7 @@ export const questions = [
   },
   {
     id: 22,
-    axis: "Operations",
+    axis: "Place",
     prompt: "When information is scattered across channels, your instinct is to…",
     options: [
       { text: "Build a central index or summary for better clarity", style: "Architect" },
@@ -212,7 +212,7 @@ export const questions = [
   },
   {
     id: 23,
-    axis: "Operations",
+    axis: "Place",
     prompt: "When someone asks for help understanding a decision, you tend to…",
     options: [
       { text: "Break down the logic and facts behind it simply", style: "Architect" },
@@ -221,7 +221,7 @@ export const questions = [
   },
   {
     id: 24,
-    axis: "Operations",
+    axis: "Place",
     prompt: "Your main focus when supporting group process is…",
     options: [
       { text: "Creating systematic clarity and functional coherence", style: "Architect" },
@@ -230,7 +230,7 @@ export const questions = [
   },
 
   // =========================================================================
-  // AXIS 4: PURPOSE ALIGNMENT (Visionary vs. Keeper)
+  // AXIS 4: PURPOSE (Visionary vs. Keeper)
   // =========================================================================
   {
     id: 25,
@@ -311,6 +311,7 @@ export const styles = {
     color: "#DC2626",
     rgb: "220, 38, 38",
     slug: "red",
+    pAnchor: "PACE",
     theme: "Momentum, initiation, direction, activation",
     identity: "You move things forward.",
     behavior: "You help groups shift from hesitation to motion — cutting through uncertainty, naming the next step, and getting efforts underway. You’re the person who says, 'Let’s start here,' and suddenly the whole room knows what to do.",
@@ -321,6 +322,7 @@ export const styles = {
     color: "#EA580C",
     rgb: "234, 88, 12",
     slug: "orange",
+    pAnchor: "PEOPLE",
     theme: "Enthusiasm, warmth, amplification, engagement",
     identity: "You spark energy and connection.",
     behavior: "You help people feel interested, welcomed, and emotionally invested in shared work. You’re the person who brings a bright note into the room — the one who makes others lean in and feel excited to participate.",
@@ -331,6 +333,7 @@ export const styles = {
     color: "#D97706",
     rgb: "217, 119, 6",
     slug: "yellow",
+    pAnchor: "PURPOSE",
     theme: "Possibility, imagination, perspective, expansion",
     identity: "You open new paths.",
     behavior: "You help groups see beyond what’s in front of them — offering fresh angles, creative solutions, and perspectives that shift what feels possible. You’re the person who says, 'What if we tried it this way?'",
@@ -341,6 +344,7 @@ export const styles = {
     color: "#16A34A",
     rgb: "22, 163, 74",
     slug: "green",
+    pAnchor: "PACE",
     theme: "Steadiness, reliability, followthrough, continuity",
     identity: "You keep things steady.",
     behavior: "You help groups maintain momentum, consistency, and calm — especially when things feel scattered or uncertain. You’re the person who quietly picks up a task or offers a practical step that helps everyone breathe easier.",
@@ -351,6 +355,7 @@ export const styles = {
     color: "#0284C7",
     rgb: "2, 132, 199",
     slug: "blue",
+    pAnchor: "PLACE",
     theme: "Clarity, structure, synthesis, understanding",
     identity: "You bring things into focus.",
     behavior: "You help groups understand what’s happening, what matters, and how to move forward. You take scattered information, tangled conversations, or unclear updates and turn them into something usable.",
@@ -361,6 +366,7 @@ export const styles = {
     color: "#4F46E5",
     rgb: "79, 70, 229",
     slug: "indigo",
+    pAnchor: "PURPOSE",
     theme: "Continuity, meaning, memory, values",
     identity: "You steady the center.",
     behavior: "You help groups stay connected to what matters most — the purpose, history, and commitments that give shared work depth. You’re the person who remembers why something began and gently brings people back to the heart of things.",
@@ -371,6 +377,7 @@ export const styles = {
     color: "#9333EA",
     rgb: "147, 51, 234",
     slug: "purple",
+    pAnchor: "PEOPLE",
     theme: "Relationship, intuition, attunement, belonging",
     identity: "You help people feel seen.",
     behavior: "You notice subtle emotions, quiet hesitations, and small openings for care. You’re the person who reaches out privately or checks in gently to ensure people feel included and supported.",
@@ -381,6 +388,7 @@ export const styles = {
     color: "#7E22CE",
     rgb: "126, 34, 206",
     slug: "violet",
+    pAnchor: "PLACE",
     theme: "Protection, care, boundaries, steadiness",
     identity: "You protect what matters.",
     behavior: "You help groups feel safe, supported, and grounded — especially when things feel uncertain. You notice when someone needs reassurance, when a boundary needs to be held, or when a group needs to slow down.",
