@@ -22,9 +22,7 @@ body {
     -webkit-font-smoothing: antialiased;
 }
 
-/* ==========================================================================
-   Header Styles
-   ========================================================================== */
+/* Header Styles */
 .quiz-header {
     text-align: left;
     margin-bottom: 1.5rem;
@@ -42,9 +40,7 @@ body {
     margin: 0;
 }
 
-/* ==========================================================================
-   Search Bar
-   ========================================================================== */
+/* Search Bar */
 .search-bar {
     width: 100%;
     margin-bottom: 1.5rem;
@@ -65,9 +61,7 @@ body {
     box-shadow: 0 0 0 3px #1494B933;
 }
 
-/* ==========================================================================
-   Directory Styles
-   ========================================================================== */
+/* Directory Styles */
 .filter-pills {
     display: flex;
     flex-wrap: wrap;
@@ -107,7 +101,7 @@ body {
     border: 1px solid #E2E8F0;
     border-radius: 12px;
     padding: 1.25rem 1.25rem;
-    border-left: 6px solid #CBD5E1; /* Single neutral border aligned with buttons */
+    border-left: 6px solid #CBD5E1;
     text-align: left;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
     display: flex;
@@ -147,7 +141,6 @@ body {
     margin-bottom: 0.5rem;
 }
 
-/* Styled text indicators without dot separators */
 .style-text-container {
     display: flex;
     flex-wrap: wrap;
@@ -168,7 +161,6 @@ body {
     margin-top: auto;
 }
 
-/* Universal neutral styling for the button */
 .btn-pill-soft {
     display: inline-block;
     width: auto !important;
@@ -330,7 +322,11 @@ function renderResources() {
     }
 
     filtered.forEach(res => {
-        // Generate styled text indicators in exact data array order (relevance order)
+        // Dynamic border highlighting if filtered by a specific style
+        const activeColor = (activeStyle !== "All Styles" && styles[activeStyle]) 
+            ? styles[activeStyle].color 
+            : "#CBD5E1";
+
         const styleTextHtml = res.styles.map(styleName => {
             const sInfo = styles[styleName];
             const color = sInfo ? sInfo.color : "#334155";
@@ -343,6 +339,7 @@ function renderResources() {
 
         const card = document.createElement("div");
         card.className = "styleBlock";
+        card.style.borderLeftColor = activeColor;
         card.innerHTML = `
             <div class="card-content">
                 <div class="styleTitle">
