@@ -1,13 +1,15 @@
+// directory-data.js
+
 const styles = {
-    "All Styles": { color: "#334155" },
-    Driver: { color: "#E32322" },
-    Advocate: { color: "#F18E1C" },
-    Visionary: { color: "#D4B000" },
-    Stabilizer: { color: "#5A9129" },
-    Architect: { color: "#2A71B0" },
-    Keeper: { color: "#002060" },
-    Connector: { color: "#6D398B" },
-    Guardian: { color: "#D946EF" }
+    "All Styles": { color: "#334155", pAnchor: "" },
+    Driver: { color: "#DC2626", pAnchor: "PACE" },
+    Advocate: { color: "#EA580C", pAnchor: "PEOPLE" },
+    Visionary: { color: "#D97706", pAnchor: "PURPOSE" },
+    Stabilizer: { color: "#16A34A", pAnchor: "PACE" },
+    Architect: { color: "#0284C7", pAnchor: "PLACE" },
+    Keeper: { color: "#4F46E5", pAnchor: "PURPOSE" },
+    Connector: { color: "#9333EA", pAnchor: "PEOPLE" },
+    Guardian: { color: "#7E22CE", pAnchor: "PLACE" }
 };
 
 const resources = [
