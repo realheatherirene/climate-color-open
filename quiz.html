@@ -269,8 +269,15 @@ function calculateResults() {
         return b.margin - a.margin;
     });
 
+    // Primary style determination
     const primaryKey = axisWinners[0].winner;
-    const secondaryKey = axisWinners[1].winner;
+    
+    // Fallback logic for secondary style to ensure distinct selection
+    let secondaryKey = axisWinners[1].winner;
+    if (secondaryKey === primaryKey) {
+        const nonMatchingWinner = axisWinners.find(w => w.winner !== primaryKey);
+        secondaryKey = nonMatchingWinner ? nonMatchingWinner.winner : (primaryKey === "Driver" ? "Stabilizer" : "Driver");
+    }
 
     renderReveal(primaryKey, secondaryKey, axisWinners);
 }
@@ -352,17 +359,26 @@ function renderReveal(primaryKey, secondaryKey, axisWinners) {
             </div>
         </div>
 
-        <!-- Card 3: Optimized Stewardship Integration -->
+        <!-- Card 3: Simplified & Actionable Integration -->
         <div class="styleBlock" style="border-left-color: ${primary.color}; background: #F8FAFC; border-color: #E2E8F0; border-left-width: 6px;">
-            <div class="styleTitle" style="color: #1E293B; font-size: 1.35rem; margin-bottom: 0.5rem;">
-                What this means for you:
+            <div class="styleTitle" style="color: #1E293B; font-size: 1.25rem; margin-bottom: 0.5rem;">
+                How Your Styles Work Together
             </div>
-            <div style="font-size: 0.95rem; color: #334155; line-height: 1.6; margin-bottom: 1rem;">
+            <div style="font-size: 0.98rem; color: #334155; line-height: 1.6; margin-bottom: 1.15rem;">
                 ${synthesisText}
             </div>
-            <div style="background: #FFFFFF; border: 1px solid #CBD5E1; border-radius: 8px; padding: 0.85rem 1rem; font-size: 0.88rem; color: #475569;">
-                <strong style="color: #0F172A; display: block; margin-bottom: 0.25rem;">Optimizing for pace, people, place, and purpose:</strong>
-                By balancing your dominant <strong>${primaryKey}</strong> inclination (${primary.pAnchor}) with your supporting <strong>${secondaryKey}</strong> orientation (${secondary.pAnchor}), you bridge different core dimensions of climate action. Use your <strong>${primaryKey}</strong> strengths to lead momentum in ${primary.pAnchor.toLowerCase()} while using your <strong>${secondaryKey}</strong> qualities to ground your impact in ${secondary.pAnchor.toLowerCase()}.
+            <div style="background: #FFFFFF; border: 1px solid #CBD5E1; border-radius: 8px; padding: 1rem; font-size: 0.9rem; color: #475569;">
+                <strong style="color: #0F172A; display: block; font-size: 0.95rem; margin-bottom: 0.5rem;">
+                    💡 Your Stewardship Combo:
+                </strong>
+                <ul style="margin: 0; padding-left: 1.2rem; line-height: 1.5;">
+                    <li style="margin-bottom: 0.4rem;">
+                        <strong>Lead with ${primaryKey}:</strong> Use your primary strength to ${primary.theme.toLowerCase()}.
+                    </li>
+                    <li>
+                        <strong>Support with ${secondaryKey}:</strong> Bring in your secondary style to keep work ${secondary.theme.toLowerCase()}.
+                    </li>
+                </ul>
             </div>
         </div>
 
