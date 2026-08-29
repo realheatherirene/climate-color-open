@@ -303,7 +303,7 @@ function renderResources() {
             searchQuery === "" ||
             res.title.toLowerCase().includes(searchQuery) ||
             res.desc.toLowerCase().includes(searchQuery) ||
-            res.type.toLowerCase().includes(searchQuery) ||
+            (res.type && res.type.toLowerCase().includes(searchQuery)) ||
             res.styles.some(s => s.toLowerCase().includes(searchQuery));
 
         return matchesStyle && matchesSearch;
@@ -363,9 +363,13 @@ function renderResources() {
     });
 }
 
-// Initial Execution
-renderPills();
-renderResources();
+// Initial Execution with safety check
+if (typeof styles !== 'undefined' && typeof resources !== 'undefined') {
+    renderPills();
+    renderResources();
+} else {
+    console.error("Directory data failed to load.");
+}
 </script>
 </body>
 </html>
