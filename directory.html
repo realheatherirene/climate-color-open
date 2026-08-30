@@ -155,6 +155,17 @@ body {
     user-select: none;
 }
 
+.type-tag {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: #64748B;
+    background-color: #F1F5F9;
+    padding: 0.2rem 0.5rem;
+    border-radius: 4px;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+}
+
 .cta-container {
     display: flex;
     justify-content: flex-start;
@@ -225,15 +236,18 @@ let rawStyle = urlParams.get('style');
 let activeStyle = "All Styles";
 let searchQuery = "";
 
-// Color-to-Style Alias Map
+// Color-to-Style Alias Map (Aligned with directory-data.js hex colors)
 const styleAliases = {
     red: "Driver",
     orange: "Advocate",
+    amber: "Visionary",
     yellow: "Visionary",
     green: "Stabilizer",
     blue: "Architect",
     indigo: "Keeper",
     purple: "Connector",
+    pink: "Guardian",
+    magenta: "Guardian",
     violet: "Guardian"
 };
 
@@ -337,6 +351,8 @@ function renderResources() {
             `;
         }).join('');
 
+        const typeHtml = res.type ? `<span class="type-tag">${res.type}</span>` : '';
+
         const card = document.createElement("div");
         card.className = "styleBlock";
         card.style.borderLeftColor = activeColor;
@@ -349,6 +365,7 @@ function renderResources() {
                 </div>
                 <div class="styleIdentity">${res.desc}</div>
                 <div class="style-text-container">
+                    ${typeHtml}
                     ${styleTextHtml}
                 </div>
             </div>
