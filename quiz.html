@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Stewardship Quiz | Climate Color</title>
+<title>Stewardship Quiz (Beta) | Climate Color</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -22,6 +22,33 @@ body {
     -webkit-font-smoothing: antialiased;
 }
 
+/* Beta Banner */
+.beta-banner {
+    background-color: #F1F5F9;
+    color: #334155;
+    text-align: center;
+    padding: 0.6rem 1rem;
+    font-size: 0.85rem;
+    border: 1px solid #E2E8F0;
+    border-radius: 8px;
+    margin-bottom: 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+.beta-tag {
+    background-color: #1494B9;
+    color: #FFFFFF;
+    font-size: 0.7rem;
+    font-weight: 700;
+    padding: 0.15rem 0.5rem;
+    border-radius: 9999px;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+}
+
 /* Header Styles */
 .quiz-header {
     text-align: left;
@@ -33,6 +60,9 @@ body {
     color: #1494B9;
     margin: 0 0 0.25rem 0;
     line-height: 1.2;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
 }
 .quiz-header p {
     font-size: 1rem;
@@ -195,16 +225,45 @@ body {
     filter: brightness(0.96);
 }
 
+/* Print Specific Rules */
+@media print {
+    .sticky-results-bar, 
+    .beta-banner, 
+    .cta-container,
+    .btn-sm-action {
+        display: none !important;
+    }
+    body {
+        padding: 0;
+        background: #FFFFFF;
+    }
+    .styleBlock {
+        break-inside: avoid;
+        box-shadow: none;
+        border: 1px solid #CBD5E1;
+    }
+}
+
 @media (max-width: 640px) {
     body { padding: 1.25rem 0.85rem; }
     .quiz-card { padding: 1.25rem; }
     .cta-container { flex-direction: column; gap: 0.5rem; }
     .btn-pill-soft { width: 100%; text-align: center; }
+    .beta-banner { text-align: left; }
 }
 </style>
 </head>
 
 <body>
+<div class="beta-banner">
+    <div>
+        <span class="beta-tag">Active Beta</span> You are viewing an early preview of the Climate Color assessment engine.
+    </div>
+    <div>
+        <a href="mailto:hello@climatecolor.com?subject=Beta%20Feedback" style="color: #1494B9; font-weight: 700; text-decoration: underline;">Share Feedback</a>
+    </div>
+</div>
+
 <header class="quiz-header">
     <h1>Climate Stewardship Quiz</h1>
     <p>Discover your primary and secondary stewardship styles</p>
@@ -534,10 +593,13 @@ function renderReveal(primaryKey, secondaryKey, axisWinners) {
         <!-- Sticky Persistence & Share Bar -->
         <div class="sticky-results-bar">
             <div style="font-size: 0.85rem; font-weight: 700; color: #0F172A;">
-                Results Saved: <span style="color: ${primary.color};">${primaryKey}</span> / <span style="color: ${secondary.color};">${secondaryKey}</span>
+                Results: <span style="color: ${primary.color};">${primaryKey}</span> / <span style="color: ${secondary.color};">${secondaryKey}</span>
             </div>
             <div class="sticky-actions">
-                <button onclick="copyQuizLink('${primaryKey}', '${secondaryKey}')" class="btn-sm-action btn-sm-primary">
+                <button onclick="window.print()" class="btn-sm-action btn-sm-primary">
+                    🖨️ Print / Save PDF
+                </button>
+                <button onclick="copyQuizLink('${primaryKey}', '${secondaryKey}')" class="btn-sm-action">
                     📋 Copy Link
                 </button>
                 <button onclick="resetQuiz()" class="btn-sm-action">
@@ -603,7 +665,7 @@ function renderReveal(primaryKey, secondaryKey, axisWinners) {
         <!-- Card 3: Integration Summary -->
         <div class="styleBlock" style="border-left-color: ${primary.color}; background: #F8FAFC; border-color: #E2E8F0; border-left-width: 6px;">
             <div class="styleTitle" style="color: #1E293B; font-size: 1.25rem; margin-bottom: 0.5rem;">
-                How your styles work together
+                How Your Styles Work Together
             </div>
             <div style="font-size: 0.98rem; color: #334155; line-height: 1.6;">
                 ${synthesisText}
