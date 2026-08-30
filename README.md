@@ -21,6 +21,32 @@ Climate Color is a strengths-based learning and development ecosystem built to a
 
 ---
 
+## ⚖️ Licensing & Attribution
+
+This project is open-access and licensed under the **Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0)** license.
+
+### How to Credit
+
+If you adapt, share, or build upon this work, please include the following attribution:
+
+> **"Climate Color"** by Heather Succio, used under [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/).
+
+For full license terms, visit [Creative Commons](https://creativecommons.org/licenses/by-nc-sa/4.0/).
+
+---
+
+## 💼 Enterprise & Organizational Inquiries
+
+Looking to facilitate Climate Color workshops, run team assessment cohorts, or access enterprise L&D tools for your organization?
+
+We offer facilitated team mapping, B2B toolkits, and organizational resources. Visit [climatecolor.com](https://climatecolor.com) or reach out to **hello@climatecolor.com** to learn more.
+
+---
+
+🌐 *Explore the web app live at [climatecolor.com](https://climatecolor.com)*
+
+---
+
 ## ⚙️ Repository Structure
 
 ```text
