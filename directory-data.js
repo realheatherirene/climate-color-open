@@ -9,7 +9,7 @@ const styles = {
     Architect: { color: "#0284C7", pAnchor: "PLACE" },
     Keeper: { color: "#4F46E5", pAnchor: "PURPOSE" },
     Connector: { color: "#9333EA", pAnchor: "PEOPLE" },
-    Guardian: { color: "#7E22CE", pAnchor: "PLACE" }
+    Guardian: { color: "#7C3AED", pAnchor: "PLACE" }
 };
 
 const resources = [
