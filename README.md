@@ -1,5 +1,5 @@
 # Climate Color
-> A strengths-based learning and development ecosystem built to align human potential with environmental action.
+> a strengths-based learning and development ecosystem aligning human potential with environmental action
 
 ---
 
@@ -50,7 +50,6 @@ We offer facilitated team mapping, B2B toolkits, and organizational resources. V
 ## ⚙️ Repository Structure
 
 ```text
-├── index.html          # Main landing page / ecosystem overview
 ├── quiz.html           # Interactive 4-axis assessment questionnaire
 ├── directory.html      # Filterable climate organization directory
 ├── quiz-data.js        # Questions, style metadata, and synthesis logic
