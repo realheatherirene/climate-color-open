@@ -9,7 +9,7 @@ const styles = {
     Architect: { color: "#0284C7" },
     Keeper: { color: "#4F46E5" },
     Connector: { color: "#9333EA" },
-    Guardian: { color: "#D946EF" }
+    Guardian: { color: "#EE8BFD" }
 };
 
 const resources = [
