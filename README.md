@@ -1,0 +1,32 @@
+# Climate Color
+> A strengths-based learning and development ecosystem built to align human potential with environmental action.
+
+---
+
+## 🎨 About the Project
+Climate Color is a strengths-based learning and development ecosystem built to align human potential with environmental action. By connecting natural behavioral preferences with a dynamic selection of real-world climate education and engagement resources, Climate Color lowers the barrier for entry into the environmental conservation movement. It establishes a shared language for cross-functional collaboration—helping individuals find meaningful direction, teams balance their internal capacity, and community groups coordinate for systemic, long-term impact.
+
+* **Creator:** Heather Succio
+* **Status:** Open Access / Active Beta
+* **License:** Creative Commons (CC BY-NC-SA 4.0)
+
+---
+
+## 🧩 Core Ecosystem Components
+
+* **4-Axis Assessment Matrix:** Evaluates individual and team orientation across Pace, People, Place, and Purpose.
+* **8 Stewardship Color Styles:** Synthesizes scoring profiles into actionable stewardship archetypes (Driver, Advocate, Visionary, Stabilizer, Architect, Keeper, Connector, Guardian).
+* **Secondary Integration Syntheses:** Provides nuanced, dual-style analysis to support multi-faceted roles.
+* **Interactive Directory:** Matches self-assessment results directly to curated organizations, networks, and resources via dynamic category tags.
+
+---
+
+## ⚙️ Repository Structure
+
+```text
+├── index.html          # Main landing page / ecosystem overview
+├── quiz.html           # Interactive 4-axis assessment questionnaire
+├── directory.html      # Filterable climate organization directory
+├── quiz-data.js        # Questions, style metadata, and synthesis logic
+├── directory-data.js   # Dynamic organization database and category tags
+└── README.md           # Project documentation and licensing terms
