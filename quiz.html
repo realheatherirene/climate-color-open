@@ -190,10 +190,11 @@ body {
     line-height: 1.3;
 }
 .styleIdentity {
-    font-size: 1rem;
+    font-size: 1.05rem;
+    font-weight: 700;
     color: #0F172A;
-    line-height: 1.5;
-    margin-bottom: 0.75rem;
+    line-height: 1.4;
+    margin-bottom: 0.5rem;
 }
 .styleAction {
     font-size: 0.92rem;
@@ -282,93 +283,98 @@ body {
 <div id="resultContainer" style="display: none;"></div>
 
 <script>
-// Embedded Master Styles Data
 const styles = {
     Driver: {
-        color: "#DC2626",
-        rgb: "220, 38, 38",
+        color: "#E32322",
+        rgb: "227, 35, 34",
         slug: "red",
-        theme: "Action & Pace",
-        identity: "You are the spark of momentum in climate stewardship. When faced with urgency, you step forward to mobilize resources, lead direct efforts, and break through inertia.",
-        behavior: "You thrive on clear goals, decisive leadership, and tangible outcomes. You naturally push projects across the finish line when others get stuck in debate.",
-        action: "Your gift shines when taking immediate action, launching campaigns, and rallying people around urgent milestones.",
-        watchouts: "Remember to slow down occasionally to ensure team alignment and prevent burnout."
+        anchor: "PACE",
+        identity: "You move things forward.",
+        energy: "Momentum · Initiation · Direction · Activation",
+        contribution: "You help groups shift from hesitation to motion — cutting through uncertainty, naming the next step, and getting efforts underway.",
+        shine: "You excel at launching new efforts, clarifying direction, and helping groups start strong.",
+        watchouts: "You may move faster than others are ready for or feel impatient when things slow down."
     },
     Advocate: {
-        color: "#EA580C",
-        rgb: "234, 88, 12",
+        color: "#F18E1C",
+        rgb: "241, 142, 28",
         slug: "orange",
-        theme: "People & Justice",
-        identity: "You are the voice for systemic change and equity. You center frontline experiences, challenge unfair policies, and champion human rights in climate solutions.",
-        behavior: "You hold institutions accountable and ensure that no community is left out of environmental protection and policy decisions.",
-        action: "Your gift shines when speaking out at public forums, writing policy proposals, and organizing community campaigns.",
-        watchouts: "Guard against cynicism by celebrating small wins and nurturing supportive partnerships."
+        anchor: "PEOPLE",
+        identity: "You spark energy and connection.",
+        energy: "Enthusiasm · Warmth · Amplification · Engagement",
+        contribution: "You help people feel interested, welcomed, and emotionally invested in shared work.",
+        shine: "You excel at encouraging participation, sharing opportunities, and building enthusiasm.",
+        watchouts: "You may take on more emotional responsibility or feel discouraged when enthusiasm doesn’t catch immediately."
     },
     Visionary: {
-        color: "#CA8A04",
-        rgb: "202, 138, 4",
+        color: "#9A7B00",
+        rgb: "154, 123, 0",
         slug: "yellow",
-        theme: "Purpose & Possibility",
-        identity: "You are the beacon of new paradigms. You imagine restored, thriving futures and inspire others to break free from old, limiting assumptions.",
-        behavior: "You think far ahead, connecting creative ideas across disciplines to craft bold, uplifting long-term narratives.",
-        action: "Your gift shines when framing inspiring stories, designing future scenarios, and opening people’s eyes to radical possibilities.",
-        watchouts: "Pair your big-picture visions with concrete next steps so projects gain grounding."
-    },
-    Stabilizer: {
-        color: "#16A34A",
-        rgb: "22, 163, 74",
-        slug: "green",
-        theme: "Pace & Systems",
-        identity: "You are the backbone of sustainable operations. You turn chaotic energy into smooth, dependable processes that keep climate initiatives running for years.",
-        behavior: "You focus on reliability, clear protocols, and steady progress, making sure community work doesn't burn out or break down.",
-        action: "Your gift shines when building operational workflows, managing logistics, and keeping projects grounded and predictable.",
-        watchouts: "Stay open to rapid pivots and strategic risks when situations evolve quickly."
+        anchor: "PURPOSE",
+        identity: "You open new paths.",
+        energy: "Possibility · Imagination · Perspective · Expansion",
+        contribution: "You help groups see beyond what’s in front of them — offering fresh angles and creative solutions.",
+        shine: "You excel at brainstorming, reframing challenges, and illuminating the big picture.",
+        watchouts: "You may generate more ideas than a group can act on or overlook practical constraints."
     },
     Architect: {
-        color: "#0284C7",
-        rgb: "2, 132, 199",
+        color: "#2A71B0",
+        rgb: "42, 113, 176",
         slug: "blue",
-        theme: "Place & Design",
-        identity: "You are the designer of resilient infrastructure. You build analytical frameworks, technological tools, and spatial designs that prepare systems for climate realities.",
-        behavior: "You analyze data, model ecological flows, and design durable systems that stand up to environmental change.",
-        action: "Your gift shines when constructing framework blueprints, optimizing energy systems, and designing spatial resilience.",
-        watchouts: "Remember to include community feedback early so designs fit human needs."
+        anchor: "PLACE",
+        identity: "You bring things into focus.",
+        energy: "Clarity · Structure · Synthesis · Understanding",
+        contribution: "You help groups understand what’s happening, what matters, and how to move forward.",
+        shine: "You excel at summarizing key points, organizing information, and building frameworks.",
+        watchouts: "You may take on more sensemaking than realized or feel frustrated by vagueness."
     },
-    Keeper: {
-        color: "#4F46E5",
-        rgb: "79, 70, 229",
-        slug: "indigo",
-        theme: "Purpose & Wisdom",
-        identity: "You are the guardian of memory and truth. You preserve historical knowledge, institutional principles, and cultural heritage to guide present action.",
-        behavior: "You ground modern climate work in time-tested wisdom, ensuring initiatives maintain integrity and build on past lessons.",
-        action: "Your gift shines when holding space for reflection, archiving stories, and keeping organizations aligned with core values.",
-        watchouts: "Balance reverence for tradition with flexibility for new innovations."
+    Stabilizer: {
+        color: "#5A9129",
+        rgb: "90, 145, 41",
+        slug: "green",
+        anchor: "PACE",
+        identity: "You keep things steady.",
+        energy: "Steadiness · Reliability · Followthrough · Continuity",
+        contribution: "You help groups maintain momentum, consistency, and calm — especially when things feel scattered or uncertain.",
+        shine: "You excel at supporting ongoing efforts, pacing the work, and sustaining progress.",
+        watchouts: "You may take on more small tasks than others notice or feel overlooked for your steady presence."
     },
     Connector: {
-        color: "#9333EA",
-        rgb: "147, 51, 234",
+        color: "#6D398B",
+        rgb: "109, 57, 139",
         slug: "purple",
-        theme: "People & Bridge-Building",
-        identity: "You are the weaver of trust and collaboration. You build relationships across diverse groups, turning isolated efforts into strong, supportive networks.",
-        behavior: "You excel at listening, mediating dialogue, and bringing people together around shared goals and mutual care.",
-        action: "Your gift shines when hosting collaborative gatherings, facilitating dialogues, and building multi-organization coalitions.",
-        watchouts: "Set healthy personal boundaries to avoid taking on everyone else's emotional weight."
+        anchor: "PEOPLE",
+        identity: "You help people feel seen.",
+        energy: "Relationship · Intuition · Attunement · Belonging",
+        contribution: "You notice subtle emotions, quiet hesitations, and small openings for care.",
+        shine: "You excel at checking in privately, supporting quieter voices, and strengthening relational trust.",
+        watchouts: "You may carry quiet emotional labor or feel overly responsible for the feelings of others."
+    },
+    Keeper: {
+        color: "#002060",
+        rgb: "0, 32, 96",
+        slug: "indigo",
+        anchor: "PURPOSE",
+        identity: "You steady the center.",
+        energy: "Continuity · Meaning · Memory · Values",
+        contribution: "You help groups stay connected to what matters most — the purpose, history, and commitments that give shared work depth.",
+        shine: "You excel at stewarding shared values, maintaining rhythm, and protecting the “why.”",
+        watchouts: "You may hold back when quick action is needed or feel uneasy when things shift rapidly."
     },
     Guardian: {
-        color: "#7C3AED",
-        rgb: "124, 58, 237",
+        color: "#D946EF",
+        rgb: "217, 70, 239",
         slug: "violet",
-        theme: "Place & Care",
-        identity: "You are the protector of local ecosystems and community sanctuaries. You nurture habitats, care for living spaces, and steward the land with direct affection.",
-        behavior: "You focus on direct environmental stewardship, ecosystem preservation, and maintaining safe, nourishing community grounds.",
-        action: "Your gift shines when tending community gardens, restoring local habitats, and protecting neighborhood spaces.",
-        watchouts: "Delegate tasks to others so you don't carry the physical burden of care alone."
+        anchor: "PLACE",
+        identity: "You protect what matters.",
+        energy: "Protection · Care · Boundaries · Steadiness",
+        contribution: "You help groups feel safe, supported, and grounded — especially when things feel uncertain.",
+        shine: "You excel at supporting hesitant participants, protecting group tone, and holding boundaries.",
+        watchouts: "You may carry heavy emotional responsibility or hesitate to speak up until boundaries are crossed."
     }
 };
 
-// 32 Assessment Questions
 const questions = [
-    // Axis 1: PACE (Driver vs. Stabilizer)
     { id: 1, text: "When facing a new community issue, what is your immediate instinct?", options: [ { text: "Take immediate action to get things moving fast.", style: "Driver" }, { text: "Step back, establish structure, and ensure stability first.", style: "Stabilizer" } ] },
     { id: 2, text: "How do you handle project timelines?", options: [ { text: "Push for rapid execution and quick wins.", style: "Driver" }, { text: "Focus on consistent, sustainable pacing for the long haul.", style: "Stabilizer" } ] },
     { id: 3, text: "What frustrates you most during group planning?", options: [ { text: "Endless discussions without concrete decisions.", style: "Driver" }, { text: "Rushing into action without a solid operational process.", style: "Stabilizer" } ] },
@@ -377,8 +383,6 @@ const questions = [
     { id: 6, text: "When goals are set, you tend to focus on:", options: [ { text: "Reaching the finish line as quickly and directly as possible.", style: "Driver" }, { text: "Building dependable workflows so no steps are missed.", style: "Stabilizer" } ] },
     { id: 7, text: "What is your preference for organizational change?", options: [ { text: "Disruptive innovation and fast pivots.", style: "Driver" }, { text: "Thoughtful evolution and foundational stability.", style: "Stabilizer" } ] },
     { id: 8, text: "Your work style is best described as:", options: [ { text: "High-energy, direct, and momentum-driven.", style: "Driver" }, { text: "Methodical, reliable, and detail-oriented.", style: "Stabilizer" } ] },
-
-    // Axis 2: PEOPLE (Advocate vs. Connector)
     { id: 9, text: "How do you prefer to drive social or environmental change?", options: [ { text: "Speaking out boldly to challenge policies and norms.", style: "Advocate" }, { text: "Building bridges and fostering relationships across groups.", style: "Connector" } ] },
     { id: 10, text: "What is your primary focus in team meetings?", options: [ { text: "Ensuring marginalized voices and core values are championed.", style: "Advocate" }, { text: "Finding common ground and helping members collaborate smoothly.", style: "Connector" } ] },
     { id: 11, text: "When conflict arises, you usually:", options: [ { text: "Stand firm on principle and address inequities directly.", style: "Advocate" }, { text: "Facilitate dialogue to mend trust and seek consensus.", style: "Connector" } ] },
@@ -387,8 +391,6 @@ const questions = [
     { id: 14, text: "In public outreach, you prefer to:", options: [ { text: "Rally people around a clear, urgent call to justice.", style: "Advocate" }, { text: "Host collaborative spaces where everyone feels included.", style: "Connector" } ] },
     { id: 15, text: "How do you measure community impact?", options: [ { text: "By policy shifts and rights protected.", style: "Advocate" }, { text: "By the strength and trust within the relational network.", style: "Connector" } ] },
     { id: 16, text: "When starting a campaign, your first step is to:", options: [ { text: "Draft a clear declaration of purpose and demands.", style: "Advocate" }, { text: "Reach out to partner organizations and key community members.", style: "Connector" } ] },
-
-    // Axis 3: PLACE (Architect vs. Guardian)
     { id: 17, text: "When looking at your local environment, you tend to think about:", options: [ { text: "Redesigning infrastructure and systems for future resilience.", style: "Architect" }, { text: "Protecting existing ecosystems, heritage, and local wisdom.", style: "Guardian" } ] },
     { id: 18, text: "What type of projects excite you most?", options: [ { text: "Building scalable blueprints, green technology, or framework models.", style: "Architect" }, { text: "Hands-on conservation, habitat restoration, and stewardship of place.", style: "Guardian" } ] },
     { id: 19, text: "How do you approach resource management?", options: [ { text: "Optimizing technical design and resource efficiency.", style: "Architect" }, { text: "Safeguarding natural spaces and honoring ecological limits.", style: "Guardian" } ] },
@@ -397,8 +399,6 @@ const questions = [
     { id: 22, text: "When solving ecological challenges, you lean toward:", options: [ { text: "Engineering novel, systemic solutions.", style: "Architect" }, { text: "Nurturing and restoring proven natural processes.", style: "Guardian" } ] },
     { id: 23, text: "You feel most fulfilled when:", options: [ { text: "A complex new system blueprint is successfully launched.", style: "Architect" }, { text: "A local habitat or community sanctuary is preserved and thriving.", style: "Guardian" } ] },
     { id: 24, text: "Your spatial perspective is primarily focused on:", options: [ { text: "Future structural transformation.", style: "Architect" }, { text: "Present protection and historical continuity.", style: "Guardian" } ] },
-
-    // Axis 4: PURPOSE (Visionary vs. Keeper)
     { id: 25, text: "What guides your overall perspective on climate action?", options: [ { text: "Imagining bold future possibilities and revolutionary ideas.", style: "Visionary" }, { text: "Preserving institutional knowledge, traditions, and core values.", style: "Keeper" } ] },
     { id: 26, text: "When planning for the long term, you focus on:", options: [ { text: "Transformative visions that inspire radical change.", style: "Visionary" }, { text: "Documenting lessons learned and ensuring continuity over time.", style: "Keeper" } ] },
     { id: 27, text: "How do you inspire others?", options: [ { text: "Painting a vivid picture of a regenerated future.", style: "Visionary" }, { text: "Sharing historical wisdom, stories, and proven principles.", style: "Keeper" } ] },
@@ -409,7 +409,6 @@ const questions = [
     { id: 32, text: "When facing uncertainty, you rely on:", options: [ { text: "Forward-looking intuition and expansive imagination.", style: "Visionary" }, { text: "Grounded wisdom and time-tested principles.", style: "Keeper" } ] }
 ];
 
-// Secondary Syntheses Definitions
 const secondarySyntheses = {
     Driver: {
         Advocate: "You combine decisive momentum with bold advocacy, mobilizing rapid action to challenge injustice.",
@@ -486,24 +485,16 @@ const secondarySyntheses = {
 };
 
 let currentQuestion = 0;
-let scores = {
-    Driver: 0, Stabilizer: 0,
-    Advocate: 0, Connector: 0,
-    Architect: 0, Guardian: 0,
-    Visionary: 0, Keeper: 0
-};
+let scores = { Driver: 0, Stabilizer: 0, Advocate: 0, Connector: 0, Architect: 0, Guardian: 0, Visionary: 0, Keeper: 0 };
 
 function renderQuestion() {
     const q = questions[currentQuestion];
     document.getElementById("questionNumber").textContent = `Question ${currentQuestion + 1} of ${questions.length}`;
     document.getElementById("questionText").textContent = q.text;
-    
-    const pct = ((currentQuestion) / questions.length) * 100;
-    document.getElementById("progressBar").style.width = `${pct}%`;
+    document.getElementById("progressBar").style.width = `${(currentQuestion / questions.length) * 100}%`;
 
     const container = document.getElementById("optionsContainer");
     container.innerHTML = "";
-
     q.options.forEach(opt => {
         const btn = document.createElement("button");
         btn.className = "option-btn";
@@ -516,7 +507,6 @@ function renderQuestion() {
 function selectOption(styleKey) {
     scores[styleKey]++;
     currentQuestion++;
-
     if (currentQuestion < questions.length) {
         renderQuestion();
     } else {
@@ -538,143 +528,97 @@ function calculateResults() {
     const axisWinners = axes.map(axis => {
         const scoreA = scores[axis.poleA];
         const scoreB = scores[axis.poleB];
-        const winner = scoreA >= scoreB ? axis.poleA : axis.poleB;
-        const winningScore = Math.max(scoreA, scoreB);
-        const margin = Math.abs(scoreA - scoreB);
-        const pciPct = Math.round((winningScore / 8) * 100);
-
-        return { anchor: axis.anchor, winner, winningScore, margin, pciPct };
+        return { 
+            anchor: axis.anchor, 
+            winner: scoreA >= scoreB ? axis.poleA : axis.poleB, 
+            winningScore: Math.max(scoreA, scoreB), 
+            margin: Math.abs(scoreA - scoreB) 
+        };
     });
 
-    axisWinners.sort((a, b) => {
-        if (b.winningScore !== a.winningScore) return b.winningScore - a.winningScore;
-        return b.margin - a.margin;
-    });
+    axisWinners.sort((a, b) => (b.winningScore !== a.winningScore) ? b.winningScore - a.winningScore : b.margin - a.margin);
 
     const primaryKey = axisWinners[0].winner;
-    
     let secondaryKey = axisWinners[1].winner;
     if (secondaryKey === primaryKey) {
-        const nonMatchingWinner = axisWinners.find(w => w.winner !== primaryKey);
-        secondaryKey = nonMatchingWinner ? nonMatchingWinner.winner : (primaryKey === "Driver" ? "Stabilizer" : "Driver");
+        const alt = axisWinners.find(w => w.winner !== primaryKey);
+        secondaryKey = alt ? alt.winner : (primaryKey === "Driver" ? "Stabilizer" : "Driver");
     }
 
-    // Storage Save
     localStorage.setItem('climatecolor_primary', primaryKey);
     localStorage.setItem('climatecolor_secondary', secondaryKey);
 
-    // Sync URL Parameters
-    const currentUrl = new URL(window.location);
-    currentUrl.searchParams.set('primary', primaryKey);
-    currentUrl.searchParams.set('secondary', secondaryKey);
-    window.history.pushState({}, '', currentUrl);
+    const url = new URL(window.location);
+    url.searchParams.set('primary', primaryKey);
+    url.searchParams.set('secondary', secondaryKey);
+    window.history.pushState({}, '', url);
 
-    renderReveal(primaryKey, secondaryKey, axisWinners);
+    renderReveal(primaryKey, secondaryKey);
 }
 
-function renderReveal(primaryKey, secondaryKey, axisWinners) {
+function renderReveal(primaryKey, secondaryKey) {
     const primary = styles[primaryKey];
     const secondary = styles[secondaryKey] || primary;
-
     const synthesisText = secondarySyntheses[primaryKey]?.[secondaryKey] || 
         `You bring a unique combination of ${primaryKey} initiative and ${secondaryKey} perspective to community stewardship.`;
-
-    const primaryActionText = primary.action.replace(/^Your gift shines when /i, "You shine when ");
-    const secondaryActionText = secondary.action.replace(/^Your gift shines when /i, "You shine when ");
-
-    const primaryBg = `rgba(${primary.rgb}, 0.08)`;
-    const primaryBorder = `rgba(${primary.rgb}, 0.25)`;
-    const secondaryBg = `rgba(${secondary.rgb}, 0.08)`;
-    const secondaryBorder = `rgba(${secondary.rgb}, 0.25)`;
 
     const result = document.getElementById("resultContainer");
     result.style.display = "block";
     result.innerHTML = `
-        <!-- Sticky Persistence & Share Bar -->
         <div class="sticky-results-bar">
             <div style="font-size: 0.85rem; font-weight: 700; color: #0F172A;">
                 Results: <span style="color: ${primary.color};">${primaryKey}</span> / <span style="color: ${secondary.color};">${secondaryKey}</span>
             </div>
             <div class="sticky-actions">
-                <button onclick="window.print()" class="btn-sm-action btn-sm-primary">
-                    🖨️ Print / Save PDF
-                </button>
-                <button onclick="copyQuizLink('${primaryKey}', '${secondaryKey}')" class="btn-sm-action">
-                    📋 Copy Link
-                </button>
-                <button onclick="resetQuiz()" class="btn-sm-action">
-                    🔄 Retake
-                </button>
+                <button onclick="window.print()" class="btn-sm-action btn-sm-primary">Print / Save PDF</button>
+                <button onclick="copyQuizLink('${primaryKey}', '${secondaryKey}')" class="btn-sm-action">Copy Link</button>
+                <button onclick="resetQuiz()" class="btn-sm-action">Retake</button>
             </div>
         </div>
 
-        <!-- Card 1: Primary Stewardship Card -->
         <div class="styleBlock" style="border-left-color: ${primary.color};">
-            <div class="styleTitle" style="color: #1E293B; font-size: 1.35rem; margin-bottom: 0.5rem;">
-                Your primary stewardship style is <span style="color: ${primary.color};">${primaryKey}</span>
-            </div>
-            <div style="font-size: 0.85rem; font-weight: 700; color: #64748B; text-transform: uppercase; margin-bottom: 0.75rem;">
-                THEMES: ${primary.theme.toUpperCase()}
+            <div class="styleTitle" style="color: #1E293B; font-size: 1.35rem; margin-bottom: 0.25rem;">
+                ${primaryKey}
             </div>
             <div class="styleIdentity">${primary.identity}</div>
-            <div style="margin-bottom: 0.85rem; color: #334155;">${primary.behavior}</div>
-            <div class="styleAction">
-                <strong>Where you shine:</strong> ${primaryActionText}
+            <div style="font-size: 0.85rem; font-weight: 700; color: #64748B; text-transform: uppercase; margin-bottom: 0.85rem;">
+                Anchor: ${primary.anchor} &nbsp;|&nbsp; Energy: ${primary.energy}
             </div>
-            <div style="font-size: 0.88rem; color: #64748B; font-style: italic; margin-bottom: 1rem;">
-                <strong>Gentle watchouts:</strong> ${primary.watchouts}
-            </div>
-
+            <div style="margin-bottom: 0.75rem; color: #334155;"><strong>How You Contribute:</strong> ${primary.contribution}</div>
+            <div class="styleAction"><strong>Where You Shine:</strong> ${primary.shine}</div>
+            <div style="font-size: 0.88rem; color: #64748B; font-style: italic; margin-bottom: 1rem;"><strong>Watchouts:</strong> ${primary.watchouts}</div>
             <div class="cta-container">
-                <a href="https://climatecolor.com/${primary.slug}" target="_blank" rel="noopener noreferrer" class="btn-pill-soft" style="background-color: ${primaryBg}; border-color: ${primaryBorder}; color: ${primary.color} !important;">
-                    Explore ${primaryKey} Strengths &rarr;
-                </a>
-                <a href="directory.html?style=${encodeURIComponent(primaryKey)}" class="btn-pill-soft" style="background-color: ${primaryBg}; border-color: ${primaryBorder}; color: ${primary.color} !important;">
+                <a href="directory.html?style=${encodeURIComponent(primaryKey)}" class="btn-pill-soft" style="background-color: rgba(${primary.rgb}, 0.08); border-color: rgba(${primary.rgb}, 0.25); color: ${primary.color} !important;">
                     Explore ${primaryKey} Actions &rarr;
                 </a>
             </div>
         </div>
 
-        <!-- Card 2: Secondary Stewardship Card -->
         <div class="styleBlock" style="border-left-color: ${secondary.color};">
-            <div class="styleTitle" style="color: #1E293B; font-size: 1.15rem; margin-bottom: 0.5rem;">
-                Your secondary stewardship style is <span style="color: ${secondary.color};">${secondaryKey}</span>
+            <div class="styleTitle" style="color: #1E293B; font-size: 1.15rem; margin-bottom: 0.25rem;">
+                Secondary: ${secondaryKey}
             </div>
-            <div style="font-size: 0.8rem; font-weight: 700; color: #64748B; text-transform: uppercase; margin-bottom: 0.75rem;">
-                THEMES: ${secondary.theme.toUpperCase()}
+            <div class="styleIdentity" style="font-size: 0.98rem;">${secondary.identity}</div>
+            <div style="font-size: 0.8rem; font-weight: 700; color: #64748B; text-transform: uppercase; margin-bottom: 0.85rem;">
+                Anchor: ${secondary.anchor} &nbsp;|&nbsp; Energy: ${secondary.energy}
             </div>
-            <div class="styleIdentity" style="font-size: 0.95rem;">${secondary.identity}</div>
-            <div style="margin-bottom: 0.85rem; color: #334155; font-size: 0.92rem;">${secondary.behavior}</div>
-            <div class="styleAction" style="font-size: 0.9rem;">
-                <strong>Where you shine:</strong> ${secondaryActionText}
-            </div>
-            <div style="font-size: 0.85rem; color: #64748B; font-style: italic; margin-bottom: 1rem;">
-                <strong>Gentle watchouts:</strong> ${secondary.watchouts}
-            </div>
-
+            <div style="margin-bottom: 0.75rem; color: #334155; font-size: 0.92rem;"><strong>How You Contribute:</strong> ${secondary.contribution}</div>
+            <div class="styleAction" style="font-size: 0.9rem;"><strong>Where You Shine:</strong> ${secondary.shine}</div>
+            <div style="font-size: 0.85rem; color: #64748B; font-style: italic; margin-bottom: 1rem;"><strong>Watchouts:</strong> ${secondary.watchouts}</div>
             <div class="cta-container">
-                <a href="https://climatecolor.com/${secondary.slug}" target="_blank" rel="noopener noreferrer" class="btn-pill-soft" style="background-color: ${secondaryBg}; border-color: ${secondaryBorder}; color: ${secondary.color} !important;">
-                    Explore ${secondaryKey} Strengths &rarr;
-                </a>
-                <a href="directory.html?style=${encodeURIComponent(secondaryKey)}" class="btn-pill-soft" style="background-color: ${secondaryBg}; border-color: ${secondaryBorder}; color: ${secondary.color} !important;">
+                <a href="directory.html?style=${encodeURIComponent(secondaryKey)}" class="btn-pill-soft" style="background-color: rgba(${secondary.rgb}, 0.08); border-color: rgba(${secondary.rgb}, 0.25); color: ${secondary.color} !important;">
                     Explore ${secondaryKey} Actions &rarr;
                 </a>
             </div>
         </div>
 
-        <!-- Card 3: Integration Summary -->
         <div class="styleBlock" style="border-left-color: ${primary.color}; background: #F8FAFC; border-color: #E2E8F0; border-left-width: 6px;">
-            <div class="styleTitle" style="color: #1E293B; font-size: 1.25rem; margin-bottom: 0.5rem;">
-                How Your Styles Work Together
-            </div>
-            <div style="font-size: 0.98rem; color: #334155; line-height: 1.6;">
-                ${synthesisText}
-            </div>
+            <div class="styleTitle" style="color: #1E293B; font-size: 1.25rem; margin-bottom: 0.5rem;">How Your Styles Work Together</div>
+            <div style="font-size: 0.98rem; color: #334155; line-height: 1.6;">${synthesisText}</div>
         </div>
     `;
 }
 
-// Global Helper Functions
 window.copyQuizLink = function(primaryKey, secondaryKey) {
     const shareUrl = `${window.location.origin}${window.location.pathname}?primary=${primaryKey}&secondary=${secondaryKey}`;
     navigator.clipboard.writeText(shareUrl).then(() => {
@@ -688,19 +632,17 @@ window.resetQuiz = function() {
     window.location.href = window.location.pathname;
 };
 
-// Initialization Check
 document.addEventListener("DOMContentLoaded", () => {
     const urlParams = new URLSearchParams(window.location.search);
     const paramPrimary = urlParams.get('primary');
     const paramSecondary = urlParams.get('secondary');
-    
     const savedPrimary = paramPrimary || localStorage.getItem('climatecolor_primary');
     const savedSecondary = paramSecondary || localStorage.getItem('climatecolor_secondary');
 
     if (savedPrimary && styles[savedPrimary]) {
         document.getElementById("progressBar").style.width = "100%";
         document.getElementById("quizCard").style.display = "none";
-        renderReveal(savedPrimary, savedSecondary || savedPrimary, []);
+        renderReveal(savedPrimary, savedSecondary || savedPrimary);
     } else {
         renderQuestion();
     }
