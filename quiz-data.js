@@ -377,7 +377,7 @@ export const styles = {
     watchouts: "You may hold back when quick action is needed or feel uneasy when things shift rapidly."
   },
   Guardian: {
-    color: "#D946EF",
+    color: "#EE8BFD",
     rgb: "217, 70, 239",
     slug: "violet",
     anchor: "PLACE",
