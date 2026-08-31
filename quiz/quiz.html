@@ -19,7 +19,6 @@
     --bg-light: #F8FAFC;
     --border-color: #E2E8F0;
     
-    /* Style Color Fallbacks (Aligned with Atlas CSS) */
     --driver-color: #DC2626;
     --advocate-color: #EA580C;
     --visionary-color: #E1B809;
@@ -216,6 +215,11 @@ body {
     line-height: 1.5;
     margin-bottom: 0.75rem;
 }
+.styleAction {
+    font-size: 0.92rem;
+    color: #334155;
+    margin-bottom: 0.75rem;
+}
 
 /* Button & Pill Utilities */
 .cta-container {
@@ -233,6 +237,7 @@ body {
     border-radius: 9999px;
     border: 1px solid #CBD5E1;
     background-color: var(--bg-light);
+    color: #334155 !important;
     transition: all 0.15s ease;
 }
 .btn-pill-soft:hover {
@@ -393,56 +398,78 @@ function renderReveal(primaryKey, secondaryKey) {
         secondarySyntheses[secondaryKey]?.[primaryKey] ||
         `Combines ${primaryKey} leadership with ${secondaryKey} perspective.`;
 
+    const primaryActionText = primary.action ? primary.action.replace(/^Your gift shines when /i, "You shine when ") : "";
+    const secondaryActionText = secondary.action ? secondary.action.replace(/^Your gift shines when /i, "You shine when ") : "";
+
+    const primaryBg = `rgba(${primary.rgb}, 0.08)`;
+    const primaryBorder = `rgba(${primary.rgb}, 0.25)`;
+    const secondaryBg = `rgba(${secondary.rgb}, 0.08)`;
+    const secondaryBorder = `rgba(${secondary.rgb}, 0.25)`;
+
     const result = document.getElementById("resultContainer");
     result.style.display = "block";
     result.innerHTML = `
-        <!-- Sticky Persistence & Share Bar -->
+        <!-- Sticky Persistence Bar -->
         <div class="sticky-results-bar">
             <div style="font-size: 0.85rem; font-weight: 700; color: var(--text-main);">
                 Results: <span style="color: ${primary.color};">${primaryKey}</span> / <span style="color: ${secondary.color};">${secondaryKey}</span>
             </div>
             <div class="sticky-actions">
-                <button id="btnPrint" class="btn-sm-action btn-sm-primary">
-                    🖨️ Print / Save PDF
-                </button>
-                <button id="btnCopy" class="btn-sm-action">
-                    📋 Copy Link
-                </button>
-                <button id="btnReset" class="btn-sm-action">
-                    🔄 Retake
-                </button>
+                <button id="btnPrint" class="btn-sm-action btn-sm-primary">🖨️ Print / Save PDF</button>
+                <button id="btnCopy" class="btn-sm-action">📋 Copy Link</button>
+                <button id="btnReset" class="btn-sm-action">🔄 Retake</button>
             </div>
         </div>
 
-        <!-- Primary Style Card -->
+        <!-- Primary Stewardship Card -->
         <div class="styleBlock" style="border-left-color: ${primary.color};">
             <div class="styleTitle" style="color: var(--text-main); font-size: 1.35rem; margin-bottom: 0.5rem;">
                 Your primary stewardship style is <span style="color: ${primary.color};">${primaryKey}</span>
             </div>
             <div style="font-size: 0.85rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; margin-bottom: 0.75rem;">
-                ANCHOR: ${primary.pAnchor}
+                THEMES: ${primary.theme.toUpperCase()}
             </div>
-            <div class="styleIdentity">${primary.description}</div>
+            <div class="styleIdentity">${primary.identity}</div>
+            <div style="margin-bottom: 0.85rem; color: #334155;">${primary.behavior}</div>
+            <div class="styleAction">
+                <strong>Where you shine:</strong> ${primaryActionText}
+            </div>
+            <div style="font-size: 0.88rem; color: var(--text-muted); font-style: italic; margin-bottom: 1rem;">
+                <strong>Gentle watchouts:</strong> ${primary.watchouts}
+            </div>
 
             <div class="cta-container">
-                <a href="directory.html?style=${encodeURIComponent(primaryKey)}" class="btn-pill-soft" style="color: ${primary.color} !important; border-color: ${primary.color};">
+                <a href="https://climatecolor.com/${primary.slug}" target="_blank" rel="noopener noreferrer" class="btn-pill-soft" style="background-color: ${primaryBg}; border-color: ${primaryBorder}; color: ${primary.color} !important;">
+                    Explore ${primaryKey} Strengths &rarr;
+                </a>
+                <a href="directory.html?style=${encodeURIComponent(primaryKey)}" class="btn-pill-soft" style="background-color: ${primaryBg}; border-color: ${primaryBorder}; color: ${primary.color} !important;">
                     Explore ${primaryKey} Actions &rarr;
                 </a>
             </div>
         </div>
 
-        <!-- Secondary Style Card -->
+        <!-- Secondary Stewardship Card -->
         <div class="styleBlock" style="border-left-color: ${secondary.color};">
             <div class="styleTitle" style="color: var(--text-main); font-size: 1.15rem; margin-bottom: 0.5rem;">
                 Your secondary stewardship style is <span style="color: ${secondary.color};">${secondaryKey}</span>
             </div>
             <div style="font-size: 0.8rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; margin-bottom: 0.75rem;">
-                ANCHOR: ${secondary.pAnchor}
+                THEMES: ${secondary.theme.toUpperCase()}
             </div>
-            <div class="styleIdentity" style="font-size: 0.95rem;">${secondary.description}</div>
+            <div class="styleIdentity" style="font-size: 0.95rem;">${secondary.identity}</div>
+            <div style="margin-bottom: 0.85rem; color: #334155; font-size: 0.92rem;">${secondary.behavior}</div>
+            <div class="styleAction" style="font-size: 0.9rem;">
+                <strong>Where you shine:</strong> ${secondaryActionText}
+            </div>
+            <div style="font-size: 0.85rem; color: var(--text-muted); font-style: italic; margin-bottom: 1rem;">
+                <strong>Gentle watchouts:</strong> ${secondary.watchouts}
+            </div>
 
             <div class="cta-container">
-                <a href="directory.html?style=${encodeURIComponent(secondaryKey)}" class="btn-pill-soft" style="color: ${secondary.color} !important; border-color: ${secondary.color};">
+                <a href="https://climatecolor.com/${secondary.slug}" target="_blank" rel="noopener noreferrer" class="btn-pill-soft" style="background-color: ${secondaryBg}; border-color: ${secondaryBorder}; color: ${secondary.color} !important;">
+                    Explore ${secondaryKey} Strengths &rarr;
+                </a>
+                <a href="directory.html?style=${encodeURIComponent(secondaryKey)}" class="btn-pill-soft" style="background-color: ${secondaryBg}; border-color: ${secondaryBorder}; color: ${secondary.color} !important;">
                     Explore ${secondaryKey} Actions &rarr;
                 </a>
             </div>
@@ -474,7 +501,7 @@ function renderReveal(primaryKey, secondaryKey) {
     };
 }
 
-// Initialization
+// Initialization Check
 document.addEventListener("DOMContentLoaded", () => {
     const urlParams = new URLSearchParams(window.location.search);
     const paramPrimary = urlParams.get('primary');
