@@ -283,10 +283,11 @@ body {
 <div id="resultContainer" style="display: none;"></div>
 
 <script>
+// Synchronized with Atlas CSS Source of Truth
 const styles = {
     Driver: {
-        color: "#E32322",
-        rgb: "227, 35, 34",
+        color: "#DC2626",
+        rgb: "220, 38, 38",
         slug: "red",
         anchor: "PACE",
         identity: "You move things forward.",
@@ -296,8 +297,8 @@ const styles = {
         watchouts: "You may move faster than others are ready for or feel impatient when things slow down."
     },
     Advocate: {
-        color: "#F18E1C",
-        rgb: "241, 142, 28",
+        color: "#EA580C",
+        rgb: "234, 88, 12",
         slug: "orange",
         anchor: "PEOPLE",
         identity: "You spark energy and connection.",
@@ -307,8 +308,8 @@ const styles = {
         watchouts: "You may take on more emotional responsibility or feel discouraged when enthusiasm doesn’t catch immediately."
     },
     Visionary: {
-        color: "#9A7B00",
-        rgb: "154, 123, 0",
+        color: "#E1B809",
+        rgb: "225, 184, 9",
         slug: "yellow",
         anchor: "PURPOSE",
         identity: "You open new paths.",
@@ -318,8 +319,8 @@ const styles = {
         watchouts: "You may generate more ideas than a group can act on or overlook practical constraints."
     },
     Architect: {
-        color: "#2A71B0",
-        rgb: "42, 113, 176",
+        color: "#0284C7",
+        rgb: "2, 132, 199",
         slug: "blue",
         anchor: "PLACE",
         identity: "You bring things into focus.",
@@ -329,8 +330,8 @@ const styles = {
         watchouts: "You may take on more sensemaking than realized or feel frustrated by vagueness."
     },
     Stabilizer: {
-        color: "#5A9129",
-        rgb: "90, 145, 41",
+        color: "#16A34A",
+        rgb: "22, 163, 74",
         slug: "green",
         anchor: "PACE",
         identity: "You keep things steady.",
@@ -340,8 +341,8 @@ const styles = {
         watchouts: "You may take on more small tasks than others notice or feel overlooked for your steady presence."
     },
     Connector: {
-        color: "#6D398B",
-        rgb: "109, 57, 139",
+        color: "#9333EA",
+        rgb: "147, 51, 234",
         slug: "purple",
         anchor: "PEOPLE",
         identity: "You help people feel seen.",
@@ -351,8 +352,8 @@ const styles = {
         watchouts: "You may carry quiet emotional labor or feel overly responsible for the feelings of others."
     },
     Keeper: {
-        color: "#002060",
-        rgb: "0, 32, 96",
+        color: "#4F46E5",
+        rgb: "79, 70, 229",
         slug: "indigo",
         anchor: "PURPOSE",
         identity: "You steady the center.",
@@ -557,13 +558,19 @@ function calculateResults() {
 }
 
 function renderReveal(primaryKey, secondaryKey) {
-    const primary = styles[primaryKey];
+    // Fallback checks against undefined keys
+    const primary = styles[primaryKey] || styles.Driver;
     const secondary = styles[secondaryKey] || primary;
     const synthesisText = secondarySyntheses[primaryKey]?.[secondaryKey] || 
         `You bring a unique combination of ${primaryKey} initiative and ${secondaryKey} perspective to community stewardship.`;
 
     const result = document.getElementById("resultContainer");
     result.style.display = "block";
+    
+    // Encoded URL query string variables protect against basic inline string injection
+    const encodedPrimary = encodeURIComponent(primaryKey);
+    const encodedSecondary = encodeURIComponent(secondaryKey);
+
     result.innerHTML = `
         <div class="sticky-results-bar">
             <div style="font-size: 0.85rem; font-weight: 700; color: #0F172A;">
@@ -571,7 +578,7 @@ function renderReveal(primaryKey, secondaryKey) {
             </div>
             <div class="sticky-actions">
                 <button onclick="window.print()" class="btn-sm-action btn-sm-primary">Print / Save PDF</button>
-                <button onclick="copyQuizLink('${primaryKey}', '${secondaryKey}')" class="btn-sm-action">Copy Link</button>
+                <button onclick="copyQuizLink('${encodedPrimary}', '${encodedSecondary}')" class="btn-sm-action">Copy Link</button>
                 <button onclick="resetQuiz()" class="btn-sm-action">Retake</button>
             </div>
         </div>
@@ -588,7 +595,7 @@ function renderReveal(primaryKey, secondaryKey) {
             <div class="styleAction"><strong>Where You Shine:</strong> ${primary.shine}</div>
             <div style="font-size: 0.88rem; color: #64748B; font-style: italic; margin-bottom: 1rem;"><strong>Watchouts:</strong> ${primary.watchouts}</div>
             <div class="cta-container">
-                <a href="directory.html?style=${encodeURIComponent(primaryKey)}" class="btn-pill-soft" style="background-color: rgba(${primary.rgb}, 0.08); border-color: rgba(${primary.rgb}, 0.25); color: ${primary.color} !important;">
+                <a href="directory.html?style=${encodedPrimary}" class="btn-pill-soft" style="background-color: rgba(${primary.rgb}, 0.08); border-color: rgba(${primary.rgb}, 0.25); color: ${primary.color} !important;">
                     Explore ${primaryKey} Actions &rarr;
                 </a>
             </div>
@@ -606,7 +613,7 @@ function renderReveal(primaryKey, secondaryKey) {
             <div class="styleAction" style="font-size: 0.9rem;"><strong>Where You Shine:</strong> ${secondary.shine}</div>
             <div style="font-size: 0.85rem; color: #64748B; font-style: italic; margin-bottom: 1rem;"><strong>Watchouts:</strong> ${secondary.watchouts}</div>
             <div class="cta-container">
-                <a href="directory.html?style=${encodeURIComponent(secondaryKey)}" class="btn-pill-soft" style="background-color: rgba(${secondary.rgb}, 0.08); border-color: rgba(${secondary.rgb}, 0.25); color: ${secondary.color} !important;">
+                <a href="directory.html?style=${encodedSecondary}" class="btn-pill-soft" style="background-color: rgba(${secondary.rgb}, 0.08); border-color: rgba(${secondary.rgb}, 0.25); color: ${secondary.color} !important;">
                     Explore ${secondaryKey} Actions &rarr;
                 </a>
             </div>
@@ -620,10 +627,14 @@ function renderReveal(primaryKey, secondaryKey) {
 }
 
 window.copyQuizLink = function(primaryKey, secondaryKey) {
-    const shareUrl = `${window.location.origin}${window.location.pathname}?primary=${primaryKey}&secondary=${secondaryKey}`;
-    navigator.clipboard.writeText(shareUrl).then(() => {
-        alert("Link copied to clipboard! You can paste or bookmark this URL to return to your results anytime.");
-    });
+    const shareUrl = `${window.location.origin}${window.location.pathname}?primary=${encodeURIComponent(primaryKey)}&secondary=${encodeURIComponent(secondaryKey)}`;
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(shareUrl)
+            .then(() => alert("Link copied to clipboard! You can paste or bookmark this URL to return to your results anytime."))
+            .catch(() => prompt("Copy your share link below:", shareUrl));
+    } else {
+        prompt("Copy your share link below:", shareUrl);
+    }
 };
 
 window.resetQuiz = function() {
@@ -636,13 +647,18 @@ document.addEventListener("DOMContentLoaded", () => {
     const urlParams = new URLSearchParams(window.location.search);
     const paramPrimary = urlParams.get('primary');
     const paramSecondary = urlParams.get('secondary');
-    const savedPrimary = paramPrimary || localStorage.getItem('climatecolor_primary');
-    const savedSecondary = paramSecondary || localStorage.getItem('climatecolor_secondary');
 
-    if (savedPrimary && styles[savedPrimary]) {
+    // Strict XSS Sanitization: Ensure param exists inside known styles object keys
+    const validPrimary = (paramPrimary && styles[paramPrimary]) ? paramPrimary : 
+                         (localStorage.getItem('climatecolor_primary') && styles[localStorage.getItem('climatecolor_primary')]) ? localStorage.getItem('climatecolor_primary') : null;
+
+    const validSecondary = (paramSecondary && styles[paramSecondary]) ? paramSecondary : 
+                           (localStorage.getItem('climatecolor_secondary') && styles[localStorage.getItem('climatecolor_secondary')]) ? localStorage.getItem('climatecolor_secondary') : validPrimary;
+
+    if (validPrimary) {
         document.getElementById("progressBar").style.width = "100%";
         document.getElementById("quizCard").style.display = "none";
-        renderReveal(savedPrimary, savedSecondary || savedPrimary);
+        renderReveal(validPrimary, validSecondary);
     } else {
         renderQuestion();
     }
