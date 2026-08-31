@@ -10,13 +10,111 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=ADLaM+Display&family=Varela+Round&display=swap" rel="stylesheet">
 
-<!-- Atlas Styles -->
+<!-- Universal Atlas Theme -->
 <link rel="stylesheet" href="../atlas/atlas.css">
+
+<style>
+/* Page Layout */
+body {
+    font-family: 'Varela Round', sans-serif;
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 2rem 1rem 3rem;
+    line-height: 1.6;
+}
+
+/* Header */
+.pathway-header {
+    margin-bottom: 1.75rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--border-color);
+}
+.pathway-header h1 {
+    font-family: 'ADLaM Display', 'Varela Round', sans-serif;
+    font-size: 2rem;
+    color: var(--driver-color);
+    margin: 0 0 0.35rem 0;
+}
+.pathway-header p {
+    font-size: 1rem;
+    color: var(--text-secondary);
+    margin: 0;
+}
+
+/* Section Titles */
+.section-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-top: 1.75rem;
+    margin-bottom: 0.5rem;
+}
+
+/* Body Text */
+.pathway-section p {
+    color: var(--text-secondary);
+    margin-bottom: 0.75rem;
+    font-size: 0.98rem;
+}
+
+/* Lists */
+.section-list {
+    padding-left: 1.25rem;
+    margin-bottom: 0.75rem;
+}
+.section-list li {
+    margin-bottom: 0.4rem;
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+}
+
+/* Invitation Block */
+.pathway-invitation {
+    margin-top: 2rem;
+    padding-left: 0.85rem;
+    border-left: 6px solid var(--driver-color);
+    background-color: var(--bg-secondary);
+    padding-top: 0.75rem;
+    padding-bottom: 0.75rem;
+    border-radius: 6px;
+}
+.invitation-quote {
+    font-style: italic;
+    color: var(--text-secondary);
+    margin: 0.75rem 0;
+}
+
+/* Buttons */
+.pathway-footer {
+    margin-top: 2.5rem;
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+}
+.btn-pill-soft {
+    display: inline-block;
+    padding: 0.55rem 1.2rem;
+    font-size: 0.9rem;
+    font-weight: 700;
+    border-radius: 9999px;
+    text-decoration: none;
+    border: 1px solid var(--driver-color);
+    background-color: color-mix(in srgb, var(--driver-color) 12%, transparent);
+    color: var(--driver-color);
+    transition: all 0.15s ease;
+}
+.btn-pill-soft:hover {
+    background-color: color-mix(in srgb, var(--driver-color) 25%, transparent);
+    transform: translateY(-1px);
+}
+</style>
 </head>
 
-<body class="pathway-page pathway-driver">
+<body>
 
-<main class="pathway-container">
+<main>
 
     <!-- Header -->
     <header class="pathway-header">
