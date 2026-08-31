@@ -5,7 +5,7 @@
 <title>Stewardship Quiz (Beta) | Climate Color</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous" referrerpolicy="no-referrer">
 <link href="https://fonts.googleapis.com/css2?family=ADLaM+Display&family=Varela+Round&display=swap" rel="stylesheet">
 
 <style>
@@ -128,10 +128,12 @@ body {
     cursor: pointer;
     transition: all 0.15s ease;
 }
-.option-btn:hover {
+.option-btn:hover, .option-btn:focus {
     border-color: #1494B9;
     background: #F0F9FF;
     transform: translateY(-1px);
+    outline: 2px solid #1494B9;
+    outline-offset: 1px;
 }
 
 /* Sticky Persistence Bar */
@@ -270,20 +272,20 @@ body {
     <p>Discover your primary and secondary stewardship styles</p>
 </header>
 
-<div class="progress-container">
+<div class="progress-container" role="progressbar" aria-label="Quiz progress" aria-valuemin="0" aria-valuemax="100" id="progressContainer">
     <div id="progressBar" class="progress-bar"></div>
 </div>
 
-<div id="quizCard" class="quiz-card">
+<main id="quizCard" class="quiz-card" aria-live="polite">
     <div id="questionNumber" class="question-number">Question 1 of 32</div>
-    <div id="questionText" class="question-text"></div>
+    <h2 id="questionText" class="question-text"></h2>
     <div id="optionsContainer" class="options-container"></div>
-</div>
+</main>
 
-<div id="resultContainer" style="display: none;"></div>
+<div id="resultContainer" style="display: none;" aria-live="polite"></div>
 
 <script>
-// Synchronized with Atlas CSS Source of Truth
+// Synchronized strictly with Atlas CSS Source of Truth
 const styles = {
     Driver: {
         color: "#DC2626",
@@ -375,39 +377,47 @@ const styles = {
     }
 };
 
+// Updated from Source of Truth (quiz-data.js)
 const questions = [
-    { id: 1, text: "When facing a new community issue, what is your immediate instinct?", options: [ { text: "Take immediate action to get things moving fast.", style: "Driver" }, { text: "Step back, establish structure, and ensure stability first.", style: "Stabilizer" } ] },
-    { id: 2, text: "How do you handle project timelines?", options: [ { text: "Push for rapid execution and quick wins.", style: "Driver" }, { text: "Focus on consistent, sustainable pacing for the long haul.", style: "Stabilizer" } ] },
-    { id: 3, text: "What frustrates you most during group planning?", options: [ { text: "Endless discussions without concrete decisions.", style: "Driver" }, { text: "Rushing into action without a solid operational process.", style: "Stabilizer" } ] },
-    { id: 4, text: "In a crisis, what role do you naturally step into?", options: [ { text: "The decisive leader rallying people to move.", style: "Driver" }, { text: "The calming force grounding the team and organizing logistics.", style: "Stabilizer" } ] },
-    { id: 5, text: "How do you define progress?", options: [ { text: "Bold milestones hit and barriers broken.", style: "Driver" }, { text: "Reliable systems built and steady improvements maintained.", style: "Stabilizer" } ] },
-    { id: 6, text: "When goals are set, you tend to focus on:", options: [ { text: "Reaching the finish line as quickly and directly as possible.", style: "Driver" }, { text: "Building dependable workflows so no steps are missed.", style: "Stabilizer" } ] },
-    { id: 7, text: "What is your preference for organizational change?", options: [ { text: "Disruptive innovation and fast pivots.", style: "Driver" }, { text: "Thoughtful evolution and foundational stability.", style: "Stabilizer" } ] },
-    { id: 8, text: "Your work style is best described as:", options: [ { text: "High-energy, direct, and momentum-driven.", style: "Driver" }, { text: "Methodical, reliable, and detail-oriented.", style: "Stabilizer" } ] },
-    { id: 9, text: "How do you prefer to drive social or environmental change?", options: [ { text: "Speaking out boldly to challenge policies and norms.", style: "Advocate" }, { text: "Building bridges and fostering relationships across groups.", style: "Connector" } ] },
-    { id: 10, text: "What is your primary focus in team meetings?", options: [ { text: "Ensuring marginalized voices and core values are championed.", style: "Advocate" }, { text: "Finding common ground and helping members collaborate smoothly.", style: "Connector" } ] },
-    { id: 11, text: "When conflict arises, you usually:", options: [ { text: "Stand firm on principle and address inequities directly.", style: "Advocate" }, { text: "Facilitate dialogue to mend trust and seek consensus.", style: "Connector" } ] },
-    { id: 12, text: "Your greatest strength in advocacy is:", options: [ { text: "Persuasive messaging and passionate defense of a cause.", style: "Advocate" }, { text: "Networking, coalition-building, and connecting people to resources.", style: "Connector" } ] },
-    { id: 13, text: "What motivates you to join an initiative?", options: [ { text: "Fighting against systemic injustice or environmental harm.", style: "Advocate" }, { text: "Uniting diverse individuals around a shared community vision.", style: "Connector" } ] },
-    { id: 14, text: "In public outreach, you prefer to:", options: [ { text: "Rally people around a clear, urgent call to justice.", style: "Advocate" }, { text: "Host collaborative spaces where everyone feels included.", style: "Connector" } ] },
-    { id: 15, text: "How do you measure community impact?", options: [ { text: "By policy shifts and rights protected.", style: "Advocate" }, { text: "By the strength and trust within the relational network.", style: "Connector" } ] },
-    { id: 16, text: "When starting a campaign, your first step is to:", options: [ { text: "Draft a clear declaration of purpose and demands.", style: "Advocate" }, { text: "Reach out to partner organizations and key community members.", style: "Connector" } ] },
-    { id: 17, text: "When looking at your local environment, you tend to think about:", options: [ { text: "Redesigning infrastructure and systems for future resilience.", style: "Architect" }, { text: "Protecting existing ecosystems, heritage, and local wisdom.", style: "Guardian" } ] },
-    { id: 18, text: "What type of projects excite you most?", options: [ { text: "Building scalable blueprints, green technology, or framework models.", style: "Architect" }, { text: "Hands-on conservation, habitat restoration, and stewardship of place.", style: "Guardian" } ] },
-    { id: 19, text: "How do you approach resource management?", options: [ { text: "Optimizing technical design and resource efficiency.", style: "Architect" }, { text: "Safeguarding natural spaces and honoring ecological limits.", style: "Guardian" } ] },
-    { id: 20, text: "What is your main priority for urban or rural spaces?", options: [ { text: "Innovative structural re-engineering and smart planning.", style: "Architect" }, { text: "Deep care, maintenance, and defense against degradation.", style: "Guardian" } ] },
-    { id: 21, text: "Your analytical focus usually lands on:", options: [ { text: "System architecture, data flows, and structural design.", style: "Architect" }, { text: "Ecosystem balance, historical context, and local biodiversity.", style: "Guardian" } ] },
-    { id: 22, text: "When solving ecological challenges, you lean toward:", options: [ { text: "Engineering novel, systemic solutions.", style: "Architect" }, { text: "Nurturing and restoring proven natural processes.", style: "Guardian" } ] },
-    { id: 23, text: "You feel most fulfilled when:", options: [ { text: "A complex new system blueprint is successfully launched.", style: "Architect" }, { text: "A local habitat or community sanctuary is preserved and thriving.", style: "Guardian" } ] },
-    { id: 24, text: "Your spatial perspective is primarily focused on:", options: [ { text: "Future structural transformation.", style: "Architect" }, { text: "Present protection and historical continuity.", style: "Guardian" } ] },
-    { id: 25, text: "What guides your overall perspective on climate action?", options: [ { text: "Imagining bold future possibilities and revolutionary ideas.", style: "Visionary" }, { text: "Preserving institutional knowledge, traditions, and core values.", style: "Keeper" } ] },
-    { id: 26, text: "When planning for the long term, you focus on:", options: [ { text: "Transformative visions that inspire radical change.", style: "Visionary" }, { text: "Documenting lessons learned and ensuring continuity over time.", style: "Keeper" } ] },
-    { id: 27, text: "How do you inspire others?", options: [ { text: "Painting a vivid picture of a regenerated future.", style: "Visionary" }, { text: "Sharing historical wisdom, stories, and proven principles.", style: "Keeper" } ] },
-    { id: 28, text: "What is your approach to tradition?", options: [ { text: "Challenge it to make room for breakthrough innovation.", style: "Visionary" }, { text: "Honor and adapt it to keep essential wisdom alive.", style: "Keeper" } ] },
-    { id: 29, text: "In discussions, you are most likely to ask:", options: [ { text: "'What if we thought completely outside existing bounds?'", style: "Visionary" }, { text: "'What can past experience teach us about this moment?'", style: "Keeper" } ] },
-    { id: 30, text: "Your creative energy is driven by:", options: [ { text: "Exploring uncharted territory and original concepts.", style: "Visionary" }, { text: "Curating, archiving, and holding space for foundational truths.", style: "Keeper" } ] },
-    { id: 31, text: "What do you consider your greatest contribution?", options: [ { text: "Sparking paradigm shifts and bold new paradigms.", style: "Visionary" }, { text: "Maintaining integrity, memory, and steady purpose.", style: "Keeper" } ] },
-    { id: 32, text: "When facing uncertainty, you rely on:", options: [ { text: "Forward-looking intuition and expansive imagination.", style: "Visionary" }, { text: "Grounded wisdom and time-tested principles.", style: "Keeper" } ] }
+  // AXIS 1: PACE (Driver vs. Stabilizer)
+  { id: 1, text: "A small group is considering taking on a shared task. You tend to…", options: [ { text: "Offer a quick nudge so the group can get moving right away", style: "Driver" }, { text: "Establish a steady, manageable rhythm before getting started", style: "Stabilizer" } ] },
+  { id: 2, text: "A shared effort is slowing down. You tend to…", options: [ { text: "Suggest a clear next step to regain momentum immediately", style: "Driver" }, { text: "Take on one practical task to keep current progress steady", style: "Stabilizer" } ] },
+  { id: 3, text: "A group is drifting without a clear path forward. You tend to…", options: [ { text: "Inject fresh direction to accelerate the pace of decision-making", style: "Driver" }, { text: "Help re-establish a reliable baseline so people can regain focus", style: "Stabilizer" } ] },
+  { id: 4, text: "When a project hits a lull or plateau, your instinct is to…", options: [ { text: "Introduce a bold starting point to re-energize forward progress", style: "Driver" }, { text: "Maintain steady routines until natural momentum returns", style: "Stabilizer" } ] },
+  { id: 5, text: "When leading or supporting a simple initiative, you focus on…", options: [ { text: "Reaching key milestones quickly to maintain progress", style: "Driver" }, { text: "Pacing work sustainably so the team avoids burnout", style: "Stabilizer" } ] },
+  { id: 6, text: "A task needs volunteers in your community. You tend to…", options: [ { text: "Step up immediately to spur action by example", style: "Driver" }, { text: "Quietly handle behind-the-scenes work to support ongoing flow", style: "Stabilizer" } ] },
+  { id: 7, text: "When a discussion stalls, you prefer to…", options: [ { text: "Propose a simple decision right now to break the bottleneck", style: "Driver" }, { text: "Give people space to process at their own natural speed", style: "Stabilizer" } ] },
+  { id: 8, text: "Your primary contribution to group momentum is…", options: [ { text: "Sparking initiation and pushing past inertia", style: "Driver" }, { text: "Providing consistent follow-through and operational calm", style: "Stabilizer" } ] },
+
+  // AXIS 2: PEOPLE (Advocate vs. Connector)
+  { id: 9, text: "A small opportunity is shared with your community. You tend to…", options: [ { text: "Highlight why it matters broadly to inspire wider participation", style: "Advocate" }, { text: "Send it directly to a specific person who would benefit", style: "Connector" } ] },
+  { id: 10, text: "You come across a useful resource for your community. You tend to…", options: [ { text: "Share it widely in a main channel with an encouraging note", style: "Advocate" }, { text: "Reach out 1-on-1 to someone who might appreciate it", style: "Connector" } ] },
+  { id: 11, text: "A newcomer joins a group you belong to. You tend to…", options: [ { text: "Give a warm public welcome to spark energy in the room", style: "Advocate" }, { text: "Check in with them privately to help them feel comfortable", style: "Connector" } ] },
+  { id: 12, text: "A community member shares a personal milestone or win. You tend to…", options: [ { text: "Celebrate publicly with enthusiasm to build shared joy", style: "Advocate" }, { text: "Send a thoughtful personal message of connection", style: "Connector" } ] },
+  { id: 13, text: "When encouraging participation in an event, you prefer to…", options: [ { text: "Amplify enthusiasm across the whole group", style: "Advocate" }, { text: "Build relational trust through personal invitations", style: "Connector" } ] },
+  { id: 14, text: "During a quiet moment in a group exchange, you naturally…", options: [ { text: "Share an uplifting reflection to boost overall energy", style: "Advocate" }, { text: "Notice who is quiet and reach out privately to listen", style: "Connector" } ] },
+  { id: 15, text: "You notice someone hesitating to participate. You tend to…", options: [ { text: "Share why their presence adds value to inspire them to join", style: "Advocate" }, { text: "Offer quiet personal support so they feel safe stepping in", style: "Connector" } ] },
+  { id: 16, text: "Your strength in relational stewardship is best described as…", options: [ { text: "Rallying people around shared warmth and enthusiasm", style: "Advocate" }, { text: "Nurturing deep 1-on-1 trust and individual belonging", style: "Connector" } ] },
+
+  // AXIS 3: PLACE (Architect vs. Guardian)
+  { id: 17, text: "A shared document or space has become messy and chaotic. You tend to…", options: [ { text: "Reorganize the content into a clear, logical structure", style: "Architect" }, { text: "Check in on group members to ensure no one feels overwhelmed", style: "Guardian" } ] },
+  { id: 18, text: "A group receives a complex or confusing update. You tend to…", options: [ { text: "Synthesize the update into concise, easy-to-digest points", style: "Architect" }, { text: "Provide a reassuring message to maintain emotional safety", style: "Guardian" } ] },
+  { id: 19, text: "A discussion is getting tangled and tense. You tend to…", options: [ { text: "Outline the core points clearly to help everyone regroup", style: "Architect" }, { text: "Offer a grounding reflection to restore safety and care", style: "Guardian" } ] },
+  { id: 20, text: "When a team is starting a project, your priority is to…", options: [ { text: "Define clear systems, goals, and operational frameworks", style: "Architect" }, { text: "Establish shared norms, boundaries, and mutual care", style: "Guardian" } ] },
+  { id: 21, text: "A small problem or conflict pops up in a group space. You tend to…", options: [ { text: "Analyze the issue and propose a structured fix", style: "Architect" }, { text: "Assess the human impact and protect group wellbeing", style: "Guardian" } ] },
+  { id: 22, text: "When information is scattered across channels, your instinct is to…", options: [ { text: "Build a central index or summary for better clarity", style: "Architect" }, { text: "Ensure everyone feels supported navigating the confusion", style: "Guardian" } ] },
+  { id: 23, text: "When someone asks for help understanding a decision, you tend to…", options: [ { text: "Break down the logic and facts behind it simply", style: "Architect" }, { text: "Reassure them and validate their feelings about the change", style: "Guardian" } ] },
+  { id: 24, text: "Your main focus when supporting group process is…", options: [ { text: "Creating systematic clarity and functional coherence", style: "Architect" }, { text: "Safeguarding emotional health and healthy boundaries", style: "Guardian" } ] },
+
+  // AXIS 4: PURPOSE (Visionary vs. Keeper)
+  { id: 25, text: "Someone suggests a new idea for a shared initiative. You tend to…", options: [ { text: "Explore how the idea could open up novel directions", style: "Visionary" }, { text: "Consider how the idea aligns with foundational values", style: "Keeper" } ] },
+  { id: 26, text: "A group is losing focus during a long-term effort. You tend to…", options: [ { text: "Offer a fresh angle or creative pivot to re-inspire them", style: "Visionary" }, { text: "Remind everyone of the core purpose that brought them together", style: "Keeper" } ] },
+  { id: 27, text: "When approaching a complex community challenge, you prefer to…", options: [ { text: "Reframe the problem to reveal unconventional possibilities", style: "Visionary" }, { text: "Anchor your approach in shared history and proven principles", style: "Keeper" } ] },
+  { id: 28, text: "In group discussions about future plans, you tend to focus on…", options: [ { text: "Imagining bold possibilities and emerging horizons", style: "Visionary" }, { text: "Preserving the essential meaning and identity of the work", style: "Keeper" } ] },
+  { id: 29, text: "When evaluating a proposed change, your priority is assessing…", options: [ { text: "What new opportunities or growth it could unlock", style: "Visionary" }, { text: "Whether it stays true to original commitments and values", style: "Keeper" } ] },
+  { id: 30, text: "When someone asks for input on a small concept, you offer…", options: [ { text: "An expansive thought that broadens their perspective", style: "Visionary" }, { text: "A grounding insight that connects back to core intent", style: "Keeper" } ] },
+  { id: 31, text: "A team reaches a major milestone. You naturally highlight…", options: [ { text: "Where this success enables the group to venture next", style: "Visionary" }, { text: "Why this milestone feels deeply meaningful to the mission", style: "Keeper" } ] },
+  { id: 32, text: "Your core gift to community alignment is…", options: [ { text: "Expanding horizons and illuminating creative possibilities", style: "Visionary" }, { text: "Stewarding depth, purpose, and foundational continuity", style: "Keeper" } ] }
 ];
 
 const secondarySyntheses = {
@@ -488,11 +498,20 @@ const secondarySyntheses = {
 let currentQuestion = 0;
 let scores = { Driver: 0, Stabilizer: 0, Advocate: 0, Connector: 0, Architect: 0, Guardian: 0, Visionary: 0, Keeper: 0 };
 
+function updateProgressBar(percentage) {
+    const bar = document.getElementById("progressBar");
+    const container = document.getElementById("progressContainer");
+    bar.style.width = `${percentage}%`;
+    container.setAttribute("aria-valuenow", Math.round(percentage));
+}
+
 function renderQuestion() {
     const q = questions[currentQuestion];
     document.getElementById("questionNumber").textContent = `Question ${currentQuestion + 1} of ${questions.length}`;
     document.getElementById("questionText").textContent = q.text;
-    document.getElementById("progressBar").style.width = `${(currentQuestion / questions.length) * 100}%`;
+    
+    const pct = questions.length > 0 ? (currentQuestion / questions.length) * 100 : 0;
+    updateProgressBar(pct);
 
     const container = document.getElementById("optionsContainer");
     container.innerHTML = "";
@@ -516,7 +535,7 @@ function selectOption(styleKey) {
 }
 
 function calculateResults() {
-    document.getElementById("progressBar").style.width = "100%";
+    updateProgressBar(100);
     document.getElementById("quizCard").style.display = "none";
 
     const axes = [
@@ -541,6 +560,8 @@ function calculateResults() {
 
     const primaryKey = axisWinners[0].winner;
     let secondaryKey = axisWinners[1].winner;
+    
+    // Prevent Primary and Secondary duplicate selection
     if (secondaryKey === primaryKey) {
         const alt = axisWinners.find(w => w.winner !== primaryKey);
         secondaryKey = alt ? alt.winner : (primaryKey === "Driver" ? "Stabilizer" : "Driver");
@@ -558,23 +579,23 @@ function calculateResults() {
 }
 
 function renderReveal(primaryKey, secondaryKey) {
-    // Fallback checks against undefined keys
     const primary = styles[primaryKey] || styles.Driver;
-    const secondary = styles[secondaryKey] || primary;
-    const synthesisText = secondarySyntheses[primaryKey]?.[secondaryKey] || 
-        `You bring a unique combination of ${primaryKey} initiative and ${secondaryKey} perspective to community stewardship.`;
+    const secondary = (styles[secondaryKey] && secondaryKey !== primaryKey) ? styles[secondaryKey] : (primaryKey === "Driver" ? styles.Stabilizer : styles.Driver);
+    const actualSecondaryKey = (secondaryKey && secondaryKey !== primaryKey) ? secondaryKey : (primaryKey === "Driver" ? "Stabilizer" : "Driver");
+
+    const synthesisText = secondarySyntheses[primaryKey]?.[actualSecondaryKey] || 
+        `You bring a unique combination of ${primaryKey} initiative and ${actualSecondaryKey} perspective to community stewardship.`;
 
     const result = document.getElementById("resultContainer");
     result.style.display = "block";
     
-    // Encoded URL query string variables protect against basic inline string injection
     const encodedPrimary = encodeURIComponent(primaryKey);
-    const encodedSecondary = encodeURIComponent(secondaryKey);
+    const encodedSecondary = encodeURIComponent(actualSecondaryKey);
 
     result.innerHTML = `
         <div class="sticky-results-bar">
             <div style="font-size: 0.85rem; font-weight: 700; color: #0F172A;">
-                Results: <span style="color: ${primary.color};">${primaryKey}</span> / <span style="color: ${secondary.color};">${secondaryKey}</span>
+                Results: <span style="color: ${primary.color};">${primaryKey}</span> / <span style="color: ${secondary.color};">${actualSecondaryKey}</span>
             </div>
             <div class="sticky-actions">
                 <button onclick="window.print()" class="btn-sm-action btn-sm-primary">Print / Save PDF</button>
@@ -603,7 +624,7 @@ function renderReveal(primaryKey, secondaryKey) {
 
         <div class="styleBlock" style="border-left-color: ${secondary.color};">
             <div class="styleTitle" style="color: #1E293B; font-size: 1.15rem; margin-bottom: 0.25rem;">
-                Secondary: ${secondaryKey}
+                Secondary: ${actualSecondaryKey}
             </div>
             <div class="styleIdentity" style="font-size: 0.98rem;">${secondary.identity}</div>
             <div style="font-size: 0.8rem; font-weight: 700; color: #64748B; text-transform: uppercase; margin-bottom: 0.85rem;">
@@ -614,7 +635,7 @@ function renderReveal(primaryKey, secondaryKey) {
             <div style="font-size: 0.85rem; color: #64748B; font-style: italic; margin-bottom: 1rem;"><strong>Watchouts:</strong> ${secondary.watchouts}</div>
             <div class="cta-container">
                 <a href="directory.html?style=${encodedSecondary}" class="btn-pill-soft" style="background-color: rgba(${secondary.rgb}, 0.08); border-color: rgba(${secondary.rgb}, 0.25); color: ${secondary.color} !important;">
-                    Explore ${secondaryKey} Actions &rarr;
+                    Explore ${actualSecondaryKey} Actions &rarr;
                 </a>
             </div>
         </div>
@@ -643,26 +664,36 @@ window.resetQuiz = function() {
     window.location.href = window.location.pathname;
 };
 
-document.addEventListener("DOMContentLoaded", () => {
+function initQuizState() {
     const urlParams = new URLSearchParams(window.location.search);
     const paramPrimary = urlParams.get('primary');
     const paramSecondary = urlParams.get('secondary');
 
-    // Strict XSS Sanitization: Ensure param exists inside known styles object keys
     const validPrimary = (paramPrimary && styles[paramPrimary]) ? paramPrimary : 
                          (localStorage.getItem('climatecolor_primary') && styles[localStorage.getItem('climatecolor_primary')]) ? localStorage.getItem('climatecolor_primary') : null;
 
-    const validSecondary = (paramSecondary && styles[paramSecondary]) ? paramSecondary : 
-                           (localStorage.getItem('climatecolor_secondary') && styles[localStorage.getItem('climatecolor_secondary')]) ? localStorage.getItem('climatecolor_secondary') : validPrimary;
+    let validSecondary = (paramSecondary && styles[paramSecondary]) ? paramSecondary : 
+                           (localStorage.getItem('climatecolor_secondary') && styles[localStorage.getItem('climatecolor_secondary')]) ? localStorage.getItem('climatecolor_secondary') : null;
+
+    if (validPrimary && validSecondary && validPrimary === validSecondary) {
+        validSecondary = validPrimary === "Driver" ? "Stabilizer" : "Driver";
+    }
 
     if (validPrimary) {
-        document.getElementById("progressBar").style.width = "100%";
+        updateProgressBar(100);
         document.getElementById("quizCard").style.display = "none";
-        renderReveal(validPrimary, validSecondary);
+        renderReveal(validPrimary, validSecondary || (validPrimary === "Driver" ? "Stabilizer" : "Driver"));
     } else {
+        currentQuestion = 0;
+        scores = { Driver: 0, Stabilizer: 0, Advocate: 0, Connector: 0, Architect: 0, Guardian: 0, Visionary: 0, Keeper: 0 };
+        document.getElementById("resultContainer").style.display = "none";
+        document.getElementById("quizCard").style.display = "block";
         renderQuestion();
     }
-});
+}
+
+document.addEventListener("DOMContentLoaded", initQuizState);
+window.addEventListener("popstate", initQuizState);
 </script>
 </body>
 </html>
