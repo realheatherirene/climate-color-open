@@ -1,0 +1,166 @@
+/* --------------------------------------------------
+   GLOBAL COLOR VARIABLES (from quiz-data.js)
+-------------------------------------------------- */
+:root {
+  --driver-color: #DC2626;
+  --advocate-color: #EA580C;
+  --visionary-color: #D97706;
+  --stabilizer-color: #16A34A;
+  --architect-color: #0284C7;
+  --keeper-color: #4F46E5;
+  --connector-color: #9333EA;
+  --guardian-color: #7E22CE;
+}
+
+/* Dynamic accent color per page */
+body.pathway-driver { --accent-color: var(--driver-color); }
+body.pathway-advocate { --accent-color: var(--advocate-color); }
+body.pathway-visionary { --accent-color: var(--visionary-color); }
+body.pathway-stabilizer { --accent-color: var(--stabilizer-color); }
+body.pathway-architect { --accent-color: var(--architect-color); }
+body.pathway-keeper { --accent-color: var(--keeper-color); }
+body.pathway-connector { --accent-color: var(--connector-color); }
+body.pathway-guardian { --accent-color: var(--guardian-color); }
+
+/* --------------------------------------------------
+   BASE
+-------------------------------------------------- */
+body.pathway-page {
+  font-family: "Inter", system-ui, sans-serif;
+  background: #faf9f7;
+  color: #222;
+  margin: 0;
+  line-height: 1.6;
+}
+
+.pathway-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 3rem 1.5rem 4rem;
+}
+
+/* --------------------------------------------------
+   HEADER
+-------------------------------------------------- */
+.pathway-header {
+  border-bottom: 2px solid rgba(0,0,0,0.05);
+  padding-bottom: 1.5rem;
+  margin-bottom: 2.5rem;
+}
+
+.pathway-tag {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  text-transform: uppercase;
+  font-size: 0.85rem;
+  letter-spacing: 0.05em;
+  color: #555;
+}
+
+.pathway-color-badge {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--accent-color);
+}
+
+.pathway-title {
+  font-size: 2.4rem;
+  font-weight: 700;
+  margin: 0.75rem 0 1rem;
+}
+
+.pathway-meta span {
+  display: block;
+  margin-bottom: 0.3rem;
+  font-size: 1rem;
+  color: #555;
+}
+
+/* --------------------------------------------------
+   SECTIONS
+-------------------------------------------------- */
+.section-title {
+  font-size: 1.4rem;
+  font-weight: 600;
+  margin-top: 2rem;
+  margin-bottom: 0.75rem;
+  color: var(--accent-color);
+}
+
+.section-list {
+  padding-left: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.section-list li {
+  margin-bottom: 0.4rem;
+}
+
+/* --------------------------------------------------
+   INVITATION BLOCK
+-------------------------------------------------- */
+.pathway-invitation {
+  background: rgba(0,0,0,0.03);
+  border-left: 4px solid var(--accent-color);
+  padding: 1.5rem;
+  margin-top: 2.5rem;
+}
+
+.invitation-quote {
+  font-style: italic;
+  margin: 1rem 0;
+  color: #333;
+}
+
+/* --------------------------------------------------
+   FOOTER BUTTONS
+-------------------------------------------------- */
+.pathway-footer {
+  margin-top: 3rem;
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.pathway-button {
+  padding: 0.7rem 1.4rem;
+  border-radius: 999px;
+  text-decoration: none;
+  font-size: 1rem;
+  transition: all 0.2s ease;
+}
+
+.pathway-button.primary {
+  background: var(--accent-color);
+  color: #fff;
+}
+
+.pathway-button.primary:hover {
+  background: #000;
+}
+
+.pathway-button.secondary {
+  border: 1px solid var(--accent-color);
+  color: var(--accent-color);
+}
+
+.pathway-button.secondary:hover {
+  background: rgba(0,0,0,0.05);
+}
+
+/* --------------------------------------------------
+   RESPONSIVE
+-------------------------------------------------- */
+@media (max-width: 600px) {
+  .pathway-container {
+    padding: 2rem 1rem 3rem;
+  }
+  .pathway-title {
+    font-size: 2rem;
+  }
+  .section-title {
+    font-size: 1.25rem;
+  }
+}
