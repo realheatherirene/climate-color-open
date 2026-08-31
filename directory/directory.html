@@ -7,6 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=ADLaM+Display&family=Varela+Round&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="atlas.css">
 
 <style>
 * { box-sizing: border-box; }
@@ -155,17 +156,6 @@ body {
     user-select: none;
 }
 
-.type-tag {
-    font-size: 0.75rem;
-    font-weight: 700;
-    color: #64748B;
-    background-color: #F1F5F9;
-    padding: 0.2rem 0.5rem;
-    border-radius: 4px;
-    text-transform: uppercase;
-    letter-spacing: 0.03em;
-}
-
 .cta-container {
     display: flex;
     justify-content: flex-start;
@@ -227,32 +217,29 @@ body {
 <div class="filter-pills" id="pillContainer"></div>
 <div class="resource-grid" id="resourceContainer"></div>
 
-<script src="directory-data.js"></script>
+<script type="module">
+import { styles, resources } from './directory-data.js';
 
-<script>
 // Dynamic URL Parsing
 const urlParams = new URLSearchParams(window.location.search);
 let rawStyle = urlParams.get('style');
 let activeStyle = "All Styles";
 let searchQuery = "";
 
-// Color-to-Style Alias Map (Aligned with directory-data.js hex colors)
+// Color-to-Style Alias Map
 const styleAliases = {
     red: "Driver",
     orange: "Advocate",
-    amber: "Visionary",
     yellow: "Visionary",
     green: "Stabilizer",
     blue: "Architect",
     indigo: "Keeper",
     purple: "Connector",
-    pink: "Guardian",
-    magenta: "Guardian",
     violet: "Guardian"
 };
 
 // Style parsing
-if (rawStyle && typeof styles !== 'undefined') {
+if (rawStyle) {
     const cleanInput = decodeURIComponent(rawStyle).trim().toLowerCase();
     const resolvedName = styleAliases[cleanInput] || cleanInput;
     const foundKey = Object.keys(styles).find(s => s.toLowerCase() === resolvedName.toLowerCase());
@@ -282,8 +269,8 @@ function renderPills() {
                 btn.style.borderColor = "#CBD5E1";
                 btn.style.color = "#334155";
             } else {
-                btn.style.backgroundColor = `${styleInfo.color}14`;
-                btn.style.borderColor = `${styleInfo.color}40`;
+                btn.style.backgroundColor = `color-mix(in srgb, ${styleInfo.color} 8%, transparent)`;
+                btn.style.borderColor = `color-mix(in srgb, ${styleInfo.color} 25%, transparent)`;
                 btn.style.color = styleInfo.color;
             }
         }
@@ -351,8 +338,6 @@ function renderResources() {
             `;
         }).join('');
 
-        const typeHtml = res.type ? `<span class="type-tag">${res.type}</span>` : '';
-
         const card = document.createElement("div");
         card.className = "styleBlock";
         card.style.borderLeftColor = activeColor;
@@ -365,7 +350,6 @@ function renderResources() {
                 </div>
                 <div class="styleIdentity">${res.desc}</div>
                 <div class="style-text-container">
-                    ${typeHtml}
                     ${styleTextHtml}
                 </div>
             </div>
@@ -380,13 +364,9 @@ function renderResources() {
     });
 }
 
-// Initial Execution with safety check
-if (typeof styles !== 'undefined' && typeof resources !== 'undefined') {
-    renderPills();
-    renderResources();
-} else {
-    console.error("Directory data failed to load.");
-}
+// Initial Execution
+renderPills();
+renderResources();
 </script>
 </body>
 </html>
