@@ -418,11 +418,6 @@ function renderReveal(primaryKey, secondaryKey) {
             <div style="margin-bottom: 0.75rem; color: #334155;"><strong>How You Contribute:</strong> ${primary.contribution}</div>
             <div class="styleAction"><strong>Where You Shine:</strong> ${primary.shine}</div>
             <div style="font-size: 0.88rem; color: #64748B; font-style: italic; margin-bottom: 1rem;"><strong>Watchouts:</strong> ${primary.watchouts}</div>
-            <div class="cta-container">
-                <a href="directory.html?style=${encodedPrimary}" class="btn-pill-soft" style="background-color: rgba(${primary.rgb}, 0.08); border-color: rgba(${primary.rgb}, 0.25); color: ${primary.color} !important;">
-                    Explore ${primaryKey} Actions &rarr;
-                </a>
-            </div>
         </div>
 
         <div class="styleBlock" style="border-left-color: ${secondary.color};">
@@ -436,11 +431,6 @@ function renderReveal(primaryKey, secondaryKey) {
             <div style="margin-bottom: 0.75rem; color: #334155; font-size: 0.92rem;"><strong>How You Contribute:</strong> ${secondary.contribution}</div>
             <div class="styleAction" style="font-size: 0.9rem;"><strong>Where You Shine:</strong> ${secondary.shine}</div>
             <div style="font-size: 0.85rem; color: #64748B; font-style: italic; margin-bottom: 1rem;"><strong>Watchouts:</strong> ${secondary.watchouts}</div>
-            <div class="cta-container">
-                <a href="directory.html?style=${encodedSecondary}" class="btn-pill-soft" style="background-color: rgba(${secondary.rgb}, 0.08); border-color: rgba(${secondary.rgb}, 0.25); color: ${secondary.color} !important;">
-                    Explore ${actualSecondaryKey} Actions &rarr;
-                </a>
-            </div>
         </div>
 
         <div class="styleBlock" style="border-left-color: ${primary.color}; background: #F8FAFC; border-color: #E2E8F0; border-left-width: 6px;">
