@@ -214,7 +214,7 @@ body {
 }
 .btn-pill-soft {
     display: inline-block;
-    padding: 0.5rem 1.1rem;
+    padding: 0.45rem 0.95rem;
     font-size: 0.88rem;
     font-weight: 700;
     text-decoration: none;
@@ -395,6 +395,19 @@ function renderReveal(primaryKey, secondaryKey) {
     const encodedPrimary = encodeURIComponent(primaryKey);
     const encodedSecondary = encodeURIComponent(actualSecondaryKey);
 
+    // Helper to build pill-styled CTA buttons matching directory filters
+    const createPillButton = (styleName, styleData) => {
+        const bg = `color-mix(in srgb, ${styleData.color} 8%, transparent)`;
+        const border = `color-mix(in srgb, ${styleData.color} 25%, transparent)`;
+        return `
+            <div class="cta-container">
+                <a href="directory.html?style=${encodeURIComponent(styleName)}" class="btn-pill-soft" style="background-color: ${bg}; border-color: ${border}; color: ${styleData.color};">
+                    Explore ${styleName} Actions &rarr;
+                </a>
+            </div>
+        `;
+    };
+
     result.innerHTML = `
         <div class="sticky-results-bar">
             <div style="font-size: 0.85rem; font-weight: 700; color: #0F172A;">
@@ -417,7 +430,8 @@ function renderReveal(primaryKey, secondaryKey) {
             </div>
             <div style="margin-bottom: 0.75rem; color: #334155;"><strong>How You Contribute:</strong> ${primary.contribution}</div>
             <div class="styleAction"><strong>Where You Shine:</strong> ${primary.shine}</div>
-            <div style="font-size: 0.88rem; color: #64748B; font-style: italic; margin-bottom: 1rem;"><strong>Watchouts:</strong> ${primary.watchouts}</div>
+            <div style="font-size: 0.88rem; color: #64748B; font-style: italic; margin-bottom: 0.5rem;"><strong>Watchouts:</strong> ${primary.watchouts}</div>
+            ${createPillButton(primaryKey, primary)}
         </div>
 
         <div class="styleBlock" style="border-left-color: ${secondary.color};">
@@ -430,7 +444,8 @@ function renderReveal(primaryKey, secondaryKey) {
             </div>
             <div style="margin-bottom: 0.75rem; color: #334155; font-size: 0.92rem;"><strong>How You Contribute:</strong> ${secondary.contribution}</div>
             <div class="styleAction" style="font-size: 0.9rem;"><strong>Where You Shine:</strong> ${secondary.shine}</div>
-            <div style="font-size: 0.85rem; color: #64748B; font-style: italic; margin-bottom: 1rem;"><strong>Watchouts:</strong> ${secondary.watchouts}</div>
+            <div style="font-size: 0.85rem; color: #64748B; font-style: italic; margin-bottom: 0.5rem;"><strong>Watchouts:</strong> ${secondary.watchouts}</div>
+            ${createPillButton(actualSecondaryKey, secondary)}
         </div>
 
         <div class="styleBlock" style="border-left-color: ${primary.color}; background: #F8FAFC; border-color: #E2E8F0; border-left-width: 6px;">
