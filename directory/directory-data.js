@@ -1,18 +1,20 @@
-// directory-data.js
+/* ==========================================================================
+   DIRECTORY DATA: Single Source of Truth for Directory Resources
+   ========================================================================== */
 
-const styles = {
-    "All Styles": { color: "#334155" },
-    Driver: { color: "#DC2626" },
-    Advocate: { color: "#EA580C" },
-    Visionary: { color: "#D97706" },
-    Stabilizer: { color: "#16A34A" },
-    Architect: { color: "#0284C7" },
-    Keeper: { color: "#4F46E5" },
-    Connector: { color: "#9333EA" },
-    Guardian: { color: "#EE8BFD" }
+export const styles = {
+  "All Styles": { color: "#334155", pAnchor: "" },
+  Driver: { color: "var(--driver-color, #DC2626)", pAnchor: "PACE" },
+  Advocate: { color: "var(--advocate-color, #EA580C)", pAnchor: "PEOPLE" },
+  Visionary: { color: "var(--visionary-color, #E1B809)", pAnchor: "PURPOSE" },
+  Stabilizer: { color: "var(--stabilizer-color, #16A34A)", pAnchor: "PACE" },
+  Architect: { color: "var(--architect-color, #0284C7)", pAnchor: "PLACE" },
+  Keeper: { color: "var(--keeper-color, #4F46E5)", pAnchor: "PURPOSE" },
+  Connector: { color: "var(--connector-color, #9333EA)", pAnchor: "PEOPLE" },
+  Guardian: { color: "var(--guardian-color, #D946EF)", pAnchor: "PLACE" }
 };
 
-const resources = [
+export const resources = [
     // --- 1. DRIVER (RED) ---
     { title: "Sunrise Movement", styles: ["Driver", "Advocate"], type: "Direct Action", desc: "Youth-led movement organizing rapid political and local action for climate solutions.", url: "https://www.sunrisemovement.org" },
     { title: "350.org", styles: ["Driver", "Guardian"], type: "Campaigning", desc: "Global grassroots network taking direct action on fossil fuel infrastructure.", url: "https://350.org" },
@@ -100,7 +102,7 @@ const resources = [
     { title: "iNaturalist", styles: ["Connector"], type: "Community Sci", desc: "Joint initiative allowing citizens to log plant and animal observations to map local biodiversity shifts.", url: "https://www.inaturalist.org" },
     { title: "Just Transition Alliance Resources", styles: ["Connector"], type: "Justice", desc: "Popular education tools, organizing frameworks, and policy briefs created jointly by labor and community groups.", url: "https://jtalliance.org" },
 
-    // --- 8. GUARDIAN (PINK) ---
+    // --- 8. GUARDIAN (VIOLET) ---
     { title: "Community Environmental Legal Defense Fund", styles: ["Guardian"], type: "Legal Watchdog", desc: "Legal assistance and advocacy protecting rights of nature and community self-governance.", url: "https://celdf.org" },
     { title: "Earthjustice", styles: ["Guardian", "Driver"], type: "Environmental Law", desc: "Nonprofit environmental law organization wielding the power of law to protect health.", url: "https://earthjustice.org" },
     { title: "NRDC Action Fund", styles: ["Guardian", "Advocate"], type: "Policy Accountability", desc: "Holding elected officials accountable for environmental justice and clean energy laws.", url: "https://www.nrdcactionfund.org" },
