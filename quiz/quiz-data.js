@@ -4,43 +4,99 @@
 
 export const styles = {
   Driver: { 
-    color: "var(--driver-color, #DC2626)", 
+    color: "var(--driver-color, #DC2626)",
+    rgb: "220, 38, 38",
+    slug: "red",
+    theme: "Action & Pace",
     pAnchor: "PACE",
+    identity: "You are the spark of momentum in climate stewardship. When faced with urgency, you step forward to mobilize resources, lead direct efforts, and break through inertia.",
+    behavior: "You thrive on clear goals, decisive leadership, and tangible outcomes. You naturally push projects across the finish line when others get stuck in debate.",
+    action: "Your gift shines when taking immediate action, launching campaigns, and rallying people around urgent milestones.",
+    watchouts: "Remember to slow down occasionally to ensure team alignment and prevent burnout.",
     description: "Action-oriented and decisive, driving rapid progress and accountability." 
   },
   Advocate: { 
-    color: "var(--advocate-color, #EA580C)", 
+    color: "var(--advocate-color, #EA580C)",
+    rgb: "234, 88, 12",
+    slug: "orange",
+    theme: "People & Justice",
     pAnchor: "PEOPLE",
+    identity: "You are the voice for systemic change and equity. You center frontline experiences, challenge unfair policies, and champion human rights in climate solutions.",
+    behavior: "You hold institutions accountable and ensure that no community is left out of environmental protection and policy decisions.",
+    action: "Your gift shines when speaking out at public forums, writing policy proposals, and organizing community campaigns.",
+    watchouts: "Guard against cynicism by celebrating small wins and nurturing supportive partnerships.",
     description: "Vocal and community-focused, mobilizing support and empowering voices." 
   },
   Visionary: { 
-    color: "var(--visionary-color, #E1B809)", 
+    color: "var(--visionary-color, #E1B809)",
+    rgb: "202, 138, 4",
+    slug: "yellow",
+    theme: "Purpose & Possibility",
     pAnchor: "PURPOSE",
+    identity: "You are the beacon of new paradigms. You imagine restored, thriving futures and inspire others to break free from old, limiting assumptions.",
+    behavior: "You think far ahead, connecting creative ideas across disciplines to craft bold, uplifting long-term narratives.",
+    action: "Your gift shines when framing inspiring stories, designing future scenarios, and opening people’s eyes to radical possibilities.",
+    watchouts: "Pair your big-picture visions with concrete next steps so projects gain grounding.",
     description: "Forward-thinking and innovative, mapping future possibilities and bold ideas." 
   },
   Stabilizer: { 
-    color: "var(--stabilizer-color, #16A34A)", 
+    color: "var(--stabilizer-color, #16A34A)",
+    rgb: "22, 163, 74",
+    slug: "green",
+    theme: "Pace & Systems",
     pAnchor: "PACE",
+    identity: "You are the backbone of sustainable operations. You turn chaotic energy into smooth, dependable processes that keep climate initiatives running for years.",
+    behavior: "You focus on reliability, clear protocols, and steady progress, making sure community work doesn't burn out or break down.",
+    action: "Your gift shines when building operational workflows, managing logistics, and keeping projects grounded and predictable.",
+    watchouts: "Stay open to rapid pivots and strategic risks when situations evolve quickly.",
     description: "Grounded and steady, ensuring sustainable operations and reliable execution." 
   },
   Architect: { 
-    color: "var(--architect-color, #0284C7)", 
+    color: "var(--architect-color, #0284C7)",
+    rgb: "2, 132, 199",
+    slug: "blue",
+    theme: "Place & Design",
     pAnchor: "PLACE",
+    identity: "You are the designer of resilient infrastructure. You build analytical frameworks, technological tools, and spatial designs that prepare systems for climate realities.",
+    behavior: "You analyze data, model ecological flows, and design durable systems that stand up to environmental change.",
+    action: "Your gift shines when constructing framework blueprints, optimizing energy systems, and designing spatial resilience.",
+    watchouts: "Remember to include community feedback early so designs fit human needs.",
     description: "Systems-minded and analytical, designing frameworks and scalable structures." 
   },
   Keeper: { 
-    color: "var(--keeper-color, #4F46E5)", 
+    color: "var(--keeper-color, #4F46E5)",
+    rgb: "79, 70, 229",
+    slug: "indigo",
+    theme: "Purpose & Wisdom",
     pAnchor: "PURPOSE",
+    identity: "You are the guardian of memory and truth. You preserve historical knowledge, institutional principles, and cultural heritage to guide present action.",
+    behavior: "You ground modern climate work in time-tested wisdom, ensuring initiatives maintain integrity and build on past lessons.",
+    action: "Your gift shines when holding space for reflection, archiving stories, and keeping organizations aligned with core values.",
+    watchouts: "Balance reverence for tradition with flexibility for new innovations.",
     description: "Values-driven and protective, preserving core missions and ancestral knowledge." 
   },
   Connector: { 
-    color: "var(--connector-color, #9333EA)", 
+    color: "var(--connector-color, #9333EA)",
+    rgb: "147, 51, 234",
+    slug: "purple",
+    theme: "People & Bridge-Building",
     pAnchor: "PEOPLE",
+    identity: "You are the weaver of trust and collaboration. You build relationships across diverse groups, turning isolated efforts into strong, supportive networks.",
+    behavior: "You excel at listening, mediating dialogue, and bringing people together around shared goals and mutual care.",
+    action: "Your gift shines when hosting collaborative gatherings, facilitating dialogues, and building multi-organization coalitions.",
+    watchouts: "Set healthy personal boundaries to avoid taking on everyone else's emotional weight.",
     description: "Relational and integrative, bridging silos and weaving networks together." 
   },
   Guardian: { 
-    color: "var(--guardian-color, #D946EF)", 
+    color: "var(--guardian-color, #D946EF)",
+    rgb: "217, 70, 239",
+    slug: "violet",
+    theme: "Place & Care",
     pAnchor: "PLACE",
+    identity: "You are the protector of local ecosystems and community sanctuaries. You nurture habitats, care for living spaces, and steward the land with direct affection.",
+    behavior: "You focus on direct environmental stewardship, ecosystem preservation, and maintaining safe, nourishing community grounds.",
+    action: "Your gift shines when tending community gardens, restoring local habitats, and protecting neighborhood spaces.",
+    watchouts: "Delegate tasks to others so you don't carry the physical burden of care alone.",
     description: "Steward-focused and protective of ecosystems, places, and vulnerable assets." 
   }
 };
@@ -121,7 +177,7 @@ export const secondarySyntheses = {
 };
 
 export const questions = [
-  // --- PACE AXIS (1-8) ---
+  // --- PACE AXIS (1-4) ---
   {
     id: 1,
     axis: "Pace",
@@ -159,7 +215,7 @@ export const questions = [
     ]
   },
   
-  // --- PEOPLE AXIS (5-12) ---
+  // --- PEOPLE AXIS (5-8) ---
   {
     id: 5,
     axis: "People",
@@ -197,7 +253,7 @@ export const questions = [
     ]
   },
 
-  // --- PLACE AXIS (9-16) ---
+  // --- PLACE AXIS (9-12) ---
   {
     id: 9,
     axis: "Place",
@@ -235,7 +291,7 @@ export const questions = [
     ]
   },
 
-  // --- PURPOSE AXIS (13-20) ---
+  // --- PURPOSE AXIS (13-16) ---
   {
     id: 13,
     axis: "Purpose",
