@@ -230,13 +230,18 @@ body {
         display: none !important;
     }
     body {
-        padding: 0;
-        background: #FFFFFF;
+        padding: 0 !important;
+        margin: 0 !important;
+        background: #FFFFFF !important;
+    }
+    #resultContainer {
+        margin-top: 0 !important;
+        padding-top: 0 !important;
     }
     .styleBlock {
         break-inside: avoid;
-        box-shadow: none;
-        border: 1px solid #CBD5E1;
+        box-shadow: none !important;
+        border: 1px solid #CBD5E1 !important;
     }
 }
 
@@ -276,15 +281,29 @@ body {
 <div id="resultContainer" style="display: none;"></div>
 
 <script type="module">
-import { styles, secondarySyntheses, questions } from './quiz-data.js';
+import { styles, questions, getSecondarySynthesis } from './quiz-data.js';
 
 let currentQuestion = 0;
-let scores = {
-    Driver: 0, Stabilizer: 0,
-    Advocate: 0, Connector: 0,
-    Architect: 0, Guardian: 0,
-    Visionary: 0, Keeper: 0
-};
+let scores = Object.keys(styles).reduce((acc, key) => {
+    acc[key] = 0;
+    return acc;
+}, {});
+
+function sanitizeStyleKey(key) {
+    if (typeof key === 'string' && Object.prototype.hasOwnProperty.call(styles, key)) {
+        return key;
+    }
+    return null;
+}
+
+function escapeHTML(str) {
+    return String(str)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+}
 
 function renderQuestion() {
     const q = questions[currentQuestion];
@@ -307,7 +326,9 @@ function renderQuestion() {
 }
 
 function selectOption(styleKey) {
-    scores[styleKey]++;
+    if (scores.hasOwnProperty(styleKey)) {
+        scores[styleKey]++;
+    }
     currentQuestion++;
 
     if (currentQuestion < questions.length) {
@@ -331,7 +352,7 @@ function calculateResults() {
     const axisWinners = axes.map(axis => {
         const scoreA = scores[axis.poleA];
         const scoreB = scores[axis.poleB];
-        const winner = scoreA >= scoreB ? axis.poleA : axis.poleB;
+        const winner = scoreA > scoreB ? axis.poleA : (scoreB > scoreA ? axis.poleB : axis.poleA);
         const winningScore = Math.max(scoreA, scoreB);
         const margin = Math.abs(scoreA - scoreB);
 
@@ -347,15 +368,13 @@ function calculateResults() {
     
     let secondaryKey = axisWinners[1].winner;
     if (secondaryKey === primaryKey) {
-        const nonMatchingWinner = axisWinners.find(w => w.winner !== primaryKey);
-        secondaryKey = nonMatchingWinner ? nonMatchingWinner.winner : (primaryKey === "Driver" ? "Stabilizer" : "Driver");
+        const fallbackWinner = axisWinners.find(w => w.winner !== primaryKey);
+        secondaryKey = fallbackWinner ? fallbackWinner.winner : (primaryKey === "Driver" ? "Stabilizer" : "Driver");
     }
 
-    // Storage Save
     localStorage.setItem('climatecolor_primary', primaryKey);
     localStorage.setItem('climatecolor_secondary', secondaryKey);
 
-    // Sync URL Parameters
     const currentUrl = new URL(window.location);
     currentUrl.searchParams.set('primary', primaryKey);
     currentUrl.searchParams.set('secondary', secondaryKey);
@@ -365,15 +384,17 @@ function calculateResults() {
 }
 
 function renderReveal(primaryKey, secondaryKey) {
-    const primary = styles[primaryKey];
-    const secondary = styles[secondaryKey] || primary;
+    const safePrimaryKey = sanitizeStyleKey(primaryKey);
+    const safeSecondaryKey = sanitizeStyleKey(secondaryKey) || safePrimaryKey;
 
-    const synthesisText = secondarySyntheses[primaryKey]?.[secondaryKey] || 
-        secondarySyntheses[secondaryKey]?.[primaryKey] ||
-        `Combines ${primaryKey} leadership with ${secondaryKey} perspective.`;
+    if (!safePrimaryKey) return;
 
-    const primaryActionText = primary.action ? primary.action.replace(/^Your gift shines when /i, "You shine when ") : "";
-    const secondaryActionText = secondary.action ? secondary.action.replace(/^Your gift shines when /i, "You shine when ") : "";
+    const primary = styles[safePrimaryKey];
+    const secondary = styles[safeSecondaryKey];
+
+    const synthesisText = escapeHTML(getSecondarySynthesis(safePrimaryKey, safeSecondaryKey));
+    const primaryActionText = escapeHTML(primary.action ? primary.action.replace(/^Your gift shines when /i, "You shine when ") : "");
+    const secondaryActionText = escapeHTML(secondary.action ? secondary.action.replace(/^Your gift shines when /i, "You shine when ") : "");
 
     const result = document.getElementById("resultContainer");
     result.style.display = "block";
@@ -381,7 +402,7 @@ function renderReveal(primaryKey, secondaryKey) {
         <!-- Sticky Persistence Bar -->
         <div class="sticky-results-bar">
             <div style="font-size: 0.85rem; font-weight: 700; color: var(--text-main);">
-                Results: <span style="color: ${primary.color};">${primaryKey}</span> / <span style="color: ${secondary.color};">${secondaryKey}</span>
+                Results: <span style="color: ${escapeHTML(primary.color)};">${escapeHTML(safePrimaryKey)}</span> / <span style="color: ${escapeHTML(secondary.color)};">${escapeHTML(safeSecondaryKey)}</span>
             </div>
             <div class="sticky-actions">
                 <button id="btnPrint" class="btn-sm-action btn-sm-primary">🖨️ Print / Save PDF</button>
@@ -391,43 +412,43 @@ function renderReveal(primaryKey, secondaryKey) {
         </div>
 
         <!-- Primary Stewardship Card -->
-        <div class="styleBlock" style="border-left-color: ${primary.color};">
+        <div class="styleBlock" style="border-left-color: ${escapeHTML(primary.color)};">
             <div class="styleTitle" style="color: var(--text-main); font-size: 1.35rem; margin-bottom: 0.5rem;">
-                Your primary stewardship style is <span style="color: ${primary.color};">${primaryKey}</span>
+                Your primary stewardship style is <span style="color: ${escapeHTML(primary.color)};">${escapeHTML(safePrimaryKey)}</span>
             </div>
             <div style="font-size: 0.85rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; margin-bottom: 0.75rem;">
-                THEMES: ${primary.theme.toUpperCase()}
+                THEMES: ${escapeHTML(primary.theme.toUpperCase())}
             </div>
-            <div class="styleIdentity">${primary.identity}</div>
-            <div style="margin-bottom: 0.85rem; color: #334155;">${primary.behavior}</div>
+            <div class="styleIdentity">${escapeHTML(primary.identity)}</div>
+            <div style="margin-bottom: 0.85rem; color: #334155;">${escapeHTML(primary.behavior)}</div>
             <div class="styleAction">
                 <strong>Where you shine:</strong> ${primaryActionText}
             </div>
             <div style="font-size: 0.88rem; color: var(--text-muted); font-style: italic;">
-                <strong>Gentle watchouts:</strong> ${primary.watchouts}
+                <strong>Gentle watchouts:</strong> ${escapeHTML(primary.watchouts)}
             </div>
         </div>
 
         <!-- Secondary Stewardship Card -->
-        <div class="styleBlock" style="border-left-color: ${secondary.color};">
+        <div class="styleBlock" style="border-left-color: ${escapeHTML(secondary.color)};">
             <div class="styleTitle" style="color: var(--text-main); font-size: 1.15rem; margin-bottom: 0.5rem;">
-                Your secondary stewardship style is <span style="color: ${secondary.color};">${secondaryKey}</span>
+                Your secondary stewardship style is <span style="color: ${escapeHTML(secondary.color)};">${escapeHTML(safeSecondaryKey)}</span>
             </div>
             <div style="font-size: 0.8rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; margin-bottom: 0.75rem;">
-                THEMES: ${secondary.theme.toUpperCase()}
+                THEMES: ${escapeHTML(secondary.theme.toUpperCase())}
             </div>
-            <div class="styleIdentity" style="font-size: 0.95rem;">${secondary.identity}</div>
-            <div style="margin-bottom: 0.85rem; color: #334155; font-size: 0.92rem;">${secondary.behavior}</div>
+            <div class="styleIdentity" style="font-size: 0.95rem;">${escapeHTML(secondary.identity)}</div>
+            <div style="margin-bottom: 0.85rem; color: #334155; font-size: 0.92rem;">${escapeHTML(secondary.behavior)}</div>
             <div class="styleAction" style="font-size: 0.9rem;">
                 <strong>Where you shine:</strong> ${secondaryActionText}
             </div>
             <div style="font-size: 0.85rem; color: var(--text-muted); font-style: italic;">
-                <strong>Gentle watchouts:</strong> ${secondary.watchouts}
+                <strong>Gentle watchouts:</strong> ${escapeHTML(secondary.watchouts)}
             </div>
         </div>
 
         <!-- Integration Summary -->
-        <div class="styleBlock" style="border-left-color: ${primary.color}; background: var(--bg-light); border-color: var(--border-color); border-left-width: 6px;">
+        <div class="styleBlock" style="border-left-color: ${escapeHTML(primary.color)}; background: var(--bg-light); border-color: var(--border-color); border-left-width: 6px;">
             <div class="styleTitle" style="color: var(--text-main); font-size: 1.25rem; margin-bottom: 0.5rem;">
                 How Your Styles Work Together
             </div>
@@ -437,10 +458,9 @@ function renderReveal(primaryKey, secondaryKey) {
         </div>
     `;
 
-    // Event Bindings
     document.getElementById("btnPrint").onclick = () => window.print();
     document.getElementById("btnCopy").onclick = () => {
-        const shareUrl = `${window.location.origin}${window.location.pathname}?primary=${primaryKey}&secondary=${secondaryKey}`;
+        const shareUrl = `${window.location.origin}${window.location.pathname}?primary=${encodeURIComponent(safePrimaryKey)}&secondary=${encodeURIComponent(safeSecondaryKey)}`;
         navigator.clipboard.writeText(shareUrl).then(() => {
             alert("Link copied to clipboard! You can paste or bookmark this URL to return to your results anytime.");
         });
@@ -452,19 +472,21 @@ function renderReveal(primaryKey, secondaryKey) {
     };
 }
 
-// Initialization Check
 document.addEventListener("DOMContentLoaded", () => {
     const urlParams = new URLSearchParams(window.location.search);
     const paramPrimary = urlParams.get('primary');
     const paramSecondary = urlParams.get('secondary');
     
-    const savedPrimary = paramPrimary || localStorage.getItem('climatecolor_primary');
-    const savedSecondary = paramSecondary || localStorage.getItem('climatecolor_secondary');
+    const rawPrimary = paramPrimary || localStorage.getItem('climatecolor_primary');
+    const rawSecondary = paramSecondary || localStorage.getItem('climatecolor_secondary');
 
-    if (savedPrimary && styles[savedPrimary]) {
+    const validPrimary = sanitizeStyleKey(rawPrimary);
+    const validSecondary = sanitizeStyleKey(rawSecondary);
+
+    if (validPrimary) {
         document.getElementById("progressBar").style.width = "100%";
         document.getElementById("quizCard").style.display = "none";
-        renderReveal(savedPrimary, savedSecondary || savedPrimary);
+        renderReveal(validPrimary, validSecondary || validPrimary);
     } else {
         renderQuestion();
     }
