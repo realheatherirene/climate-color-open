@@ -298,7 +298,6 @@ export const questions = [
   }
 ];
 
-// Synchronized strictly with Atlas CSS Source of Truth
 export const styles = {
   Driver: {
     color: "#DC2626",
