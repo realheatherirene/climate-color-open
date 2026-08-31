@@ -1,4 +1,4 @@
-// quiz-beta.js
+// quiz-data.js
 
 export const questions = [
   // AXIS 1: PACE (Driver vs. Stabilizer)
@@ -298,10 +298,11 @@ export const questions = [
   }
 ];
 
+// Synchronized strictly with Atlas CSS Source of Truth
 export const styles = {
   Driver: {
-    color: "#E32322",
-    rgb: "227, 35, 34",
+    color: "#DC2626",
+    rgb: "220, 38, 38",
     slug: "red",
     anchor: "PACE",
     identity: "You move things forward.",
@@ -311,8 +312,8 @@ export const styles = {
     watchouts: "You may move faster than others are ready for or feel impatient when things slow down."
   },
   Advocate: {
-    color: "#F18E1C",
-    rgb: "241, 142, 28",
+    color: "#EA580C",
+    rgb: "234, 88, 12",
     slug: "orange",
     anchor: "PEOPLE",
     identity: "You spark energy and connection.",
@@ -322,8 +323,8 @@ export const styles = {
     watchouts: "You may take on more emotional responsibility or feel discouraged when enthusiasm doesn’t catch immediately."
   },
   Visionary: {
-    color: "#9A7B00",
-    rgb: "154, 123, 0",
+    color: "#E1B809",
+    rgb: "225, 184, 9",
     slug: "yellow",
     anchor: "PURPOSE",
     identity: "You open new paths.",
@@ -333,8 +334,8 @@ export const styles = {
     watchouts: "You may generate more ideas than a group can act on or overlook practical constraints."
   },
   Architect: {
-    color: "#2A71B0",
-    rgb: "42, 113, 176",
+    color: "#0284C7",
+    rgb: "2, 132, 199",
     slug: "blue",
     anchor: "PLACE",
     identity: "You bring things into focus.",
@@ -344,8 +345,8 @@ export const styles = {
     watchouts: "You may take on more sensemaking than realized or feel frustrated by vagueness."
   },
   Stabilizer: {
-    color: "#5A9129",
-    rgb: "90, 145, 41",
+    color: "#16A34A",
+    rgb: "22, 163, 74",
     slug: "green",
     anchor: "PACE",
     identity: "You keep things steady.",
@@ -355,8 +356,8 @@ export const styles = {
     watchouts: "You may take on more small tasks than others notice or feel overlooked for your steady presence."
   },
   Connector: {
-    color: "#6D398B",
-    rgb: "109, 57, 139",
+    color: "#9333EA",
+    rgb: "147, 51, 234",
     slug: "purple",
     anchor: "PEOPLE",
     identity: "You help people feel seen.",
@@ -366,8 +367,8 @@ export const styles = {
     watchouts: "You may carry quiet emotional labor or feel overly responsible for the feelings of others."
   },
   Keeper: {
-    color: "#002060",
-    rgb: "0, 32, 96",
+    color: "#4F46E5",
+    rgb: "79, 70, 229",
     slug: "indigo",
     anchor: "PURPOSE",
     identity: "You steady the center.",
@@ -377,7 +378,7 @@ export const styles = {
     watchouts: "You may hold back when quick action is needed or feel uneasy when things shift rapidly."
   },
   Guardian: {
-    color: "#EE8BFD",
+    color: "#D946EF",
     rgb: "217, 70, 239",
     slug: "violet",
     anchor: "PLACE",
