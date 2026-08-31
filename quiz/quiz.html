@@ -7,6 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=ADLaM+Display&family=Varela+Round&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../Atlas/atlas.css">
 
 <style>
 /* ==========================================================================
@@ -439,10 +440,7 @@ function renderReveal(primaryKey, secondaryKey) {
             </div>
 
             <div class="cta-container">
-                <a href="https://climatecolor.com/${primary.slug}" target="_blank" rel="noopener noreferrer" class="btn-pill-soft" style="background-color: ${primaryBg}; border-color: ${primaryBorder}; color: ${primary.color} !important;">
-                    Explore ${primaryKey} Strengths &rarr;
-                </a>
-                <a href="directory.html?style=${encodeURIComponent(primaryKey)}" class="btn-pill-soft" style="background-color: ${primaryBg}; border-color: ${primaryBorder}; color: ${primary.color} !important;">
+                <a href="../Directory/directory.html?style=${encodeURIComponent(primaryKey)}" class="btn-pill-soft" style="background-color: ${primaryBg}; border-color: ${primaryBorder}; color: ${primary.color} !important;">
                     Explore ${primaryKey} Actions &rarr;
                 </a>
             </div>
@@ -466,10 +464,7 @@ function renderReveal(primaryKey, secondaryKey) {
             </div>
 
             <div class="cta-container">
-                <a href="https://climatecolor.com/${secondary.slug}" target="_blank" rel="noopener noreferrer" class="btn-pill-soft" style="background-color: ${secondaryBg}; border-color: ${secondaryBorder}; color: ${secondary.color} !important;">
-                    Explore ${secondaryKey} Strengths &rarr;
-                </a>
-                <a href="directory.html?style=${encodeURIComponent(secondaryKey)}" class="btn-pill-soft" style="background-color: ${secondaryBg}; border-color: ${secondaryBorder}; color: ${secondary.color} !important;">
+                <a href="../Directory/directory.html?style=${encodeURIComponent(secondaryKey)}" class="btn-pill-soft" style="background-color: ${secondaryBg}; border-color: ${secondaryBorder}; color: ${secondary.color} !important;">
                     Explore ${secondaryKey} Actions &rarr;
                 </a>
             </div>
