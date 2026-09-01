@@ -117,32 +117,22 @@ function renderTieBreaker(axis) {
 }
 
 /* --------------------------------------------------------------------------
-   Show Results
+   Show Results (updated to use results-ui.js)
    -------------------------------------------------------------------------- */
+
+import { renderResultsScreen } from "./results-ui.js";
 
 function showResults() {
   const { primary, secondary } = calculateConstellation();
 
+  // Hide quiz screen
   quizEl.hidden = true;
+
+  // Show results screen
   resultsEl.hidden = false;
 
-  resultsEl.innerHTML = `
-    <div class="results-card">
-      <h2 class="theme-${primary.toLowerCase()}">Primary: ${primary}</h2>
-      <h3 class="theme-${secondary.toLowerCase()}">Secondary: ${secondary}</h3>
-
-      <p class="text-secondary">
-        Your Climate Color constellation reflects how you move, relate,
-        shape spaces, and hold meaning in shared climate work.
-      </p>
-
-      <button id="restart-btn" class="start-btn bg-architect">
-        Restart Quiz
-      </button>
-    </div>
-  `;
-
-  document.getElementById("restart-btn").addEventListener("click", restartQuiz);
+  // Delegate full rendering to results-ui.js
+  renderResultsScreen(primary, secondary);
 }
 
 /* --------------------------------------------------------------------------
