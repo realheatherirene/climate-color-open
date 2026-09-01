@@ -1,0 +1,80 @@
+/* ==========================================================================
+   Climate Color Quiz — Results Styling
+   ========================================================================== */
+
+/* Results Screen Layout */
+.results-screen {
+  margin-top: 2rem;
+  padding-bottom: 4rem;
+}
+
+/* Results Card */
+.results-card {
+  background-color: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 0.75rem;
+  padding: 2rem;
+  margin-bottom: 2rem;
+}
+
+.results-card h2,
+.results-card h3 {
+  margin: 0.5rem 0;
+}
+
+/* Synergy Text */
+.synergy-text {
+  margin-top: 0.5rem;
+  font-style: italic;
+  color: var(--text-secondary);
+}
+
+/* Starter Kit Section */
+.starter-kit {
+  margin-top: 2rem;
+  padding: 1.5rem;
+  background-color: rgba(255, 255, 255, 0.03);
+  border-radius: 0.5rem;
+  border: 1px solid var(--border-color);
+}
+
+.starter-kit h3 {
+  margin-top: 0;
+  margin-bottom: 1rem;
+}
+
+.starter-kit h4 {
+  margin-top: 1.25rem;
+  margin-bottom: 0.5rem;
+  color: var(--text-secondary);
+}
+
+.starter-kit ul {
+  margin: 0;
+  padding-left: 1.25rem;
+}
+
+.starter-kit li {
+  margin-bottom: 0.5rem;
+}
+
+/* Restart Button */
+#restart-btn {
+  margin-top: 2rem;
+  padding: 0.75rem 1.25rem;
+  border-radius: 0.5rem;
+  border: none;
+  color: var(--text-primary);
+  cursor: pointer;
+  background-color: var(--architect-color);
+  font-size: 1rem;
+}
+
+#restart-btn:hover {
+  opacity: 0.9;
+}
+
+/* Utility */
+.text-secondary {
+  color: var(--text-secondary);
+}
