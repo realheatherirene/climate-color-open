@@ -36,8 +36,10 @@
   </main>
 
   <!-- Quiz Modules -->
-  <script src="js/quiz-data.js"></script>
-  <script src="js/quiz-logic.js"></script>
-  <script src="js/ui.js"></script>
-</body>
+  <script type="module" src="js/quiz-data.js"></script>
+  <script type="module" src="js/quiz-logic.js"></script>
+  <script type="module" src="js/results.js"></script>
+  <script type="module" src="js/results-ui.js"></script>
+  <script type="module" src="js/ui.js"></script>
+  </body>
 </html>
