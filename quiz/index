@@ -1,1 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Climate Color Quiz</title>
 
+  <!-- Climate Color Theme (Source of Truth) -->
+  <link rel="stylesheet" href="css/atlas.css" />
+
+  <!-- Quiz Layout + Components -->
+  <link rel="stylesheet" href="css/quiz.css" />
+</head>
+
+<body class="bg-primary text-primary">
+  <main id="app" class="quiz-shell">
+
+    <!-- Intro Screen -->
+    <section id="intro" class="intro-screen">
+      <h1 class="theme-visionary">Climate Color Quiz</h1>
+      <p class="text-secondary">
+        Every person carries a unique way of caring for the world — a natural rhythm,
+        a way of relating, a way of protecting, a way of imagining what comes next.
+      </p>
+      <button id="begin-btn" class="start-btn bg-architect">
+        Begin
+      </button>
+    </section>
+
+    <!-- Quiz Screen -->
+    <section id="quiz" class="quiz-screen" hidden></section>
+
+    <!-- Results Screen -->
+    <section id="results" class="results-screen" hidden></section>
+
+  </main>
+
+  <!-- Quiz Modules -->
+  <script src="js/quiz-data.js"></script>
+  <script src="js/quiz-logic.js"></script>
+  <script src="js/ui.js"></script>
+</body>
+</html>
