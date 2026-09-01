@@ -1,0 +1,95 @@
+/* ==========================================================================
+   Climate Color Quiz — Layout + Components
+   ========================================================================== */
+
+body {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+/* Shell */
+.quiz-shell {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+/* Intro Screen */
+.intro-screen {
+  text-align: center;
+  padding: 3rem 1rem;
+}
+
+.start-btn {
+  margin-top: 2rem;
+  padding: 0.75rem 1.25rem;
+  border-radius: 0.5rem;
+  border: none;
+  color: var(--text-primary);
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+/* Quiz Screen */
+.quiz-screen {
+  margin-top: 2rem;
+}
+
+/* Question Card */
+.question-card {
+  background-color: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 0.75rem;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.question-card h2 {
+  margin-top: 0;
+  margin-bottom: 1rem;
+}
+
+/* Answer Buttons */
+.option-btn {
+  display: block;
+  width: 100%;
+  margin-top: 0.75rem;
+  padding: 0.75rem 1rem;
+  border-radius: 0.5rem;
+  border: 1px solid var(--border-color);
+  background-color: transparent;
+  color: var(--text-primary);
+  cursor: pointer;
+  text-align: left;
+  transition: border-color 0.15s ease, background-color 0.15s ease;
+}
+
+.option-btn:hover {
+  border-color: var(--text-secondary);
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+/* Results Screen */
+.results-screen {
+  margin-top: 2rem;
+}
+
+.results-card {
+  background-color: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 0.75rem;
+  padding: 1.5rem;
+}
+
+.results-card h2,
+.results-card h3 {
+  margin: 0.5rem 0;
+}
+
+/* Utility */
+.text-secondary {
+  color: var(--text-secondary);
+}
