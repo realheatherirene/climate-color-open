@@ -1,95 +1,246 @@
-/* ==========================================================================
-   Climate Color Quiz — Layout + Components
-   ========================================================================== */
+* { box-sizing: border-box; }
 
 body {
-  background-color: var(--bg-primary);
-  color: var(--text-primary);
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  margin: 0;
-  padding: 0;
+    font-family: 'Varela Round', -apple-system, BlinkMacSystemFont, sans-serif;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2rem 1rem 1rem 1rem;
+    line-height: 1.6;
+    background-color: #FFFFFF;
+    color: #212121;
+    -webkit-font-smoothing: antialiased;
 }
 
-/* Shell */
-.quiz-shell {
-  max-width: 720px;
-  margin: 0 auto;
-  padding: 2rem;
+/* Beta Banner */
+.beta-banner {
+    background-color: #F1F5F9;
+    color: #334155;
+    text-align: center;
+    padding: 0.6rem 1rem;
+    font-size: 0.85rem;
+    border: 1px solid #E2E8F0;
+    border-radius: 8px;
+    margin-bottom: 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+.beta-tag {
+    background-color: #1494B9;
+    color: #FFFFFF;
+    font-size: 0.7rem;
+    font-weight: 700;
+    padding: 0.15rem 0.5rem;
+    border-radius: 9999px;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
 }
 
-/* Intro Screen */
-.intro-screen {
-  text-align: center;
-  padding: 3rem 1rem;
+/* Header Styles */
+.quiz-header {
+    text-align: left;
+    margin-bottom: 1.5rem;
+}
+.quiz-header h1 {
+    font-family: 'ADLaM Display', 'Varela Round', sans-serif;
+    font-size: 2rem;
+    color: #1494B9;
+    margin: 0 0 0.25rem 0;
+    line-height: 1.2;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+.quiz-header p {
+    font-size: 1rem;
+    color: #64748B;
+    margin: 0;
 }
 
-.start-btn {
-  margin-top: 2rem;
-  padding: 0.75rem 1.25rem;
-  border-radius: 0.5rem;
-  border: none;
-  color: var(--text-primary);
-  font-size: 1rem;
-  cursor: pointer;
+/* Progress Bar */
+.progress-container {
+    width: 100%;
+    height: 8px;
+    background-color: #E2E8F0;
+    border-radius: 9999px;
+    margin-bottom: 2rem;
+    overflow: hidden;
+}
+.progress-bar {
+    height: 100%;
+    width: 0%;
+    background-color: #1494B9;
+    transition: width 0.3s ease;
 }
 
-/* Quiz Screen */
-.quiz-screen {
-  margin-top: 2rem;
+/* Question & Option Cards */
+.quiz-card {
+    background: #FFFFFF;
+    border: 1px solid #E2E8F0;
+    border-radius: 12px;
+    padding: 1.75rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+    margin-bottom: 2rem;
+}
+.question-number {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: #64748B;
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+}
+.question-text {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #0F172A;
+    margin-bottom: 1.5rem;
+    line-height: 1.4;
+    outline: none;
 }
 
-/* Question Card */
-.question-card {
-  background-color: var(--bg-secondary);
-  border: 1px solid var(--border-color);
-  border-radius: 0.75rem;
-  padding: 1.5rem;
-  margin-bottom: 2rem;
+.options-container {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
 }
-
-.question-card h2 {
-  margin-top: 0;
-  margin-bottom: 1rem;
-}
-
-/* Answer Buttons */
 .option-btn {
-  display: block;
-  width: 100%;
-  margin-top: 0.75rem;
-  padding: 0.75rem 1rem;
-  border-radius: 0.5rem;
-  border: 1px solid var(--border-color);
-  background-color: transparent;
-  color: var(--text-primary);
-  cursor: pointer;
-  text-align: left;
-  transition: border-color 0.15s ease, background-color 0.15s ease;
+    width: 100%;
+    text-align: left;
+    padding: 1rem 1.25rem;
+    border: 1.5px solid #CBD5E1;
+    border-radius: 8px;
+    background: #F8FAFC;
+    color: #334155;
+    font-family: inherit;
+    font-size: 0.98rem;
+    cursor: pointer;
+    transition: all 0.15s ease;
+}
+.option-btn:hover, .option-btn:focus {
+    border-color: #1494B9;
+    background: #F0F9FF;
+    transform: translateY(-1px);
+    outline: 2px solid #1494B9;
+    outline-offset: 1px;
 }
 
-.option-btn:hover {
-  border-color: var(--text-secondary);
-  background-color: rgba(255, 255, 255, 0.05);
+/* Sticky Persistence Bar */
+.sticky-results-bar {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: #FFFFFF;
+    border-bottom: 1px solid #E2E8F0;
+    padding: 0.75rem 1rem;
+    margin: -2rem -1rem 1.5rem -1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+}
+.sticky-actions {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+}
+.btn-sm-action {
+    padding: 0.4rem 0.85rem !important;
+    font-size: 0.82rem !important;
+    border-radius: 9999px;
+    font-weight: 700;
+    border: 1px solid #CBD5E1;
+    background: #F8FAFC;
+    color: #334155 !important;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    text-decoration: none;
+}
+.btn-sm-action:hover {
+    background: #E2E8F0;
+}
+.btn-sm-primary {
+    background: #1494B9 !important;
+    color: #FFFFFF !important;
+    border-color: #1494B9 !important;
 }
 
-/* Results Screen */
-.results-screen {
-  margin-top: 2rem;
+/* Results Cards */
+.styleBlock {
+    background: #FFFFFF;
+    border: 1px solid #E2E8F0;
+    border-radius: 12px;
+    padding: 1.5rem;
+    border-left: 6px solid #CBD5E1;
+    text-align: left;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+    margin-bottom: 1.5rem;
+}
+.styleTitle {
+    font-weight: 700;
+    line-height: 1.3;
+}
+.styleIdentity {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: #0F172A;
+    line-height: 1.4;
+    margin-bottom: 0.5rem;
+}
+.styleAction {
+    font-size: 0.92rem;
+    color: #334155;
+    margin-bottom: 0.75rem;
 }
 
-.results-card {
-  background-color: var(--bg-secondary);
-  border: 1px solid var(--border-color);
-  border-radius: 0.75rem;
-  padding: 1.5rem;
+/* Button & Pill Utilities */
+.cta-container {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    margin-top: 1rem;
+}
+.btn-pill-soft {
+    display: inline-block;
+    padding: 0.5rem 1.1rem;
+    font-size: 0.88rem;
+    font-weight: 700;
+    text-decoration: none;
+    border-radius: 9999px;
+    border: 1px solid #CBD5E1;
+    background-color: #F8FAFC;
+    color: #334155 !important;
+    transition: all 0.15s ease;
+}
+.btn-pill-soft:hover {
+    transform: translateY(-1px);
+    filter: brightness(0.96);
 }
 
-.results-card h2,
-.results-card h3 {
-  margin: 0.5rem 0;
+/* Print Specific Rules */
+@media print {
+    .sticky-results-bar, 
+    .beta-banner, 
+    .cta-container,
+    .btn-sm-action {
+        display: none !important;
+    }
+    body {
+        padding: 0;
+        background: #FFFFFF;
+    }
+    .styleBlock {
+        break-inside: avoid;
+        box-shadow: none;
+        border: 1px solid #CBD5E1;
+    }
 }
 
-/* Utility */
-.text-secondary {
-  color: var(--text-secondary);
+@media (max-width: 640px) {
+    body { padding: 1.25rem 0.85rem; }
+    .quiz-card { padding: 1.25rem; }
+    .cta-container { flex-direction: column; gap: 0.5rem; }
+    .btn-pill-soft { width: 100%; text-align: center; }
+    .beta-banner { text-align: left; }
 }
