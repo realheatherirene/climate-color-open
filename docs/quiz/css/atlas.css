@@ -1,17 +1,17 @@
-/* ==========================================================================
-   ATLAS CSS: Climate Color Theme (Source of Truth)
+/* ==========================================================================  
+   ATLAS CSS: Climate Color Theme (Source of Truth)  
    ========================================================================== */
 
 :root {
   /* Core Climate Color Palette */
   --driver-color: #DC2626;
   --advocate-color: #EA580C;
-  --visionary-color: #E1B809;  /* Standardized Yellow */
+  --visionary-color: #E1B809;
   --stabilizer-color: #16A34A;
   --architect-color: #0284C7;
   --keeper-color: #4F46E5;
   --connector-color: #9333EA;
-  --guardian-color: #D946EF;   /* Standardized Violet */
+  --guardian-color: #D946EF;
 
   /* Global UI Colors */
   --bg-primary: #0F172A;
@@ -21,46 +21,35 @@
   --border-color: #334155;
 }
 
-/* ==========================================================================
-   Climate Color Utility Classes
-   ========================================================================== */
-
-/* Driver */
+/* Climate Color Utility Classes */
 .theme-driver { color: var(--driver-color); }
 .bg-driver { background-color: var(--driver-color); }
 .border-driver { border-color: var(--driver-color); }
 
-/* Advocate */
 .theme-advocate { color: var(--advocate-color); }
 .bg-advocate { background-color: var(--advocate-color); }
 .border-advocate { border-color: var(--advocate-color); }
 
-/* Visionary */
 .theme-visionary { color: var(--visionary-color); }
 .bg-visionary { background-color: var(--visionary-color); }
 .border-visionary { border-color: var(--visionary-color); }
 
-/* Stabilizer */
 .theme-stabilizer { color: var(--stabilizer-color); }
 .bg-stabilizer { background-color: var(--stabilizer-color); }
 .border-stabilizer { border-color: var(--stabilizer-color); }
 
-/* Architect */
 .theme-architect { color: var(--architect-color); }
 .bg-architect { background-color: var(--architect-color); }
 .border-architect { border-color: var(--architect-color); }
 
-/* Keeper */
 .theme-keeper { color: var(--keeper-color); }
 .bg-keeper { background-color: var(--keeper-color); }
 .border-keeper { border-color: var(--keeper-color); }
 
-/* Connector */
 .theme-connector { color: var(--connector-color); }
 .bg-connector { background-color: var(--connector-color); }
 .border-connector { border-color: var(--connector-color); }
 
-/* Guardian */
 .theme-guardian { color: var(--guardian-color); }
 .bg-guardian { background-color: var(--guardian-color); }
 .border-guardian { border-color: var(--guardian-color); }
