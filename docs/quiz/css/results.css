@@ -1,80 +1,188 @@
-/* ==========================================================================
-   Climate Color Quiz — Results Styling
+/* ==========================================================================  
+   RESULTS CSS — Climate Color Stewardship Quiz  
+   Exact visual match to old quiz (modular version)  
    ========================================================================== */
 
-/* Results Screen Layout */
-.results-screen {
-  margin-top: 2rem;
-  padding-bottom: 4rem;
+/* Sticky Results Bar */
+.sticky-results-bar {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: #FFFFFF;
+    border-bottom: 1px solid #E2E8F0;
+    padding: 0.75rem 1rem;
+    margin: -2rem -1rem 1.5rem -1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
 }
 
-/* Results Card */
-.results-card {
-  background-color: var(--bg-secondary);
-  border: 1px solid var(--border-color);
-  border-radius: 0.75rem;
-  padding: 2rem;
-  margin-bottom: 2rem;
+.sticky-results-label {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: #0F172A;
 }
 
-.results-card h2,
-.results-card h3 {
-  margin: 0.5rem 0;
+.sticky-actions {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
 }
 
-/* Synergy Text */
-.synergy-text {
-  margin-top: 0.5rem;
-  font-style: italic;
-  color: var(--text-secondary);
+.btn-sm-action {
+    padding: 0.4rem 0.85rem !important;
+    font-size: 0.82rem !important;
+    border-radius: 9999px;
+    font-weight: 700;
+    border: 1px solid #CBD5E1;
+    background: #F8FAFC;
+    color: #334155 !important;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    text-decoration: none;
 }
 
-/* Starter Kit Section */
-.starter-kit {
-  margin-top: 2rem;
-  padding: 1.5rem;
-  background-color: rgba(255, 255, 255, 0.03);
-  border-radius: 0.5rem;
-  border: 1px solid var(--border-color);
+.btn-sm-action:hover {
+    background: #E2E8F0;
 }
 
-.starter-kit h3 {
-  margin-top: 0;
-  margin-bottom: 1rem;
+.btn-sm-primary {
+    background: #1494B9 !important;
+    color: #FFFFFF !important;
+    border-color: #1494B9 !important;
 }
 
-.starter-kit h4 {
-  margin-top: 1.25rem;
-  margin-bottom: 0.5rem;
-  color: var(--text-secondary);
+/* ==========================================================================  
+   Style Blocks  
+   ========================================================================== */
+
+.styleBlock {
+    background: #FFFFFF;
+    border: 1px solid #E2E8F0;
+    border-radius: 12px;
+    padding: 1.5rem;
+    border-left-width: 6px;
+    text-align: left;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+    margin-bottom: 1.5rem;
 }
 
-.starter-kit ul {
-  margin: 0;
-  padding-left: 1.25rem;
+/* Border-left color variants (mapped to Climate Color palette) */
+.border-driver { border-left-color: var(--driver-color); }
+.border-stabilizer { border-left-color: var(--stabilizer-color); }
+.border-advocate { border-left-color: var(--advocate-color); }
+.border-connector { border-left-color: var(--connector-color); }
+.border-architect { border-left-color: var(--architect-color); }
+.border-guardian { border-left-color: var(--guardian-color); }
+.border-visionary { border-left-color: var(--visionary-color); }
+.border-keeper { border-left-color: var(--keeper-color); }
+
+/* Titles & Identity */
+.styleTitle {
+    font-weight: 700;
+    line-height: 1.3;
+    color: #1E293B;
 }
 
-.starter-kit li {
-  margin-bottom: 0.5rem;
+.styleTitle-lg {
+    font-size: 1.35rem;
+    margin-bottom: 0.25rem;
 }
 
-/* Restart Button */
-#restart-btn {
-  margin-top: 2rem;
-  padding: 0.75rem 1.25rem;
-  border-radius: 0.5rem;
-  border: none;
-  color: var(--text-primary);
-  cursor: pointer;
-  background-color: var(--architect-color);
-  font-size: 1rem;
+.styleTitle-md {
+    font-size: 1.15rem;
+    margin-bottom: 0.25rem;
 }
 
-#restart-btn:hover {
-  opacity: 0.9;
+.styleIdentity {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: #0F172A;
+    line-height: 1.4;
+    margin-bottom: 0.5rem;
 }
 
-/* Utility */
-.text-secondary {
-  color: var(--text-secondary);
+.styleIdentity-sm {
+    font-size: 0.98rem;
+}
+
+/* Anchor + Energy Line */
+.styleMeta {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: #64748B;
+    text-transform: uppercase;
+    margin-bottom: 0.85rem;
+}
+
+/* Contribution, Shine, Watchouts */
+.styleContribution {
+    margin-bottom: 0.75rem;
+    color: #334155;
+    font-size: 0.92rem;
+}
+
+.styleAction {
+    font-size: 0.92rem;
+    color: #334155;
+    margin-bottom: 0.75rem;
+}
+
+.styleWatchouts {
+    font-size: 0.88rem;
+    color: #64748B;
+    font-style: italic;
+    margin-bottom: 1rem;
+}
+
+/* ==========================================================================  
+   Synthesis Block  
+   ========================================================================== */
+
+.synthesisBlock {
+    background: #F8FAFC;
+    border: 1px solid #E2E8F0;
+    border-left-width: 6px;
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.synthesisTitle {
+    color: #1E293B;
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+}
+
+.synthesisText {
+    font-size: 0.98rem;
+    color: #334155;
+    line-height: 1.6;
+}
+
+/* ==========================================================================  
+   Print Rules  
+   ========================================================================== */
+
+@media print {
+    .sticky-results-bar,
+    .beta-banner,
+    .cta-container,
+    .btn-sm-action {
+        display: none !important;
+    }
+
+    body {
+        padding: 0;
+        background: #FFFFFF;
+    }
+
+    .styleBlock,
+    .synthesisBlock {
+        break-inside: avoid;
+        box-shadow: none;
+        border: 1px solid #CBD5E1;
+    }
 }
