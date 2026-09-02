@@ -201,3 +201,153 @@ export const tieBreakers = {
     ]
   }
 };
+
+/* ==========================================================================
+   Style Metadata (Primary + Secondary Descriptions)
+   ========================================================================== */
+
+export const styles = {
+  Driver: {
+    identity: "You bring activation, momentum, and clarity to group processes.",
+    anchor: "Pace",
+    energy: "Forward",
+    contribution: "You help groups begin, move, and regain direction.",
+    shine: "Moments that need initiative, activation, or decisive motion.",
+    watchouts: "Moving too quickly for others or skipping emotional context."
+  },
+  Stabilizer: {
+    identity: "You bring steadiness, grounding, and rhythm to shared work.",
+    anchor: "Pace",
+    energy: "Steady",
+    contribution: "You help groups settle, regulate, and maintain momentum.",
+    shine: "Moments that need calm, consistency, or patient follow‑through.",
+    watchouts: "Holding back motion when activation is needed."
+  },
+  Advocate: {
+    identity: "You lift energy, amplify voices, and spark participation.",
+    anchor: "People",
+    energy: "Expressive",
+    contribution: "You help people feel seen, energized, and invited in.",
+    shine: "Moments that need enthusiasm, encouragement, or shared joy.",
+    watchouts: "Over‑energizing spaces that need quiet or care."
+  },
+  Connector: {
+    identity: "You attune, support, and help people feel safe joining in.",
+    anchor: "People",
+    energy: "Relational",
+    contribution: "You help people feel comfortable, welcomed, and understood.",
+    shine: "Moments that need gentleness, trust‑building, or emotional safety.",
+    watchouts: "Staying quiet when a group needs visible energy."
+  },
+  Architect: {
+    identity: "You organize, clarify, and make sense of complexity.",
+    anchor: "Place",
+    energy: "Structural",
+    contribution: "You help groups understand information and navigate chaos.",
+    shine: "Moments that need mapping, structuring, or analysis.",
+    watchouts: "Over‑structuring when people need emotional grounding."
+  },
+  Guardian: {
+    identity: "You protect tone, wellbeing, and the emotional integrity of spaces.",
+    anchor: "Place",
+    energy: "Protective",
+    contribution: "You help groups feel safe, supported, and cared for.",
+    shine: "Moments that need grounding, care, or conflict de‑escalation.",
+    watchouts: "Protecting too quickly when clarity or structure is needed."
+  },
+  Visionary: {
+    identity: "You imagine possibilities, expand horizons, and inspire direction.",
+    anchor: "Purpose",
+    energy: "Expansive",
+    contribution: "You help groups see potential and explore new futures.",
+    shine: "Moments that need creativity, re‑framing, or bold ideas.",
+    watchouts: "Leaping ahead when values or commitments need honoring."
+  },
+  Keeper: {
+    identity: "You honor meaning, values, and continuity.",
+    anchor: "Purpose",
+    energy: "Grounded",
+    contribution: "You help groups stay aligned with what matters most.",
+    shine: "Moments that need reflection, alignment, or purpose‑checking.",
+    watchouts: "Holding too tightly to tradition when change is needed."
+  }
+};
+
+/* ==========================================================================
+   Secondary Synthesis (How Primary + Secondary Combine)
+   ========================================================================== */
+
+export const secondarySyntheses = {
+  Driver: {
+    Stabilizer: "You balance activation with steadiness, helping groups move without rushing.",
+    Advocate: "You energize groups with both motion and enthusiasm.",
+    Connector: "You activate groups while staying attuned to emotional dynamics.",
+    Architect: "You bring decisive motion to structured problem‑solving.",
+    Guardian: "You move groups forward while protecting tone and wellbeing.",
+    Visionary: "You combine bold ideas with decisive action.",
+    Keeper: "You move groups forward while honoring core values."
+  },
+  Stabilizer: {
+    Driver: "You steady momentum while supporting activation when needed.",
+    Advocate: "You bring calm encouragement that helps people join in.",
+    Connector: "You create gentle, steady relational safety.",
+    Architect: "You bring rhythm to structured processes.",
+    Guardian: "You steady emotional tone and protect group wellbeing.",
+    Visionary: "You ground expansive ideas in steady pacing.",
+    Keeper: "You maintain rhythm while honoring meaning and values."
+  },
+  Advocate: {
+    Connector: "You blend expressive encouragement with relational care.",
+    Driver: "You energize motion and participation.",
+    Stabilizer: "You lift energy while keeping things grounded.",
+    Architect: "You amplify clarity and shared understanding.",
+    Guardian: "You energize groups while protecting emotional tone.",
+    Visionary: "You inspire participation in new possibilities.",
+    Keeper: "You celebrate values and shared meaning."
+  },
+  Connector: {
+    Advocate: "You blend relational care with expressive encouragement.",
+    Driver: "You support motion with emotional attunement.",
+    Stabilizer: "You create gentle, steady relational safety.",
+    Architect: "You help people navigate complexity with care.",
+    Guardian: "You deepen emotional grounding and trust.",
+    Visionary: "You help people feel safe exploring new ideas.",
+    Keeper: "You support values‑aligned participation."
+  },
+  Architect: {
+    Guardian: "You combine clarity with emotional protection.",
+    Driver: "You bring structure to decisive action.",
+    Stabilizer: "You organize with steady pacing.",
+    Advocate: "You clarify information with expressive energy.",
+    Connector: "You help people navigate complexity with care.",
+    Visionary: "You map possibilities into clear pathways.",
+    Keeper: "You structure work around core values."
+  },
+  Guardian: {
+    Architect: "You protect tone while supporting clarity.",
+    Driver: "You safeguard wellbeing during motion.",
+    Stabilizer: "You steady emotional tone.",
+    Advocate: "You protect emotional integrity during celebration.",
+    Connector: "You deepen relational safety.",
+    Visionary: "You ground expansive ideas in emotional care.",
+    Keeper: "You protect meaning and shared commitments."
+  },
+  Visionary: {
+    Keeper: "You blend expansive imagination with grounded values.",
+    Driver: "You inspire bold motion.",
+    Stabilizer: "You explore possibilities with steady pacing.",
+    Advocate: "You energize new ideas with expressive enthusiasm.",
+    Connector: "You help people feel safe exploring new futures.",
+    Architect: "You map bold ideas into clear structures.",
+    Guardian: "You imagine futures that protect wellbeing."
+  },
+  Keeper: {
+    Visionary: "You honor meaning while exploring new horizons.",
+    Driver: "You move groups forward while protecting commitments.",
+    Stabilizer: "You maintain values with steady pacing.",
+    Advocate: "You celebrate shared meaning.",
+    Connector: "You support values‑aligned participation.",
+    Architect: "You structure work around what matters most.",
+    Guardian: "You protect emotional and ethical integrity."
+  }
+};
