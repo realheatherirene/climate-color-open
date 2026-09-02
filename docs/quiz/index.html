@@ -1,45 +1,254 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Climate Color Quiz</title>
+<meta charset="UTF-8">
+<title>Climate Color Quiz | Climate Color</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <!-- Climate Color Theme (Source of Truth) -->
-  <link rel="stylesheet" href="css/atlas.css" />
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
+<link href="https://fonts.googleapis.com/css2?family=ADLaM+Display&family=Varela+Round&display=swap" rel="stylesheet">
 
-  <!-- Quiz Layout + Components -->
-  <link rel="stylesheet" href="css/quiz.css" />
+<!-- Stylesheets -->
+<link rel="stylesheet" href="./css/atlas.css">
+<link rel="stylesheet" href="./css/quiz.css">
+<link rel="stylesheet" href="./css/results.css">
+
 </head>
+<body>
 
-<body class="bg-primary text-primary">
-  <main id="app" class="quiz-shell">
+<!-- Beta Banner -->
+<div class="beta-banner">
+    <div>
+        <span class="beta-tag">Active Beta</span>
+        You are viewing an early preview of the Climate Color assessment engine.
+    </div>
+    <div>
+        <a href="mailto:hello@climatecolor.com?subject=Beta%20Feedback"
+           style="color: #1494B9; font-weight: 700; text-decoration: underline;">
+           Share Feedback
+        </a>
+    </div>
+</div>
 
-    <!-- Intro Screen -->
-    <section id="intro" class="intro-screen">
-      <h1 class="theme-visionary">Climate Color Quiz</h1>
-      <p class="text-secondary">
-        Every person carries a unique way of caring for the world — a natural rhythm,
-        a way of relating, a way of protecting, a way of imagining what comes next.
-      </p>
-      <button id="begin-btn" class="start-btn bg-architect">
-        Begin
-      </button>
-    </section>
+<!-- Header -->
+<header class="quiz-header">
+    <h1>Climate Color Quiz</h1>
+    <p>Discover your primary and secondary stewardship styles</p>
+</header>
 
-    <!-- Quiz Screen -->
-    <section id="quiz" class="quiz-screen" hidden></section>
+<!-- Progress Bar -->
+<div class="progress-container" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="progressContainer">
+    <div id="progressBar" class="progress-bar"></div>
+</div>
 
-    <!-- Results Screen -->
-    <section id="results" class="results-screen" hidden></section>
+<!-- Quiz Card -->
+<main id="quizCard" class="quiz-card" aria-live="polite">
+    <div id="questionNumber" class="question-number">Question 1 of 32</div>
+    <h2 id="questionText" class="question-text"></h2>
+    <div id="optionsContainer" class="options-container"></div>
+</main>
 
-  </main>
+<!-- Results Container -->
+<div id="resultContainer" style="display: none;" aria-live="polite"></div>
 
-  <!-- Quiz Modules -->
-  <script type="module" src="js/quiz-data.js"></script>
-  <script type="module" src="js/quiz-logic.js"></script>
-  <script type="module" src="js/results.js"></script>
-  <script type="module" src="js/results-ui.js"></script>
-  <script type="module" src="js/ui.js"></script>
-  </body>
+<!-- Quiz Logic -->
+<script type="module">
+import { styles, questions, secondarySyntheses } from './quiz-data.js';
+
+let currentQuestion = 0;
+let scores = {
+    Driver: 0, Stabilizer: 0,
+    Advocate: 0, Connector: 0,
+    Architect: 0, Guardian: 0,
+    Visionary: 0, Keeper: 0
+};
+
+function updateProgressBar(percentage) {
+    const bar = document.getElementById("progressBar");
+    const container = document.getElementById("progressContainer");
+    bar.style.width = `${percentage}%`;
+    container.setAttribute("aria-valuenow", Math.round(percentage));
+}
+
+function renderQuestion() {
+    const q = questions[currentQuestion];
+    const qNum = document.getElementById("questionNumber");
+    const qText = document.getElementById("questionText");
+
+    qNum.textContent = `Question ${currentQuestion + 1} of ${questions.length}`;
+    qText.textContent = q.prompt || q.text;
+
+    const pct = (currentQuestion / questions.length) * 100;
+    updateProgressBar(pct);
+
+    const container = document.getElementById("optionsContainer");
+    container.innerHTML = "";
+
+    q.options.forEach(opt => {
+        const btn = document.createElement("button");
+        btn.className = "option-btn";
+        btn.textContent = opt.text;
+        btn.onclick = () => selectOption(opt.style);
+        container.appendChild(btn);
+    });
+
+    qText.setAttribute("tabindex", "-1");
+    qText.focus();
+}
+
+function selectOption(styleKey) {
+    scores[styleKey]++;
+    currentQuestion++;
+    currentQuestion < questions.length ? renderQuestion() : calculateResults();
+}
+
+function calculateResults() {
+    updateProgressBar(100);
+    document.getElementById("quizCard").style.display = "none";
+
+    const axes = [
+        { anchor: "PACE", poleA: "Driver", poleB: "Stabilizer" },
+        { anchor: "PEOPLE", poleA: "Advocate", poleB: "Connector" },
+        { anchor: "PLACE", poleA: "Architect", poleB: "Guardian" },
+        { anchor: "PURPOSE", poleA: "Visionary", poleB: "Keeper" }
+    ];
+
+    const axisWinners = axes.map((axis, index) => {
+        const scoreA = scores[axis.poleA];
+        const scoreB = scores[axis.poleB];
+        return {
+            anchor: axis.anchor,
+            winner: scoreA >= scoreB ? axis.poleA : axis.poleB,
+            winningScore: Math.max(scoreA, scoreB),
+            margin: Math.abs(scoreA - scoreB),
+            originalIndex: index
+        };
+    });
+
+    axisWinners.sort((a, b) => {
+        if (b.winningScore !== a.winningScore) return b.winningScore - a.winningScore;
+        if (b.margin !== a.margin) return b.margin - a.margin;
+        return a.originalIndex - b.originalIndex;
+    });
+
+    const primaryKey = axisWinners[0].winner;
+    let secondaryKey = axisWinners[1].winner;
+
+    if (secondaryKey === primaryKey) {
+        const alt = axisWinners.find(w => w.winner !== primaryKey);
+        secondaryKey = alt ? alt.winner : (primaryKey === "Driver" ? "Stabilizer" : "Driver");
+    }
+
+    localStorage.setItem('climatecolor_primary', primaryKey);
+    localStorage.setItem('climatecolor_secondary', secondaryKey);
+
+    const url = new URL(window.location);
+    url.searchParams.set('primary', primaryKey);
+    url.searchParams.set('secondary', secondaryKey);
+    window.history.pushState({}, '', url);
+
+    renderReveal(primaryKey, secondaryKey);
+}
+
+function renderReveal(primaryKey, secondaryKey) {
+    const primary = styles[primaryKey];
+    const secondary = styles[secondaryKey];
+
+    const synthesisText =
+        secondarySyntheses[primaryKey]?.[secondaryKey] ||
+        `You bring a unique combination of ${primaryKey} initiative and ${secondaryKey} perspective to community stewardship.`;
+
+    const result = document.getElementById("resultContainer");
+    result.style.display = "block";
+
+    result.innerHTML = `
+        <div class="sticky-results-bar">
+            <div class="sticky-results-label">
+                Results:
+                <span class="theme-${primaryKey.toLowerCase()}">${primaryKey}</span> /
+                <span class="theme-${secondaryKey.toLowerCase()}">${secondaryKey}</span>
+            </div>
+            <div class="sticky-actions">
+                <button onclick="window.print()" class="btn-sm-action btn-sm-primary">Print / Save PDF</button>
+                <button id="btnCopyLink" class="btn-sm-action">Copy Link</button>
+                <button id="btnResetQuiz" class="btn-sm-action">Retake</button>
+            </div>
+        </div>
+
+        <div class="styleBlock border-${primaryKey.toLowerCase()}">
+            <div class="styleTitle styleTitle-lg">${primaryKey}</div>
+            <div class="styleIdentity">${primary.identity}</div>
+            <div class="styleMeta">Anchor: ${primary.anchor} | Energy: ${primary.energy}</div>
+            <div class="styleContribution"><strong>How You Contribute:</strong> ${primary.contribution}</div>
+            <div class="styleAction"><strong>Where You Shine:</strong> ${primary.shine}</div>
+            <div class="styleWatchouts"><strong>Watchouts:</strong> ${primary.watchouts}</div>
+        </div>
+
+        <div class="styleBlock border-${secondaryKey.toLowerCase()}">
+            <div class="styleTitle styleTitle-md">Secondary: ${secondaryKey}</div>
+            <div class="styleIdentity styleIdentity-sm">${secondary.identity}</div>
+            <div class="styleMeta">Anchor: ${secondary.anchor} | Energy: ${secondary.energy}</div>
+            <div class="styleContribution"><strong>How You Contribute:</strong> ${secondary.contribution}</div>
+            <div class="styleAction"><strong>Where You Shine:</strong> ${secondary.shine}</div>
+            <div class="styleWatchouts"><strong>Watchouts:</strong> ${secondary.watchouts}</div>
+        </div>
+
+        <div class="synthesisBlock border-${primaryKey.toLowerCase()}">
+            <div class="synthesisTitle">How Your Styles Work Together</div>
+            <div class="synthesisText">${synthesisText}</div>
+        </div>
+    `;
+
+    document.getElementById("btnCopyLink").onclick = () => copyQuizLink(primaryKey, secondaryKey);
+    document.getElementById("btnResetQuiz").onclick = resetQuiz;
+}
+
+function copyQuizLink(primaryKey, secondaryKey) {
+    const shareUrl = `${window.location.origin}${window.location.pathname}?primary=${encodeURIComponent(primaryKey)}&secondary=${encodeURIComponent(secondaryKey)}`;
+    navigator.clipboard?.writeText(shareUrl)
+        .then(() => alert("Link copied to clipboard!"))
+        .catch(() => prompt("Copy your share link below:", shareUrl));
+}
+
+function resetQuiz() {
+    localStorage.removeItem('climatecolor_primary');
+    localStorage.removeItem('climatecolor_secondary');
+    window.location.href = window.location.pathname;
+}
+
+function initQuizState() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const paramPrimary = urlParams.get('primary');
+    const paramSecondary = urlParams.get('secondary');
+
+    const validPrimary = styles[paramPrimary] ? paramPrimary :
+        styles[localStorage.getItem('climatecolor_primary')] ? localStorage.getItem('climatecolor_primary') : null;
+
+    let validSecondary = styles[paramSecondary] ? paramSecondary :
+        styles[localStorage.getItem('climatecolor_secondary')] ? localStorage.getItem('climatecolor_secondary') : null;
+
+    if (validPrimary && validSecondary && validPrimary === validSecondary) {
+        validSecondary = validPrimary === "Driver" ? "Stabilizer" : "Driver";
+    }
+
+    if (validPrimary) {
+        updateProgressBar(100);
+        document.getElementById("quizCard").style.display = "none";
+        renderReveal(validPrimary, validSecondary || (validPrimary === "Driver" ? "Stabilizer" : "Driver"));
+    } else {
+        currentQuestion = 0;
+        scores = { Driver: 0, Stabilizer: 0, Advocate: 0, Connector: 0, Architect: 0, Guardian: 0, Visionary: 0, Keeper: 0 };
+        document.getElementById("resultContainer").style.display = "none";
+        document.getElementById("quizCard").style.display = "block";
+        renderQuestion();
+    }
+}
+
+document.addEventListener("DOMContentLoaded", initQuizState);
+window.addEventListener("popstate", initQuizState);
+</script>
+
+</body>
 </html>
