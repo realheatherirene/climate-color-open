@@ -1,5 +1,5 @@
 /* ==========================================================================
-   Climate Color Quiz — Score Keeping & Engine Logic (Auto-Start)
+   Climate Color Quiz — Score Keeping & Engine Logic
    ========================================================================== */
 
 import { styles, questions } from './quiz-data.js';
@@ -32,7 +32,7 @@ function updateProgress(percentage) {
 
     if (bar && container) {
         bar.style.width = `${percentage}%`;
-        container.setAttribute("aria-valuenow`, Math.round(percentage));
+        container.setAttribute("aria-valuenow", Math.round(percentage));
     }
     if (textEl) {
         textEl.textContent = `Question ${Math.min(currentQuestion + 1, questions.length)} of ${questions.length}`;
@@ -50,8 +50,10 @@ function renderQuestion() {
 
     if (!qNum || !qText || !container) return;
 
-    qNum.textContent = `${q.axis.toUpperCase()} AXIS — Question ${currentQuestion + 1} of ${questions.length}`;
-    qText.textContent = q.prompt || q.text;
+    // Correctly formatting the axis name from your quiz-data.js structure
+    const axisName = q.axis ? `${q.axis.toUpperCase()} AXIS` : "QUESTION";
+    qNum.textContent = `${axisName} — Question ${currentQuestion + 1} of ${questions.length}`;
+    qText.textContent = q.prompt;
 
     const pct = (currentQuestion / questions.length) * 100;
     updateProgress(pct);
@@ -90,10 +92,10 @@ export function calculateConstellation() {
     }
 
     const axes = [
-        { anchor: "PACE", poleA: "Driver", poleB: "Stabilizer" },
-        { anchor: "PEOPLE", poleA: "Advocate", poleB: "Connector" },
-        { anchor: "PLACE", poleA: "Architect", poleB: "Guardian" },
-        { anchor: "PURPOSE", poleA: "Visionary", poleB: "Keeper" }
+        { anchor: "Pace", poleA: "Driver", poleB: "Stabilizer" },
+        { anchor: "People", poleA: "Advocate", poleB: "Connector" },
+        { anchor: "Place", poleA: "Architect", poleB: "Guardian" },
+        { anchor: "Purpose", poleA: "Visionary", poleB: "Keeper" }
     ];
 
     const axisWinners = axes.map((axis, index) => {
