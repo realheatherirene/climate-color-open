@@ -1,8 +1,10 @@
-import { styles, questions, secondarySyntheses } from './quiz-data.js';
+/* ==========================================================================
+   Climate Color Quiz — Score Keeping & Engine Logic
+   ========================================================================== */
 
-/* -------------------------
-   STATE
-------------------------- */
+import { styles, questions, secondarySyntheses } from './quiz-data.js';
+import { renderResultsScreen } from './results-ui.js';
+
 let currentQuestion = 0;
 let scores = {
     Driver: 0, Stabilizer: 0,
@@ -11,33 +13,33 @@ let scores = {
     Visionary: 0, Keeper: 0
 };
 
-/* -------------------------
-   PROGRESS BAR
-------------------------- */
+export function recordAnswer(styleKey) {
+    if (scores[styleKey] !== undefined) {
+        scores[styleKey]++;
+    }
+}
+
+export function resetScores() {
+    Object.keys(scores).forEach(key => scores[key] = 0);
+    currentQuestion = 0;
+}
+
 function updateProgressBar(percentage) {
     const bar = document.getElementById("progressBar");
     const container = document.getElementById("progressContainer");
-
-    if (!bar || !container) return; // Prevent crash
-
-    bar.style.width = `${percentage}%`;
-    container.setAttribute("aria-valuenow", Math.round(percentage));
+    if (bar && container) {
+        bar.style.width = `${percentage}%`;
+        container.setAttribute("aria-valuenow", Math.round(percentage));
+    }
 }
 
-/* -------------------------
-   RENDER QUESTION
-------------------------- */
 function renderQuestion() {
     const q = questions[currentQuestion];
-
     const qNum = document.getElementById("questionNumber");
     const qText = document.getElementById("questionText");
     const container = document.getElementById("optionsContainer");
 
-    if (!qNum || !qText || !container) {
-        console.error("Missing quiz DOM elements.");
-        return;
-    }
+    if (!qNum || !qText || !container) return;
 
     qNum.textContent = `Question ${currentQuestion + 1} of ${questions.length}`;
     qText.textContent = q.prompt || q.text;
@@ -51,7 +53,7 @@ function renderQuestion() {
         const btn = document.createElement("button");
         btn.className = "option-btn";
         btn.textContent = opt.text;
-        btn.onclick = () => selectOption(opt.style);
+        btn.addEventListener("click", () => handleAnswer(opt.style));
         container.appendChild(btn);
     });
 
@@ -59,26 +61,24 @@ function renderQuestion() {
     qText.focus();
 }
 
-/* -------------------------
-   SELECT OPTION
-------------------------- */
-function selectOption(styleKey) {
-    scores[styleKey]++;
+function handleAnswer(styleKey) {
+    recordAnswer(styleKey);
     currentQuestion++;
-
-    currentQuestion < questions.length
-        ? renderQuestion()
-        : calculateResults();
+    if (currentQuestion < questions.length) {
+        renderQuestion();
+    } else {
+        calculateResults();
+    }
 }
 
-/* -------------------------
-   CALCULATE RESULTS
-------------------------- */
-function calculateResults() {
-    updateProgressBar(100);
+export function calculateConstellation() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const paramPrimary = urlParams.get('primary');
+    const paramSecondary = urlParams.get('secondary');
 
-    const quizCard = document.getElementById("quizCard");
-    if (quizCard) quizCard.style.display = "none";
+    if (styles[paramPrimary] && styles[paramSecondary]) {
+        return { primary: paramPrimary, secondary: paramSecondary };
+    }
 
     const axes = [
         { anchor: "PACE", poleA: "Driver", poleB: "Stabilizer" },
@@ -121,92 +121,23 @@ function calculateResults() {
     url.searchParams.set('secondary', secondaryKey);
     window.history.pushState({}, '', url);
 
-    renderReveal(primaryKey, secondaryKey);
+    return { primary: primaryKey, secondary: secondaryKey };
 }
 
-/* -------------------------
-   RENDER RESULTS
-------------------------- */
-function renderReveal(primaryKey, secondaryKey) {
-    const primary = styles[primaryKey];
-    const secondary = styles[secondaryKey];
+function calculateResults() {
+    updateProgressBar(100);
+    const quizCard = document.getElementById("quizCard");
+    const resultsEl = document.getElementById("results");
 
-    const synthesisText =
-        secondarySyntheses[primaryKey]?.[secondaryKey] ||
-        `You bring a unique combination of ${primaryKey} initiative and ${secondaryKey} perspective to community stewardship.`;
+    if (quizCard) quizCard.hidden = true;
+    if (resultsEl) resultsEl.hidden = false;
 
-    const result = document.getElementById("resultContainer");
-    if (!result) {
-        console.error("Missing resultContainer.");
-        return;
-    }
-
-    result.style.display = "block";
-
-    result.innerHTML = `
-        <div class="sticky-results-bar">
-            <div class="sticky-results-label">
-                Results:
-                <span class="theme-${primaryKey.toLowerCase()}">${primaryKey}</span> /
-                <span class="theme-${secondaryKey.toLowerCase()}">${secondaryKey}</span>
-            </div>
-            <div class="sticky-actions">
-                <button onclick="window.print()" class="btn-sm-action btn-sm-primary">Print / Save PDF</button>
-                <button id="btnCopyLink" class="btn-sm-action">Copy Link</button>
-                <button id="btnResetQuiz" class="btn-sm-action">Retake</button>
-            </div>
-        </div>
-
-        <div class="styleBlock border-${primaryKey.toLowerCase()}">
-            <div class="styleTitle styleTitle-lg">${primaryKey}</div>
-            <div class="styleIdentity">${primary.identity}</div>
-            <div class="styleMeta">Anchor: ${primary.anchor} | Energy: ${primary.energy}</div>
-            <div class="styleContribution"><strong>How You Contribute:</strong> ${primary.contribution}</div>
-            <div class="styleAction"><strong>Where You Shine:</strong> ${primary.shine}</div>
-            <div class="styleWatchouts"><strong>Watchouts:</strong> ${primary.watchouts}</div>
-        </div>
-
-        <div class="styleBlock border-${secondaryKey.toLowerCase()}">
-            <div class="styleTitle styleTitle-md">Secondary: ${secondaryKey}</div>
-            <div class="styleIdentity styleIdentity-sm">${secondary.identity}</div>
-            <div class="styleMeta">Anchor: ${secondary.anchor} | Energy: ${secondary.energy}</div>
-            <div class="styleContribution"><strong>How You Contribute:</strong> ${secondary.contribution}</div>
-            <div class="styleAction"><strong>Where You Shine:</strong> ${secondary.shine}</div>
-            <div class="styleWatchouts"><strong>Watchouts:</strong> ${secondary.watchouts}</div>
-        </div>
-
-        <div class="synthesisBlock border-${primaryKey.toLowerCase()}">
-            <div class="synthesisTitle">How Your Styles Work Together</div>
-            <div class="synthesisText">${synthesisText}</div>
-        </div>
-    `;
-
-    document.getElementById("btnCopyLink").onclick = () => copyQuizLink(primaryKey, secondaryKey);
-    document.getElementById("btnResetQuiz").onclick = resetQuiz;
+    const { primary, secondary } = calculateConstellation();
+    
+    // Renders using your modular results UI
+    renderResultsScreen(primary, secondary);
 }
 
-/* -------------------------
-   COPY LINK
-------------------------- */
-function copyQuizLink(primaryKey, secondaryKey) {
-    const shareUrl = `${window.location.origin}${window.location.pathname}?primary=${encodeURIComponent(primaryKey)}&secondary=${encodeURIComponent(secondaryKey)}`;
-    navigator.clipboard?.writeText(shareUrl)
-        .then(() => alert("Link copied to clipboard!"))
-        .catch(() => prompt("Copy your share link below:", shareUrl));
-}
-
-/* -------------------------
-   RESET QUIZ
-------------------------- */
-function resetQuiz() {
-    localStorage.removeItem('climatecolor_primary');
-    localStorage.removeItem('climatecolor_secondary');
-    window.location.href = window.location.pathname;
-}
-
-/* -------------------------
-   INIT
-------------------------- */
 function initQuizState() {
     const urlParams = new URLSearchParams(window.location.search);
     const paramPrimary = urlParams.get('primary');
@@ -228,24 +159,26 @@ function initQuizState() {
         validSecondary = validPrimary === "Driver" ? "Stabilizer" : "Driver";
     }
 
-    const quizCard = document.getElementById("quizCard");
-    const resultContainer = document.getElementById("resultContainer");
+    const introEl = document.getElementById("intro");
+    const quizEl = document.getElementById("quiz");
+    const resultsEl = document.getElementById("results");
+    const beginBtn = document.getElementById("begin-btn");
 
     if (validPrimary) {
+        if (introEl) introEl.hidden = true;
+        if (quizEl) quizEl.hidden = true;
+        if (resultsEl) resultsEl.hidden = false;
         updateProgressBar(100);
-        if (quizCard) quizCard.style.display = "none";
-        renderReveal(validPrimary, validSecondary || (validPrimary === "Driver" ? "Stabilizer" : "Driver"));
+        renderResultsScreen(validPrimary, validSecondary || (validPrimary === "Driver" ? "Stabilizer" : "Driver"));
     } else {
-        currentQuestion = 0;
-        scores = {
-            Driver: 0, Stabilizer: 0,
-            Advocate: 0, Connector: 0,
-            Architect: 0, Guardian: 0,
-            Visionary: 0, Keeper: 0
-        };
-        if (resultContainer) resultContainer.style.display = "none";
-        if (quizCard) quizCard.style.display = "block";
-        renderQuestion();
+        if (beginBtn) {
+            beginBtn.onclick = () => {
+                if (introEl) introEl.hidden = true;
+                if (quizEl) quizEl.hidden = false;
+                resetScores();
+                renderQuestion();
+            };
+        }
     }
 }
 
