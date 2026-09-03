@@ -1,47 +1,55 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-  <title>Climate Color Quiz</title>
-
-  <!-- Core Styles -->
-  <link rel="stylesheet" href="./css/atlas.css" />
-  <link rel="stylesheet" href="./css/quiz.css" />
-  <link rel="stylesheet" href="./css/results.css" />
-
-  <!-- Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Climate Color Stewardship Quiz</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap" rel="stylesheet">
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="css/atlas.css">
+    <link rel="stylesheet" href="css/quiz.css">
+    <link rel="stylesheet" href="css/results.css">
 </head>
-
 <body>
 
-  <!-- QUIZ CARD -->
-  <div id="quizCard" class="quizCard">
-
-    <!-- Progress Bar -->
-    <div id="progressContainer" class="progressContainer" aria-valuemin="0" aria-valuemax="100">
-      <div id="progressBar" class="progressBar"></div>
+    <!-- Beta Banner -->
+    <div class="beta-banner">
+        <span>Climate Color Stewardship Quiz</span>
+        <span class="beta-tag">Beta</span>
     </div>
 
-    <!-- Question Number -->
-    <div id="questionNumber" class="questionNumber"></div>
+    <!-- Header Styles -->
+    <header class="quiz-header">
+        <h1>Climate Color Quiz</h1>
+        <p>Discover your primary and secondary stewardship styles.</p>
+    </header>
 
-    <!-- Question Text -->
-    <div id="questionText" class="questionText"></div>
+    <!-- Progress Bar -->
+    <div class="progress-container" id="progressContainer" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+        <div class="progress-bar" id="progressBar"></div>
+    </div>
 
-    <!-- Options -->
-    <div id="optionsContainer" class="optionsContainer"></div>
-  </div>
+    <!-- Intro Screen (Optional, hidden once quiz begins) -->
+    <div id="intro">
+        <button id="begin-btn" class="option-btn btn-sm-primary" style="text-align: center; font-weight: 700; margin-bottom: 2rem;">Begin Quiz</button>
+    </div>
 
-  <!-- RESULTS -->
-  <div id="resultContainer" class="resultContainer" style="display:none;"></div>
+    <!-- Main Quiz Card Container -->
+    <main id="quiz" hidden>
+        <div class="quiz-card" id="quizCard">
+            <div class="question-number" id="questionNumber"></div>
+            <div class="question-text" id="questionText" tabindex="-1"></div>
+            <div class="options-container" id="optionsContainer"></div>
+        </div>
+    </main>
 
-  <!-- LOGIC -->
-  <script type="module" src="./js/quiz-logic.js"></script>
+    <!-- Results Screen Container -->
+    <div id="results" hidden></div>
 
+    <!-- Application Entry Point -->
+    <script type="module" src="js/ui.js"></script>
 </body>
 </html>
