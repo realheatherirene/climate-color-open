@@ -1,78 +1,75 @@
 /* ==========================================================================
-   Climate Color Quiz — Results Rendering UI
+   Climate Color Quiz — Results Rendering UI (Directory Styled)
    ========================================================================== */
 
-import { shortResults, fullResults, starterKits, synergyCards } from "./results.js";
+import { styles, secondarySyntheses } from "./quiz-data.js";
 
-/* --------------------------------------------------------------------------
-   Render Full Results Screen
-   -------------------------------------------------------------------------- */
-
-export function renderResultsScreen(primary, secondary) {
+export function renderResultsScreen(primaryKey, secondaryKey) {
   const resultsEl = document.getElementById("results");
+  if (!resultsEl) return;
 
-  const short = shortResults[primary];
-  const full = fullResults[primary];
-  const synergy = synergyCards[primary][secondary];
-  const kit = starterKits[primary];
+  resultsEl.hidden = false;
+
+  const primary = styles[primaryKey];
+  const secondary = styles[secondaryKey];
+
+  const synthesisText =
+    secondarySyntheses[primaryKey]?.[secondaryKey] ||
+    `You bring a unique combination of ${primaryKey} initiative and ${secondaryKey} perspective to community stewardship.`;
 
   resultsEl.innerHTML = `
-    <div class="results-card">
+    <!-- Sticky Results Bar -->
+    <div class="sticky-results-bar">
+        <div class="sticky-results-label">
+            Your Constellation: 
+            <span class="theme-${primaryKey.toLowerCase()}">${primaryKey}</span> / 
+            <span class="theme-${secondaryKey.toLowerCase()}">${secondaryKey}</span>
+        </div>
+        <div class="sticky-actions">
+            <button onclick="window.print()" class="btn-sm-action btn-sm-primary">Print / Save PDF</button>
+            <button id="btnCopyLink" class="btn-sm-action">Copy Link</button>
+            <button id="btnResetQuiz" class="btn-sm-action btn-pill-soft">Retake Quiz</button>
+        </div>
+    </div>
 
-      <!-- Primary Style -->
-      <h2 class="theme-${primary.toLowerCase()}">
-        ${primary}
-      </h2>
-      <p>${short}</p>
-      <p>${full.description.trim()}</p>
+    <!-- Primary Style Card (Directory Styled) -->
+    <div class="styleBlock border-${primaryKey.toLowerCase()}">
+        <div class="styleTitle styleTitle-lg theme-${primaryKey.toLowerCase()}">Primary Style: ${primaryKey}</div>
+        <div class="styleIdentity">${primary.identity}</div>
+        <div class="styleMeta">Anchor: ${primary.anchor} | Energy: ${primary.energy}</div>
+        <div class="styleContribution"><strong>How You Contribute:</strong> ${primary.contribution}</div>
+        <div class="styleAction"><strong>Where You Shine:</strong> ${primary.shine}</div>
+        <div class="styleWatchouts"><strong>Watchouts:</strong> ${primary.watchouts}</div>
+    </div>
 
-      <!-- Secondary Style -->
-      <h3 class="theme-${secondary.toLowerCase()}">
-        Secondary: ${secondary}
-      </h3>
-      <p class="text-secondary">
-        ${synergy}
-      </p>
+    <!-- Secondary Style Card -->
+    <div class="styleBlock border-${secondaryKey.toLowerCase()}">
+        <div class="styleTitle styleTitle-md theme-${secondaryKey.toLowerCase()}">Secondary Style: ${secondaryKey}</div>
+        <div class="styleIdentity styleIdentity-sm">${secondary.identity}</div>
+        <div class="styleMeta">Anchor: ${secondary.anchor} | Energy: ${secondary.energy}</div>
+        <div class="styleContribution"><strong>How You Contribute:</strong> ${secondary.contribution}</div>
+        <div class="styleAction"><strong>Where You Shine:</strong> ${secondary.shine}</div>
+        <div class="styleWatchouts"><strong>Watchouts:</strong> ${secondary.watchouts}</div>
+    </div>
 
-      <!-- Starter Kit -->
-      <div class="starter-kit">
-        <h3>Starter Kit</h3>
-
-        <h4>Core Practices</h4>
-        <ul>
-          ${kit.core.map(item => `<li>${item}</li>`).join("")}
-        </ul>
-
-        <h4>Community Practice</h4>
-        <p>${kit.community}</p>
-
-        <h4>Climate Practice</h4>
-        <p>${kit.climate}</p>
-
-        <h4>Reflection Prompt</h4>
-        <p>${kit.reflection}</p>
-
-        <h4>Small Step</h4>
-        <p>${kit.smallStep}</p>
-      </div>
-
-      <!-- Restart -->
-      <button id="restart-btn" class="start-btn bg-architect">
-        Restart Quiz
-      </button>
+    <!-- Synergy Synthesis Block -->
+    <div class="synthesisBlock border-${primaryKey.toLowerCase()}">
+        <div class="synthesisTitle">How Your Styles Work Together</div>
+        <div class="synthesisText">${synthesisText}</div>
     </div>
   `;
 
-  document.getElementById("restart-btn").addEventListener("click", () => {
-    window.location.reload();
-  });
-}
+  // Attach interactive button behaviors
+  document.getElementById("btnCopyLink").onclick = () => {
+    const shareUrl = `${window.location.origin}${window.location.pathname}?primary=${encodeURIComponent(primaryKey)}&secondary=${encodeURIComponent(secondaryKey)}`;
+    navigator.clipboard?.writeText(shareUrl)
+      .then(() => alert("Link copied to clipboard!"))
+      .catch(() => prompt("Copy your share link below:", shareUrl));
+  };
 
-/* --------------------------------------------------------------------------
-   Inject Results into UI.js
-   -------------------------------------------------------------------------- */
-
-export function attachResultsHandler(uiCallback) {
-  // uiCallback should call renderResultsScreen(primary, secondary)
-  return uiCallback;
+  document.getElementById("btnResetQuiz").onclick = () => {
+    localStorage.removeItem('climatecolor_primary');
+    localStorage.removeItem('climatecolor_secondary');
+    window.location.href = window.location.pathname;
+  };
 }
