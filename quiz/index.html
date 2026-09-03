@@ -4,47 +4,39 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Climate Color Stewardship Quiz</title>
-    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap" rel="stylesheet">
     
-    <!-- Stylesheets -->
-    <!-- atlas.css is in the root css/ folder, so go up one level (../) -->
     <link rel="stylesheet" href="../css/atlas.css">
-    
-    <!-- quiz.css and results.css are in quiz/css/ -->
     <link rel="stylesheet" href="css/quiz.css">
     <link rel="stylesheet" href="css/results.css">
 </head>
 <body>
 
-    <!-- Beta Banner -->
     <div class="beta-banner">
         <span>Climate Color Stewardship Quiz</span>
         <span class="beta-tag">Beta</span>
     </div>
 
-    <!-- Header Styles -->
     <header class="quiz-header">
         <h1>Climate Color Quiz</h1>
         <p>Discover your primary and secondary stewardship styles.</p>
     </header>
 
-    <!-- Progress Bar -->
+    <!-- Optimized Progress & Status Indicator -->
+    <div class="progress-info-bar" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem; font-size: 0.85rem; font-weight: 700; color: #64748B;">
+        <span id="progressText">Question 1 of 16</span>
+        <span id="progressPercent">0%</span>
+    </div>
     <div class="progress-container" id="progressContainer" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
         <div class="progress-bar" id="progressBar"></div>
     </div>
 
-    <!-- Intro Screen -->
-    <div id="intro">
-        <button id="begin-btn" class="option-btn btn-sm-primary" style="text-align: center; font-weight: 700; margin-bottom: 2rem;">Begin Quiz</button>
-    </div>
-
     <!-- Main Quiz Card Container -->
-    <main id="quiz" hidden>
+    <main id="quiz">
         <div class="quiz-card" id="quizCard">
-            <div class="question-number" id="questionNumber"></div>
+            <div class="question-number" id="questionNumber">PACE AXIS</div>
             <div class="question-text" id="questionText" tabindex="-1"></div>
             <div class="options-container" id="optionsContainer"></div>
         </div>
@@ -53,7 +45,6 @@
     <!-- Results Screen Container -->
     <div id="results" hidden></div>
 
-    <!-- Application Entry Point (in quiz/js/) -->
     <script type="module" src="js/quiz-logic.js"></script>
 </body>
 </html>
