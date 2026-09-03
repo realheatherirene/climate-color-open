@@ -1,248 +1,135 @@
 /* ==========================================================================
-   Climate Color Quiz — Results Screen Styles (Directory Styled)
+   Climate Color Quiz — Results Screen Styles (Directory Harmonized)
    ========================================================================== */
 
-/* Results Screen Container */
 #results {
     max-width: 800px;
     margin: 2rem auto;
     padding: 0 1rem 4rem 1rem;
     font-family: 'Varela Round', sans-serif;
-    color: #1e293b;
+    color: #212121;
 }
-
-/* ==========================================================================
-   Sticky Results Bar & Actions
-   ========================================================================== */
 
 .sticky-results-bar {
     position: sticky;
     top: 0;
     z-index: 100;
-    background: #ffffff;
-    border-bottom: 2px solid #e2e8f0;
-    padding: 0.75rem 1.25rem;
+    background: #FFFFFF;
+    border-bottom: 1px solid #E2E8F0;
+    padding: 0.75rem 1rem;
+    margin: -2rem -1rem 1.5rem -1rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    flex-wrap: wrap;
-    gap: 0.75rem;
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
     border-radius: 0 0 8px 8px;
-    margin-bottom: 2rem;
 }
 
 .sticky-results-label {
     font-weight: 700;
     font-size: 0.95rem;
-    color: #1e293b;
+    color: #0F172A;
 }
 
 .sticky-actions {
     display: flex;
-    align-items: center;
     gap: 0.5rem;
+    align-items: center;
     flex-wrap: wrap;
 }
 
-/* Action Buttons */
 .btn-sm-action {
-    background-color: #f1f5f9;
-    color: #334155;
-    border: 1px solid #cbd5e1;
-    padding: 0.4rem 0.8rem;
-    font-size: 0.85rem;
-    font-weight: 600;
-    border-radius: 6px;
+    padding: 0.4rem 0.85rem !important;
+    font-size: 0.82rem !important;
+    border-radius: 9999px;
+    font-weight: 700;
+    border: 1px solid #CBD5E1;
+    background: #F8FAFC;
+    color: #334155 !important;
     cursor: pointer;
-    transition: all 0.2s ease;
-    white-space: nowrap;
+    transition: all 0.15s ease;
+    text-decoration: none;
 }
-
 .btn-sm-action:hover {
-    background-color: #e2e8f0;
-    color: #0f172a;
+    background: #E2E8F0;
+    transform: translateY(-1px);
 }
 
 .btn-sm-primary {
-    background-color: #0284c7;
-    color: #ffffff;
-    border-color: #0284c7;
-}
-
-.btn-sm-primary:hover {
-    background-color: #0369a1;
-    color: #ffffff;
+    background: #1494B9 !important;
+    color: #FFFFFF !important;
+    border-color: #1494B9 !important;
 }
 
 .btn-pill-soft {
-    background-color: #fef2f2;
-    color: #991b1b;
-    border-color: #fecaca;
+    display: inline-block;
+    padding: 0.45rem 1rem !important;
+    font-size: 0.85rem !important;
+    font-weight: 700;
+    text-decoration: none;
+    border-radius: 9999px;
+    border: 1px solid #CBD5E1;
+    background-color: #F8FAFC;
+    color: #334155 !important;
+    transition: all 0.15s ease;
 }
-
 .btn-pill-soft:hover {
-    background-color: #fee2e2;
-    color: #7f1d1d;
+    background-color: #E2E8F0;
+    border-color: #94A3B8;
+    transform: translateY(-1px);
 }
 
-/* ==========================================================================
-   Directory-Style Result Cards & Blocks
-   ========================================================================== */
-
-.styleBlock, .synthesisBlock {
-    background: #ffffff;
-    border-radius: 8px;
-    padding: 1.75rem;
+/* Directory Card Components */
+.styleBlock {
+    background: #FFFFFF;
+    border: 1px solid #E2E8F0;
+    border-radius: 12px;
+    padding: 1.5rem;
+    border-left: 6px solid #CBD5E1;
+    text-align: left;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
     margin-bottom: 1.5rem;
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.03), 0 2px 4px -2px rgba(0, 0, 0, 0.03);
-    border-left: 6px solid #cbd5e1; /* Default fallback border */
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+.styleBlock:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
 }
 
-.styleBlock:hover, .synthesisBlock:hover {
-    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -4px rgba(0, 0, 0, 0.05);
-}
+.card-content { margin-bottom: 0.5rem; }
 
-/* Typography & Content Structure */
 .styleTitle {
+    font-size: 1.15rem;
     font-weight: 700;
     text-transform: uppercase;
-    letter-spacing: 0.05em;
+    letter-spacing: 0.03em;
     margin-bottom: 0.5rem;
 }
 
-.styleTitle-lg {
-    font-size: 1.25rem;
-}
-
-.styleTitle-md {
-    font-size: 1.1rem;
-}
-
 .styleIdentity {
-    font-size: 1.15rem;
-    font-weight: 600;
-    color: #0f172a;
+    font-size: 1rem;
+    color: #475569;
+    line-height: 1.5;
     margin-bottom: 0.75rem;
-    line-height: 1.4;
-}
-
-.styleIdentity-sm {
-    font-size: 1.05rem;
 }
 
 .styleMeta {
-    font-size: 0.85rem;
+    font-size: 0.82rem;
     font-weight: 700;
     color: #64748B;
     text-transform: uppercase;
     letter-spacing: 0.04em;
-    margin-bottom: 1.25rem;
-    padding-bottom: 0.75rem;
-    border-bottom: 1px solid #f1f5f9;
+    padding-top: 0.5rem;
+    border-top: 1px solid #F1F5F9;
 }
 
-.styleContribution, .styleAction, .styleWatchouts {
-    font-size: 0.95rem;
-    color: #334155;
-    margin-bottom: 0.6rem;
-    line-height: 1.5;
+@media print {
+    .sticky-results-bar, .beta-banner { display: none !important; }
+    body { background: #FFFFFF; }
+    .styleBlock { break-inside: avoid; box-shadow: none; border: 1px solid #CBD5E1; }
 }
 
-.styleWatchouts {
-    color: #475569;
-}
-
-/* Synergy Synthesis Card */
-.synthesisBlock {
-    background: #f8fafc;
-    border-left-color: #0284c7;
-}
-
-.synthesisTitle {
-    font-size: 1.1rem;
-    font-weight: 700;
-    color: #0f172a;
-    margin-bottom: 0.5rem;
-    text-transform: uppercase;
-    letter-spacing: 0.03em;
-}
-
-.synthesisText {
-    font-size: 1.05rem;
-    color: #334155;
-    line-height: 1.5;
-}
-
-/* ==========================================================================
-   Style-Specific Border & Theme Accent Colors
-   ========================================================================== */
-
-/* Driver */
-.border-driver { border-left-color: #f97316; }
-.theme-driver { color: #c2410c; }
-
-/* Stabilizer */
-.border-stabilizer { border-left-color: #0ea5e9; }
-.theme-stabilizer { color: #0369a1; }
-
-/* Advocate */
-.border-advocate { border-left-color: #84cc16; }
-.theme-advocate { color: #4d7c0f; }
-
-/* Connector */
-.border-connector { border-left-color: #10b981; }
-.theme-connector { color: #047857; }
-
-/* Architect */
-.border-architect { border-left-color: #6366f1; }
-.theme-architect { color: #4338ca; }
-
-/* Guardian */
-.border-guardian { border-left-color: #8b5cf6; }
-.theme-guardian { color: #6d28d9; }
-
-/* Visionary */
-.border-visionary { border-left-color: #ec4899; }
-.theme-visionary { color: #be185d; }
-
-/* Keeper */
-.border-keeper { border-left-color: #eab308; }
-.theme-keeper { color: #a16207; }
-
-/* ==========================================================================
-   Mobile Responsive Adjustments
-   ========================================================================== */
-
-@media (max-width: 768px) {
-    #results {
-        padding: 0 0.75rem 3rem 0.75rem;
-        margin: 1rem auto;
-    }
-
-    .sticky-results-bar {
-        flex-direction: column;
-        align-items: stretch;
-        text-align: center;
-        padding: 0.75rem 1rem;
-        margin-bottom: 1.5rem;
-    }
-
-    .sticky-actions {
-        justify-content: center;
-        width: 100%;
-    }
-
-    .sticky-actions button {
-        flex: 1;
-        text-align: center;
-        padding: 0.5rem 0.4rem;
-        font-size: 0.8rem;
-    }
-
-    .styleBlock, .synthesisBlock {
-        padding: 1.25rem;
-        margin-bottom: 1rem;
-    }
+@media (max-width: 640px) {
+    #results { padding: 1.25rem 0.85rem; }
+    .styleBlock { padding: 1.15rem; }
 }
