@@ -1,8 +1,8 @@
 /* ==========================================================================
-   Climate Color Quiz — Score Keeping & Engine Logic
+   Climate Color Quiz — Score Keeping & Engine Logic (Auto-Start)
    ========================================================================== */
 
-import { styles, questions, secondarySyntheses } from './quiz-data.js';
+import { styles, questions } from './quiz-data.js';
 import { renderResultsScreen } from './results-ui.js';
 
 let currentQuestion = 0;
@@ -24,12 +24,21 @@ export function resetScores() {
     currentQuestion = 0;
 }
 
-function updateProgressBar(percentage) {
+function updateProgress(percentage) {
     const bar = document.getElementById("progressBar");
     const container = document.getElementById("progressContainer");
+    const textEl = document.getElementById("progressText");
+    const percentEl = document.getElementById("progressPercent");
+
     if (bar && container) {
         bar.style.width = `${percentage}%`;
-        container.setAttribute("aria-valuenow", Math.round(percentage));
+        container.setAttribute("aria-valuenow`, Math.round(percentage));
+    }
+    if (textEl) {
+        textEl.textContent = `Question ${Math.min(currentQuestion + 1, questions.length)} of ${questions.length}`;
+    }
+    if (percentEl) {
+        percentEl.textContent = `${Math.round(percentage)}%`;
     }
 }
 
@@ -41,11 +50,11 @@ function renderQuestion() {
 
     if (!qNum || !qText || !container) return;
 
-    qNum.textContent = `Question ${currentQuestion + 1} of ${questions.length}`;
+    qNum.textContent = `${q.axis.toUpperCase()} AXIS — Question ${currentQuestion + 1} of ${questions.length}`;
     qText.textContent = q.prompt || q.text;
 
     const pct = (currentQuestion / questions.length) * 100;
-    updateProgressBar(pct);
+    updateProgress(pct);
 
     container.innerHTML = "";
 
@@ -125,16 +134,16 @@ export function calculateConstellation() {
 }
 
 function calculateResults() {
-    updateProgressBar(100);
+    updateProgress(100);
     const quizCard = document.getElementById("quizCard");
-    const resultsEl = document.getElementById("results");
+    const progressContainer = document.getElementById("progressContainer");
+    const progressInfoBar = document.querySelector(".progress-info-bar");
 
-    if (quizCard) quizCard.hidden = true;
-    if (resultsEl) resultsEl.hidden = false;
+    if (quizCard) quizCard.closest("main").hidden = true;
+    if (progressContainer) progressContainer.style.display = "none";
+    if (progressInfoBar) progressInfoBar.style.display = "none";
 
     const { primary, secondary } = calculateConstellation();
-    
-    // Renders using your modular results UI
     renderResultsScreen(primary, secondary);
 }
 
@@ -159,26 +168,20 @@ function initQuizState() {
         validSecondary = validPrimary === "Driver" ? "Stabilizer" : "Driver";
     }
 
-    const introEl = document.getElementById("intro");
-    const quizEl = document.getElementById("quiz");
-    const resultsEl = document.getElementById("results");
-    const beginBtn = document.getElementById("begin-btn");
+    const quizMain = document.getElementById("quiz");
+    const progressContainer = document.getElementById("progressContainer");
+    const progressInfoBar = document.querySelector(".progress-info-bar");
 
     if (validPrimary) {
-        if (introEl) introEl.hidden = true;
-        if (quizEl) quizEl.hidden = true;
-        if (resultsEl) resultsEl.hidden = false;
-        updateProgressBar(100);
+        if (quizMain) quizMain.hidden = true;
+        if (progressContainer) progressContainer.style.display = "none";
+        if (progressInfoBar) progressInfoBar.style.display = "none";
+        updateProgress(100);
         renderResultsScreen(validPrimary, validSecondary || (validPrimary === "Driver" ? "Stabilizer" : "Driver"));
     } else {
-        if (beginBtn) {
-            beginBtn.onclick = () => {
-                if (introEl) introEl.hidden = true;
-                if (quizEl) quizEl.hidden = false;
-                resetScores();
-                renderQuestion();
-            };
-        }
+        if (quizMain) quizMain.hidden = false;
+        resetScores();
+        renderQuestion();
     }
 }
 
