@@ -1,60 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Climate Stewardship Quiz | Climate Color</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-<!-- Fonts -->
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
-<link href="https://fonts.googleapis.com/css2?family=ADLaM+Display&family=Varela+Round&display=swap" rel="stylesheet">
+  <title>Climate Color Quiz</title>
 
-<!-- Stylesheets -->
-<link rel="stylesheet" href="./css/atlas.css">
-<link rel="stylesheet" href="./css/quiz.css">
-<link rel="stylesheet" href="./css/results.css">
+  <!-- Core Styles -->
+  <link rel="stylesheet" href="./css/atlas.css" />
+  <link rel="stylesheet" href="./css/quiz.css" />
+  <link rel="stylesheet" href="./css/results.css" />
 
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 </head>
+
 <body>
 
-<!-- Beta Banner -->
-<div class="beta-banner">
-    <div>
-        <span class="beta-tag">Active Beta</span>
-        You are viewing an early preview of the Climate Color assessment engine.
-    </div>
-    <div>
-        <a href="mailto:hello@climatecolor.com?subject=Beta%20Feedback"
-           style="color: #1494B9; font-weight: 700; text-decoration: underline;">
-           Share Feedback
-        </a>
-    </div>
-</div>
+  <!-- QUIZ CONTAINER -->
+  <div id="quiz-container" class="quizContainer">
+    <!-- The JS will inject the Begin screen, questions, and results here -->
+  </div>
 
-<!-- Header -->
-<header class="quiz-header">
-    <h1>Climate Stewardship Quiz</h1>
-    <p>Discover your primary and secondary stewardship styles</p>
-</header>
-
-<!-- Progress Bar -->
-<div class="progress-container" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="progressContainer">
-    <div id="progressBar" class="progress-bar"></div>
-</div>
-
-<!-- Quiz Card -->
-<main id="quizCard" class="quiz-card" aria-live="polite">
-    <div id="questionNumber" class="question-number">Question 1 of 32</div>
-    <h2 id="questionText" class="question-text"></h2>
-    <div id="optionsContainer" class="options-container"></div>
-</main>
-
-<!-- Results Container -->
-<div id="resultContainer" style="display: none;" aria-live="polite"></div>
-
-<!-- Quiz Logic (external file) -->
-<script type="module" src="./js/quiz-logic.js"></script>
+  <!-- QUIZ LOGIC -->
+  <script type="module" src="./js/quiz-logic.js"></script>
 
 </body>
 </html>
