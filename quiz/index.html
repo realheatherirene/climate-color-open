@@ -8,8 +8,12 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap" rel="stylesheet">
+    
     <!-- Stylesheets -->
-    <link rel="stylesheet" href="css/atlas.css">
+    <!-- atlas.css is in the root css/ folder, so go up one level (../) -->
+    <link rel="stylesheet" href="../css/atlas.css">
+    
+    <!-- quiz.css and results.css are in quiz/css/ -->
     <link rel="stylesheet" href="css/quiz.css">
     <link rel="stylesheet" href="css/results.css">
 </head>
@@ -32,7 +36,7 @@
         <div class="progress-bar" id="progressBar"></div>
     </div>
 
-    <!-- Intro Screen (Optional, hidden once quiz begins) -->
+    <!-- Intro Screen -->
     <div id="intro">
         <button id="begin-btn" class="option-btn btn-sm-primary" style="text-align: center; font-weight: 700; margin-bottom: 2rem;">Begin Quiz</button>
     </div>
@@ -49,7 +53,7 @@
     <!-- Results Screen Container -->
     <div id="results" hidden></div>
 
-    <!-- Application Entry Point -->
+    <!-- Application Entry Point (in quiz/js/) -->
     <script type="module" src="js/ui.js"></script>
 </body>
 </html>
