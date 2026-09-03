@@ -19,12 +19,28 @@
 
 <body>
 
-  <!-- QUIZ CONTAINER -->
-  <div id="quiz-container" class="quizContainer">
-    <!-- quiz-logic.js will inject the Begin screen, questions, and results -->
+  <!-- QUIZ CARD -->
+  <div id="quizCard" class="quizCard">
+
+    <!-- Progress Bar -->
+    <div id="progressContainer" class="progressContainer" aria-valuemin="0" aria-valuemax="100">
+      <div id="progressBar" class="progressBar"></div>
+    </div>
+
+    <!-- Question Number -->
+    <div id="questionNumber" class="questionNumber"></div>
+
+    <!-- Question Text -->
+    <div id="questionText" class="questionText"></div>
+
+    <!-- Options -->
+    <div id="optionsContainer" class="optionsContainer"></div>
   </div>
 
-  <!-- QUIZ LOGIC -->
+  <!-- RESULTS -->
+  <div id="resultContainer" class="resultContainer" style="display:none;"></div>
+
+  <!-- LOGIC -->
   <script type="module" src="./js/quiz-logic.js"></script>
 
 </body>
