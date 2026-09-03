@@ -1,188 +1,248 @@
-/* ==========================================================================  
-   RESULTS CSS — Climate Color Stewardship Quiz  
-   Exact visual match to old quiz (modular version)  
+/* ==========================================================================
+   Climate Color Quiz — Results Screen Styles (Directory Styled)
    ========================================================================== */
 
-/* Sticky Results Bar */
+/* Results Screen Container */
+#results {
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 0 1rem 4rem 1rem;
+    font-family: 'Varela Round', sans-serif;
+    color: #1e293b;
+}
+
+/* ==========================================================================
+   Sticky Results Bar & Actions
+   ========================================================================== */
+
 .sticky-results-bar {
     position: sticky;
     top: 0;
     z-index: 100;
-    background: #FFFFFF;
-    border-bottom: 1px solid #E2E8F0;
-    padding: 0.75rem 1rem;
-    margin: -2rem -1rem 1.5rem -1rem;
+    background: #ffffff;
+    border-bottom: 2px solid #e2e8f0;
+    padding: 0.75rem 1.25rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    flex-wrap: wrap;
+    gap: 0.75rem;
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+    border-radius: 0 0 8px 8px;
+    margin-bottom: 2rem;
 }
 
 .sticky-results-label {
-    font-size: 0.85rem;
     font-weight: 700;
-    color: #0F172A;
+    font-size: 0.95rem;
+    color: #1e293b;
 }
 
 .sticky-actions {
     display: flex;
-    gap: 0.5rem;
     align-items: center;
+    gap: 0.5rem;
+    flex-wrap: wrap;
 }
 
+/* Action Buttons */
 .btn-sm-action {
-    padding: 0.4rem 0.85rem !important;
-    font-size: 0.82rem !important;
-    border-radius: 9999px;
-    font-weight: 700;
-    border: 1px solid #CBD5E1;
-    background: #F8FAFC;
-    color: #334155 !important;
+    background-color: #f1f5f9;
+    color: #334155;
+    border: 1px solid #cbd5e1;
+    padding: 0.4rem 0.8rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    border-radius: 6px;
     cursor: pointer;
-    transition: all 0.15s ease;
-    text-decoration: none;
+    transition: all 0.2s ease;
+    white-space: nowrap;
 }
 
 .btn-sm-action:hover {
-    background: #E2E8F0;
+    background-color: #e2e8f0;
+    color: #0f172a;
 }
 
 .btn-sm-primary {
-    background: #1494B9 !important;
-    color: #FFFFFF !important;
-    border-color: #1494B9 !important;
+    background-color: #0284c7;
+    color: #ffffff;
+    border-color: #0284c7;
 }
 
-/* ==========================================================================  
-   Style Blocks  
+.btn-sm-primary:hover {
+    background-color: #0369a1;
+    color: #ffffff;
+}
+
+.btn-pill-soft {
+    background-color: #fef2f2;
+    color: #991b1b;
+    border-color: #fecaca;
+}
+
+.btn-pill-soft:hover {
+    background-color: #fee2e2;
+    color: #7f1d1d;
+}
+
+/* ==========================================================================
+   Directory-Style Result Cards & Blocks
    ========================================================================== */
 
-.styleBlock {
-    background: #FFFFFF;
-    border: 1px solid #E2E8F0;
-    border-radius: 12px;
-    padding: 1.5rem;
-    border-left-width: 6px;
-    text-align: left;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+.styleBlock, .synthesisBlock {
+    background: #ffffff;
+    border-radius: 8px;
+    padding: 1.75rem;
     margin-bottom: 1.5rem;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.03), 0 2px 4px -2px rgba(0, 0, 0, 0.03);
+    border-left: 6px solid #cbd5e1; /* Default fallback border */
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-/* Border-left color variants (mapped to Climate Color palette) */
-.border-driver { border-left-color: var(--driver-color); }
-.border-stabilizer { border-left-color: var(--stabilizer-color); }
-.border-advocate { border-left-color: var(--advocate-color); }
-.border-connector { border-left-color: var(--connector-color); }
-.border-architect { border-left-color: var(--architect-color); }
-.border-guardian { border-left-color: var(--guardian-color); }
-.border-visionary { border-left-color: var(--visionary-color); }
-.border-keeper { border-left-color: var(--keeper-color); }
+.styleBlock:hover, .synthesisBlock:hover {
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -4px rgba(0, 0, 0, 0.05);
+}
 
-/* Titles & Identity */
+/* Typography & Content Structure */
 .styleTitle {
     font-weight: 700;
-    line-height: 1.3;
-    color: #1E293B;
-}
-
-.styleTitle-lg {
-    font-size: 1.35rem;
-    margin-bottom: 0.25rem;
-}
-
-.styleTitle-md {
-    font-size: 1.15rem;
-    margin-bottom: 0.25rem;
-}
-
-.styleIdentity {
-    font-size: 1.05rem;
-    font-weight: 700;
-    color: #0F172A;
-    line-height: 1.4;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
     margin-bottom: 0.5rem;
 }
 
-.styleIdentity-sm {
-    font-size: 0.98rem;
+.styleTitle-lg {
+    font-size: 1.25rem;
 }
 
-/* Anchor + Energy Line */
+.styleTitle-md {
+    font-size: 1.1rem;
+}
+
+.styleIdentity {
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: #0f172a;
+    margin-bottom: 0.75rem;
+    line-height: 1.4;
+}
+
+.styleIdentity-sm {
+    font-size: 1.05rem;
+}
+
 .styleMeta {
     font-size: 0.85rem;
     font-weight: 700;
     color: #64748B;
     text-transform: uppercase;
-    margin-bottom: 0.85rem;
+    letter-spacing: 0.04em;
+    margin-bottom: 1.25rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid #f1f5f9;
 }
 
-/* Contribution, Shine, Watchouts */
-.styleContribution {
-    margin-bottom: 0.75rem;
+.styleContribution, .styleAction, .styleWatchouts {
+    font-size: 0.95rem;
     color: #334155;
-    font-size: 0.92rem;
-}
-
-.styleAction {
-    font-size: 0.92rem;
-    color: #334155;
-    margin-bottom: 0.75rem;
+    margin-bottom: 0.6rem;
+    line-height: 1.5;
 }
 
 .styleWatchouts {
-    font-size: 0.88rem;
-    color: #64748B;
-    font-style: italic;
-    margin-bottom: 1rem;
+    color: #475569;
 }
 
-/* ==========================================================================  
-   Synthesis Block  
-   ========================================================================== */
-
+/* Synergy Synthesis Card */
 .synthesisBlock {
-    background: #F8FAFC;
-    border: 1px solid #E2E8F0;
-    border-left-width: 6px;
-    border-radius: 12px;
-    padding: 1.5rem;
-    margin-bottom: 1.5rem;
+    background: #f8fafc;
+    border-left-color: #0284c7;
 }
 
 .synthesisTitle {
-    color: #1E293B;
-    font-size: 1.25rem;
+    font-size: 1.1rem;
     font-weight: 700;
+    color: #0f172a;
     margin-bottom: 0.5rem;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
 }
 
 .synthesisText {
-    font-size: 0.98rem;
+    font-size: 1.05rem;
     color: #334155;
-    line-height: 1.6;
+    line-height: 1.5;
 }
 
-/* ==========================================================================  
-   Print Rules  
+/* ==========================================================================
+   Style-Specific Border & Theme Accent Colors
    ========================================================================== */
 
-@media print {
-    .sticky-results-bar,
-    .beta-banner,
-    .cta-container,
-    .btn-sm-action {
-        display: none !important;
+/* Driver */
+.border-driver { border-left-color: #f97316; }
+.theme-driver { color: #c2410c; }
+
+/* Stabilizer */
+.border-stabilizer { border-left-color: #0ea5e9; }
+.theme-stabilizer { color: #0369a1; }
+
+/* Advocate */
+.border-advocate { border-left-color: #84cc16; }
+.theme-advocate { color: #4d7c0f; }
+
+/* Connector */
+.border-connector { border-left-color: #10b981; }
+.theme-connector { color: #047857; }
+
+/* Architect */
+.border-architect { border-left-color: #6366f1; }
+.theme-architect { color: #4338ca; }
+
+/* Guardian */
+.border-guardian { border-left-color: #8b5cf6; }
+.theme-guardian { color: #6d28d9; }
+
+/* Visionary */
+.border-visionary { border-left-color: #ec4899; }
+.theme-visionary { color: #be185d; }
+
+/* Keeper */
+.border-keeper { border-left-color: #eab308; }
+.theme-keeper { color: #a16207; }
+
+/* ==========================================================================
+   Mobile Responsive Adjustments
+   ========================================================================== */
+
+@media (max-width: 768px) {
+    #results {
+        padding: 0 0.75rem 3rem 0.75rem;
+        margin: 1rem auto;
     }
 
-    body {
-        padding: 0;
-        background: #FFFFFF;
+    .sticky-results-bar {
+        flex-direction: column;
+        align-items: stretch;
+        text-align: center;
+        padding: 0.75rem 1rem;
+        margin-bottom: 1.5rem;
     }
 
-    .styleBlock,
-    .synthesisBlock {
-        break-inside: avoid;
-        box-shadow: none;
-        border: 1px solid #CBD5E1;
+    .sticky-actions {
+        justify-content: center;
+        width: 100%;
+    }
+
+    .sticky-actions button {
+        flex: 1;
+        text-align: center;
+        padding: 0.5rem 0.4rem;
+        font-size: 0.8rem;
+    }
+
+    .styleBlock, .synthesisBlock {
+        padding: 1.25rem;
+        margin-bottom: 1rem;
     }
 }
