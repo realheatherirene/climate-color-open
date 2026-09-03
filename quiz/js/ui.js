@@ -6,7 +6,6 @@ import { questions, tieBreakers, axes } from "./quiz-data.js";
 import {
   recordAnswer,
   determineAxisStyle,
-  applyTieBreaker,
   calculateConstellation,
   resetScores
 } from "./quiz-logic.js";
