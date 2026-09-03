@@ -1,5 +1,8 @@
 import { styles, questions, secondarySyntheses } from './quiz-data.js';
 
+/* -------------------------
+   STATE
+------------------------- */
 let currentQuestion = 0;
 let scores = {
     Driver: 0, Stabilizer: 0,
@@ -8,17 +11,33 @@ let scores = {
     Visionary: 0, Keeper: 0
 };
 
+/* -------------------------
+   PROGRESS BAR
+------------------------- */
 function updateProgressBar(percentage) {
     const bar = document.getElementById("progressBar");
     const container = document.getElementById("progressContainer");
+
+    if (!bar || !container) return; // Prevent crash
+
     bar.style.width = `${percentage}%`;
     container.setAttribute("aria-valuenow", Math.round(percentage));
 }
 
+/* -------------------------
+   RENDER QUESTION
+------------------------- */
 function renderQuestion() {
     const q = questions[currentQuestion];
+
     const qNum = document.getElementById("questionNumber");
     const qText = document.getElementById("questionText");
+    const container = document.getElementById("optionsContainer");
+
+    if (!qNum || !qText || !container) {
+        console.error("Missing quiz DOM elements.");
+        return;
+    }
 
     qNum.textContent = `Question ${currentQuestion + 1} of ${questions.length}`;
     qText.textContent = q.prompt || q.text;
@@ -26,7 +45,6 @@ function renderQuestion() {
     const pct = (currentQuestion / questions.length) * 100;
     updateProgressBar(pct);
 
-    const container = document.getElementById("optionsContainer");
     container.innerHTML = "";
 
     q.options.forEach(opt => {
@@ -41,15 +59,26 @@ function renderQuestion() {
     qText.focus();
 }
 
+/* -------------------------
+   SELECT OPTION
+------------------------- */
 function selectOption(styleKey) {
     scores[styleKey]++;
     currentQuestion++;
-    currentQuestion < questions.length ? renderQuestion() : calculateResults();
+
+    currentQuestion < questions.length
+        ? renderQuestion()
+        : calculateResults();
 }
 
+/* -------------------------
+   CALCULATE RESULTS
+------------------------- */
 function calculateResults() {
     updateProgressBar(100);
-    document.getElementById("quizCard").style.display = "none";
+
+    const quizCard = document.getElementById("quizCard");
+    if (quizCard) quizCard.style.display = "none";
 
     const axes = [
         { anchor: "PACE", poleA: "Driver", poleB: "Stabilizer" },
@@ -95,6 +124,9 @@ function calculateResults() {
     renderReveal(primaryKey, secondaryKey);
 }
 
+/* -------------------------
+   RENDER RESULTS
+------------------------- */
 function renderReveal(primaryKey, secondaryKey) {
     const primary = styles[primaryKey];
     const secondary = styles[secondaryKey];
@@ -104,6 +136,11 @@ function renderReveal(primaryKey, secondaryKey) {
         `You bring a unique combination of ${primaryKey} initiative and ${secondaryKey} perspective to community stewardship.`;
 
     const result = document.getElementById("resultContainer");
+    if (!result) {
+        console.error("Missing resultContainer.");
+        return;
+    }
+
     result.style.display = "block";
 
     result.innerHTML = `
@@ -148,6 +185,9 @@ function renderReveal(primaryKey, secondaryKey) {
     document.getElementById("btnResetQuiz").onclick = resetQuiz;
 }
 
+/* -------------------------
+   COPY LINK
+------------------------- */
 function copyQuizLink(primaryKey, secondaryKey) {
     const shareUrl = `${window.location.origin}${window.location.pathname}?primary=${encodeURIComponent(primaryKey)}&secondary=${encodeURIComponent(secondaryKey)}`;
     navigator.clipboard?.writeText(shareUrl)
@@ -155,12 +195,18 @@ function copyQuizLink(primaryKey, secondaryKey) {
         .catch(() => prompt("Copy your share link below:", shareUrl));
 }
 
+/* -------------------------
+   RESET QUIZ
+------------------------- */
 function resetQuiz() {
     localStorage.removeItem('climatecolor_primary');
     localStorage.removeItem('climatecolor_secondary');
     window.location.href = window.location.pathname;
 }
 
+/* -------------------------
+   INIT
+------------------------- */
 function initQuizState() {
     const urlParams = new URLSearchParams(window.location.search);
     const paramPrimary = urlParams.get('primary');
@@ -182,9 +228,12 @@ function initQuizState() {
         validSecondary = validPrimary === "Driver" ? "Stabilizer" : "Driver";
     }
 
+    const quizCard = document.getElementById("quizCard");
+    const resultContainer = document.getElementById("resultContainer");
+
     if (validPrimary) {
         updateProgressBar(100);
-        document.getElementById("quizCard").style.display = "none";
+        if (quizCard) quizCard.style.display = "none";
         renderReveal(validPrimary, validSecondary || (validPrimary === "Driver" ? "Stabilizer" : "Driver"));
     } else {
         currentQuestion = 0;
@@ -194,8 +243,8 @@ function initQuizState() {
             Architect: 0, Guardian: 0,
             Visionary: 0, Keeper: 0
         };
-        document.getElementById("resultContainer").style.display = "none";
-        document.getElementById("quizCard").style.display = "block";
+        if (resultContainer) resultContainer.style.display = "none";
+        if (quizCard) quizCard.style.display = "block";
         renderQuestion();
     }
 }
