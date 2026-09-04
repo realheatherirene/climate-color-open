@@ -20,7 +20,7 @@ export function renderResultsScreen(primaryKey, secondaryKey) {
   const synergyText = synergyCards[primaryKey]?.[secondaryKey] || secondarySyntheses[primaryKey]?.[secondaryKey] || "";
 
   resultsEl.innerHTML = `
-    <!-- Sticky Results Bar -->
+    <!-- Sticky Results Bar / Constellation Banner -->
     <div class="sticky-results-bar">
         <div class="sticky-results-label">
             Your Constellation: 
@@ -34,33 +34,43 @@ export function renderResultsScreen(primaryKey, secondaryKey) {
         </div>
     </div>
 
-    <!-- Primary Style Card -->
-    <div class="styleBlock" style="border-left-color: ${primary.color};">
+    <!-- Primary Style Card (Largest, with primary color bar) -->
+    <div class="styleBlock primary-card" style="border-left-color: ${primary.color};">
         <div class="card-content">
-            <div class="styleTitle" style="color: ${primary.color};">Primary Style: ${primaryKey}</div>
-            <div class="styleIdentity">${primaryFull.title ? primaryFull.description.trim() : ''}</div>
+            <div class="styleTitle" style="font-size: 1.35rem;">
+                <span style="color: #0F172A;">Your primary archetype is:</span> 
+                <span style="color: ${primary.color};">${primaryKey}</span>
+            </div>
+            <div class="styleIdentity" style="font-size: 1.1rem; font-weight: 500;">${primaryFull.description ? primaryFull.description.trim() : ''}</div>
             <div class="styleMeta">Anchor: ${primary.pAnchor || 'Core'} | Energy: ${primaryKey}</div>
-            <div class="styleAction" style="margin-top: 1rem;"><strong>Core Practices:</strong></div>
-            <ul style="margin: 0 0 1rem 1.25rem; font-size: 0.95rem; color: #334155;">
+            <div class="styleAction" style="margin-top: 1rem; font-size: 1rem; color: #0F172A;"><strong>Core Practices:</strong></div>
+            <ul style="margin: 0.5rem 0 1rem 1.25rem; font-size: 1rem; color: #334155; line-height: 1.6;">
               ${primaryKit.core.map(item => `<li>${item}</li>`).join('')}
             </ul>
         </div>
     </div>
 
-    <!-- Secondary Style Card -->
+    <!-- Secondary Style Card (Medium-large, with secondary color bar) -->
     <div class="styleBlock" style="border-left-color: ${secondary.color};">
         <div class="card-content">
-            <div class="styleTitle" style="color: ${secondary.color}; font-size: 1.1rem;">Secondary Style: ${secondaryKey}</div>
-            <div class="styleIdentity" style="font-size: 0.95rem;">${secondaryFull.description ? secondaryFull.description.trim() : ''}</div>
+            <div class="styleTitle" style="font-size: 1.2rem;">
+                <span style="color: #0F172A;">Your secondary archetype is:</span> 
+                <span style="color: ${secondary.color};">${secondaryKey}</span>
+            </div>
+            <div class="styleIdentity" style="font-size: 1.05rem;">${secondaryFull.description ? secondaryFull.description.trim() : ''}</div>
             <div class="styleMeta">Anchor: ${secondary.pAnchor || 'Core'} | Energy: ${secondaryKey}</div>
         </div>
     </div>
 
-    <!-- Synergy Synthesis Block -->
-    <div class="styleBlock" style="border-left-color: #0284c7; background: #f8fafc;">
+    <!-- Synergy Synthesis Block (Neutral Grey Card) -->
+    <div class="styleBlock synergy-card" style="border-left-color: #64748B; background: #F8FAFC;">
         <div class="card-content">
-            <div class="styleTitle" style="color: #0f172a; font-size: 1.1rem;">Synergy Synthesis: ${synergyText}</div>
-            <div class="styleIdentity" style="font-size: 0.95rem; margin-top: 0.5rem;">${secondarySyntheses[primaryKey]?.[secondaryKey] || ''}</div>
+            <div class="styleTitle" style="font-size: 1.15rem; color: #0F172A;">
+                Synergy Synthesis: <span style="font-weight: 400; color: #334155;">${synergyText}</span>
+            </div>
+            <div class="styleIdentity" style="font-size: 1.05rem; margin-top: 0.75rem; color: #334155;">
+                ${secondarySyntheses[primaryKey]?.[secondaryKey] || ''}
+            </div>
         </div>
     </div>
   `;
