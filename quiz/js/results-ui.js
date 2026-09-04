@@ -5,18 +5,32 @@
 import { styles, secondarySyntheses } from "./quiz-data.js";
 import { starterKits, synergyCards, fullResults } from "./results.js";
 
+// Archetype color mapping
+const archetypeColors = {
+  Driver: "#DC2626",
+  Advocate: "#EA580C",
+  Visionary: "#E1B809",
+  Stabilizer: "#16A34A",
+  Architect: "#0284C7",
+  Keeper: "#4F46E5",
+  Connector: "#9333EA",
+  Guardian: "#D946EF"
+};
+
 export function renderResultsScreen(primaryKey, secondaryKey) {
   const resultsEl = document.getElementById("results");
   if (!resultsEl) return;
 
   resultsEl.hidden = false;
 
+  const primaryColor = archetypeColors[primaryKey] || "#CBD5E1";
+  const secondaryColor = archetypeColors[secondaryKey] || "#CBD5E1";
+  
   const primaryFull = fullResults[primaryKey] || { description: "" };
   const secondaryFull = fullResults[secondaryKey] || { description: "" };
   const primaryKit = starterKits[primaryKey] || { core: [] };
   const synergyText = synergyCards[primaryKey]?.[secondaryKey] || secondarySyntheses[primaryKey]?.[secondaryKey] || "";
 
-  // Lowercase key for CSS class matching (e.g., "Driver" -> "driver")
   const primaryClass = primaryKey ? primaryKey.toLowerCase() : "";
   const secondaryClass = secondaryKey ? secondaryKey.toLowerCase() : "";
 
@@ -36,7 +50,7 @@ export function renderResultsScreen(primaryKey, secondaryKey) {
     </div>
 
     <!-- Primary Style Card -->
-    <div class="styleBlock primary-card border-${primaryClass}">
+    <div class="styleBlock primary-card border-${primaryClass}" style="--archetype-color: ${primaryColor};">
         <div class="card-content">
             <div class="styleTitle" style="font-size: 1.35rem;">
                 <span style="color: #0F172A;">Your primary archetype is:</span> 
@@ -52,7 +66,7 @@ export function renderResultsScreen(primaryKey, secondaryKey) {
     </div>
 
     <!-- Secondary Style Card -->
-    <div class="styleBlock border-${secondaryClass}">
+    <div class="styleBlock border-${secondaryClass}" style="--archetype-color: ${secondaryColor};">
         <div class="card-content">
             <div class="styleTitle" style="font-size: 1.2rem;">
                 <span style="color: #0F172A;">Your secondary archetype is:</span> 
@@ -64,7 +78,7 @@ export function renderResultsScreen(primaryKey, secondaryKey) {
     </div>
 
     <!-- Synergy Synthesis Block -->
-    <div class="styleBlock synergy-card" style="border-left-color: #64748B; background: #F8FAFC;">
+    <div class="styleBlock synergy-card" style="--archetype-color: #64748B; background: #F8FAFC;">
         <div class="card-content">
             <div class="styleTitle" style="font-size: 1.15rem; color: #0F172A;">
                 Synergy Synthesis: <span style="font-weight: 400; color: #334155;">${synergyText}</span>
