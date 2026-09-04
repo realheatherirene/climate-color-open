@@ -46,12 +46,3 @@ We offer facilitated team mapping, B2B toolkits, and organizational resources. V
 🌐 *Explore the web app live at [climatecolor.com](https://climatecolor.com)*
 
 ---
-
-## ⚙️ Repository Structure
-
-```text
-├── quiz.html           # Interactive 4-axis assessment questionnaire
-├── directory.html      # Filterable climate organization directory
-├── quiz-data.js        # Questions, style metadata, and synthesis logic
-├── directory-data.js   # Dynamic organization database and category tags
-└── README.md           # Project documentation and licensing terms
