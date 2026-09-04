@@ -48,12 +48,11 @@ export function renderResultsScreen(primaryKey, secondaryKey) {
     <div class="styleBlock synergy-card border-neutral" style="--archetype-color: #64748B; background: #F8FAFC;">
         <div class="card-content">
             <div class="sticky-results-label" style="font-size: 1.5rem;">
-            Your style: 
             <span class="theme-${primaryClass}" style="font-weight: 800;">${primaryKey}</span> / 
             <span class="theme-${secondaryClass}" style="font-weight: 800;">${secondaryKey}</span>
         </div>
             <div class="styleTitle" style="font-size: 1.15rem; color: #0F172A;">
-                Synergy Synthesis: <span style="font-weight: 400; color: #334155;">${synergyText}</span>
+                <span style="font-weight: 400; color: #334155;">${synergyText}</span>
             </div>
             <div class="styleIdentity" style="font-size: 1.05rem; margin-top: 0.75rem; color: #334155;">
                 ${secondarySyntheses[primaryKey]?.[secondaryKey] || ''}
