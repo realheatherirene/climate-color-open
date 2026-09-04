@@ -11,24 +11,22 @@
 }
 
 /* ==========================================================================
-   Sticky Results Bar & Constellation Banner
+   Tweak 5: Results Bar & Actions Placed Above Constellation Header
    ========================================================================== */
 
 .sticky-results-bar {
-    position: sticky;
-    top: 0;
+    position: relative; /* Changed from sticky to normal flow so it sits above */
     z-index: 100;
     background: #FFFFFF;
     border: 1px solid #E2E8F0;
     padding: 0.75rem 1rem;
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
+    flex-direction: column; /* Stack label/constellation on top, actions below or vice versa */
+    align-items: stretch;
     gap: 0.75rem;
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
     border-radius: 12px;
-    margin-bottom: 2rem;
+    margin-bottom: 1.5rem;
 }
 
 .sticky-results-label {
@@ -41,16 +39,16 @@
 .sticky-actions {
     display: flex;
     align-items: center;
-    gap: 0.4rem;
+    gap: 0.5rem;
     flex-wrap: wrap;
 }
 
-/* Compact Action Buttons */
+/* Tweaks 3 & 4: Soft directory-style blue buttons (One word each) */
 .btn-sm-action {
-    background-color: #F1F5F9;
-    color: #334155;
-    border: 1px solid #CBD5E1;
-    padding: 0.4rem 0.75rem;
+    background-color: #F0F9FF;
+    color: #0369A1;
+    border: 1px solid #BAE6FD;
+    padding: 0.4rem 0.85rem;
     font-size: 0.85rem;
     font-weight: 700;
     border-radius: 9999px;
@@ -61,7 +59,8 @@
 }
 
 .btn-sm-action:hover {
-    background-color: #E2E8F0;
+    background-color: #E0F2FE;
+    border-color: #7DD3FC;
     transform: translateY(-1px);
 }
 
@@ -73,6 +72,7 @@
 
 .btn-sm-primary:hover {
     background-color: #117a99;
+    border-color: #117a99;
 }
 
 /* ==========================================================================
@@ -135,6 +135,9 @@
 .styleBlock.border-connector { border-left-color: var(--connector-color); }
 .styleBlock.border-guardian { border-left-color: var(--guardian-color); }
 
+/* Tweak 6: Neutral grey sidebar option for card number three */
+.styleBlock.border-neutral { border-left-color: #94A3B8; }
+
 /* Primary Card Visual Boost */
 .styleBlock.primary-card {
     border-left-width: 8px;
@@ -158,16 +161,13 @@
     }
 
     .sticky-results-bar {
-        flex-direction: column;
-        align-items: stretch;
-        text-align: center;
         padding: 1rem;
         margin-bottom: 1.5rem;
     }
 
     .sticky-actions {
         display: grid;
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: repeat(3, 1fr);
         width: 100%;
         gap: 0.4rem;
     }
@@ -175,8 +175,8 @@
     .btn-sm-action {
         width: 100%;
         text-align: center;
-        padding: 0.5rem 0.5rem !important;
-        font-size: 0.85rem !important;
+        padding: 0.5rem 0.25rem !important;
+        font-size: 0.8rem !important;
     }
 }
 
