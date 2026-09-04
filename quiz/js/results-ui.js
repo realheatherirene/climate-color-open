@@ -44,10 +44,11 @@ export function renderResultsScreen(primaryKey, secondaryKey) {
         </div>
     </div>
 
-    <!-- Synergy Synthesis Block (Card 3 with grey border) -->
-    <div class="styleBlock synergy-card border-neutral" style="--archetype-color: #64748B; background: #F8FAFC;">
+    <!-- Stewardship Style Card (grey border) -->
+    <div class="styleBlock synergy-card border-neutral" style="--archetype-color: #64748B; background: #FFFFFF;">
         <div class="card-content">
             <div class="sticky-results-label" style="font-size: 1.5rem;">
+            <span style="color: #0F172A;">Your stewardship style is:</span>
             <span class="theme-${primaryClass}" style="font-weight: 800;">${primaryKey}</span> / 
             <span class="theme-${secondaryClass}" style="font-weight: 800;">${secondaryKey}</span>
         </div>
@@ -85,18 +86,6 @@ export function renderResultsScreen(primaryKey, secondaryKey) {
             </div>
             <div class="styleIdentity" style="font-size: 1.05rem;">${secondaryFull.description ? secondaryFull.description.trim() : ''}</div>
             <div class="styleMeta">Anchor: Core | Energy: ${secondaryKey}</div>
-        </div>
-    </div>
-
-    <!-- Synergy Synthesis Block (Card 3 with grey border) -->
-    <div class="styleBlock synergy-card border-neutral" style="--archetype-color: #64748B; background: #F8FAFC;">
-        <div class="card-content">
-            <div class="styleTitle" style="font-size: 1.15rem; color: #0F172A;">
-                Synergy Synthesis: <span style="font-weight: 400; color: #334155;">${synergyText}</span>
-            </div>
-            <div class="styleIdentity" style="font-size: 1.05rem; margin-top: 0.75rem; color: #334155;">
-                ${secondarySyntheses[primaryKey]?.[secondaryKey] || ''}
-            </div>
         </div>
     </div>
   `;
