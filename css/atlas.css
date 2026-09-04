@@ -3,15 +3,20 @@
    ========================================================================== */
 
 :root {
-  /* Core Climate Color Palette */
-  --driver-color: #DC2626;
-  --advocate-color: #EA580C;
+  /* Core Climate Color Palette (Updated to Brand Specifications) */
+  --driver-color: #E32322;
+  --advocate-color: #F18E1C;
   --visionary-color: #E1B809;
-  --stabilizer-color: #16A34A;
-  --architect-color: #0284C7;
-  --keeper-color: #4F46E5;
-  --connector-color: #9333EA;
+  --stabilizer-color: #5A9129;
+  --architect-color: #2A71B0;
+  --keeper-color: #002060;
+  --connector-color: #6D398B;
   --guardian-color: #D946EF;
+
+  /* Brand Accents */
+  --brand-sky: #74C1DF;
+  --brand-teal: #1494B9;
+  --brand-lime: #90BB3E;
 
   /* Global UI Colors */
   --bg-primary: #0F172A;
@@ -22,7 +27,7 @@
 }
 
 /* ==========================================================================
-   Climate Color Utility Classes
+   Climate Color Utility Classes (Text, Backgrounds, Borders)
    ========================================================================== */
 
 /* Driver */
@@ -64,3 +69,69 @@
 .theme-guardian { color: var(--guardian-color); }
 .bg-guardian { background-color: var(--guardian-color); }
 .border-guardian { border-color: var(--guardian-color); }
+
+
+/* ==========================================================================
+   Global Soft Pill & Button Component Utilities
+   ========================================================================== */
+
+.pill-btn, .btn-pill-soft {
+  font-family: inherit;
+  border-radius: 9999px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.pill-btn:hover, .btn-pill-soft:hover {
+  transform: translateY(-1px);
+}
+
+/* Archetype-Specific Soft Modifier Classes */
+.pill-driver, .btn-driver-soft { 
+  background-color: color-mix(in srgb, var(--driver-color) 8%, transparent); 
+  border: 1px solid color-mix(in srgb, var(--driver-color) 25%, transparent); 
+  color: var(--driver-color); 
+}
+
+.pill-advocate, .btn-advocate-soft { 
+  background-color: color-mix(in srgb, var(--advocate-color) 8%, transparent); 
+  border: 1px solid color-mix(in srgb, var(--advocate-color) 25%, transparent); 
+  color: var(--advocate-color); 
+}
+
+.pill-visionary, .btn-visionary-soft { 
+  background-color: color-mix(in srgb, var(--visionary-color) 8%, transparent); 
+  border: 1px solid color-mix(in srgb, var(--visionary-color) 25%, transparent); 
+  color: var(--visionary-color); 
+}
+
+.pill-stabilizer, .btn-stabilizer-soft { 
+  background-color: color-mix(in srgb, var(--stabilizer-color) 8%, transparent); 
+  border: 1px solid color-mix(in srgb, var(--stabilizer-color) 25%, transparent); 
+  color: var(--stabilizer-color); 
+}
+
+.pill-architect, .btn-architect-soft { 
+  background-color: color-mix(in srgb, var(--architect-color) 8%, transparent); 
+  border: 1px solid color-mix(in srgb, var(--architect-color) 25%, transparent); 
+  color: var(--architect-color); 
+}
+
+.pill-keeper, .btn-keeper-soft { 
+  background-color: color-mix(in srgb, var(--keeper-color) 8%, transparent); 
+  border: 1px solid color-mix(in srgb, var(--keeper-color) 25%, transparent); 
+  color: var(--keeper-color); 
+}
+
+.pill-connector, .btn-connector-soft { 
+  background-color: color-mix(in srgb, var(--connector-color) 8%, transparent); 
+  border: 1px solid color-mix(in srgb, var(--connector-color) 25%, transparent); 
+  color: var(--connector-color); 
+}
+
+.pill-guardian, .btn-guardian-soft { 
+  background-color: color-mix(in srgb, var(--guardian-color) 8%, transparent); 
+  border: 1px solid color-mix(in srgb, var(--guardian-color) 25%, transparent); 
+  color: var(--guardian-color); 
+}
