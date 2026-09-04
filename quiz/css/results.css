@@ -100,7 +100,7 @@
     border: 1px solid #E2E8F0;
     border-radius: 12px;
     padding: 1.5rem;
-    border-left: 6px solid #CBD5E1;
+    border-left: 6px solid var(--archetype-color, #CBD5E1); /* <--- Updated */
     text-align: left;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
     margin-bottom: 1.5rem;
