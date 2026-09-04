@@ -7,7 +7,7 @@
     margin: 2rem auto;
     padding: 0 1rem 4rem 1rem;
     font-family: 'Varela Round', sans-serif;
-    color: #212121;
+    color: var(--text-primary, #F8FAFC);
 }
 
 /* ==========================================================================
@@ -18,28 +18,24 @@
     position: sticky;
     top: 0;
     z-index: 100;
-    background: #FFFFFF;
-    border-bottom: 2px solid #E2E8F0;
+    background: var(--bg-secondary, #1E293B);
+    border: 1px solid var(--border-color, #334155);
     padding: 1rem 1.25rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
     flex-wrap: wrap;
     gap: 1rem;
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
-    border-radius: 0 0 12px 12px;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
+    border-radius: 12px;
     margin-bottom: 2rem;
 }
 
 .sticky-results-label {
     font-weight: 700;
-    font-size: 1.25rem; /* Prominent "Yay!" sizing */
-    color: #0F172A;
+    font-size: 1.15rem;
+    color: var(--text-primary, #F8FAFC);
     line-height: 1.3;
-}
-
-.sticky-results-label span {
-    font-family: 'ADLaM Display', 'Varela Round', sans-serif;
 }
 
 .sticky-actions {
@@ -51,9 +47,9 @@
 
 /* Action Buttons */
 .btn-sm-action {
-    background-color: #F1F5F9;
-    color: #334155;
-    border: 1px solid #CBD5E1;
+    background-color: rgba(15, 23, 42, 0.6);
+    color: var(--text-primary, #F8FAFC);
+    border: 1px solid var(--border-color, #334155);
     padding: 0.5rem 1rem;
     font-size: 0.9rem;
     font-weight: 700;
@@ -64,81 +60,89 @@
 }
 
 .btn-sm-action:hover {
-    background-color: #E2E8F0;
-    color: #0F172A;
+    background-color: var(--border-color, #334155);
     transform: translateY(-1px);
 }
 
 .btn-sm-primary {
-    background-color: #0284C7;
+    background-color: var(--brand-teal, #1494B9);
     color: #FFFFFF;
-    border-color: #0284C7;
+    border-color: var(--brand-teal, #1494B9);
 }
 
 .btn-sm-primary:hover {
-    background-color: #0369A1;
-    color: #FFFFFF;
-}
-
-.btn-pill-soft {
-    background-color: #FEF2F2;
-    color: #991B1B;
-    border-color: #FECACA;
-}
-
-.btn-pill-soft:hover {
-    background-color: #FEE2E2;
-    color: #7F1D1D;
+    background-color: #117a99;
 }
 
 /* ==========================================================================
-   Directory Card Components
+   Directory Card Components & Archetype Left Borders
    ========================================================================== */
 
 .styleBlock {
-    background: #FFFFFF;
-    border: 1px solid #E2E8F0;
+    background: var(--bg-secondary, #1E293B);
+    border: 1px solid var(--border-color, #334155);
     border-radius: 12px;
-    padding: 1.5rem;
-    border-left: 6px solid var(--archetype-color, #CBD5E1); /* <--- Updated */
+    padding: 1.75rem;
+    border-left-width: 6px;
+    border-left-style: solid;
     text-align: left;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
     margin-bottom: 1.5rem;
     transition: transform 0.15s ease, box-shadow 0.15s ease;
 }
 
 .styleBlock:hover {
     transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
 
 .card-content { 
-    margin-bottom: 0.5rem; 
+    margin-bottom: 0; 
 }
 
 .styleTitle {
-    font-size: 1.15rem;
+    font-size: 1.25rem;
     font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.03em;
-    margin-bottom: 0.5rem;
-}
-
-.styleIdentity {
-    font-size: 1rem;
-    color: #475569;
-    line-height: 1.5;
     margin-bottom: 0.75rem;
 }
 
+.styleIdentity {
+    font-size: 1.05rem;
+    color: var(--text-secondary, #94A3B8);
+    line-height: 1.6;
+    margin-bottom: 1rem;
+}
+
 .styleMeta {
-    font-size: 0.82rem;
+    font-size: 0.8rem;
     font-weight: 700;
-    color: #64748B;
+    color: var(--text-secondary, #94A3B8);
     text-transform: uppercase;
-    letter-spacing: 0.04em;
-    padding-top: 0.5rem;
-    border-top: 1px solid #F1F5F9;
+    letter-spacing: 0.05em;
+    padding-top: 0.75rem;
+    border-top: 1px solid var(--border-color, #334155);
+}
+
+/* Dynamic Left Border Color Application via Atlas utilities */
+.styleBlock.border-driver { border-left-color: var(--driver-color); }
+.styleBlock.border-advocate { border-left-color: var(--advocate-color); }
+.styleBlock.border-visionary { border-left-color: var(--visionary-color); }
+.styleBlock.border-stabilizer { border-left-color: var(--stabilizer-color); }
+.styleBlock.border-architect { border-left-color: var(--architect-color); }
+.styleBlock.border-keeper { border-left-color: var(--keeper-color); }
+.styleBlock.border-connector { border-left-color: var(--connector-color); }
+.styleBlock.border-guardian { border-left-color: var(--guardian-color); }
+
+/* Primary Card Visual Boost */
+.styleBlock.primary-card {
+    border-left-width: 8px;
+    box-shadow: 0 10px 20px -3px rgba(0, 0, 0, 0.2);
+}
+
+/* Synergy Card Override */
+.styleBlock.synergy-card {
+    border-left-color: var(--brand-sky, #74C1DF);
+    background: rgba(30, 41, 59, 0.7);
 }
 
 /* ==========================================================================
@@ -157,10 +161,6 @@
         text-align: center;
         padding: 1.25rem 1rem;
         margin-bottom: 1.5rem;
-    }
-
-    .sticky-results-label {
-        font-size: 1.35rem; /* Extra prominent at the very top on mobile */
     }
 
     .sticky-actions {
@@ -183,16 +183,17 @@
         display: none !important; 
     }
     body { 
-        background: #FFFFFF; 
+        background: #FFFFFF !important;
+        color: #212121 !important;
     }
     .styleBlock { 
         break-inside: avoid; 
-        box-shadow: none; 
-        border: 1px solid #CBD5E1; 
+        box-shadow: none !important; 
+        border: 1px solid #CBD5E1 !important;
+        background: #FFFFFF !important;
+        color: #212121 !important;
     }
-}
-/* Primary Card Visual Boost */
-.styleBlock.primary-card {
-    border-width: 1px 1px 1px 8px; /* Slightly thicker left border */
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+    .styleIdentity, .styleMeta, .styleTitle {
+        color: #212121 !important;
+    }
 }
