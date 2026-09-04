@@ -47,7 +47,7 @@ export function renderResultsScreen(primaryKey, secondaryKey) {
     <!-- Sticky Results Banner -->
     <div class="sticky-results-bar">
         <div class="sticky-results-label" style="font-size: 1.5rem;">
-            Your stewardship style is: 
+            Your style: 
             <span class="theme-${primaryClass}" style="font-weight: 800;">${primaryKey}</span> / 
             <span class="theme-${secondaryClass}" style="font-weight: 800;">${secondaryKey}</span>
         </div>
