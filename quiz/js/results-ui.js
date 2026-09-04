@@ -53,7 +53,6 @@ export function renderResultsScreen(primaryKey, secondaryKey) {
             <span class="theme-${secondaryClass}" style="font-weight: 800;">${secondaryKey}</span>
         </div>
             <div class="styleTitle" style="font-size: 1.15rem; color: #0F172A;">
-            <span style="color: #0F172A;">You bring:</span>
             <span style="font-weight: 400; color: #334155;">${synergyText}</span>
             </div>
         </div>
