@@ -37,15 +37,15 @@ export function renderResultsScreen(primaryKey, secondaryKey) {
   resultsEl.innerHTML = `
     <!-- Sticky Results Bar / Constellation Banner -->
     <div class="sticky-results-bar">
+        <div class="sticky-actions">
+            <button onclick="window.print()" class="btn-sm-action btn-sm-primary">Print</button>
+            <button id="btnCopyLink" class="btn-sm-action btn-sm-primary">Copy</button>
+            <button id="btnResetQuiz" class="btn-sm-action btn-sm-primary">Retake</button>
+        </div>
         <div class="sticky-results-label">
             Your Constellation: 
             <span class="theme-${primaryClass}" style="font-weight: 800;">${primaryKey}</span> / 
             <span class="theme-${secondaryClass}" style="font-weight: 800;">${secondaryKey}</span>
-        </div>
-        <div class="sticky-actions">
-            <button onclick="window.print()" class="btn-sm-action btn-sm-primary">Print / Save PDF</button>
-            <button id="btnCopyLink" class="btn-sm-action">Copy Link</button>
-            <button id="btnResetQuiz" class="btn-sm-action btn-pill-soft">Retake Quiz</button>
         </div>
     </div>
 
@@ -77,8 +77,8 @@ export function renderResultsScreen(primaryKey, secondaryKey) {
         </div>
     </div>
 
-    <!-- Synergy Synthesis Block -->
-    <div class="styleBlock synergy-card" style="--archetype-color: #64748B; background: #F8FAFC;">
+    <!-- Synergy Synthesis Block (Card 3 with grey border) -->
+    <div class="styleBlock synergy-card border-neutral" style="--archetype-color: #64748B; background: #F8FAFC;">
         <div class="card-content">
             <div class="styleTitle" style="font-size: 1.15rem; color: #0F172A;">
                 Synergy Synthesis: <span style="font-weight: 400; color: #334155;">${synergyText}</span>
