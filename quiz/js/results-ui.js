@@ -24,8 +24,8 @@ export function renderResultsScreen(primaryKey, secondaryKey) {
     <div class="sticky-results-bar">
         <div class="sticky-results-label">
             Your Constellation: 
-            <span style="color: ${primary.color};">${primaryKey}</span> / 
-            <span style="color: ${secondary.color};">${secondaryKey}</span>
+            <span style="color: ${primary.color}; font-weight: 800;">${primaryKey}</span> / 
+            <span style="color: ${secondary.color}; font-weight: 800;">${secondaryKey}</span>
         </div>
         <div class="sticky-actions">
             <button onclick="window.print()" class="btn-sm-action btn-sm-primary">Print / Save PDF</button>
@@ -34,7 +34,7 @@ export function renderResultsScreen(primaryKey, secondaryKey) {
         </div>
     </div>
 
-    <!-- Primary Style Card (Largest, with primary color bar) -->
+    <!-- Primary Style Card -->
     <div class="styleBlock primary-card" style="border-left-color: ${primary.color};">
         <div class="card-content">
             <div class="styleTitle" style="font-size: 1.35rem;">
@@ -50,7 +50,7 @@ export function renderResultsScreen(primaryKey, secondaryKey) {
         </div>
     </div>
 
-    <!-- Secondary Style Card (Medium-large, with secondary color bar) -->
+    <!-- Secondary Style Card -->
     <div class="styleBlock" style="border-left-color: ${secondary.color};">
         <div class="card-content">
             <div class="styleTitle" style="font-size: 1.2rem;">
@@ -62,7 +62,7 @@ export function renderResultsScreen(primaryKey, secondaryKey) {
         </div>
     </div>
 
-    <!-- Synergy Synthesis Block (Neutral Grey Card) -->
+    <!-- Synergy Synthesis Block -->
     <div class="styleBlock synergy-card" style="border-left-color: #64748B; background: #F8FAFC;">
         <div class="card-content">
             <div class="styleTitle" style="font-size: 1.15rem; color: #0F172A;">
