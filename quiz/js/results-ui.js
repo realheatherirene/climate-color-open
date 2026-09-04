@@ -37,7 +37,7 @@ export function renderResultsScreen(primaryKey, secondaryKey) {
   resultsEl.innerHTML = `
     <!-- Sticky Results Bar / Constellation Banner -->
     <div class="sticky-results-bar">
-        <div class="sticky-results-label" style="font-size: 1.35rem;">
+        <div class="sticky-results-label" style="font-size: 1.5rem;">
             Your stewardship style is: 
             <span class="theme-${primaryClass}" style="font-weight: 800;">${primaryKey}</span> / 
             <span class="theme-${secondaryClass}" style="font-weight: 800;">${secondaryKey}</span>
