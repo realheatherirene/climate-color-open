@@ -43,7 +43,7 @@ export function renderResultsScreen(primaryKey, secondaryKey) {
             <button id="btnResetQuiz" class="btn-sm-action btn-sm-primary">Retake</button>
         </div>
         <div class="sticky-results-label">
-            Your Constellation: 
+            Your stewardship style is: 
             <span class="theme-${primaryClass}" style="font-weight: 800;">${primaryKey}</span> / 
             <span class="theme-${secondaryClass}" style="font-weight: 800;">${secondaryKey}</span>
         </div>
