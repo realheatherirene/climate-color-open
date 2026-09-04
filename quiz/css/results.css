@@ -3,7 +3,7 @@
    ========================================================================== */
 
 #results {
-    max-width: 800px;
+    max-width: 1120px;
     margin: 2rem auto;
     padding: 0 1rem 4rem 1rem;
     font-family: 'Varela Round', sans-serif;
@@ -146,7 +146,7 @@
 
 /* Synergy Card Override */
 .styleBlock.synergy-card {
-    border-left-color: #74C1DF;
+    border-left-color: #94A3B8;
     background: #F8FAFC;
 }
 
