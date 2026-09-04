@@ -6,19 +6,19 @@ body {
     margin: 0 auto;
     padding: 2rem 1rem 1rem 1rem;
     line-height: 1.6;
-    background-color: #FFFFFF;
-    color: #212121;
+    background-color: var(--bg-primary, #0F172A);
+    color: var(--text-primary, #F8FAFC);
     -webkit-font-smoothing: antialiased;
 }
 
 /* Beta Banner */
 .beta-banner {
-    background-color: #F1F5F9;
-    color: #334155;
+    background-color: var(--bg-secondary, #1E293B);
+    color: var(--text-secondary, #94A3B8);
     text-align: center;
     padding: 0.6rem 1rem;
     font-size: 0.85rem;
-    border: 1px solid #E2E8F0;
+    border: 1px solid var(--border-color, #334155);
     border-radius: 8px;
     margin-bottom: 1.5rem;
     display: flex;
@@ -28,7 +28,7 @@ body {
     gap: 0.5rem;
 }
 .beta-tag {
-    background-color: #1494B9;
+    background-color: var(--brand-teal, #1494B9);
     color: #FFFFFF;
     font-size: 0.7rem;
     font-weight: 700;
@@ -46,7 +46,7 @@ body {
 .quiz-header h1 {
     font-family: 'ADLaM Display', 'Varela Round', sans-serif;
     font-size: 2rem;
-    color: #1494B9;
+    color: var(--brand-sky, #74C1DF);
     margin: 0 0 0.25rem 0;
     line-height: 1.2;
     display: flex;
@@ -55,7 +55,7 @@ body {
 }
 .quiz-header p {
     font-size: 1rem;
-    color: #64748B;
+    color: var(--text-secondary, #94A3B8);
     margin: 0;
 }
 
@@ -63,7 +63,7 @@ body {
 .progress-container {
     width: 100%;
     height: 8px;
-    background-color: #E2E8F0;
+    background-color: var(--border-color, #334155);
     border-radius: 9999px;
     margin-bottom: 2rem;
     overflow: hidden;
@@ -71,31 +71,32 @@ body {
 .progress-bar {
     height: 100%;
     width: 0%;
-    background-color: #1494B9;
+    background-color: var(--brand-teal, #1494B9);
     transition: width 0.3s ease;
 }
 
 /* Question & Option Cards */
 .quiz-card {
-    background: #FFFFFF;
-    border: 1px solid #E2E8F0;
+    background: var(--bg-secondary, #1E293B);
+    border: 1px solid var(--border-color, #334155);
     border-radius: 12px;
-    padding: 1.75rem;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+    padding: 2rem;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
     margin-bottom: 2rem;
 }
 .question-number {
     font-size: 0.85rem;
     font-weight: 700;
-    color: #64748B;
+    color: var(--text-secondary, #94A3B8);
     text-transform: uppercase;
     margin-bottom: 0.5rem;
+    letter-spacing: 0.05em;
 }
 .question-text {
-    font-size: 1.2rem;
+    font-size: 1.25rem;
     font-weight: 700;
-    color: #0F172A;
-    margin-bottom: 1.5rem;
+    color: var(--text-primary, #F8FAFC);
+    margin-bottom: 1.75rem;
     line-height: 1.4;
     outline: none;
 }
@@ -103,95 +104,27 @@ body {
 .options-container {
     display: flex;
     flex-direction: column;
-    gap: 0.75rem;
+    gap: 0.85rem;
 }
 .option-btn {
     width: 100%;
     text-align: left;
     padding: 1rem 1.25rem;
-    border: 1.5px solid #CBD5E1;
-    border-radius: 8px;
-    background: #F8FAFC;
-    color: #334155;
+    border: 1px solid var(--border-color, #334155);
+    border-radius: 10px;
+    background: rgba(15, 23, 42, 0.6);
+    color: var(--text-primary, #F8FAFC);
     font-family: inherit;
-    font-size: 0.98rem;
+    font-size: 1rem;
     cursor: pointer;
     transition: all 0.15s ease;
 }
 .option-btn:hover, .option-btn:focus {
-    border-color: #1494B9;
-    background: #F0F9FF;
+    border-color: var(--brand-teal, #1494B9);
+    background: rgba(20, 148, 185, 0.1);
     transform: translateY(-1px);
-    outline: 2px solid #1494B9;
+    outline: 2px solid var(--brand-teal, #1494B9);
     outline-offset: 1px;
-}
-
-/* Sticky Persistence Bar */
-.sticky-results-bar {
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    background: #FFFFFF;
-    border-bottom: 1px solid #E2E8F0;
-    padding: 0.75rem 1rem;
-    margin: -2rem -1rem 1.5rem -1rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
-}
-.sticky-actions {
-    display: flex;
-    gap: 0.5rem;
-    align-items: center;
-}
-.btn-sm-action {
-    padding: 0.4rem 0.85rem !important;
-    font-size: 0.82rem !important;
-    border-radius: 9999px;
-    font-weight: 700;
-    border: 1px solid #CBD5E1;
-    background: #F8FAFC;
-    color: #334155 !important;
-    cursor: pointer;
-    transition: all 0.15s ease;
-    text-decoration: none;
-}
-.btn-sm-action:hover {
-    background: #E2E8F0;
-}
-.btn-sm-primary {
-    background: #1494B9 !important;
-    color: #FFFFFF !important;
-    border-color: #1494B9 !important;
-}
-
-/* Results Cards */
-.styleBlock {
-    background: #FFFFFF;
-    border: 1px solid #E2E8F0;
-    border-radius: 12px;
-    padding: 1.5rem;
-    border-left: 6px solid #CBD5E1;
-    text-align: left;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
-    margin-bottom: 1.5rem;
-}
-.styleTitle {
-    font-weight: 700;
-    line-height: 1.3;
-}
-.styleIdentity {
-    font-size: 1.05rem;
-    font-weight: 700;
-    color: #0F172A;
-    line-height: 1.4;
-    margin-bottom: 0.5rem;
-}
-.styleAction {
-    font-size: 0.92rem;
-    color: #334155;
-    margin-bottom: 0.75rem;
 }
 
 /* Button & Pill Utilities */
@@ -200,22 +133,6 @@ body {
     gap: 0.75rem;
     flex-wrap: wrap;
     margin-top: 1rem;
-}
-.btn-pill-soft {
-    display: inline-block;
-    padding: 0.5rem 1.1rem;
-    font-size: 0.88rem;
-    font-weight: 700;
-    text-decoration: none;
-    border-radius: 9999px;
-    border: 1px solid #CBD5E1;
-    background-color: #F8FAFC;
-    color: #334155 !important;
-    transition: all 0.15s ease;
-}
-.btn-pill-soft:hover {
-    transform: translateY(-1px);
-    filter: brightness(0.96);
 }
 
 /* Print Specific Rules */
@@ -228,12 +145,13 @@ body {
     }
     body {
         padding: 0;
-        background: #FFFFFF;
+        background: #FFFFFF !important;
+        color: #212121 !important;
     }
-    .styleBlock {
-        break-inside: avoid;
-        box-shadow: none;
-        border: 1px solid #CBD5E1;
+    .quiz-card {
+        background: #FFFFFF !important;
+        border: 1px solid #CBD5E1 !important;
+        box-shadow: none !important;
     }
 }
 
@@ -241,6 +159,5 @@ body {
     body { padding: 1.25rem 0.85rem; }
     .quiz-card { padding: 1.25rem; }
     .cta-container { flex-direction: column; gap: 0.5rem; }
-    .btn-pill-soft { width: 100%; text-align: center; }
     .beta-banner { text-align: left; }
 }
