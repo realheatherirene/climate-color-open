@@ -45,7 +45,7 @@ export function renderResultsScreen(primaryKey, secondaryKey) {
     </div>
 
     <!-- Stewardship Style Card (grey border) -->
-    <div class="styleBlock synergy-card border-neutral" style="--archetype-color: #64748B; background: #FFFFFF;">
+    <div class="styleBlock synergy-card border-neutral" style="--archetype-color: #64748B; background: #F1F5F9;">
         <div class="card-content">
             <div class="sticky-results-label" style="font-size: 1.5rem;">
             <span style="color: #0F172A;">Your stewardship style is:</span>
