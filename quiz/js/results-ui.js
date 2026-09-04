@@ -35,17 +35,21 @@ export function renderResultsScreen(primaryKey, secondaryKey) {
   const secondaryClass = secondaryKey ? secondaryKey.toLowerCase() : "";
 
   resultsEl.innerHTML = `
-    <!-- Sticky Results Bar / Constellation Banner -->
+    <!-- Sticky Results Buttons -->
+    <div class="sticky-results-bar">
+        <div class="sticky-actions">
+            <button onclick="window.print()" class="btn-sm-action btn-sm-primary">Print</button>
+            <button id="btnCopyLink" class="btn-sm-action btn-sm-primary">Copy</button>
+            <button id="btnResetQuiz" class="btn-sm-action btn-sm-primary">Retake</button>
+        </div>
+    </div>
+
+    <!-- Sticky Results Banner -->
     <div class="sticky-results-bar">
         <div class="sticky-results-label" style="font-size: 1.5rem;">
             Your stewardship style is: 
             <span class="theme-${primaryClass}" style="font-weight: 800;">${primaryKey}</span> / 
             <span class="theme-${secondaryClass}" style="font-weight: 800;">${secondaryKey}</span>
-        </div>
-        <div class="sticky-actions">
-            <button onclick="window.print()" class="btn-sm-action btn-sm-primary">Print</button>
-            <button id="btnCopyLink" class="btn-sm-action btn-sm-primary">Copy</button>
-            <button id="btnResetQuiz" class="btn-sm-action btn-sm-primary">Retake</button>
         </div>
     </div>
 
