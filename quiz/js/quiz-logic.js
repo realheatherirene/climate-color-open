@@ -51,8 +51,8 @@ function renderQuestion() {
     if (!qNum || !qText || !container) return;
 
     // Correctly formatting the axis name from your quiz-data.js structure
-    const axisName = q.axis ? `${q.axis.toUpperCase()} AXIS` : "QUESTION";
-    qNum.textContent = `${axisName} — Question ${currentQuestion + 1} of ${questions.length}`;
+   const axisName = q.axis ? `${q.axis.toUpperCase()}` : "QUESTION";
+   qNum.textContent = `${axisName} — Question ${currentQuestion + 1} of ${questions.length}`;
     qText.textContent = q.prompt;
 
     const pct = (currentQuestion / questions.length) * 100;
