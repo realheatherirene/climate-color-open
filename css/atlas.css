@@ -39,57 +39,42 @@
    Global Base Styles (Light Theme)
    ========================================================================== */
 
+* { box-sizing: border-box; }
+
 html, body {
   background: var(--bg-primary);
   color: var(--text-primary);
   font-family: 'Varela Round', -apple-system, BlinkMacSystemFont, sans-serif;
   -webkit-font-smoothing: antialiased;
   line-height: 1.6;
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 2rem 1rem 1rem 1rem;
 }
 
 /* ==========================================================================
-   Climate Color Utility Classes (Text, Backgrounds, Borders)
+   Shared Header Style (Matches Quiz & Directory)
    ========================================================================== */
 
-/* Driver */
-.theme-driver { color: var(--driver-color); }
-.bg-driver { background-color: var(--driver-color); }
-.border-driver { border-color: var(--driver-color); }
+.quiz-header {
+  text-align: left;
+  margin-bottom: 1.5rem;
+}
 
-/* Advocate */
-.theme-advocate { color: var(--advocate-color); }
-.bg-advocate { background-color: var(--advocate-color); }
-.border-advocate { border-color: var(--advocate-color); }
+.quiz-header h1 {
+  font-family: 'ADLaM Display', 'Varela Round', sans-serif;
+  font-size: 2rem;
+  font-weight: 800;
+  color: var(--brand-teal);
+  margin: 0 0 0.25rem 0;
+  line-height: 1.2;
+}
 
-/* Visionary */
-.theme-visionary { color: var(--visionary-color); }
-.bg-visionary { background-color: var(--visionary-color); }
-.border-visionary { border-color: var(--visionary-color); }
-
-/* Stabilizer */
-.theme-stabilizer { color: var(--stabilizer-color); }
-.bg-stabilizer { background-color: var(--stabilizer-color); }
-.border-stabilizer { border-color: var(--stabilizer-color); }
-
-/* Architect */
-.theme-architect { color: var(--architect-color); }
-.bg-architect { background-color: var(--architect-color); }
-.border-architect { border-color: var(--architect-color); }
-
-/* Keeper */
-.theme-keeper { color: var(--keeper-color); }
-.bg-keeper { background-color: var(--keeper-color); }
-.border-keeper { border-color: var(--keeper-color); }
-
-/* Connector */
-.theme-connector { color: var(--connector-color); }
-.bg-connector { background-color: var(--connector-color); }
-.border-connector { border-color: var(--connector-color); }
-
-/* Guardian */
-.theme-guardian { color: var(--guardian-color); }
-.bg-guardian { background-color: var(--guardian-color); }
-.border-guardian { border-color: var(--guardian-color); }
+.quiz-header p {
+  font-size: 1rem;
+  color: var(--text-muted);
+  margin: 0;
+}
 
 /* ==========================================================================
    Global Soft Pill & Button Component Utilities
@@ -105,6 +90,8 @@ html, body {
   background: var(--bg-secondary);
   border: 1px solid var(--border-color);
   color: var(--text-primary);
+  text-decoration: none;
+  display: inline-block;
 }
 
 .pill-btn:hover,
