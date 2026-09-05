@@ -5,53 +5,107 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Climate Color Pathways</title>
 
-  <!-- Global Styles -->
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=ADLaM+Display&family=Varela+Round&display=swap" rel="stylesheet">
+
+  <!-- Global & Pathway Styles -->
   <link rel="stylesheet" href="../css/atlas.css">
   <link rel="stylesheet" href="../css/pathways.css">
 </head>
 
-<body class="pathway-page">
+<body>
+  <header class="quiz-header">
+    <h1>Climate Color Pathways</h1>
+    <p>Eight ways people naturally contribute to climate care.</p>
+  </header>
+
   <main class="pathway-wrapper">
 
-    <!-- Header -->
-    <section class="pathway-header brand">
-  <h1 class="pathway-title">Climate Color Pathways</h1>
-  <p class="pathway-subtitle">
-    Eight ways people naturally contribute to climate care.
-  </p>
-</section>
-
-    <!-- Intro Section -->
+    <!-- Intro Section Card -->
     <section class="pathway-section">
       <h2>Explore Your Path</h2>
       <p>
         Each Pathway represents a distinct way of engaging with climate work — through momentum, energy, imagination,
-        steadiness, structure, memory, relationship, or protection.
-        These are not roles or identities. They are invitations.
+        steadiness, structure, memory, relationship, or protection. These are not roles or identities. They are invitations.
       </p>
     </section>
 
-    <!-- Pathway List -->
-    <section class="pathway-section">
-      <ul class="pathway-list">
-        <li><a href="driver.html" class="pathway-link">Driver — The Path of Momentum</a></li>
-        <li><a href="advocate.html" class="pathway-link">Advocate — The Path of Energy</a></li>
-        <li><a href="visionary.html" class="pathway-link">Visionary — The Path of Imagination</a></li>
-        <li><a href="stabilizer.html" class="pathway-link">Stabilizer — The Path of Steadiness</a></li>
-        <li><a href="architect.html" class="pathway-link">Architect — The Path of Structure</a></li>
-        <li><a href="keeper.html" class="pathway-link">Keeper — The Path of Memory</a></li>
-        <li><a href="connector.html" class="pathway-link">Connector — The Path of Relationship</a></li>
-        <li><a href="guardian.html" class="pathway-link">Guardian — The Path of Protection</a></li>
-      </ul>
-    </section>
+    <!-- Pathway Card Grid -->
+    <div class="pathway-grid">
+      <div class="pathway-card" style="border-left-color: var(--driver-color);">
+        <div>
+          <h3><a href="driver.html">Driver</a></h3>
+          <p>The Path of Momentum</p>
+        </div>
+        <div><a href="driver.html" class="btn-pill-soft btn-driver-soft">Explore Driver →</a></div>
+      </div>
+
+      <div class="pathway-card" style="border-left-color: var(--advocate-color);">
+        <div>
+          <h3><a href="advocate.html">Advocate</a></h3>
+          <p>The Path of Energy</p>
+        </div>
+        <div><a href="advocate.html" class="btn-pill-soft btn-advocate-soft">Explore Advocate →</a></div>
+      </div>
+
+      <div class="pathway-card" style="border-left-color: var(--visionary-color);">
+        <div>
+          <h3><a href="visionary.html">Visionary</a></h3>
+          <p>The Path of Imagination</p>
+        </div>
+        <div><a href="visionary.html" class="btn-pill-soft btn-visionary-soft">Explore Visionary →</a></div>
+      </div>
+
+      <div class="pathway-card" style="border-left-color: var(--stabilizer-color);">
+        <div>
+          <h3><a href="stabilizer.html">Stabilizer</a></h3>
+          <p>The Path of Steadiness</p>
+        </div>
+        <div><a href="stabilizer.html" class="btn-pill-soft btn-stabilizer-soft">Explore Stabilizer →</a></div>
+      </div>
+
+      <div class="pathway-card" style="border-left-color: var(--architect-color);">
+        <div>
+          <h3><a href="architect.html">Architect</a></h3>
+          <p>The Path of Structure</p>
+        </div>
+        <div><a href="architect.html" class="btn-pill-soft btn-architect-soft">Explore Architect →</a></div>
+      </div>
+
+      <div class="pathway-card" style="border-left-color: var(--keeper-color);">
+        <div>
+          <h3><a href="keeper.html">Keeper</a></h3>
+          <p>The Path of Memory</p>
+        </div>
+        <div><a href="keeper.html" class="btn-pill-soft btn-keeper-soft">Explore Keeper →</a></div>
+      </div>
+
+      <div class="pathway-card" style="border-left-color: var(--connector-color);">
+        <div>
+          <h3><a href="connector.html">Connector</a></h3>
+          <p>The Path of Relationship</p>
+        </div>
+        <div><a href="connector.html" class="btn-pill-soft btn-connector-soft">Explore Connector →</a></div>
+      </div>
+
+      <div class="pathway-card" style="border-left-color: var(--guardian-color);">
+        <div>
+          <h3><a href="guardian.html">Guardian</a></h3>
+          <p>The Path of Protection</p>
+        </div>
+        <div><a href="guardian.html" class="btn-pill-soft btn-guardian-soft">Explore Guardian →</a></div>
+      </div>
+    </div>
 
     <!-- Closing Note -->
-    <section class="pathway-section">
-      <p class="pathway-note">
+    <section class="pathway-section" style="text-align: center;">
+      <p style="margin: 0; color: var(--text-secondary);">
         You don’t need to fit into one Pathway.<br>
         You don’t need to choose.<br>
         You don’t need to stay the same.<br>
-        These are simply ways of seeing yourself with gentleness and clarity.
+        <strong>These are simply ways of seeing yourself with gentleness and clarity.</strong>
       </p>
     </section>
 
