@@ -1,9 +1,9 @@
 /* ==========================================================================
-   ATLAS CSS: Climate Color Theme (Source of Truth)
+   ATLAS CSS: Climate Color Theme — LIGHT MODE (Source of Truth)
    ========================================================================== */
 
 :root {
-  /* Core Climate Color Palette (Updated to Brand Specifications) */
+  /* Core Climate Color Palette (Brand Accurate) */
   --driver-color: #E32322;
   --advocate-color: #F18E1C;
   --visionary-color: #E1B809;
@@ -18,12 +18,33 @@
   --brand-teal: #1494B9;
   --brand-lime: #90BB3E;
 
-  /* Global UI Colors */
-  --bg-primary: #0F172A;
-  --bg-secondary: #1E293B;
-  --text-primary: #F8FAFC;
-  --text-secondary: #94A3B8;
-  --border-color: #334155;
+  /* Global Light UI Colors */
+  --bg-primary: #FFFFFF;
+  --bg-secondary: #F8FAFC;
+  --bg-tertiary: #F1F5F9;
+
+  --text-primary: #212121;
+  --text-secondary: #475569;
+  --text-muted: #64748B;
+
+  --border-color: #E2E8F0;
+  --border-strong: #CBD5E1;
+
+  /* Shadows */
+  --shadow-soft: 0 4px 6px -1px rgba(0,0,0,0.04);
+  --shadow-hover: 0 6px 12px rgba(0,0,0,0.06);
+}
+
+/* ==========================================================================
+   Global Base Styles (Light Theme)
+   ========================================================================== */
+
+html, body {
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: 'Varela Round', -apple-system, BlinkMacSystemFont, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  line-height: 1.6;
 }
 
 /* ==========================================================================
@@ -70,68 +91,73 @@
 .bg-guardian { background-color: var(--guardian-color); }
 .border-guardian { border-color: var(--guardian-color); }
 
-
 /* ==========================================================================
    Global Soft Pill & Button Component Utilities
    ========================================================================== */
 
-.pill-btn, .btn-pill-soft {
+.pill-btn,
+.btn-pill-soft {
   font-family: inherit;
   border-radius: 9999px;
   font-weight: 700;
   cursor: pointer;
   transition: all 0.15s ease;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  color: var(--text-primary);
 }
 
-.pill-btn:hover, .btn-pill-soft:hover {
+.pill-btn:hover,
+.btn-pill-soft:hover {
   transform: translateY(-1px);
+  background: var(--bg-tertiary);
 }
 
-/* Archetype-Specific Soft Modifier Classes */
-.pill-driver, .btn-driver-soft { 
-  background-color: color-mix(in srgb, var(--driver-color) 8%, transparent); 
-  border: 1px solid color-mix(in srgb, var(--driver-color) 25%, transparent); 
-  color: var(--driver-color); 
+/* Archetype Soft Pills */
+.pill-driver, .btn-driver-soft {
+  background-color: color-mix(in srgb, var(--driver-color) 10%, white);
+  border: 1px solid color-mix(in srgb, var(--driver-color) 30%, white);
+  color: var(--driver-color);
 }
 
-.pill-advocate, .btn-advocate-soft { 
-  background-color: color-mix(in srgb, var(--advocate-color) 8%, transparent); 
-  border: 1px solid color-mix(in srgb, var(--advocate-color) 25%, transparent); 
-  color: var(--advocate-color); 
+.pill-advocate, .btn-advocate-soft {
+  background-color: color-mix(in srgb, var(--advocate-color) 10%, white);
+  border: 1px solid color-mix(in srgb, var(--advocate-color) 30%, white);
+  color: var(--advocate-color);
 }
 
-.pill-visionary, .btn-visionary-soft { 
-  background-color: color-mix(in srgb, var(--visionary-color) 8%, transparent); 
-  border: 1px solid color-mix(in srgb, var(--visionary-color) 25%, transparent); 
-  color: var(--visionary-color); 
+.pill-visionary, .btn-visionary-soft {
+  background-color: color-mix(in srgb, var(--visionary-color) 10%, white);
+  border: 1px solid color-mix(in srgb, var(--visionary-color) 30%, white);
+  color: var(--visionary-color);
 }
 
-.pill-stabilizer, .btn-stabilizer-soft { 
-  background-color: color-mix(in srgb, var(--stabilizer-color) 8%, transparent); 
-  border: 1px solid color-mix(in srgb, var(--stabilizer-color) 25%, transparent); 
-  color: var(--stabilizer-color); 
+.pill-stabilizer, .btn-stabilizer-soft {
+  background-color: color-mix(in srgb, var(--stabilizer-color) 10%, white);
+  border: 1px solid color-mix(in srgb, var(--stabilizer-color) 30%, white);
+  color: var(--stabilizer-color);
 }
 
-.pill-architect, .btn-architect-soft { 
-  background-color: color-mix(in srgb, var(--architect-color) 8%, transparent); 
-  border: 1px solid color-mix(in srgb, var(--architect-color) 25%, transparent); 
-  color: var(--architect-color); 
+.pill-architect, .btn-architect-soft {
+  background-color: color-mix(in srgb, var(--architect-color) 10%, white);
+  border: 1px solid color-mix(in srgb, var(--architect-color) 30%, white);
+  color: var(--architect-color);
 }
 
-.pill-keeper, .btn-keeper-soft { 
-  background-color: color-mix(in srgb, var(--keeper-color) 8%, transparent); 
-  border: 1px solid color-mix(in srgb, var(--keeper-color) 25%, transparent); 
-  color: var(--keeper-color); 
+.pill-keeper, .btn-keeper-soft {
+  background-color: color-mix(in srgb, var(--keeper-color) 10%, white);
+  border: 1px solid color-mix(in srgb, var(--keeper-color) 30%, white);
+  color: var(--keeper-color);
 }
 
-.pill-connector, .btn-connector-soft { 
-  background-color: color-mix(in srgb, var(--connector-color) 8%, transparent); 
-  border: 1px solid color-mix(in srgb, var(--connector-color) 25%, transparent); 
-  color: var(--connector-color); 
+.pill-connector, .btn-connector-soft {
+  background-color: color-mix(in srgb, var(--connector-color) 10%, white);
+  border: 1px solid color-mix(in srgb, var(--connector-color) 30%, white);
+  color: var(--connector-color);
 }
 
-.pill-guardian, .btn-guardian-soft { 
-  background-color: color-mix(in srgb, var(--guardian-color) 8%, transparent); 
-  border: 1px solid color-mix(in srgb, var(--guardian-color) 25%, transparent); 
-  color: var(--guardian-color); 
+.pill-guardian, .btn-guardian-soft {
+  background-color: color-mix(in srgb, var(--guardian-color) 10%, white);
+  border: 1px solid color-mix(in srgb, var(--guardian-color) 30%, white);
+  color: var(--guardian-color);
 }
