@@ -6,25 +6,25 @@
     max-width: 1120px;
     margin: 2rem auto;
     padding: 0 1rem 4rem 1rem;
-    font-family: 'Varela Round', sans-serif;
-    color: #212121;
+    font-family: inherit;
+    color: var(--text-primary);
 }
 
 /* ==========================================================================
-   Tweak 5: Results Bar & Actions Placed Above Constellation Header
+   Results Bar & Actions Placed Above Constellation Header
    ========================================================================== */
 
 .sticky-results-bar {
-    position: relative; /* Changed from sticky to normal flow so it sits above */
+    position: relative;
     z-index: 100;
-    background: #FFFFFF;
-    border: 1px solid #E2E8F0;
+    background: var(--bg-primary);
+    border: 1px solid var(--border-color);
     padding: 0.75rem 1rem;
     display: flex;
-    flex-direction: column; /* Stack label/constellation on top, actions below or vice versa */
+    flex-direction: column;
     align-items: stretch;
     gap: 0.75rem;
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+    box-shadow: var(--shadow-soft);
     border-radius: 12px;
     margin-bottom: 1.5rem;
 }
@@ -32,7 +32,7 @@
 .sticky-results-label {
     font-weight: 700;
     font-size: 1.05rem;
-    color: #0F172A;
+    color: var(--text-primary);
     line-height: 1.3;
 }
 
@@ -43,11 +43,11 @@
     flex-wrap: wrap;
 }
 
-/* Tweaks 3 & 4: Soft directory-style blue buttons (One word each) */
+/* Soft directory-style blue buttons */
 .btn-sm-action {
-    background-color: #F0F9FF;
-    color: #0369A1;
-    border: 1px solid #BAE6FD;
+    background-color: color-mix(in srgb, var(--brand-teal) 12%, white);
+    color: var(--brand-teal);
+    border: 1px solid color-mix(in srgb, var(--brand-teal) 35%, white);
     padding: 0.4rem 0.85rem;
     font-size: 0.85rem;
     font-weight: 700;
@@ -59,20 +59,20 @@
 }
 
 .btn-sm-action:hover {
-    background-color: #E0F2FE;
-    border-color: #7DD3FC;
+    background-color: color-mix(in srgb, var(--brand-teal) 20%, white);
+    border-color: color-mix(in srgb, var(--brand-teal) 50%, white);
     transform: translateY(-1px);
 }
 
 .btn-sm-primary {
-    background-color: #1494B9;
-    color: #FFFFFF;
-    border-color: #1494B9;
+    background-color: var(--brand-teal);
+    color: var(--bg-primary);
+    border-color: var(--brand-teal);
 }
 
 .btn-sm-primary:hover {
-    background-color: #117a99;
-    border-color: #117a99;
+    background-color: color-mix(in srgb, var(--brand-teal) 85%, black);
+    border-color: color-mix(in srgb, var(--brand-teal) 85%, black);
 }
 
 /* ==========================================================================
@@ -80,21 +80,21 @@
    ========================================================================== */
 
 .styleBlock {
-    background: #FFFFFF;
-    border: 1px solid #E2E8F0;
+    background: var(--bg-primary);
+    border: 1px solid var(--border-color);
     border-radius: 12px;
     padding: 1.75rem;
     border-left-width: 6px;
     border-left-style: solid;
     text-align: left;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+    box-shadow: var(--shadow-soft);
     margin-bottom: 1.5rem;
     transition: transform 0.15s ease, box-shadow 0.15s ease;
 }
 
 .styleBlock:hover {
     transform: translateY(-2px);
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.06);
+    box-shadow: var(--shadow-hover);
 }
 
 .card-content { 
@@ -105,12 +105,12 @@
     font-size: 1.25rem;
     font-weight: 700;
     margin-bottom: 0.75rem;
-    color: #0F172A;
+    color: var(--text-primary);
 }
 
 .styleIdentity {
     font-size: 1.05rem;
-    color: #475569;
+    color: var(--text-secondary);
     line-height: 1.6;
     margin-bottom: 1rem;
 }
@@ -118,11 +118,11 @@
 .styleMeta {
     font-size: 0.8rem;
     font-weight: 700;
-    color: #64748B;
+    color: var(--text-muted);
     text-transform: uppercase;
     letter-spacing: 0.05em;
     padding-top: 0.75rem;
-    border-top: 1px solid #F1F5F9;
+    border-top: 1px solid var(--bg-tertiary);
 }
 
 /* Dynamic Left Border Color Application via Atlas utilities */
@@ -135,19 +135,19 @@
 .styleBlock.border-connector { border-left-color: var(--connector-color); }
 .styleBlock.border-guardian { border-left-color: var(--guardian-color); }
 
-/* Tweak 6: Neutral grey sidebar option for card number three */
-.styleBlock.border-neutral { border-left-color: #94A3B8; }
+/* Neutral grey sidebar option for card number three */
+.styleBlock.border-neutral { border-left-color: var(--border-strong); }
 
 /* Primary Card Visual Boost */
 .styleBlock.primary-card {
     border-left-width: 8px;
-    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.06);
+    box-shadow: var(--shadow-hover);
 }
 
 /* Synergy Card Override */
 .styleBlock.synergy-card {
-    border-left-color: #94A3B8;
-    background: #F8FAFC;
+    border-left-color: var(--border-strong);
+    background: var(--bg-secondary);
 }
 
 /* ==========================================================================
@@ -185,17 +185,17 @@
         display: none !important; 
     }
     body { 
-        background: #FFFFFF !important;
-        color: #212121 !important;
+        background: var(--bg-primary) !important;
+        color: var(--text-primary) !important;
     }
     .styleBlock { 
         break-inside: avoid; 
         box-shadow: none !important; 
-        border: 1px solid #CBD5E1 !important;
-        background: #FFFFFF !important;
-        color: #212121 !important;
+        border: 1px solid var(--border-strong) !important;
+        background: var(--bg-primary) !important;
+        color: var(--text-primary) !important;
     }
     .styleIdentity, .styleMeta, .styleTitle {
-        color: #212121 !important;
+        color: var(--text-primary) !important;
     }
 }
