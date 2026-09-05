@@ -1,6 +1,11 @@
 /* ==========================================================================
    Climate Color — Pathways Styles (Atlas Light Theme Cohesion)
    ========================================================================== */
+/* Force Atlas Light Theme Activation */
+body.pathway-page {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+}
 
 .pathway-page {
   background: var(--bg-primary);
