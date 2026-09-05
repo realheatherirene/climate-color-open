@@ -1,0 +1,132 @@
+/* ==========================================================================
+   Climate Color — Pathways Styles (Atlas Light Theme Cohesion)
+   ========================================================================== */
+
+.pathway-page {
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: 'Varela Round', -apple-system, BlinkMacSystemFont, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  line-height: 1.6;
+  padding: 2rem 1.5rem;
+}
+
+/* Wrapper */
+.pathway-wrapper {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+/* Header */
+.pathway-header {
+  text-align: center;
+  margin-bottom: 2.5rem;
+}
+
+.pathway-title {
+  font-family: 'ADLaM Display', 'Varela Round', sans-serif;
+  font-size: 2.4rem;
+  font-weight: 800;
+  color: var(--brand-teal);
+  margin-bottom: 0.5rem;
+  line-height: 1.2;
+}
+
+.pathway-subtitle {
+  font-size: 1.2rem;
+  color: var(--text-muted);
+  margin-bottom: 1rem;
+}
+
+/* Section Cards */
+.pathway-section {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  box-shadow: var(--shadow-soft);
+  padding: 1.75rem 1.5rem;
+  margin-bottom: 2rem;
+  transition: all 0.15s ease;
+}
+
+.pathway-section:hover {
+  box-shadow: var(--shadow-hover);
+  transform: translateY(-2px);
+}
+
+/* Section Headings */
+.pathway-section h2 {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 1rem;
+}
+
+/* Paragraphs */
+.pathway-section p {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  margin-bottom: 1rem;
+  line-height: 1.7;
+}
+
+/* Lists */
+.pathway-section ul {
+  margin: 1rem 0 1.5rem 1.25rem;
+  padding: 0;
+}
+
+.pathway-section li {
+  margin-bottom: 0.5rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+/* Quote Component */
+.pathway-quote {
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--brand-teal);
+  background: var(--bg-tertiary);
+  border-left: 4px solid var(--brand-teal);
+  padding: 1rem 1.25rem;
+  margin: 1.5rem 0;
+  border-radius: 6px;
+}
+
+/* Archetype Accent Headers */
+.pathway-header.driver .pathway-title { color: var(--driver-color); }
+.pathway-header.advocate .pathway-title { color: var(--advocate-color); }
+.pathway-header.visionary .pathway-title { color: var(--visionary-color); }
+.pathway-header.stabilizer .pathway-title { color: var(--stabilizer-color); }
+.pathway-header.architect .pathway-title { color: var(--architect-color); }
+.pathway-header.keeper .pathway-title { color: var(--keeper-color); }
+.pathway-header.connector .pathway-title { color: var(--connector-color); }
+.pathway-header.guardian .pathway-title { color: var(--guardian-color); }
+
+/* Buttons (Directory-style) */
+.pathway-btn {
+  display: inline-block;
+  background-color: var(--bg-tertiary);
+  color: var(--brand-teal);
+  border: 1px solid var(--border-color);
+  font-weight: 700;
+  font-size: 0.95rem;
+  border-radius: 9999px;
+  padding: 0.5rem 1rem;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.pathway-btn:hover {
+  background-color: #E0F2FE;
+  border-color: #7DD3FC;
+  transform: translateY(-1px);
+}
+
+/* Responsive Adjustments */
+@media (max-width: 640px) {
+  .pathway-page { padding: 1.25rem 0.85rem; }
+  .pathway-section { padding: 1.25rem; }
+  .pathway-title { font-size: 2rem; }
+}
