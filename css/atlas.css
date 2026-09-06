@@ -64,9 +64,9 @@ html, body {
 .quiz-header h1 {
   font-family: 'ADLaM Display', 'Varela Round', sans-serif;
   font-size: 2rem;
-  font-weight: 700;
+  font-weight: 600;
   color: var(--brand-teal);
-  margin: 0 0 0.25rem 0;
+  margin: 0 0 0 0rem 0;
   line-height: 1.2;
 }
 
