@@ -47,7 +47,7 @@ html, body {
   font-family: 'Varela Round', -apple-system, BlinkMacSystemFont, sans-serif;
   -webkit-font-smoothing: antialiased;
   line-height: 1.6;
-  max-width: 800px;
+  max-width: 1200px;
   margin: 0 auto;
   padding: 2rem 1rem 1rem 1rem;
 }
