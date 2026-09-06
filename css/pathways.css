@@ -34,10 +34,19 @@
   box-shadow: var(--shadow-hover);
 }
 
+/* Re-color the header font for each card based on its archetype color reference */
+.pathway-card[style*="driver"] h3 { color: var(--driver-color); }
+.pathway-card[style*="advocate"] h3 { color: var(--advocate-color); }
+.pathway-card[style*="visionary"] h3 { color: var(--visionary-color); }
+.pathway-card[style*="stabilizer"] h3 { color: var(--stabilizer-color); }
+.pathway-card[style*="architect"] h3 { color: var(--architect-color); }
+.pathway-card[style*="keeper"] h3 { color: var(--keeper-color); }
+.pathway-card[style*="connector"] h3 { color: var(--connector-color); }
+.pathway-card[style*="guardian"] h3 { color: var(--guardian-color); }
+
 .pathway-card h3 {
   font-size: 1.15rem;
   font-weight: 700;
-  color: var(--text-primary);
   margin: 0 0 0.5rem 0;
 }
 
@@ -55,6 +64,28 @@
   color: var(--text-secondary);
   line-height: 1.45;
   margin: 0 0 1rem 0;
+}
+
+/* Standardize ALL archetype buttons to look grey like the Directory */
+.pathway-card a[class*="btn-"] {
+  display: inline-block;
+  width: auto !important;
+  padding: 0.45rem 1rem !important;
+  font-size: 0.85rem !important;
+  font-weight: 700;
+  text-align: left;
+  text-decoration: none;
+  border-radius: 9999px;
+  border: 1px solid var(--border-strong);
+  background-color: var(--bg-secondary) !important;
+  color: var(--text-secondary) !important;
+  transition: all 0.15s ease;
+}
+
+.pathway-card a[class*="btn-"]:hover {
+  background-color: var(--border-color) !important;
+  border-color: var(--text-muted);
+  transform: translateY(-1px);
 }
 
 /* Individual Archetype Page Section styling */
@@ -92,3 +123,4 @@
   .pathway-grid { grid-template-columns: 1fr; }
   .pathway-section { padding: 1.25rem; }
 }
+```[cite: 1, 2, 3]
