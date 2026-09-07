@@ -118,4 +118,3 @@ function renderFluidColorWash(primaryKey, secondaryKey, tertiaryKey) {
     container.style.background = `linear-gradient(90deg, ${primaryColor}33, ${secondaryColor}33, ${tertiaryColor}33)`;
     container.style.border = `1px solid var(--border-color)`;
 }
-}
