@@ -20,13 +20,6 @@ export function renderResultsScreen(primaryKey, secondaryKey, tertiaryKey) {
   const tertiaryClass = tertiaryKey ? tertiaryKey.toLowerCase() : "";
 
   resultsEl.innerHTML = `
-    <div class="sticky-results-bar">
-        <div class="sticky-actions">
-            <button onclick="window.print()" class="btn-sm-action btn-sm-primary">Print</button>
-            <button id="btnCopyLink" class="btn-sm-action btn-sm-primary">Copy Link</button>
-            <button id="btnResetQuiz" class="btn-sm-action btn-sm-primary">Retake Quiz</button>
-        </div>
-    </div>
 
    <!-- Unboxed Editorial Constellation Header -->
     <div class="constellation-header-section" style="text-align: left; margin: 1.5rem 0 2.5rem 0;">
