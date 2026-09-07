@@ -74,7 +74,48 @@
     background-color: color-mix(in srgb, var(--brand-teal) 85%, black);
     border-color: color-mix(in srgb, var(--brand-teal) 85%, black);
 }
+/* ==========================================================================
+   Fluid Watercolor Wash Constellation Card Styles
+   ========================================================================== */
 
+.result-display-wrapper {
+    position: relative;
+    overflow: hidden;
+    border-radius: 1rem;
+    padding: 2.5rem 2rem;
+    margin: 1.5rem 0;
+    isolation: isolate;
+}
+
+.color-wash-blob {
+    position: absolute;
+    inset: -20px;
+    width: calc(100% + 40px);
+    height: calc(100% + 40px);
+    z-index: 1;
+    pointer-events: none;
+    mix-blend-mode: multiply;
+}
+
+.result-content-overlay {
+    position: relative;
+    z-index: 2;
+}
+
+.season-tag {
+    display: inline-block;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-muted);
+    margin-bottom: 0.5rem;
+}
+
+.triad-summary {
+    font-size: 1.25rem;
+    color: var(--text-primary);
+}
 /* ==========================================================================
    Directory Card Components & Archetype Left Borders
    ========================================================================== */
