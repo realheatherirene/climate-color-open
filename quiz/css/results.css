@@ -242,4 +242,13 @@
     .styleIdentity, .styleMeta, .styleTitle {
         color: var(--text-primary) !important;
     }
+/* Archetype Text Theme Colors */
+.theme-driver { color: var(--driver-color); }
+.theme-advocate { color: var(--advocate-color); }
+.theme-visionary { color: var(--visionary-color); }
+.theme-stabilizer { color: var(--stabilizer-color); }
+.theme-architect { color: var(--architect-color); }
+.theme-keeper { color: var(--keeper-color); }
+.theme-connector { color: var(--connector-color); }
+.theme-guardian { color: var(--guardian-color); }
 }
