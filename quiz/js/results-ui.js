@@ -11,7 +11,6 @@ export function renderResultsScreen(primaryKey, secondaryKey, tertiaryKey) {
   const tertiaryFull = fullResults[tertiaryKey] || { description: "" };
   const primaryKit = starterKits[primaryKey] || { core: [] };
   
-  // Build a nuanced synthesis covering all three archetypes gracefully
   const primarySecText = secondarySyntheses[primaryKey]?.[secondaryKey] || "";
   const secondaryTerText = secondarySyntheses[secondaryKey]?.[tertiaryKey] || "";
   const combinedSynthesis = `${primarySecText} Grounded further by your tertiary focus in ${tertiaryKey}, ${secondaryTerText.toLowerCase()}`;
@@ -29,69 +28,75 @@ export function renderResultsScreen(primaryKey, secondaryKey, tertiaryKey) {
         </div>
     </div>
 
-    <div class="styleBlock synergy-card border-neutral">
-        <div class="card-content" style="text-align: center;">
-            <div class="sticky-results-label" style="font-size: 1.35rem; margin-bottom: 0.5rem; font-weight: 500; color: var(--text-secondary);">
-              Your climate color constellation:
-            </div>
-            
-            <div class="result-display-wrapper">
-                <div id="climate-color-wash-container" class="color-wash-spectrum"></div>
-                <div class="result-content-overlay">
-                    <span class="season-tag">Stewardship Blend</span>
-                    <p class="triad-summary" style="margin: 0; font-family: 'ADLaM Display', sans-serif; font-size: 1.4rem;">
-                        <span class="theme-${primaryClass}">${primaryKey}</span> &bull; 
-                        <span class="theme-${secondaryClass}">${secondaryKey}</span> &bull; 
-                        <span class="theme-${tertiaryClass}">${tertiaryKey}</span>
-                    </p>
-                </div>
-            </div>
-
-            <div class="styleTitle" style="font-size: 1.05rem; color: var(--text-secondary); margin-top: 1.25rem; font-weight: 400; line-height: 1.6; max-width: 800px; margin-left: auto; margin-right: auto;">
-              ${combinedSynthesis}
-            </div>
-        </div>
+    <!-- Unboxed Editorial Constellation Header -->
+    <div class="constellation-header-section" style="text-align: left; margin: 1.5rem 0 2.5rem 0;">
+        <span class="season-tag">Stewardship Blend</span>
+        <h2 style="font-family: 'ADLaM Display', sans-serif; font-size: 2.2rem; margin: 0.25rem 0 0.5rem 0; line-height: 1.2;">
+            <span class="theme-${primaryClass}">${primaryKey}</span> &bull; 
+            <span class="theme-${secondaryClass}">${secondaryKey}</span> &bull; 
+            <span class="theme-${tertiaryClass}">${tertiaryKey}</span>
+        </h2>
+        
+        <div id="climate-color-wash-container" class="constellation-spectrum-line" style="height: 6px; width: 140px; border-radius: 9999px; margin: 0.75rem 0 1.25rem 0;"></div>
+        
+        <p style="font-size: 1.15rem; color: var(--text-secondary); line-height: 1.7; max-width: 900px; margin: 0;">
+            ${combinedSynthesis}
+        </p>
     </div>
 
+    <!-- Primary Style Card -->
     <div class="styleBlock primary-card border-${primaryClass}">
         <div class="card-content">
             <div class="styleTitle" style="font-size: 1.25rem;">
-                <span style="color: var(--text-secondary); font-weight: 400;">Primary style:</span> 
+                <span style="color: var(--text-muted); font-weight: 400;">Primary style:</span> 
                 <span class="theme-${primaryClass}" style="font-weight: 700;">${primaryKey}</span>
             </div>
             <div class="styleIdentity">${primaryFull.description ? primaryFull.description.trim() : ''}</div>
             <div class="styleMeta">Core Practices</div>
-            <ul style="margin: 0.5rem 0 0 1.25rem; font-size: 0.95rem; color: var(--text-secondary); line-height: 1.6;">
+            <ul style="margin: 0.5rem 0 1.25rem 1.25rem; font-size: 0.95rem; color: var(--text-secondary); line-height: 1.6;">
               ${primaryKit.core.map(item => `<li>${item}</li>`).join('')}
             </ul>
+            <a href="/pathways/${primaryClass}.html" class="btn-sm-action">Explore ${primaryKey} Archetype &rarr;</a>
         </div>
     </div>
 
+    <!-- Secondary Style Card -->
     <div class="styleBlock border-${secondaryClass}">
         <div class="card-content">
             <div class="styleTitle" style="font-size: 1.15rem;">
-                <span style="color: var(--text-secondary); font-weight: 400;">Secondary style:</span> 
+                <span style="color: var(--text-muted); font-weight: 400;">Secondary style:</span> 
                 <span class="theme-${secondaryClass}" style="font-weight: 700;">${secondaryKey}</span>
             </div>
             <div class="styleIdentity">${secondaryFull.description ? secondaryFull.description.trim() : ''}</div>
-            <div class="styleMeta">Supporting Energy</div>
+            <div class="styleMeta" style="margin-bottom: 1rem;">Supporting Energy</div>
+            <a href="/pathways/${secondaryClass}.html" class="btn-sm-action">Explore ${secondaryKey} Archetype &rarr;</a>
         </div>
     </div>
 
+    <!-- Tertiary Accent Card -->
     <div class="styleBlock border-${tertiaryClass}">
         <div class="card-content">
             <div class="styleTitle" style="font-size: 1.10rem;">
-                <span style="color: var(--text-secondary); font-weight: 400;">Tertiary accent:</span> 
+                <span style="color: var(--text-muted); font-weight: 400;">Tertiary accent:</span> 
                 <span class="theme-${tertiaryClass}" style="font-weight: 700;">${tertiaryKey}</span>
             </div>
             <div class="styleIdentity">${tertiaryFull.description ? tertiaryFull.description.trim() : ''}</div>
-            <div class="styleMeta">Balancing Accent</div>
+            <div class="styleMeta" style="margin-bottom: 1rem;">Balancing Accent</div>
+            <a href="/pathways/${tertiaryClass}.html" class="btn-sm-action">Explore ${tertiaryKey} Archetype &rarr;</a>
         </div>
     </div>
   `;
 
-  renderFluidColorWash(primaryKey, secondaryKey, tertiaryKey);
+  // Render fluid gradient for the sleek accent line
+  const container = document.getElementById('climate-color-wash-container');
+  if (container) {
+      const pColor = styles[primaryKey]?.color || "#3B82F6";
+      const sColor = styles[secondaryKey]?.color || "#22C55E";
+      const tColor = styles[tertiaryKey]?.color || "#E88D34";
+      container.style.background = `linear-gradient(90deg, ${pColor}, ${sColor}, ${tColor})`;
+  }
 
+  // Copy Link & Reset Handlers... (keep existing logic)
   document.getElementById("btnCopyLink").onclick = () => {
     const shareUrl = `${window.location.origin}${window.location.pathname}?primary=${encodeURIComponent(primaryKey)}&secondary=${encodeURIComponent(secondaryKey)}&tertiary=${encodeURIComponent(tertiaryKey)}`;
     navigator.clipboard?.writeText(shareUrl)
@@ -105,16 +110,4 @@ export function renderResultsScreen(primaryKey, secondaryKey, tertiaryKey) {
     localStorage.removeItem('climatecolor_tertiary');
     window.location.href = window.location.pathname;
   };
-}
-
-function renderFluidColorWash(primaryKey, secondaryKey, tertiaryKey) {
-    const container = document.getElementById('climate-color-wash-container');
-    if (!container) return;
-
-    const primaryColor = styles[primaryKey]?.color || "#3B82F6";
-    const secondaryColor = styles[secondaryKey]?.color || "#22C55E";
-    const tertiaryColor = styles[tertiaryKey]?.color || "#E88D34";
-
-    container.style.background = `linear-gradient(90deg, ${primaryColor}33, ${secondaryColor}33, ${tertiaryColor}33)`;
-    container.style.border = `1px solid var(--border-color)`;
 }
