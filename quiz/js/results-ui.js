@@ -32,16 +32,16 @@ export function renderResultsScreen(primaryKey, secondaryKey, tertiaryKey) {
     <div class="constellation-header-section" style="text-align: left; margin: 1.5rem 0 2.5rem 0;">
         <span class="season-tag">Stewardship Blend</span>
         
-        <!-- Weighted Archetype Pills (Primary, Secondary, Tertiary) -->
+        <!-- Uniform Sized Archetype Pills (Labels Removed) -->
         <div style="display: flex; align-items: center; gap: 0.6rem; flex-wrap: wrap; margin: 0.5rem 0 1rem 0;">
-            <span class="archetype-pill" style="font-size: 1.1rem; font-weight: 700; padding: 0.5rem 1.25rem; border-radius: 9999px; background-color: color-mix(in srgb, var(--${primaryClass}-color, var(--brand-teal)) 15%, transparent); color: var(--${primaryClass}-color, var(--brand-teal)); border: 1.5px solid color-mix(in srgb, var(--${primaryClass}-color, var(--brand-teal)) 40%, transparent);">
-                ${primaryKey} <span style="font-size: 0.75rem; font-weight: 500; opacity: 0.8; margin-left: 0.25rem;">(Primary)</span>
+            <span class="archetype-pill" style="font-size: 0.95rem; font-weight: 600; padding: 0.4rem 1rem; border-radius: 9999px; background-color: color-mix(in srgb, var(--${primaryClass}-color, var(--brand-teal)) 15%, transparent); color: var(--${primaryClass}-color, var(--brand-teal)); border: 1px solid color-mix(in srgb, var(--${primaryClass}-color, var(--brand-teal)) 40%, transparent);">
+                ${primaryKey}
             </span>
             <span class="archetype-pill" style="font-size: 0.95rem; font-weight: 600; padding: 0.4rem 1rem; border-radius: 9999px; background-color: color-mix(in srgb, var(--${secondaryClass}-color, var(--brand-teal)) 12%, transparent); color: var(--${secondaryClass}-color, var(--brand-teal)); border: 1px solid color-mix(in srgb, var(--${secondaryClass}-color, var(--brand-teal)) 30%, transparent);">
-                ${secondaryKey} <span style="font-size: 0.7rem; font-weight: 500; opacity: 0.8; margin-left: 0.2rem;">(Secondary)</span>
+                ${secondaryKey}
             </span>
-            <span class="archetype-pill" style="font-size: 0.85rem; font-weight: 600; padding: 0.3rem 0.85rem; border-radius: 9999px; background-color: color-mix(in srgb, var(--${tertiaryClass}-color, var(--brand-teal)) 8%, transparent); color: var(--${tertiaryClass}-color, var(--brand-teal)); border: 1px solid color-mix(in srgb, var(--${tertiaryClass}-color, var(--brand-teal)) 25%, transparent);">
-                ${tertiaryKey} <span style="font-size: 0.65rem; font-weight: 500; opacity: 0.8; margin-left: 0.2rem;">(Tertiary)</span>
+            <span class="archetype-pill" style="font-size: 0.95rem; font-weight: 600; padding: 0.4rem 1rem; border-radius: 9999px; background-color: color-mix(in srgb, var(--${tertiaryClass}-color, var(--brand-teal)) 8%, transparent); color: var(--${tertiaryClass}-color, var(--brand-teal)); border: 1px solid color-mix(in srgb, var(--${tertiaryClass}-color, var(--brand-teal)) 25%, transparent);">
+                ${tertiaryKey}
             </span>
         </div>
         
