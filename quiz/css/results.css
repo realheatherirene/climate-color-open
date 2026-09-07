@@ -242,7 +242,9 @@
     .styleIdentity, .styleMeta, .styleTitle {
         color: var(--text-primary) !important;
     }
-/* Archetype Text Theme Colors */
+} /* <-- Added missing closing bracket here */
+
+/* Archetype Text Theme Colors (Global Scope) */
 .theme-driver { color: var(--driver-color); }
 .theme-advocate { color: var(--advocate-color); }
 .theme-visionary { color: var(--visionary-color); }
@@ -251,4 +253,3 @@
 .theme-keeper { color: var(--keeper-color); }
 .theme-connector { color: var(--connector-color); }
 .theme-guardian { color: var(--guardian-color); }
-}
