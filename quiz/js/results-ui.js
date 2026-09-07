@@ -32,7 +32,7 @@ export function renderResultsScreen(primaryKey, secondaryKey, tertiaryKey) {
     <div class="constellation-header-section" style="text-align: left; margin: 1.5rem 0 2.5rem 0;">
         <span class="season-tag">Stewardship Blend</span>
         
-        <!-- Uniform Sized Archetype Pills (Labels Removed) -->
+        <!-- Uniform Sized Archetype Pills -->
         <div style="display: flex; align-items: center; gap: 0.6rem; flex-wrap: wrap; margin: 0.5rem 0 1rem 0;">
             <span class="archetype-pill" style="font-size: 0.95rem; font-weight: 600; padding: 0.4rem 1rem; border-radius: 9999px; background-color: color-mix(in srgb, var(--${primaryClass}-color, var(--brand-teal)) 15%, transparent); color: var(--${primaryClass}-color, var(--brand-teal)); border: 1px solid color-mix(in srgb, var(--${primaryClass}-color, var(--brand-teal)) 40%, transparent);">
                 ${primaryKey}
@@ -46,11 +46,7 @@ export function renderResultsScreen(primaryKey, secondaryKey, tertiaryKey) {
         </div>
         
         <!-- Full-Width Fluid Gradient Spectrum Bar -->
-        <div id="climate-color-wash-container" class="constellation-spectrum-line" style="height: 6px; width: 100%; border-radius: 9999px; margin: 1rem 0 1.25rem 0;"></div>
-        
-        <p style="font-size: 1.15rem; color: var(--text-secondary); line-height: 1.7; max-width: 900px; margin: 0;">
-            ${combinedSynthesis}
-        </p>
+        <div id="climate-color-wash-container" class="constellation-spectrum-line" style="height: 8px; width: 100%; border-radius: 9999px; margin: 1rem 0 0.5rem 0;"></div>
     </div>
 
 <!-- Primary Style Card -->
