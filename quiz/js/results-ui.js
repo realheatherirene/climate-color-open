@@ -5,21 +5,17 @@
 import { styles, secondarySyntheses } from "./quiz-data.js";
 import { starterKits, synergyCards, fullResults } from "./results.js";
 
-// Base hex codes mapped to your eight stewardship styles for the fluid wash
 export const styleColors = {
-    Driver: "#E24A3B",     // Vibrant Red / Momentum
-    Advocate: "#E88D34",   // Warm Orange / Amplification
-    Visionary: "#D65BB1",  // Magenta / Possibility
-    Architect: "#3B82F6",  // Blue / Clarity
-    Stabilizer: "#22C55E", // Green / Steadiness
-    Connector: "#06B6D4",  // Cyan / Belonging
-    Keeper: "#8B5CF6",     // Purple / Memory
-    Guardian: "#64748B"    // Slate / Protection
+    Driver: "#E24A3B",
+    Advocate: "#E88D34",
+    Visionary: "#D65BB1",
+    Architect: "#3B82F6",
+    Stabilizer: "#22C55E",
+    Connector: "#06B6D4",
+    Keeper: "#8B5CF6",
+    Guardian: "#64748B"
 };
 
-/**
- * Renders the fluid watercolor wash based on the user's top triad
- */
 function renderFluidColorWash(primaryKey, secondaryKey, tertiaryKey) {
     const container = document.getElementById('climate-color-wash-container');
     if (!container) return;
@@ -55,7 +51,6 @@ export function renderResultsScreen(primaryKey, secondaryKey, tertiaryKey) {
   const tertiaryClass = tertiaryKey ? tertiaryKey.toLowerCase() : "";
 
   resultsEl.innerHTML = `
-    <!-- Sticky Results Buttons -->
     <div class="sticky-results-bar">
         <div class="sticky-actions">
             <button onclick="window.print()" class="btn-sm-action btn-sm-primary">Print</button>
@@ -64,14 +59,12 @@ export function renderResultsScreen(primaryKey, secondaryKey, tertiaryKey) {
         </div>
     </div>
 
-    <!-- Core Philosophy & Fluid Watercolor Wash Card -->
     <div class="styleBlock synergy-card border-neutral" style="--archetype-color: var(--text-muted); background: var(--bg-primary);">
         <div class="card-content" style="text-align: center;">
             <div class="sticky-results-label" style="font-size: 1.6rem; margin-bottom: 0.75rem;">
               <span style="color: var(--text-primary); font-family: 'ADLaM Display', sans-serif;">You are perfect for the planet. Here is your climate color palette.</span>
             </div>
             
-            <!-- Fluid Watercolor Wash Blob Wrapper -->
             <div class="result-display-wrapper">
                 <div id="climate-color-wash-container" class="color-wash-blob"></div>
                 <div class="result-content-overlay">
@@ -90,7 +83,6 @@ export function renderResultsScreen(primaryKey, secondaryKey, tertiaryKey) {
         </div>
     </div>
 
-    <!-- Primary Style Card -->
     <div class="styleBlock primary-card border-${primaryClass}" style="--archetype-color: var(--${primaryClass}-color);">
         <div class="card-content">
             <div class="styleTitle" style="font-size: 1.35rem;">
@@ -106,7 +98,6 @@ export function renderResultsScreen(primaryKey, secondaryKey, tertiaryKey) {
         </div>
     </div>
 
-    <!-- Secondary Style Card -->
     <div class="styleBlock border-${secondaryClass}" style="--archetype-color: var(--${secondaryClass}-color);">
         <div class="card-content">
             <div class="styleTitle" style="font-size: 1.2rem;">
@@ -118,7 +109,6 @@ export function renderResultsScreen(primaryKey, secondaryKey, tertiaryKey) {
         </div>
     </div>
 
-    <!-- Tertiary Style Card -->
     <div class="styleBlock border-${tertiaryClass}" style="--archetype-color: var(--${tertiaryClass}-color);">
         <div class="card-content">
             <div class="styleTitle" style="font-size: 1.15rem;">
@@ -131,10 +121,8 @@ export function renderResultsScreen(primaryKey, secondaryKey, tertiaryKey) {
     </div>
   `;
 
-  // Trigger the fluid visual canvas update
   renderFluidColorWash(primaryKey, secondaryKey, tertiaryKey);
 
-  // Action bindings
   document.getElementById("btnCopyLink").onclick = () => {
     const shareUrl = `${window.location.origin}${window.location.pathname}?primary=${encodeURIComponent(primaryKey)}&secondary=${encodeURIComponent(secondaryKey)}&tertiary=${encodeURIComponent(tertiaryKey)}`;
     navigator.clipboard?.writeText(shareUrl)
