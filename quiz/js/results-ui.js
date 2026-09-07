@@ -5,7 +5,18 @@ export function renderResultsScreen(primaryKey, secondaryKey, tertiaryKey) {
   if (!resultsEl) return;
 
   resultsEl.hidden = false;
-
+  
+// Dynamically inject the action buttons into the top banner when results load
+  const bannerActions = document.getElementById('bannerActions');
+  if (bannerActions) {
+      if (!document.getElementById('btnCopyLink')) {
+          bannerActions.insertAdjacentHTML('afterbegin', `
+              <button onclick="window.print()" class="beta-tag" style="background: none; border: none; font: inherit; cursor: pointer; padding: 0; color: inherit;">PRINT</button>
+              <button id="btnCopyLink" class="beta-tag" style="background: none; border: none; font: inherit; cursor: pointer; padding: 0; color: inherit;">COPY</button>
+              <button id="btnResetQuiz" class="beta-tag" style="background: none; border: none; font: inherit; cursor: pointer; padding: 0; color: inherit;">RETAKE</button>
+          `);
+      }
+  }
   const primaryFull = fullResults[primaryKey] || { description: "" };
   const secondaryFull = fullResults[secondaryKey] || { description: "" };
   const tertiaryFull = fullResults[tertiaryKey] || { description: "" };
