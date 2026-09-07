@@ -5,27 +5,12 @@
 import { styles, secondarySyntheses } from "./quiz-data.js";
 import { starterKits, synergyCards, fullResults } from "./results.js";
 
-// Archetype color mapping
-const archetypeColors = {
-  Driver: "#DC2626",
-  Advocate: "#EA580C",
-  Visionary: "#E1B809",
-  Stabilizer: "#16A34A",
-  Architect: "#0284C7",
-  Keeper: "#4F46E5",
-  Connector: "#9333EA",
-  Guardian: "#D946EF"
-};
-
 export function renderResultsScreen(primaryKey, secondaryKey) {
   const resultsEl = document.getElementById("results");
   if (!resultsEl) return;
 
   resultsEl.hidden = false;
 
-  const primaryColor = archetypeColors[primaryKey] || "#CBD5E1";
-  const secondaryColor = archetypeColors[secondaryKey] || "#CBD5E1";
-  
   const primaryFull = fullResults[primaryKey] || { description: "" };
   const secondaryFull = fullResults[secondaryKey] || { description: "" };
   const primaryKit = starterKits[primaryKey] || { core: [] };
@@ -45,40 +30,40 @@ export function renderResultsScreen(primaryKey, secondaryKey) {
     </div>
 
     <!-- Stewardship Style Card (grey border) -->
-    <div class="styleBlock synergy-card border-neutral" style="--archetype-color: #64748B; background: #F1F5F9;">
+    <div class="styleBlock synergy-card border-neutral" style="--archetype-color: var(--text-muted); background: var(--bg-tertiary);">
         <div class="card-content">
             <div class="sticky-results-label" style="font-size: 1.5rem;">
-            <span style="color: #0F172A;">Your stewardship style is:</span>
+            <span style="color: var(--text-primary);">Your stewardship style is:</span>
             <span class="theme-${primaryClass}" style="font-weight: 800;">${primaryKey}</span> / 
             <span class="theme-${secondaryClass}" style="font-weight: 800;">${secondaryKey}</span>
         </div>
-            <div class="styleTitle" style="font-size: 1.15rem; color: #0F172A;">
-            <span style="font-weight: 400; color: #334155;">${synergyText}</span>
+            <div class="styleTitle" style="font-size: 1.15rem; color: var(--text-primary);">
+            <span style="font-weight: 400; color: var(--text-secondary);">${synergyText}</span>
             </div>
         </div>
     </div>
 
     <!-- Primary Style Card -->
-    <div class="styleBlock primary-card border-${primaryClass}" style="--archetype-color: ${primaryColor};">
+    <div class="styleBlock primary-card border-${primaryClass}" style="--archetype-color: var(--${primaryClass}-color);">
         <div class="card-content">
             <div class="styleTitle" style="font-size: 1.35rem;">
-                <span style="color: #0F172A;">Your primary archetype is:</span> 
+                <span style="color: var(--text-primary);">Your primary archetype is:</span> 
                 <span class="theme-${primaryClass}">${primaryKey}</span>
             </div>
             <div class="styleIdentity" style="font-size: 1.1rem; font-weight: 500;">${primaryFull.description ? primaryFull.description.trim() : ''}</div>
             <div class="styleMeta">Anchor: Core | Energy: ${primaryKey}</div>
-            <div class="styleAction" style="margin-top: 1rem; font-size: 1rem; color: #0F172A;"><strong>Core Practices:</strong></div>
-            <ul style="margin: 0.5rem 0 1rem 1.25rem; font-size: 1rem; color: #334155; line-height: 1.6;">
+            <div class="styleAction" style="margin-top: 1rem; font-size: 1rem; color: var(--text-primary);"><strong>Core Practices:</strong></div>
+            <ul style="margin: 0.5rem 0 1rem 1.25rem; font-size: 1rem; color: var(--text-secondary); line-height: 1.6;">
               ${primaryKit.core.map(item => `<li>${item}</li>`).join('')}
             </ul>
         </div>
     </div>
 
     <!-- Secondary Style Card -->
-    <div class="styleBlock border-${secondaryClass}" style="--archetype-color: ${secondaryColor};">
+    <div class="styleBlock border-${secondaryClass}" style="--archetype-color: var(--${secondaryClass}-color);">
         <div class="card-content">
             <div class="styleTitle" style="font-size: 1.2rem;">
-                <span style="color: #0F172A;">Your secondary archetype is:</span> 
+                <span style="color: var(--text-primary);">Your secondary archetype is:</span> 
                 <span class="theme-${secondaryClass}">${secondaryKey}</span>
             </div>
             <div class="styleIdentity" style="font-size: 1.05rem;">${secondaryFull.description ? secondaryFull.description.trim() : ''}</div>
