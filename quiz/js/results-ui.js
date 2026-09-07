@@ -44,7 +44,11 @@ export function renderResultsScreen(primaryKey, secondaryKey, tertiaryKey) {
   const secondaryFull = fullResults[secondaryKey] || { description: "" };
   const tertiaryFull = fullResults[tertiaryKey] || { description: "" };
   const primaryKit = starterKits[primaryKey] || { core: [] };
-  const synergyText = synergyCards[primaryKey]?.[secondaryKey] || secondarySyntheses[primaryKey]?.[secondaryKey] || "";
+  
+  // Build a nuanced synthesis covering all three archetypes gracefully
+  const primarySecText = synergyCards[primaryKey]?.[secondaryKey] || secondarySyntheses[primaryKey]?.[secondaryKey] || "";
+  const secondaryTerText = synergyCards[secondaryKey]?.[tertiaryKey] || secondarySyntheses[secondaryKey]?.[tertiaryKey] || "";
+  const combinedSynthesis = `${primarySecText} Grounded further by your tertiary focus in ${tertiaryKey}, ${secondaryTerText.toLowerCase()}`;
 
   const primaryClass = primaryKey ? primaryKey.toLowerCase() : "";
   const secondaryClass = secondaryKey ? secondaryKey.toLowerCase() : "";
@@ -59,64 +63,63 @@ export function renderResultsScreen(primaryKey, secondaryKey, tertiaryKey) {
         </div>
     </div>
 
-    <div class="styleBlock synergy-card border-neutral" style="--archetype-color: var(--text-muted); background: var(--bg-primary);">
+    <div class="styleBlock synergy-card border-neutral">
         <div class="card-content" style="text-align: center;">
-            <div class="sticky-results-label" style="font-size: 1.6rem; margin-bottom: 0.75rem;">
-              <span style="color: var(--text-primary); font-family: 'ADLaM Display', sans-serif;">You are perfect for the planet. Here is your climate color palette.</span>
+            <div class="sticky-results-label" style="font-size: 1.35rem; margin-bottom: 0.5rem; font-weight: 500; color: var(--text-secondary);">
+              Your climate color constellation:
             </div>
             
             <div class="result-display-wrapper">
-                <div id="climate-color-wash-container" class="color-wash-blob"></div>
+                <div id="climate-color-wash-container" class="color-wash-spectrum"></div>
                 <div class="result-content-overlay">
-                    <span class="season-tag">Current Season</span>
-                    <p class="triad-summary" style="margin: 0;">
-                        <span class="theme-${primaryClass}" style="font-weight: 800;">${primaryKey}</span> + 
-                        <span class="theme-${secondaryClass}" style="font-weight: 800;">${secondaryKey}</span> + 
-                        <span class="theme-${tertiaryClass}" style="font-weight: 800;">${tertiaryKey}</span>
+                    <span class="season-tag">Stewardship Blend</span>
+                    <p class="triad-summary" style="margin: 0; font-family: 'ADLaM Display', sans-serif; font-size: 1.4rem;">
+                        <span class="theme-${primaryClass}">${primaryKey}</span> &bull; 
+                        <span class="theme-${secondaryClass}">${secondaryKey}</span> &bull; 
+                        <span class="theme-${tertiaryClass}">${tertiaryKey}</span>
                     </p>
                 </div>
             </div>
 
-            <div class="styleTitle" style="font-size: 1.15rem; color: var(--text-primary); margin-top: 1rem; text-align: left;">
-              <div style="font-weight: 400; color: var(--text-secondary); margin-top: 0.25rem; text-align: center;">${synergyText}</div>
+            <div class="styleTitle" style="font-size: 1.05rem; color: var(--text-secondary); margin-top: 1.25rem; font-weight: 400; line-height: 1.6; max-width: 800px; margin-left: auto; margin-right: auto;">
+              ${combinedSynthesis}
             </div>
         </div>
     </div>
 
-    <div class="styleBlock primary-card border-${primaryClass}" style="--archetype-color: var(--${primaryClass}-color);">
+    <div class="styleBlock primary-card border-${primaryClass}">
         <div class="card-content">
-            <div class="styleTitle" style="font-size: 1.35rem;">
-                <span style="color: var(--text-primary);">Your primary climate color is:</span> 
-                <span class="theme-${primaryClass}">${primaryKey}</span>
+            <div class="styleTitle" style="font-size: 1.25rem;">
+                <span style="color: var(--text-secondary); font-weight: 400;">Primary style:</span> 
+                <span class="theme-${primaryClass}" style="font-weight: 700;">${primaryKey}</span>
             </div>
-            <div class="styleIdentity" style="font-size: 1.1rem; font-weight: 500;">${primaryFull.description ? primaryFull.description.trim() : ''}</div>
-            <div class="styleMeta">Anchor: Core | Energy: ${primaryKey}</div>
-            <div class="styleAction" style="margin-top: 1rem; font-size: 1rem; color: var(--text-primary);"><strong>Core Practices:</strong></div>
-            <ul style="margin: 0.5rem 0 1rem 1.25rem; font-size: 1rem; color: var(--text-secondary); line-height: 1.6;">
+            <div class="styleIdentity">${primaryFull.description ? primaryFull.description.trim() : ''}</div>
+            <div class="styleMeta">Core Practices</div>
+            <ul style="margin: 0.5rem 0 0 1.25rem; font-size: 0.95rem; color: var(--text-secondary); line-height: 1.6;">
               ${primaryKit.core.map(item => `<li>${item}</li>`).join('')}
             </ul>
         </div>
     </div>
 
-    <div class="styleBlock border-${secondaryClass}" style="--archetype-color: var(--${secondaryClass}-color);">
+    <div class="styleBlock border-${secondaryClass}">
         <div class="card-content">
-            <div class="styleTitle" style="font-size: 1.2rem;">
-                <span style="color: var(--text-primary);">Your secondary climate color is:</span> 
-                <span class="theme-${secondaryClass}">${secondaryKey}</span>
+            <div class="styleTitle" style="font-size: 1.15rem;">
+                <span style="color: var(--text-secondary); font-weight: 400;">Secondary style:</span> 
+                <span class="theme-${secondaryClass}" style="font-weight: 700;">${secondaryKey}</span>
             </div>
-            <div class="styleIdentity" style="font-size: 1.05rem;">${secondaryFull.description ? secondaryFull.description.trim() : ''}</div>
-            <div class="styleMeta">Anchor: Core | Energy: ${secondaryKey}</div>
+            <div class="styleIdentity">${secondaryFull.description ? secondaryFull.description.trim() : ''}</div>
+            <div class="styleMeta">Supporting Energy</div>
         </div>
     </div>
 
-    <div class="styleBlock border-${tertiaryClass}" style="--archetype-color: var(--${tertiaryClass}-color);">
+    <div class="styleBlock border-${tertiaryClass}">
         <div class="card-content">
-            <div class="styleTitle" style="font-size: 1.15rem;">
-                <span style="color: var(--text-primary);">Your tertiary accent color is:</span> 
-                <span class="theme-${tertiaryClass}">${tertiaryKey}</span>
+            <div class="styleTitle" style="font-size: 1.10rem;">
+                <span style="color: var(--text-secondary); font-weight: 400;">Tertiary accent:</span> 
+                <span class="theme-${tertiaryClass}" style="font-weight: 700;">${tertiaryKey}</span>
             </div>
-            <div class="styleIdentity" style="font-size: 1rem;">${tertiaryFull.description ? tertiaryFull.description.trim() : ''}</div>
-            <div class="styleMeta">Anchor: Core | Energy: ${tertiaryKey}</div>
+            <div class="styleIdentity">${tertiaryFull.description ? tertiaryFull.description.trim() : ''}</div>
+            <div class="styleMeta">Balancing Accent</div>
         </div>
     </div>
   `;
@@ -129,6 +132,27 @@ export function renderResultsScreen(primaryKey, secondaryKey, tertiaryKey) {
       .then(() => alert("Link copied to clipboard!"))
       .catch(() => prompt("Copy your share link below:", shareUrl));
   };
+
+  document.getElementById("btnResetQuiz").onclick = () => {
+    localStorage.removeItem('climatecolor_primary');
+    localStorage.removeItem('climatecolor_secondary');
+    localStorage.removeItem('climatecolor_tertiary');
+    window.location.href = window.location.pathname;
+  };
+}
+
+// Replaced the heavy radial blob with a softer, horizontal linear gradient spectrum bar
+function renderFluidColorWash(primaryKey, secondaryKey, tertiaryKey) {
+    const container = document.getElementById('climate-color-wash-container');
+    if (!container) return;
+
+    const primaryColor = styleColors[primaryKey] || "#3B82F6";
+    const secondaryColor = styleColors[secondaryKey] || "#22C55E";
+    const tertiaryColor = styleColors[tertiaryKey] || "#E88D34";
+
+    container.style.background = `linear-gradient(90deg, ${primaryColor}33, ${secondaryColor}33, ${tertiaryColor}33)`;
+    container.style.border = `1px solid var(--border-color)`;
+}
 
   document.getElementById("btnResetQuiz").onclick = () => {
     localStorage.removeItem('climatecolor_primary');
