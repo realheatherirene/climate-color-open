@@ -45,7 +45,8 @@ export function renderResultsScreen(primaryKey, secondaryKey, tertiaryKey) {
             </span>
         </div>
         
-        <div id="climate-color-wash-container" class="constellation-spectrum-line" style="height: 6px; width: 140px; border-radius: 9999px; margin: 0.75rem 0 1.25rem 0;"></div>
+        <!-- Full-Width Fluid Gradient Spectrum Bar -->
+        <div id="climate-color-wash-container" class="constellation-spectrum-line" style="height: 6px; width: 100%; border-radius: 9999px; margin: 1rem 0 1.25rem 0;"></div>
         
         <p style="font-size: 1.15rem; color: var(--text-secondary); line-height: 1.7; max-width: 900px; margin: 0;">
             ${combinedSynthesis}
