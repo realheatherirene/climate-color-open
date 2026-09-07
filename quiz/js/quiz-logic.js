@@ -50,9 +50,8 @@ function renderQuestion() {
 
     if (!qNum || !qText || !container) return;
 
-    // Correctly formatting the axis name from your quiz-data.js structure
-   const axisName = q.axis ? `${q.axis.toUpperCase()}` : "QUESTION";
-   qNum.textContent = `${axisName} — Question ${currentQuestion + 1} of ${questions.length}`;
+    const axisName = q.axis ? `${q.axis.toUpperCase()} AXIS` : "QUESTION";
+    qNum.textContent = `${axisName} — Question ${currentQuestion + 1} of ${questions.length}`;
     qText.textContent = q.prompt;
 
     const pct = (currentQuestion / questions.length) * 100;
@@ -86,9 +85,10 @@ export function calculateConstellation() {
     const urlParams = new URLSearchParams(window.location.search);
     const paramPrimary = urlParams.get('primary');
     const paramSecondary = urlParams.get('secondary');
+    const paramTertiary = urlParams.get('tertiary');
 
-    if (styles[paramPrimary] && styles[paramSecondary]) {
-        return { primary: paramPrimary, secondary: paramSecondary };
+    if (styles[paramPrimary] && styles[paramSecondary] && styles[paramTertiary]) {
+        return { primary: paramPrimary, secondary: paramSecondary, tertiary: paramTertiary };
     }
 
     const axes = [
@@ -118,21 +118,28 @@ export function calculateConstellation() {
 
     const primaryKey = axisWinners[0].winner;
     let secondaryKey = axisWinners[1].winner;
+    let tertiaryKey = axisWinners[2].winner;
 
     if (secondaryKey === primaryKey) {
         const alt = axisWinners.find(w => w.winner !== primaryKey);
         secondaryKey = alt ? alt.winner : (primaryKey === "Driver" ? "Stabilizer" : "Driver");
     }
+    if (tertiaryKey === primaryKey || tertiaryKey === secondaryKey) {
+        const alt = axisWinners.find(w => w.winner !== primaryKey && w.winner !== secondaryKey);
+        tertiaryKey = alt ? alt.winner : (primaryKey === "Architect" ? "Guardian" : "Architect");
+    }
 
     localStorage.setItem('climatecolor_primary', primaryKey);
     localStorage.setItem('climatecolor_secondary', secondaryKey);
+    localStorage.setItem('climatecolor_tertiary', tertiaryKey);
 
     const url = new URL(window.location);
     url.searchParams.set('primary', primaryKey);
     url.searchParams.set('secondary', secondaryKey);
+    url.searchParams.set('tertiary', tertiaryKey);
     window.history.pushState({}, '', url);
 
-    return { primary: primaryKey, secondary: secondaryKey };
+    return { primary: primaryKey, secondary: secondaryKey, tertiary: tertiaryKey };
 }
 
 function calculateResults() {
@@ -145,14 +152,15 @@ function calculateResults() {
     if (progressContainer) progressContainer.style.display = "none";
     if (progressInfoBar) progressInfoBar.style.display = "none";
 
-    const { primary, secondary } = calculateConstellation();
-    renderResultsScreen(primary, secondary);
+    const { primary, secondary, tertiary } = calculateConstellation();
+    renderResultsScreen(primary, secondary, tertiary);
 }
 
 function initQuizState() {
     const urlParams = new URLSearchParams(window.location.search);
     const paramPrimary = urlParams.get('primary');
     const paramSecondary = urlParams.get('secondary');
+    const paramTertiary = urlParams.get('tertiary');
 
     const validPrimary = styles[paramPrimary]
         ? paramPrimary
@@ -166,8 +174,17 @@ function initQuizState() {
         ? localStorage.getItem('climatecolor_secondary')
         : null;
 
+    let validTertiary = styles[paramTertiary]
+        ? paramTertiary
+        : styles[localStorage.getItem('climatecolor_tertiary')]
+        ? localStorage.getItem('climatecolor_tertiary')
+        : null;
+
     if (validPrimary && validSecondary && validPrimary === validSecondary) {
         validSecondary = validPrimary === "Driver" ? "Stabilizer" : "Driver";
+    }
+    if (!validTertiary && validPrimary) {
+        validTertiary = validPrimary === "Architect" ? "Guardian" : "Architect";
     }
 
     const quizMain = document.getElementById("quiz");
@@ -179,7 +196,11 @@ function initQuizState() {
         if (progressContainer) progressContainer.style.display = "none";
         if (progressInfoBar) progressInfoBar.style.display = "none";
         updateProgress(100);
-        renderResultsScreen(validPrimary, validSecondary || (validPrimary === "Driver" ? "Stabilizer" : "Driver"));
+        renderResultsScreen(
+            validPrimary, 
+            validSecondary || (validPrimary === "Driver" ? "Stabilizer" : "Driver"),
+            validTertiary || "Architect"
+        );
     } else {
         if (quizMain) quizMain.hidden = false;
         resetScores();
