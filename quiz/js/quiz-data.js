@@ -1,5 +1,5 @@
 /* ==========================================================================
-   Climate Color Quiz — Full Question Bank & Archetype Metadata
+   Climate Color Quiz — Question Bank & Archetype Metadata
    ========================================================================== */
 
 export const questionPool = {
@@ -58,7 +58,7 @@ export const questionPool = {
         {
             prompt: "Someone new joins a gathering and looks a bit unsure where to stand.",
             options: [
-                { text: " warmly invite them right into the center of the conversation.", style: "Advocate" },
+                { text: "Warmly invite them right into the center of the conversation.", style: "Advocate" },
                 { text: "Welcome them softly with a personal introduction and a listening ear.", style: "Connector" }
             ]
         }
@@ -197,9 +197,7 @@ export function getRandomizedQuizSession(countPerAxis = 2) {
     let idCounter = 1;
 
     Object.keys(questionPool).forEach(axis => {
-        // Shuffle the pool for this axis
         let shuffled = [...questionPool[axis]].sort(() => 0.5 - Math.random());
-        // Take the requested count
         let selected = shuffled.slice(0, countPerAxis);
         
         selected.forEach(q => {
@@ -212,6 +210,5 @@ export function getRandomizedQuizSession(countPerAxis = 2) {
         });
     });
 
-    // Final shuffle so the axes are mixed together in the quiz flow
     return sessionQuestions.sort(() => 0.5 - Math.random());
 }
