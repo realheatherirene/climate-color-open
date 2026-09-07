@@ -1,38 +1,4 @@
-/* ==========================================================================
-   Climate Color Quiz — Results Rendering UI (Fluid Watercolor Wash)
-   ========================================================================== */
-
-import { styles, secondarySyntheses } from "./quiz-data.js";
-import { starterKits, synergyCards, fullResults } from "./results.js";
-
-export const styleColors = {
-    Driver: "#E24A3B",
-    Advocate: "#E88D34",
-    Visionary: "#D65BB1",
-    Architect: "#3B82F6",
-    Stabilizer: "#22C55E",
-    Connector: "#06B6D4",
-    Keeper: "#8B5CF6",
-    Guardian: "#64748B"
-};
-
-function renderFluidColorWash(primaryKey, secondaryKey, tertiaryKey) {
-    const container = document.getElementById('climate-color-wash-container');
-    if (!container) return;
-
-    const primaryColor = styleColors[primaryKey] || "#3B82F6";
-    const secondaryColor = styleColors[secondaryKey] || "#22C55E";
-    const tertiaryColor = styleColors[tertiaryKey] || "#E88D34";
-
-    container.style.background = `
-        radial-gradient(at 20% 30%, ${primaryColor}cc 0px, transparent 60%),
-        radial-gradient(at 80% 25%, ${secondaryColor}aa 0px, transparent 55%),
-        radial-gradient(at 50% 85%, ${tertiaryColor}99 0px, transparent 70%),
-        linear-gradient(135deg, ${primaryColor}, ${secondaryColor})
-    `;
-    container.style.filter = "blur(25px)";
-    container.style.opacity = "0.9";
-}
+import { styles, fullResults, starterKits, secondarySyntheses } from './quiz-data.js';
 
 export function renderResultsScreen(primaryKey, secondaryKey, tertiaryKey) {
   const resultsEl = document.getElementById("results");
@@ -46,8 +12,8 @@ export function renderResultsScreen(primaryKey, secondaryKey, tertiaryKey) {
   const primaryKit = starterKits[primaryKey] || { core: [] };
   
   // Build a nuanced synthesis covering all three archetypes gracefully
-  const primarySecText = synergyCards[primaryKey]?.[secondaryKey] || secondarySyntheses[primaryKey]?.[secondaryKey] || "";
-  const secondaryTerText = synergyCards[secondaryKey]?.[tertiaryKey] || secondarySyntheses[secondaryKey]?.[tertiaryKey] || "";
+  const primarySecText = secondarySyntheses[primaryKey]?.[secondaryKey] || "";
+  const secondaryTerText = secondarySyntheses[secondaryKey]?.[tertiaryKey] || "";
   const combinedSynthesis = `${primarySecText} Grounded further by your tertiary focus in ${tertiaryKey}, ${secondaryTerText.toLowerCase()}`;
 
   const primaryClass = primaryKey ? primaryKey.toLowerCase() : "";
@@ -141,23 +107,15 @@ export function renderResultsScreen(primaryKey, secondaryKey, tertiaryKey) {
   };
 }
 
-// Replaced the heavy radial blob with a softer, horizontal linear gradient spectrum bar
 function renderFluidColorWash(primaryKey, secondaryKey, tertiaryKey) {
     const container = document.getElementById('climate-color-wash-container');
     if (!container) return;
 
-    const primaryColor = styleColors[primaryKey] || "#3B82F6";
-    const secondaryColor = styleColors[secondaryKey] || "#22C55E";
-    const tertiaryColor = styleColors[tertiaryKey] || "#E88D34";
+    const primaryColor = styles[primaryKey]?.color || "#3B82F6";
+    const secondaryColor = styles[secondaryKey]?.color || "#22C55E";
+    const tertiaryColor = styles[tertiaryKey]?.color || "#E88D34";
 
     container.style.background = `linear-gradient(90deg, ${primaryColor}33, ${secondaryColor}33, ${tertiaryColor}33)`;
     container.style.border = `1px solid var(--border-color)`;
 }
-
-  document.getElementById("btnResetQuiz").onclick = () => {
-    localStorage.removeItem('climatecolor_primary');
-    localStorage.removeItem('climatecolor_secondary');
-    localStorage.removeItem('climatecolor_tertiary');
-    window.location.href = window.location.pathname;
-  };
 }
