@@ -1,8 +1,11 @@
 /* ==========================================================================
-   Climate Color Results UI — Fluid Watercolor Wash Renderer
+   Climate Color Quiz — Results Rendering UI (Fluid Watercolor Wash)
    ========================================================================== */
 
-// Base hex codes mapped to your eight stewardship styles
+import { styles, secondarySyntheses } from "./quiz-data.js";
+import { starterKits, synergyCards, fullResults } from "./results.js";
+
+// Base hex codes mapped to your eight stewardship styles for the fluid wash
 export const styleColors = {
     Driver: "#E24A3B",     // Vibrant Red / Momentum
     Advocate: "#E88D34",   // Warm Orange / Amplification
@@ -16,17 +19,15 @@ export const styleColors = {
 
 /**
  * Renders the fluid watercolor wash based on the user's top triad
- * @param {Array} topThreeStyles - Array of top 3 style names, e.g., ['Driver', 'Architect', 'Connector']
  */
-export function renderFluidColorWash(topThreeStyles) {
+function renderFluidColorWash(primaryKey, secondaryKey, tertiaryKey) {
     const container = document.getElementById('climate-color-wash-container');
     if (!container) return;
 
-    const primaryColor = styleColors[topThreeStyles[0]] || "#3B82F6";
-    const secondaryColor = styleColors[topThreeStyles[1]] || "#22C55E";
-    const tertiaryColor = styleColors[topThreeStyles[2]] || "#E88D34";
+    const primaryColor = styleColors[primaryKey] || "#3B82F6";
+    const secondaryColor = styleColors[secondaryKey] || "#22C55E";
+    const tertiaryColor = styleColors[tertiaryKey] || "#E88D34";
 
-    // Create a multi-stop radial gradient mesh simulating a fluid watercolor bleed
     container.style.background = `
         radial-gradient(at 20% 30%, ${primaryColor}cc 0px, transparent 60%),
         radial-gradient(at 80% 25%, ${secondaryColor}aa 0px, transparent 55%),
@@ -37,24 +38,114 @@ export function renderFluidColorWash(topThreeStyles) {
     container.style.opacity = "0.9";
 }
 
-/**
- * Populates the results page DOM with user metadata and triad labels
- * @param {Object} resultsData - Object containing topThreeStyles array and synthesis text
- */
-export function displayResults(resultsData) {
-    const { topThreeStyles, synthesisText } = resultsData;
+export function renderResultsScreen(primaryKey, secondaryKey, tertiaryKey) {
+  const resultsEl = document.getElementById("results");
+  if (!resultsEl) return;
 
-    // Update text elements if they exist in the DOM
-    const primaryEl = document.getElementById('primary-name');
-    const secondaryEl = document.getElementById('secondary-name');
-    const tertiaryEl = document.getElementById('tertiary-name');
-    const synthesisEl = document.getElementById('synthesis-description');
+  resultsEl.hidden = false;
 
-    if (primaryEl) primaryEl.textContent = topThreeStyles[0];
-    if (secondaryEl) secondaryEl.textContent = topThreeStyles[1];
-    if (tertiaryEl) tertiaryEl.textContent = topThreeStyles[2];
-    if (synthesisEl) synthesisEl.textContent = synthesisText;
+  const primaryFull = fullResults[primaryKey] || { description: "" };
+  const secondaryFull = fullResults[secondaryKey] || { description: "" };
+  const tertiaryFull = fullResults[tertiaryKey] || { description: "" };
+  const primaryKit = starterKits[primaryKey] || { core: [] };
+  const synergyText = synergyCards[primaryKey]?.[secondaryKey] || secondarySyntheses[primaryKey]?.[secondaryKey] || "";
 
-    // Trigger the fluid visual canvas update
-    renderFluidColorWash(topThreeStyles);
+  const primaryClass = primaryKey ? primaryKey.toLowerCase() : "";
+  const secondaryClass = secondaryKey ? secondaryKey.toLowerCase() : "";
+  const tertiaryClass = tertiaryKey ? tertiaryKey.toLowerCase() : "";
+
+  resultsEl.innerHTML = `
+    <!-- Sticky Results Buttons -->
+    <div class="sticky-results-bar">
+        <div class="sticky-actions">
+            <button onclick="window.print()" class="btn-sm-action btn-sm-primary">Print</button>
+            <button id="btnCopyLink" class="btn-sm-action btn-sm-primary">Copy Link</button>
+            <button id="btnResetQuiz" class="btn-sm-action btn-sm-primary">Retake Quiz</button>
+        </div>
+    </div>
+
+    <!-- Core Philosophy & Fluid Watercolor Wash Card -->
+    <div class="styleBlock synergy-card border-neutral" style="--archetype-color: var(--text-muted); background: var(--bg-primary);">
+        <div class="card-content" style="text-align: center;">
+            <div class="sticky-results-label" style="font-size: 1.6rem; margin-bottom: 0.75rem;">
+              <span style="color: var(--text-primary); font-family: 'ADLaM Display', sans-serif;">You are perfect for the planet. Here is your climate color palette.</span>
+            </div>
+            
+            <!-- Fluid Watercolor Wash Blob Wrapper -->
+            <div class="result-display-wrapper">
+                <div id="climate-color-wash-container" class="color-wash-blob"></div>
+                <div class="result-content-overlay">
+                    <span class="season-tag">Current Season</span>
+                    <p class="triad-summary" style="margin: 0;">
+                        <span class="theme-${primaryClass}" style="font-weight: 800;">${primaryKey}</span> + 
+                        <span class="theme-${secondaryClass}" style="font-weight: 800;">${secondaryKey}</span> + 
+                        <span class="theme-${tertiaryClass}" style="font-weight: 800;">${tertiaryKey}</span>
+                    </p>
+                </div>
+            </div>
+
+            <div class="styleTitle" style="font-size: 1.15rem; color: var(--text-primary); margin-top: 1rem; text-align: left;">
+              <div style="font-weight: 400; color: var(--text-secondary); margin-top: 0.25rem; text-align: center;">${synergyText}</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Primary Style Card -->
+    <div class="styleBlock primary-card border-${primaryClass}" style="--archetype-color: var(--${primaryClass}-color);">
+        <div class="card-content">
+            <div class="styleTitle" style="font-size: 1.35rem;">
+                <span style="color: var(--text-primary);">Your primary climate color is:</span> 
+                <span class="theme-${primaryClass}">${primaryKey}</span>
+            </div>
+            <div class="styleIdentity" style="font-size: 1.1rem; font-weight: 500;">${primaryFull.description ? primaryFull.description.trim() : ''}</div>
+            <div class="styleMeta">Anchor: Core | Energy: ${primaryKey}</div>
+            <div class="styleAction" style="margin-top: 1rem; font-size: 1rem; color: var(--text-primary);"><strong>Core Practices:</strong></div>
+            <ul style="margin: 0.5rem 0 1rem 1.25rem; font-size: 1rem; color: var(--text-secondary); line-height: 1.6;">
+              ${primaryKit.core.map(item => `<li>${item}</li>`).join('')}
+            </ul>
+        </div>
+    </div>
+
+    <!-- Secondary Style Card -->
+    <div class="styleBlock border-${secondaryClass}" style="--archetype-color: var(--${secondaryClass}-color);">
+        <div class="card-content">
+            <div class="styleTitle" style="font-size: 1.2rem;">
+                <span style="color: var(--text-primary);">Your secondary climate color is:</span> 
+                <span class="theme-${secondaryClass}">${secondaryKey}</span>
+            </div>
+            <div class="styleIdentity" style="font-size: 1.05rem;">${secondaryFull.description ? secondaryFull.description.trim() : ''}</div>
+            <div class="styleMeta">Anchor: Core | Energy: ${secondaryKey}</div>
+        </div>
+    </div>
+
+    <!-- Tertiary Style Card -->
+    <div class="styleBlock border-${tertiaryClass}" style="--archetype-color: var(--${tertiaryClass}-color);">
+        <div class="card-content">
+            <div class="styleTitle" style="font-size: 1.15rem;">
+                <span style="color: var(--text-primary);">Your tertiary accent color is:</span> 
+                <span class="theme-${tertiaryClass}">${tertiaryKey}</span>
+            </div>
+            <div class="styleIdentity" style="font-size: 1rem;">${tertiaryFull.description ? tertiaryFull.description.trim() : ''}</div>
+            <div class="styleMeta">Anchor: Core | Energy: ${tertiaryKey}</div>
+        </div>
+    </div>
+  `;
+
+  // Trigger the fluid visual canvas update
+  renderFluidColorWash(primaryKey, secondaryKey, tertiaryKey);
+
+  // Action bindings
+  document.getElementById("btnCopyLink").onclick = () => {
+    const shareUrl = `${window.location.origin}${window.location.pathname}?primary=${encodeURIComponent(primaryKey)}&secondary=${encodeURIComponent(secondaryKey)}&tertiary=${encodeURIComponent(tertiaryKey)}`;
+    navigator.clipboard?.writeText(shareUrl)
+      .then(() => alert("Link copied to clipboard!"))
+      .catch(() => prompt("Copy your share link below:", shareUrl));
+  };
+
+  document.getElementById("btnResetQuiz").onclick = () => {
+    localStorage.removeItem('climatecolor_primary');
+    localStorage.removeItem('climatecolor_secondary');
+    localStorage.removeItem('climatecolor_tertiary');
+    window.location.href = window.location.pathname;
+  };
 }
