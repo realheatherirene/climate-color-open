@@ -163,3 +163,29 @@
     .beta-banner { text-align: left; }
     .option-btn { padding: 0.6rem 0.8rem; font-size: 0.9rem; }
 }
+/* Styled Action Buttons for Beta Banner */
+.action-btn {
+    background-color: var(--bg-primary, #ffffff) !important;
+    border: 1px solid var(--border-color) !important;
+    color: var(--text-primary) !important;
+    padding: 0.2rem 0.6rem !important;
+    border-radius: 9999px !important;
+    font-size: 0.7rem !important;
+    font-weight: 700 !important;
+    cursor: pointer;
+    text-transform: uppercase;
+    transition: all 0.2s ease;
+}
+
+.action-btn:hover {
+    background-color: var(--bg-secondary) !important;
+    border-color: var(--brand-teal) !important;
+}
+
+/* Add breathing room to the right and left of the entire quiz layout */
+body {
+    max-width: 900px;
+    margin: 0 auto;
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
+}
