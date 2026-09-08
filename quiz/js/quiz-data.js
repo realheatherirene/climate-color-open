@@ -113,39 +113,39 @@ export const secondarySyntheses = {
 export const questions = [
     {
         axis: "Pace",
-        prompt: "When facing a systemic climate bottleneck, your first instinct is to:",
+        prompt: "A group project is dragging its feet and missing deadlines. Your immediate reflex is to:",
         options: [
-            { text: "Push for an immediate, high-impact pilot project to force momentum.", style: "Driver" },
-            { text: "Reinforce existing foundations to ensure long-term stability and safety.", style: "Stabilizer" }
+            { text: "Just take the wheel, ship a rough version, and force some momentum.", style: "Driver" },
+            { text: "Pause everything to fix the underlying process so it doesn't break later.", style: "Stabilizer" }
         ]
     },
     {
         axis: "People",
-        prompt: "How do you prefer to influence change within your community?",
+        prompt: "When you notice a rule or policy at work or in your neighborhood that is clearly unfair, you usually:",
         options: [
-            { text: "Loudly advocate, protest, and demand accountability from decision-makers.", style: "Advocate" },
-            { text: "Connect diverse groups, bridging gaps to foster collaboration.", style: "Connector" }
+            { text: "Speak up publicly, call it out, and rally people to demand change.", style: "Advocate" },
+            { text: "Reach out quietly behind the scenes to bring key folks together to talk.", style: "Connector" }
         ]
     },
     {
         axis: "Place",
-        prompt: "When looking at a local environmental challenge, you focus on:",
+        prompt: "When looking at a local environmental or community challenge, you focus on:",
         options: [
             { text: "Designing structural, technical, or systemic blueprints to solve it.", style: "Architect" },
-            { text: "Guarding and defending the existing natural habitat from harm.", style: "Guardian" }
+            { text: "Guarding and defending the existing natural habitat or local space from harm.", style: "Guardian" }
         ]
     },
     {
         axis: "Purpose",
-        prompt: "What drives your long-term dedication to climate action?",
+        prompt: "When tackling a recurring problem, your conversational default sounds like:",
         options: [
-            { text: "Imagining and prototyping bold, alternative societal futures.", style: "Visionary" },
-            { text: "Preserving cultural wisdom, ecological history, and continuity.", style: "Keeper" }
+            { text: "“Let’s throw out the old playbook and try something completely radical.”", style: "Visionary" },
+            { text: "“Let’s look at what has actually worked for people in the past before we change anything.”", style: "Keeper" }
         ]
     },
     {
         axis: "Pace",
-        prompt: "In a fast-moving crisis, what is your approach?",
+        prompt: "In a fast-moving crisis or crunch time, what is your approach?",
         options: [
             { text: "Accelerate solutions quickly; speed is essential to survival.", style: "Driver" },
             { text: "Slow down, secure the perimeter, and safeguard critical nodes.", style: "Stabilizer" }
@@ -153,18 +153,18 @@ export const questions = [
     },
     {
         axis: "People",
-        prompt: "When organizing an initiative, your priority is:",
+        prompt: "When you join a brand new social group or club, your first focus is usually:",
         options: [
             { text: "Mobilizing public pressure and shifting cultural narratives outward.", style: "Advocate" },
-            { text: "Weaving deep, interpersonal relationships among participants.", style: "Connector" }
+            { text: "Making individual connections and weaving deep interpersonal trust.", style: "Connector" }
         ]
     },
     {
         axis: "Place",
-        prompt: "Your relationship with your physical environment is best described as:",
+        prompt: "When you move into a new apartment or office, what do you do first?",
         options: [
-            { text: "Building and constructing infrastructure that minimizes impact.", style: "Architect" },
-            { text: "Defending and watching over wild or vulnerable terrain.", style: "Guardian" }
+            { text: "Reorganize the layout, measure the walls, and figure out the most efficient functional setup.", style: "Architect" },
+            { text: "Find the window with the best view, unpack your sentimental keepsakes, and settle in.", style: "Guardian" }
         ]
     },
     {
@@ -172,7 +172,7 @@ export const questions = [
         prompt: "How do you view the relationship between past and future?",
         options: [
             { text: "We must transcend current paradigms to invent entirely new systems.", style: "Visionary" },
-            { text: "We must honor ancestral knowledge and maintain continuity across generations.", style: "Keeper" }
+            { text: "We must honor ancestral knowledge, traditions, and maintain continuity across generations.", style: "Keeper" }
         ]
     }
 ];
