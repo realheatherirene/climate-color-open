@@ -3,7 +3,7 @@
    ========================================================================== */
 
 :root {
-  /* Core Climate Color Palette (Brand Accurate) */
+  /* Core Climate Color Palette (Brand Accurate Source of Truth) */
   --driver-color: #E32322;
   --advocate-color: #F18E1C;
   --visionary-color: #E1B809;
@@ -36,7 +36,7 @@
 }
 
 /* ==========================================================================
-   Global Base Styles (Light Theme)
+   Global Base Styles & Resets
    ========================================================================== */
 
 * { box-sizing: border-box; }
@@ -49,7 +49,7 @@ html, body {
   line-height: 1.6;
   max-width: 1200px;
   margin: 0 auto;
-  padding: 1.25rem 0vw 1rem 0vw;
+  padding: 1.25rem 1rem 1rem 1rem;
 }
 
 /* Hide scrollbar for Chrome, Safari, and Opera */
@@ -66,7 +66,7 @@ body {
 }
 
 /* ==========================================================================
-   Shared Header Style (Matches Quiz & Directory)
+   Shared Header Component
    ========================================================================== */
 
 .quiz-header {
@@ -81,12 +81,15 @@ body {
   color: var(--brand-teal);
   margin: 0 0 1rem 0;
   line-height: 1.2;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 }
 
 .quiz-header p {
   font-size: 1rem;
   color: var(--text-muted);
-  margin: 1;
+  margin: 0;
 }
 
 /* ==========================================================================
@@ -113,51 +116,34 @@ body {
   background: var(--bg-tertiary);
 }
 
-/* Archetype Soft Pills */
-.pill-driver, .btn-driver-soft {
-  background-color: color-mix(in srgb, var(--driver-color) 10%, white);
-  border: 1px solid color-mix(in srgb, var(--driver-color) 30%, white);
-  color: var(--driver-color);
-}
+/* Archetype Dynamic Color Mapping Classes */
+.pill-driver, .btn-driver-soft { background-color: color-mix(in srgb, var(--driver-color) 10%, white); border: 1px solid color-mix(in srgb, var(--driver-color) 30%, white); color: var(--driver-color); }
+.pill-advocate, .btn-advocate-soft { background-color: color-mix(in srgb, var(--advocate-color) 10%, white); border: 1px solid color-mix(in srgb, var(--advocate-color) 30%, white); color: var(--advocate-color); }
+.pill-visionary, .btn-visionary-soft { background-color: color-mix(in srgb, var(--visionary-color) 10%, white); border: 1px solid color-mix(in srgb, var(--visionary-color) 30%, white); color: var(--visionary-color); }
+.pill-stabilizer, .btn-stabilizer-soft { background-color: color-mix(in srgb, var(--stabilizer-color) 10%, white); border: 1px solid color-mix(in srgb, var(--stabilizer-color) 30%, white); color: var(--stabilizer-color); }
+.pill-architect, .btn-architect-soft { background-color: color-mix(in srgb, var(--architect-color) 10%, white); border: 1px solid color-mix(in srgb, var(--architect-color) 30%, white); color: var(--architect-color); }
+.pill-keeper, .btn-keeper-soft { background-color: color-mix(in srgb, var(--keeper-color) 10%, white); border: 1px solid color-mix(in srgb, var(--keeper-color) 30%, white); color: var(--keeper-color); }
+.pill-connector, .btn-connector-soft { background-color: color-mix(in srgb, var(--connector-color) 10%, white); border: 1px solid color-mix(in srgb, var(--connector-color) 30%, white); color: var(--connector-color); }
+.pill-guardian, .btn-guardian-soft { background-color: color-mix(in srgb, var(--guardian-color) 10%, white); border: 1px solid color-mix(in srgb, var(--guardian-color) 30%, white); color: var(--guardian-color); }
 
-.pill-advocate, .btn-advocate-soft {
-  background-color: color-mix(in srgb, var(--advocate-color) 10%, white);
-  border: 1px solid color-mix(in srgb, var(--advocate-color) 30%, white);
-  color: var(--advocate-color);
-}
+/* Global Theme Text Helpers */
+.theme-driver { color: var(--driver-color); }
+.theme-advocate { color: var(--advocate-color); }
+.theme-visionary { color: var(--visionary-color); }
+.theme-stabilizer { color: var(--stabilizer-color); }
+.theme-architect { color: var(--architect-color); }
+.theme-keeper { color: var(--keeper-color); }
+.theme-connector { color: var(--connector-color); }
+.theme-guardian { color: var(--guardian-color); }
 
-.pill-visionary, .btn-visionary-soft {
-  background-color: color-mix(in srgb, var(--visionary-color) 10%, white);
-  border: 1px solid color-mix(in srgb, var(--visionary-color) 30%, white);
-  color: var(--visionary-color);
-}
+/* ==========================================================================
+   Global Print Defaults
+   ========================================================================== */
 
-.pill-stabilizer, .btn-stabilizer-soft {
-  background-color: color-mix(in srgb, var(--stabilizer-color) 10%, white);
-  border: 1px solid color-mix(in srgb, var(--stabilizer-color) 30%, white);
-  color: var(--stabilizer-color);
-}
-
-.pill-architect, .btn-architect-soft {
-  background-color: color-mix(in srgb, var(--architect-color) 10%, white);
-  border: 1px solid color-mix(in srgb, var(--architect-color) 30%, white);
-  color: var(--architect-color);
-}
-
-.pill-keeper, .btn-keeper-soft {
-  background-color: color-mix(in srgb, var(--keeper-color) 10%, white);
-  border: 1px solid color-mix(in srgb, var(--keeper-color) 30%, white);
-  color: var(--keeper-color);
-}
-
-.pill-connector, .btn-connector-soft {
-  background-color: color-mix(in srgb, var(--connector-color) 10%, white);
-  border: 1px solid color-mix(in srgb, var(--connector-color) 30%, white);
-  color: var(--connector-color);
-}
-
-.pill-guardian, .btn-guardian-soft {
-  background-color: color-mix(in srgb, var(--guardian-color) 10%, white);
-  border: 1px solid color-mix(in srgb, var(--guardian-color) 30%, white);
-  color: var(--guardian-color);
+@media print {
+    body {
+        padding: 0;
+        background: var(--bg-primary) !important;
+        color: var(--text-primary) !important;
+    }
 }
