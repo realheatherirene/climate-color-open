@@ -35,7 +35,7 @@ export function renderResultsScreen(primaryKey, secondaryKey, tertiaryKey) {
 
    <!-- Unboxed Editorial Constellation Header -->
     <div class="constellation-header-section" style="text-align: left; margin: 1.5rem 0 2.5rem 0;">
-        <span class="season-tag">Stewardship Blend</span>
+        <span class="season-tag">Your Stewardship Style:</span>
         
         <!-- Uniform Sized Archetype Pills -->
         <div style="display: flex; align-items: center; gap: 0.6rem; flex-wrap: wrap; margin: 0.5rem 0 1rem 0;">
@@ -51,7 +51,7 @@ export function renderResultsScreen(primaryKey, secondaryKey, tertiaryKey) {
         </div>
         
         <!-- Full-Width Fluid Gradient Spectrum Bar -->
-        <div id="climate-color-wash-container" class="constellation-spectrum-line" style="height: 8px; width: 100%; border-radius: 9999px; margin: 2rem 0 0.5rem 0;"></div>
+        <div id="climate-color-wash-container" class="constellation-spectrum-line" style="height: 12px; width: 100%; border-radius: 8px; margin: 2rem 0 0.5rem 0;"></div>
     </div>
 
     <!-- Primary Style Card -->
