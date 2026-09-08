@@ -7,10 +7,10 @@
     background-color: var(--bg-tertiary);
     color: var(--text-secondary);
     text-align: center;
-    padding: 0.6rem 1rem;
+    padding: 0.85rem 1rem; /* Increased top/bottom padding from 0.6rem to 0.85rem */
     font-size: 0.85rem;
     border: 1px solid var(--border-color);
-    border-radius: 9999px;
+    border-radius: 8px;
     margin-bottom: 1.5rem;
     display: flex;
     justify-content: space-between;
