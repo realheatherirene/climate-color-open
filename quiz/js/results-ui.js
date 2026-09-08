@@ -50,7 +50,7 @@ export function renderResultsScreen(primaryKey, secondaryKey, tertiaryKey) {
         </div>
         
         <!-- Full-Width Fluid Gradient Spectrum Bar -->
-        <div id="climate-color-wash-container" class="constellation-spectrum-line" style="height: 8px; width: 100%; border-radius: 9999px; margin: 2rem 0 0.5rem 0;"></div>
+        <div id="climate-color-wash-container" class="constellation-spectrum-line" style="height: 16px; width: 100%; border-radius: 8px; margin: 2rem 0 0.5rem 0;"></div>
     </div>
 
 <!-- Primary Style Card -->
