@@ -1,4 +1,12 @@
-import { styles, fullResults, starterKits, secondarySyntheses } from './quiz-data.js';
+import { fullResults, starterKits, secondarySyntheses } from './quiz-data.js';
+
+// Helper to pull brand-accurate colors directly from atlas.css root variables
+function getThemeColor(styleKey, fallback = "#2A71B0") {
+  if (!styleKey) return fallback;
+  const lower = styleKey.toLowerCase();
+  const val = getComputedStyle(document.documentElement).getPropertyValue(`--${lower}-color`).trim();
+  return val || fallback;
+}
 
 export function renderResultsScreen(primaryKey, secondaryKey, tertiaryKey) {
   const resultsEl = document.getElementById("results");
@@ -22,17 +30,12 @@ export function renderResultsScreen(primaryKey, secondaryKey, tertiaryKey) {
   const secondaryFull = fullResults[secondaryKey] || { description: "" };
   const tertiaryFull = fullResults[tertiaryKey] || { description: "" };
   const primaryKit = starterKits[primaryKey] || { core: [] };
-  
-  const primarySecText = secondarySyntheses[primaryKey]?.[secondaryKey] || "";
-  const secondaryTerText = secondarySyntheses[secondaryKey]?.[tertiaryKey] || "";
-  const combinedSynthesis = `${primarySecText} Grounded further by your tertiary focus in ${tertiaryKey}, ${secondaryTerText.toLowerCase()}`;
 
   const primaryClass = primaryKey ? primaryKey.toLowerCase() : "";
   const secondaryClass = secondaryKey ? secondaryKey.toLowerCase() : "";
   const tertiaryClass = tertiaryKey ? tertiaryKey.toLowerCase() : "";
 
   resultsEl.innerHTML = `
-
    <!-- Unboxed Editorial Constellation Header -->
     <div class="constellation-header-section" style="text-align: left; margin: 1.5rem 0 2.5rem 0;">
         <span class="season-tag">Stewardship Blend</span>
@@ -97,12 +100,12 @@ export function renderResultsScreen(primaryKey, secondaryKey, tertiaryKey) {
     </div>
   `;
 
-  // Render fluid gradient for the sleek accent line
+  // Render fluid gradient for the sleek accent line using dynamic CSS values
   const container = document.getElementById('climate-color-wash-container');
   if (container) {
-      const pColor = styles[primaryKey]?.color || "#3B82F6";
-      const sColor = styles[secondaryKey]?.color || "#22C55E";
-      const tColor = styles[tertiaryKey]?.color || "#E88D34";
+      const pColor = getThemeColor(primaryKey, "#2A71B0");
+      const sColor = getThemeColor(secondaryKey, "#5A9129");
+      const tColor = getThemeColor(tertiaryKey, "#F18E1C");
       container.style.background = `linear-gradient(90deg, ${pColor}, ${sColor}, ${tColor})`;
   }
 
