@@ -11,9 +11,9 @@ export function renderResultsScreen(primaryKey, secondaryKey, tertiaryKey) {
   if (bannerActions) {
       if (!document.getElementById('btnCopyLink')) {
           bannerActions.insertAdjacentHTML('afterbegin', `
-              <button onclick="window.print()" class="beta-tag action-btn">PRINT</button>
-              <button id="btnCopyLink" class="beta-tag action-btn">COPY</button>
-              <button id="btnResetQuiz" class="beta-tag action-btn">RETAKE</button>
+              <button onclick="window.print()" class="beta-tag" style="cursor: pointer; border: none;">PRINT</button>
+              <button id="btnCopyLink" class="beta-tag" style="cursor: pointer; border: none;">COPY</button>
+              <button id="btnResetQuiz" class="beta-tag" style="cursor: pointer; border: none;">RETAKE</button>
           `);
       }
   }
