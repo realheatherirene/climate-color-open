@@ -22,9 +22,9 @@
 .beta-tag {
     background-color: var(--brand-teal);
     color: var(--bg-primary);
-    font-size: 0.7rem;
+    font-size: 0.85rem;
     font-weight: 700;
-    padding: 0.35rem 0.65rem; /* Increased top/bottom padding */
+    padding: 0.4rem 0.85rem; /* Increased top/bottom padding */
     border-radius: 9999px;
     letter-spacing: 0.05em;
     text-transform: uppercase;
