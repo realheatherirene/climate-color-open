@@ -162,3 +162,11 @@
     .resource-grid { grid-template-columns: 1fr; }
     .styleBlock { padding: 1rem 1.15rem; }
 }
+
+/* Add breathing room to the right and left of the entire directory layout */
+body {
+    max-width: 900px;
+    margin: 0 auto;
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
+}
