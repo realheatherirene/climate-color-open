@@ -48,7 +48,7 @@
     background-color: color-mix(in srgb, var(--brand-teal) 12%, white);
     color: var(--brand-teal);
     border: 1px solid color-mix(in srgb, var(--brand-teal) 35%, white);
-    padding: 0.4rem 0.85rem;
+    padding: 0.45rem 1.25rem; /* Increased horizontal padding from 0.85rem to 1.25rem */
     font-size: 0.85rem;
     font-weight: 700;
     border-radius: 9999px;
