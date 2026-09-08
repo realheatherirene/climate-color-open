@@ -3,14 +3,14 @@
    ========================================================================== */
 
 export const styles = {
-    Driver: { name: "Driver", axis: "Pace", color: "#E24A3B" },
-    Stabilizer: { name: "Stabilizer", axis: "Pace", color: "#22C55E" },
-    Advocate: { name: "Advocate", axis: "People", color: "#E88D34" },
-    Connector: { name: "Connector", axis: "People", color: "#06B6D4" },
-    Architect: { name: "Architect", axis: "Place", color: "#3B82F6" },
-    Guardian: { name: "Guardian", axis: "Place", color: "#64748B" },
-    Visionary: { name: "Visionary", axis: "Purpose", color: "#D65BB1" },
-    Keeper: { name: "Keeper", axis: "Purpose", color: "#8B5CF6" }
+    Driver: { name: "Driver", axis: "Pace" },
+    Stabilizer: { name: "Stabilizer", axis: "Pace" },
+    Advocate: { name: "Advocate", axis: "People" },
+    Connector: { name: "Connector", axis: "People" },
+    Architect: { name: "Architect", axis: "Place" },
+    Guardian: { name: "Guardian", axis: "Place" },
+    Visionary: { name: "Visionary", axis: "Purpose" },
+    Keeper: { name: "Keeper", axis: "Purpose" }
 };
 
 export const fullResults = {
