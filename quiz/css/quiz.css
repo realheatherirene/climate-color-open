@@ -24,7 +24,7 @@
     color: var(--bg-primary);
     font-size: 0.7rem;
     font-weight: 700;
-    padding: 0.15rem 0.5rem;
+    padding: 0.35rem 0.65rem; /* Increased top/bottom padding */
     border-radius: 9999px;
     letter-spacing: 0.05em;
     text-transform: uppercase;
