@@ -6,17 +6,18 @@ export function renderResultsScreen(primaryKey, secondaryKey, tertiaryKey) {
 
   resultsEl.hidden = false;
   
-// Dynamically inject the action buttons into the top banner when results load
+  // Dynamically inject the action buttons into the top banner using the uniform .beta-tag look
   const bannerActions = document.getElementById('bannerActions');
   if (bannerActions) {
       if (!document.getElementById('btnCopyLink')) {
           bannerActions.insertAdjacentHTML('afterbegin', `
-              <button onclick="window.print()" class="action-btn">PRINT</button>
-              <button id="btnCopyLink" class="action-btn">COPY</button>
-              <button id="btnResetQuiz" class="action-btn">RETAKE</button>
+              <button onclick="window.print()" class="beta-tag">PRINT</button>
+              <button id="btnCopyLink" class="beta-tag">COPY</button>
+              <button id="btnResetQuiz" class="beta-tag">RETAKE</button>
           `);
       }
   }
+
   const primaryFull = fullResults[primaryKey] || { description: "" };
   const secondaryFull = fullResults[secondaryKey] || { description: "" };
   const tertiaryFull = fullResults[tertiaryKey] || { description: "" };
@@ -50,10 +51,10 @@ export function renderResultsScreen(primaryKey, secondaryKey, tertiaryKey) {
         </div>
         
         <!-- Full-Width Fluid Gradient Spectrum Bar -->
-        <div id="climate-color-wash-container" class="constellation-spectrum-line" style="height: 16px; width: 100%; border-radius: 8px; margin: 2rem 0 0.5rem 0;"></div>
+        <div id="climate-color-wash-container" class="constellation-spectrum-line" style="height: 8px; width: 100%; border-radius: 9999px; margin: 2rem 0 0.5rem 0;"></div>
     </div>
 
-<!-- Primary Style Card -->
+    <!-- Primary Style Card -->
     <div class="styleBlock primary-card border-${primaryClass}">
         <div class="card-content">
             <div class="styleTitle" style="font-size: 1.25rem;">
@@ -105,7 +106,7 @@ export function renderResultsScreen(primaryKey, secondaryKey, tertiaryKey) {
       container.style.background = `linear-gradient(90deg, ${pColor}, ${sColor}, ${tColor})`;
   }
 
-  // Copy Link & Reset Handlers... (keep existing logic)
+  // Copy Link & Reset Handlers
   document.getElementById("btnCopyLink").onclick = () => {
     const shareUrl = `${window.location.origin}${window.location.pathname}?primary=${encodeURIComponent(primaryKey)}&secondary=${encodeURIComponent(secondaryKey)}&tertiary=${encodeURIComponent(tertiaryKey)}`;
     navigator.clipboard?.writeText(shareUrl)
