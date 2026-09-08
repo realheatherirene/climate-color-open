@@ -19,9 +19,9 @@ export function renderResultsScreen(primaryKey, secondaryKey, tertiaryKey) {
   if (bannerActions) {
       if (!document.getElementById('btnCopyLink')) {
           bannerActions.insertAdjacentHTML('afterbegin', `
-              <button onclick="window.print()" class="btn-sm-action btn-sm-primary">PRINT</button>
-              <button id="btnCopyLink" class="btn-sm-action btn-sm-primary">COPY</button>
-              <button id="btnResetQuiz" class="btn-sm-action btn-sm-primary">RETAKE</button>
+              <button onclick="window.print()" class="btn-sm-action">Print</button>
+              <button id="btnCopyLink" class="btn-sm-action">Copy</button>
+              <button id="btnResetQuiz" class="btn-sm-action">Retake</button>
           `);
       }
   }
@@ -37,9 +37,7 @@ export function renderResultsScreen(primaryKey, secondaryKey, tertiaryKey) {
 
   resultsEl.innerHTML = `
    <!-- Unboxed Editorial Constellation Header -->
-    <div class="constellation-header-section" style="text-align: left; margin: 1.5rem 0 2.5rem 0;">
-        <span class="season-tag">Stewardship Blend</span>
-        
+    <div class="constellation-header-section" style="text-align: left; margin: 1.5rem 0 2.5rem 0;">        
         <!-- Uniform Sized Archetype Pills -->
         <div style="display: flex; align-items: center; gap: 0.6rem; flex-wrap: wrap; margin: 0.5rem 0 1rem 0;">
             <span class="archetype-pill" style="font-size: 0.95rem; font-weight: 600; padding: 0.4rem 1rem; border-radius: 9999px; background-color: color-mix(in srgb, var(--${primaryClass}-color, var(--brand-teal)) 15%, transparent); color: var(--${primaryClass}-color, var(--brand-teal)); border: 1px solid color-mix(in srgb, var(--${primaryClass}-color, var(--brand-teal)) 40%, transparent);">
@@ -90,7 +88,7 @@ export function renderResultsScreen(primaryKey, secondaryKey, tertiaryKey) {
     <div class="styleBlock border-${tertiaryClass}">
         <div class="card-content">
             <div class="styleTitle" style="font-size: 1.10rem;">
-                <span style="color: var(--text-muted); font-weight: 400;">Tertiary accent:</span> 
+                <span style="color: var(--text-muted); font-weight: 400;">Tertiary style:</span> 
                 <span class="theme-${tertiaryClass}" style="font-weight: 700;">${tertiaryKey}</span>
             </div>
             <div class="styleIdentity">${tertiaryFull.description ? tertiaryFull.description.trim() : ''}</div>
