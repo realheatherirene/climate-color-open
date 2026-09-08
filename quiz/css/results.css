@@ -242,7 +242,7 @@
     .styleIdentity, .styleMeta, .styleTitle {
         color: var(--text-primary) !important;
     }
-} /* <-- Added missing closing bracket here */
+}
 
 /* Archetype Text Theme Colors (Global Scope) */
 .theme-driver { color: var(--driver-color); }
