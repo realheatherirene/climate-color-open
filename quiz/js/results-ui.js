@@ -35,6 +35,43 @@ export function renderResultsScreen(primaryKey, secondaryKey, tertiaryKey) {
   const secondaryClass = secondaryKey ? secondaryKey.toLowerCase() : "";
   const tertiaryClass = tertiaryKey ? tertiaryKey.toLowerCase() : "";
 
+  import { fullResults, starterKits, secondarySyntheses } from './quiz-data.js';
+
+// Helper to pull brand-accurate colors directly from atlas.css root variables
+function getThemeColor(styleKey, fallback = "#2A71B0") {
+  if (!styleKey) return fallback;
+  const lower = styleKey.toLowerCase();
+  const val = getComputedStyle(document.documentElement).getPropertyValue(`--${lower}-color`).trim();
+  return val || fallback;
+}
+
+export function renderResultsScreen(primaryKey, secondaryKey, tertiaryKey) {
+  const resultsEl = document.getElementById("results");
+  if (!resultsEl) return;
+
+  resultsEl.hidden = false;
+  
+  // Dynamically inject the action buttons into the top banner using the uniform .beta-tag look
+  const bannerActions = document.getElementById('bannerActions');
+  if (bannerActions) {
+      if (!document.getElementById('btnCopyLink')) {
+          bannerActions.insertAdjacentHTML('afterbegin', `
+              <button onclick="window.print()" class="btn-sm-action">Print</button>
+              <button id="btnCopyLink" class="btn-sm-action">Copy</button>
+              <button id="btnResetQuiz" class="btn-sm-action">Retake</button>
+          `);
+      }
+  }
+
+  const primaryFull = fullResults[primaryKey] || { description: "" };
+  const secondaryFull = fullResults[secondaryKey] || { description: "" };
+  const tertiaryFull = fullResults[tertiaryKey] || { description: "" };
+  const primaryKit = starterKits[primaryKey] || { core: [] };
+
+  const primaryClass = primaryKey ? primaryKey.toLowerCase() : "";
+  const secondaryClass = secondaryKey ? secondaryKey.toLowerCase() : "";
+  const tertiaryClass = tertiaryKey ? tertiaryKey.toLowerCase() : "";
+
   resultsEl.innerHTML = `
    <!-- Unboxed Editorial Constellation Header -->
     <div class="constellation-header-section" style="text-align: left; margin: 1.5rem 0 2.5rem 0;">        
@@ -97,6 +134,31 @@ export function renderResultsScreen(primaryKey, secondaryKey, tertiaryKey) {
         </div>
     </div>
   `;
+
+  // Render fluid gradient for the sleek accent line using dynamic CSS values
+  const container = document.getElementById('climate-color-wash-container');
+  if (container) {
+      const pColor = getThemeColor(primaryKey, "#2A71B0");
+      const sColor = getThemeColor(secondaryKey, "#5A9129");
+      const tColor = getThemeColor(tertiaryKey, "#F18E1C");
+      container.style.background = `linear-gradient(90deg, ${pColor}, ${sColor}, ${tColor})`;
+  }
+
+  // Copy Link & Reset Handlers
+  document.getElementById("btnCopyLink").onclick = () => {
+    const shareUrl = `${window.location.origin}${window.location.pathname}?primary=${encodeURIComponent(primaryKey)}&secondary=${encodeURIComponent(secondaryKey)}&tertiary=${encodeURIComponent(tertiaryKey)}`;
+    navigator.clipboard?.writeText(shareUrl)
+      .then(() => alert("Link copied to clipboard!"))
+      .catch(() => prompt("Copy your share link below:", shareUrl));
+  };
+
+  document.getElementById("btnResetQuiz").onclick = () => {
+    localStorage.removeItem('climatecolor_primary');
+    localStorage.removeItem('climatecolor_secondary');
+    localStorage.removeItem('climatecolor_tertiary');
+    window.location.href = window.location.pathname;
+  };
+}
 
   // Render fluid gradient for the sleek accent line using dynamic CSS values
   const container = document.getElementById('climate-color-wash-container');
