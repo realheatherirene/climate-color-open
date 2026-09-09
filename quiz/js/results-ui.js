@@ -2,7 +2,8 @@ import { fullResults, starterKits, secondarySyntheses } from './quiz-data.js';
 
 // Stable, future-proof absolute URL builder for pathway pages
 function pathwayUrl(slug) {
-  return `${window.location.origin}/pathways/${slug}.html`;
+  const base = `${window.location.origin}${window.location.pathname.split('/').slice(0, -1).join('/')}`;
+  return `${base}/pathways/${slug}.html`;
 }
 
 // Helper to pull brand-accurate colors directly from atlas.css root variables
