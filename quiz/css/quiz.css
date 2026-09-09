@@ -4,12 +4,12 @@
 
 /* Beta Banner */
 .beta-banner {
-    background-color: var(--bg-tertiary);
+    background-color: transperent;
     color: var(--text-secondary);
     text-align: center;
     padding: 0.85rem 1rem;
     font-size: 0.85rem;
-    border: 1px solid var(--border-color);
+    border: none;
     border-radius: 8px;
     margin-bottom: 1.5rem;
     display: flex;
