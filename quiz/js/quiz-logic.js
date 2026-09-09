@@ -13,6 +13,39 @@ let scores = {
     Visionary: 0, Keeper: 0
 };
 
+/* ==========================================================================
+   NEW: Balanced Axis-Based Randomizer
+   ========================================================================== */
+
+function selectRandomQuestionsByAxis(fullList, perAxis = 2) {
+    const grouped = {
+        Pace: [],
+        People: [],
+        Place: [],
+        Purpose: []
+    };
+
+    // Group questions by axis
+    fullList.forEach(q => {
+        if (grouped[q.axis]) {
+            grouped[q.axis].push(q);
+        }
+    });
+
+    // Randomly pick perAxis questions from each axis
+    const selected = [];
+    Object.keys(grouped).forEach(axis => {
+        const shuffled = grouped[axis].sort(() => Math.random() - 0.5);
+        selected.push(...shuffled.slice(0, perAxis));
+    });
+
+    return selected;
+}
+
+/* ==========================================================================
+   Core Quiz Logic
+   ========================================================================== */
+
 export function recordAnswer(styleKey) {
     if (scores[styleKey] !== undefined) {
         scores[styleKey]++;
@@ -203,6 +236,11 @@ function initQuizState() {
         );
     } else {
         if (quizMain) quizMain.hidden = false;
+
+        // NEW: Build a balanced randomized 8-question quiz
+        const randomizedQuestions = selectRandomQuestionsByAxis(questions, 2);
+        questions = randomizedQuestions;
+
         resetScores();
         renderQuestion();
     }
