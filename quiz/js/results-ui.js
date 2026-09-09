@@ -38,17 +38,17 @@ export function renderResultsScreen(primaryKey, secondaryKey, tertiaryKey) {
   resultsEl.innerHTML = `
    <!-- Unboxed Editorial Constellation Header -->
     <div class="constellation-header-section" style="text-align: left; margin: 1.5rem 0 2.5rem 0;">        
-        <!-- Uniform Sized Archetype Pills -->
+        <!-- Uniform Sized Archetype Pills (Now Clickable Links) -->
         <div style="display: flex; align-items: center; gap: 0.6rem; flex-wrap: wrap; margin: 0.5rem 0 1rem 0;">
-            <span class="archetype-pill" style="font-size: 0.95rem; font-weight: 600; padding: 0.4rem 1rem; border-radius: 9999px; background-color: color-mix(in srgb, var(--${primaryClass}-color, var(--brand-teal)) 15%, transparent); color: var(--${primaryClass}-color, var(--brand-teal)); border: 1px solid color-mix(in srgb, var(--${primaryClass}-color, var(--brand-teal)) 40%, transparent);">
+            <a href="pathways/${primaryClass}.html" class="archetype-pill" style="text-decoration: none; font-size: 0.95rem; font-weight: 600; padding: 0.4rem 1rem; border-radius: 9999px; background-color: color-mix(in srgb, var(--${primaryClass}-color, var(--brand-teal)) 15%, transparent); color: var(--${primaryClass}-color, var(--brand-teal)); border: 1px solid color-mix(in srgb, var(--${primaryClass}-color, var(--brand-teal)) 40%, transparent);">
                 ${primaryKey}
-            </span>
-            <span class="archetype-pill" style="font-size: 0.95rem; font-weight: 600; padding: 0.4rem 1rem; border-radius: 9999px; background-color: color-mix(in srgb, var(--${secondaryClass}-color, var(--brand-teal)) 12%, transparent); color: var(--${secondaryClass}-color, var(--brand-teal)); border: 1px solid color-mix(in srgb, var(--${secondaryClass}-color, var(--brand-teal)) 30%, transparent);">
+            </a>
+            <a href="pathways/${secondaryClass}.html" class="archetype-pill" style="text-decoration: none; font-size: 0.95rem; font-weight: 600; padding: 0.4rem 1rem; border-radius: 9999px; background-color: color-mix(in srgb, var(--${secondaryClass}-color, var(--brand-teal)) 12%, transparent); color: var(--${secondaryClass}-color, var(--brand-teal)); border: 1px solid color-mix(in srgb, var(--${secondaryClass}-color, var(--brand-teal)) 30%, transparent);">
                 ${secondaryKey}
-            </span>
-            <span class="archetype-pill" style="font-size: 0.95rem; font-weight: 600; padding: 0.4rem 1rem; border-radius: 9999px; background-color: color-mix(in srgb, var(--${tertiaryClass}-color, var(--brand-teal)) 8%, transparent); color: var(--${tertiaryClass}-color, var(--brand-teal)); border: 1px solid color-mix(in srgb, var(--${tertiaryClass}-color, var(--brand-teal)) 25%, transparent);">
+            </a>
+            <a href="pathways/${tertiaryClass}.html" class="archetype-pill" style="text-decoration: none; font-size: 0.95rem; font-weight: 600; padding: 0.4rem 1rem; border-radius: 9999px; background-color: color-mix(in srgb, var(--${tertiaryClass}-color, var(--brand-teal)) 8%, transparent); color: var(--${tertiaryClass}-color, var(--brand-teal)); border: 1px solid color-mix(in srgb, var(--${tertiaryClass}-color, var(--brand-teal)) 25%, transparent);">
                 ${tertiaryKey}
-            </span>
+            </a>
         </div>
         
         <!-- Full-Width Fluid Gradient Spectrum Bar -->
@@ -67,7 +67,7 @@ export function renderResultsScreen(primaryKey, secondaryKey, tertiaryKey) {
             <ul style="margin: 0.5rem 0 1.25rem 1.25rem; font-size: 0.95rem; color: var(--text-secondary); line-height: 1.6;">
               ${primaryKit.core.map(item => `<li>${item}</li>`).join('')}
             </ul>
-            <a href="/pathways/${primaryClass}.html" class="pill-btn" style="padding: 0.45rem 1rem; font-size: 0.85rem;">Explore ${primaryKey} Archetype &rarr;</a>
+            <a href="pathways/${primaryClass}.html" class="pill-btn" style="padding: 0.45rem 1rem; font-size: 0.85rem;">Explore ${primaryKey} Archetype &rarr;</a>
         </div>
     </div>
 
@@ -80,7 +80,7 @@ export function renderResultsScreen(primaryKey, secondaryKey, tertiaryKey) {
             </div>
             <div class="styleIdentity">${secondaryFull.description ? secondaryFull.description.trim() : ''}</div>
             <div class="styleMeta" style="margin-bottom: 1rem;">Supporting Energy</div>
-            <a href="/pathways/${secondaryClass}.html" class="pill-btn" style="padding: 0.45rem 1rem; font-size: 0.85rem;">Explore ${secondaryKey} Archetype &rarr;</a>
+            <a href="pathways/${secondaryClass}.html" class="pill-btn" style="padding: 0.45rem 1rem; font-size: 0.85rem;">Explore ${secondaryKey} Archetype &rarr;</a>
         </div>
     </div>
 
@@ -93,7 +93,7 @@ export function renderResultsScreen(primaryKey, secondaryKey, tertiaryKey) {
             </div>
             <div class="styleIdentity">${tertiaryFull.description ? tertiaryFull.description.trim() : ''}</div>
             <div class="styleMeta" style="margin-bottom: 1rem;">Balancing Accent</div>
-            <a href="/pathways/${tertiaryClass}.html" class="pill-btn" style="padding: 0.45rem 1rem; font-size: 0.85rem;">Explore ${tertiaryKey} Archetype &rarr;</a>
+            <a href="pathways/${tertiaryClass}.html" class="pill-btn" style="padding: 0.45rem 1rem; font-size: 0.85rem;">Explore ${tertiaryKey} Archetype &rarr;</a>
         </div>
     </div>
   `;
