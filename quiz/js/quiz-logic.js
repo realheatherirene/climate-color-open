@@ -14,7 +14,7 @@ let scores = {
 };
 
 /* ==========================================================================
-   NEW: Balanced Axis-Based Randomizer
+   Balanced Axis-Based Randomizer
    ========================================================================== */
 
 function selectRandomQuestionsByAxis(fullList, perAxis = 2) {
@@ -57,7 +57,7 @@ export function resetScores() {
     currentQuestion = 0;
 }
 
-function updateProgress(percentage) {
+function updateProgress(percentage, activeQuestions) {
     const bar = document.getElementById("progressBar");
     const container = document.getElementById("progressContainer");
     const textEl = document.getElementById("progressText");
@@ -68,15 +68,15 @@ function updateProgress(percentage) {
         container.setAttribute("aria-valuenow", Math.round(percentage));
     }
     if (textEl) {
-        textEl.textContent = `Question ${Math.min(currentQuestion + 1, questions.length)} of ${questions.length}`;
+        textEl.textContent = `Question ${Math.min(currentQuestion + 1, activeQuestions.length)} of ${activeQuestions.length}`;
     }
     if (percentEl) {
         percentEl.textContent = `${Math.round(percentage)}%`;
     }
 }
 
-function renderQuestion() {
-    const q = questions[currentQuestion];
+function renderQuestion(activeQuestions) {
+    const q = activeQuestions[currentQuestion];
     const qNum = document.getElementById("questionNumber");
     const qText = document.getElementById("questionText");
     const container = document.getElementById("optionsContainer");
@@ -84,11 +84,11 @@ function renderQuestion() {
     if (!qNum || !qText || !container) return;
 
     const axisName = q.axis ? `${q.axis.toUpperCase()} AXIS` : "QUESTION";
-    qNum.textContent = `${axisName} — Question ${currentQuestion + 1} of ${questions.length}`;
+    qNum.textContent = `${axisName} — Question ${currentQuestion + 1} of ${activeQuestions.length}`;
     qText.textContent = q.prompt;
 
-    const pct = (currentQuestion / questions.length) * 100;
-    updateProgress(pct);
+    const pct = (currentQuestion / activeQuestions.length) * 100;
+    updateProgress(pct, activeQuestions);
 
     container.innerHTML = "";
 
@@ -96,7 +96,7 @@ function renderQuestion() {
         const btn = document.createElement("button");
         btn.className = "option-btn";
         btn.textContent = opt.text;
-        btn.addEventListener("click", () => handleAnswer(opt.style));
+        btn.addEventListener("click", () => handleAnswer(opt.style, activeQuestions));
         container.appendChild(btn);
     });
 
@@ -104,11 +104,11 @@ function renderQuestion() {
     qText.focus();
 }
 
-function handleAnswer(styleKey) {
+function handleAnswer(styleKey, activeQuestions) {
     recordAnswer(styleKey);
     currentQuestion++;
-    if (currentQuestion < questions.length) {
-        renderQuestion();
+    if (currentQuestion < activeQuestions.length) {
+        renderQuestion(activeQuestions);
     } else {
         calculateResults();
     }
@@ -176,7 +176,7 @@ export function calculateConstellation() {
 }
 
 function calculateResults() {
-    updateProgress(100);
+    updateProgress(100, []);
     const quizCard = document.getElementById("quizCard");
     const progressContainer = document.getElementById("progressContainer");
     const progressInfoBar = document.querySelector(".progress-info-bar");
@@ -228,7 +228,7 @@ function initQuizState() {
         if (quizMain) quizMain.hidden = true;
         if (progressContainer) progressContainer.style.display = "none";
         if (progressInfoBar) progressInfoBar.style.display = "none";
-        updateProgress(100);
+        updateProgress(100, []);
         renderResultsScreen(
             validPrimary, 
             validSecondary || (validPrimary === "Driver" ? "Stabilizer" : "Driver"),
@@ -237,14 +237,5 @@ function initQuizState() {
     } else {
         if (quizMain) quizMain.hidden = false;
 
-        // NEW: Build a balanced randomized 8-question quiz
-        const randomizedQuestions = selectRandomQuestionsByAxis(questions, 2);
-        questions = randomizedQuestions;
-
-        resetScores();
-        renderQuestion();
-    }
-}
-
-document.addEventListener("DOMContentLoaded", initQuizState);
-window.addEventListener("popstate", initQuizState);
+        // Build a balanced randomized 8-question quiz
+        const activeQuestions =
