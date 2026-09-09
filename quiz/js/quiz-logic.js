@@ -25,14 +25,12 @@ function selectRandomQuestionsByAxis(fullList, perAxis = 2) {
         Purpose: []
     };
 
-    // Group questions by axis
     fullList.forEach(q => {
         if (grouped[q.axis]) {
             grouped[q.axis].push(q);
         }
     });
 
-    // Randomly pick perAxis questions from each axis
     const selected = [];
     Object.keys(grouped).forEach(axis => {
         const shuffled = grouped[axis].sort(() => Math.random() - 0.5);
@@ -238,4 +236,12 @@ function initQuizState() {
         if (quizMain) quizMain.hidden = false;
 
         // Build a balanced randomized 8-question quiz
-        const activeQuestions =
+        const activeQuestions = selectRandomQuestionsByAxis(questions, 2);
+
+        resetScores();
+        renderQuestion(activeQuestions);
+    }
+}
+
+document.addEventListener("DOMContentLoaded", initQuizState);
+window.addEventListener("popstate", initQuizState);
