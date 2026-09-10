@@ -111,283 +111,267 @@ export const secondarySyntheses = {
 };
 
 export const questions = [
-    // ============================
-    // PACE — Director vs. Stabilizer
-    // ============================
+  {
+    axis: "Pace",
+    prompt: "Cleanup day keeps getting delayed. You would…",
+    options: [
+      { text: "initiate a small part of the plan so others see momentum.", style: "Driver" },
+      { text: "signal that you're beginning now and invite others to join in any way they can.", style: "Driver" },
+      { text: "pause the group and identify what's causing the repeated stall.", style: "Stabilizer" },
+      { text: "organize a quick check-in to clarify availability and needs.", style: "Stabilizer" }
+    ]
+  },
 
-    {
-        axis: "Pace",
-        prompt: "Cleanup day keeps getting pushed back, and folks are shrugging like, “Maybe next weekend?” What do you do?",
-        options: [
-            { text: "I’ll grab a rake and start a small section so people see progress.", style: "Driver" },
-            { text: "I text the group: ‘I’m heading over now. Join if you can.’", style: "Driver" },
-            { text: "Before we rush again, let’s figure out why this keeps stalling.", style: "Stabilizer" },
-            { text: "I call a quick check‑in to sort out who’s free and what we actually have.", style: "Stabilizer" }
-        ]
-    },
+  {
+    axis: "Pace",
+    prompt: "A storm knocks out power and people panic about next steps. You would…",
+    options: [
+      { text: "compile a rapid list of immediate needs based on neighbor reports.", style: "Driver" },
+      { text: "reach out to households to understand who needs support right away.", style: "Driver" },
+      { text: "slow the conversation and confirm everyone's safety before decisions are made.", style: "Stabilizer" },
+      { text: "establish a shared communication point so people know where to check in.", style: "Stabilizer" }
+    ]
+  },
 
-    {
-        axis: "Pace",
-        prompt: "A storm knocks out power on your block. Everyone’s panicking about what to do first.",
-        options: [
-            { text: "I check on houses and make a quick list so we can move fast.", style: "Driver" },
-            { text: "I grab flashlights and start knocking on doors.", style: "Driver" },
-            { text: "Let’s slow down and make sure folks are safe before rushing.", style: "Stabilizer" },
-            { text: "I set up a little porch ‘base’ so people know where to check in.", style: "Stabilizer" }
-        ]
-    },
+  {
+    axis: "Pace",
+    prompt: "A neighborhood project has been stuck in planning mode for months. You would…",
+    options: [
+      { text: "draft a rough first version so people have something concrete to react to.", style: "Driver" },
+      { text: "schedule a clear first step and encourage the group to begin.", style: "Driver" },
+      { text: "identify what's blocking progress before moving forward.", style: "Stabilizer" },
+      { text: "create a simple checklist to help the group stop spinning.", style: "Stabilizer" }
+    ]
+  },
 
-    {
-        axis: "Pace",
-        prompt: "A neighborhood project has been ‘in planning mode’ for months. Nothing’s happening.",
-        options: [
-            { text: "I’ll throw together a rough first version so people have something real to react to.", style: "Driver" },
-            { text: "I say, ‘Let’s pick a day and do the first step.’ Enough talking.", style: "Driver" },
-            { text: "We need to slow down and figure out what’s blocking us.", style: "Stabilizer" },
-            { text: "I suggest we pause and make a simple checklist so we stop spinning.", style: "Stabilizer" }
-        ]
-    },
+  {
+    axis: "Pace",
+    prompt: "A community meeting is dragging on and going in circles. You would…",
+    options: [
+      { text: "name a doable action the group can complete today.", style: "Driver" },
+      { text: "offer a quick plan to shift the room from debating to doing.", style: "Driver" },
+      { text: "ask the group to clarify the actual goal before deciding anything.", style: "Stabilizer" },
+      { text: "slow the conversation to ensure nothing important is being overlooked.", style: "Stabilizer" }
+    ]
+  },
 
-    {
-        axis: "Pace",
-        prompt: "A community meeting is dragging on, and folks keep going in circles.",
-        options: [
-            { text: "I jump in: ‘Okay, here’s what we can actually do today.’", style: "Driver" },
-            { text: "I offer a quick plan so we stop debating and start doing.", style: "Driver" },
-            { text: "I ask, ‘Can we clarify the goal before we decide anything?’", style: "Stabilizer" },
-            { text: "I slow the room down: ‘Let’s make sure we’re not missing anything important.’", style: "Stabilizer" }
-        ]
-    },
+  {
+    axis: "Pace",
+    prompt: "A neighbor's basement is flooding and people are texting ideas but not acting. You would…",
+    options: [
+      { text: "coordinate the first steps so the group moves.", style: "Driver" },
+      { text: "announce you're initiating support now and invite others to join in any way they can.", style: "Driver" },
+      { text: "request clear details so the group doesn't make the situation worse.", style: "Stabilizer" },
+      { text: "review what resources or information the group has before moving.", style: "Stabilizer" }
+    ]
+  },
 
-    {
-        axis: "Pace",
-        prompt: "A neighbor calls saying their basement is flooding. People are texting ideas but no one’s acting.",
-        options: [
-            { text: "I grab boots and head over. We’ll figure it out on the spot.", style: "Driver" },
-            { text: "I say, ‘I’m going now. Who’s coming?’", style: "Driver" },
-            { text: "I ask what’s actually happening so we don’t make it worse.", style: "Stabilizer" },
-            { text: "I check what tools we have before anyone rushes in.", style: "Stabilizer" }
-        ]
-    },
+  {
+    axis: "Pace",
+    prompt: "A local event is falling apart because volunteers keep canceling. You would…",
+    options: [
+      { text: "take on a couple responsibilities yourself to stabilize the plan.", style: "Driver" },
+      { text: "simplify the event so the group can execute quickly.", style: "Driver" },
+      { text: "investigate why volunteers keep dropping off.", style: "Stabilizer" },
+      { text: "rebuild the schedule so it's realistic and sustainable.", style: "Stabilizer" }
+    ]
+  },
 
-    {
-        axis: "Pace",
-        prompt: "A local event is falling apart because volunteers keep canceling last minute.",
-        options: [
-            { text: "I’ll cover a couple roles myself so the thing actually happens.", style: "Driver" },
-            { text: "I say, ‘Let’s simplify the plan and just get it done.’", style: "Driver" },
-            { text: "We need to figure out why people keep dropping off.", style: "Stabilizer" },
-            { text: "I suggest we rebuild the schedule so it’s realistic.", style: "Stabilizer" }
-        ]
-    },
+  {
+    axis: "People",
+    prompt: "A building rule favors a few people and leaves others out. You would…",
+    options: [
+      { text: "raise the issue publicly so everyone sees the unfairness.", style: "Advocate" },
+      { text: "post a clear message expressing concern about the rule.", style: "Advocate" },
+      { text: "check in with neighbors privately to hear their reactions.", style: "Connector" },
+      { text: "talk with the decision-makers directly to understand their reasoning.", style: "Connector" }
+    ]
+  },
 
-    // ============================
-    // PEOPLE — Advocate vs. Connector
-    // ============================
+  {
+    axis: "People",
+    prompt: "You join a new volunteer group and the vibe is polite but awkward. You would…",
+    options: [
+      { text: "ask the group directly what problem they're actually trying to solve.", style: "Advocate" },
+      { text: "push people to name the real issue out loud.", style: "Advocate" },
+      { text: "start casual one-on-one conversations to break the ice.", style: "Connector" },
+      { text: "invite quieter folks into the conversation gently.", style: "Connector" }
+    ]
+  },
 
-    {
-        axis: "People",
-        prompt: "Your building posts a new rule that clearly favors a few people and leaves others out.",
-        options: [
-            { text: "I bring it up publicly. If it’s unfair, people should hear about it.", style: "Advocate" },
-            { text: "I write a quick note to the building chat: ‘This doesn’t sit right with me.’", style: "Advocate" },
-            { text: "I check in with a couple neighbors: ‘Did you see this? What do you think?’", style: "Connector" },
-            { text: "I talk to the folks involved privately to understand what’s going on.", style: "Connector" }
-        ]
-    },
+  {
+    axis: "People",
+    prompt: "A neighbor is treated unfairly at a meeting while others stay quiet. You would…",
+    options: [
+      { text: "interrupt and call out the behavior immediately.", style: "Advocate" },
+      { text: "state clearly that the treatment is not acceptable.", style: "Advocate" },
+      { text: "check in with the neighbor afterward to support them.", style: "Connector" },
+      { text: "gather a few people to talk through what happened.", style: "Connector" }
+    ]
+  },
 
-    {
-        axis: "People",
-        prompt: "You join a new volunteer group, and the vibe is polite but awkward.",
-        options: [
-            { text: "I speak up: ‘Hey, what are we actually trying to fix here?’", style: "Advocate" },
-            { text: "I push the group to name the real issue out loud.", style: "Advocate" },
-            { text: "I start chatting with people one‑on‑one to break the ice.", style: "Connector" },
-            { text: "I find the quiet folks and pull them in gently.", style: "Connector" }
-        ]
-    },
+  {
+    axis: "People",
+    prompt: "A local issue is heating up online and people are arguing. You would…",
+    options: [
+      { text: "post a clear message about what needs to change.", style: "Advocate" },
+      { text: "redirect the conversation publicly toward fairness.", style: "Advocate" },
+      { text: "message individuals privately to calm things down.", style: "Connector" },
+      { text: "encourage people to shift the conversation to a more constructive format.", style: "Connector" }
+    ]
+  },
 
-    {
-        axis: "People",
-        prompt: "A neighbor is being treated unfairly at a meeting. People are staying quiet.",
-        options: [
-            { text: "I step in and say, ‘Hold on, that’s not okay.’", style: "Advocate" },
-            { text: "I call out the behavior so it doesn’t slide.", style: "Advocate" },
-            { text: "I check in with the neighbor afterward to make sure they’re alright.", style: "Connector" },
-            { text: "I pull a few folks aside to talk through what happened.", style: "Connector" }
-        ]
-    },
+  {
+    axis: "People",
+    prompt: "A new family moves in and seems overwhelmed. You would…",
+    options: [
+      { text: "ask the neighborhood group to organize support.", style: "Advocate" },
+      { text: "speak up to ensure the family gets what they need.", style: "Advocate" },
+      { text: "reach out with a warm welcome and see how they're settling in.", style: "Connector" },
+      { text: "introduce them to neighbors so they feel connected.", style: "Connector" }
+    ]
+  },
 
-    {
-        axis: "People",
-        prompt: "A local issue is heating up online, and people are arguing.",
-        options: [
-            { text: "I jump in with a clear message about what needs to change.", style: "Advocate" },
-            { text: "I post publicly to steer the conversation toward fairness.", style: "Advocate" },
-            { text: "I message a few people privately to calm things down.", style: "Connector" },
-            { text: "I try to get folks talking face‑to‑face instead of fighting online.", style: "Connector" }
-        ]
-    },
+  {
+    axis: "People",
+    prompt: "A community survey comes out and the questions feel biased. You would…",
+    options: [
+      { text: "call out the bias directly and ask for changes.", style: "Advocate" },
+      { text: "request that organizers fix the survey before collecting responses.", style: "Advocate" },
+      { text: "talk privately with organizers to understand their thinking.", style: "Connector" },
+      { text: "gather neighbors to discuss how to improve the survey.", style: "Connector" }
+    ]
+  },
 
-    {
-        axis: "People",
-        prompt: "A new family moves in and seems overwhelmed.",
-        options: [
-            { text: "I ask the neighborhood group to organize support.", style: "Advocate" },
-            { text: "I speak up: ‘Let’s make sure they get what they need.’", style: "Advocate" },
-            { text: "I stop by with a friendly hello and see how they’re settling in.", style: "Connector" },
-            { text: "I introduce them to a couple neighbors so they feel connected.", style: "Connector" }
-        ]
-    },
+  {
+    axis: "Place",
+    prompt: "A community garden is half thriving, half struggling. You would…",
+    options: [
+      { text: "sketch ideas for a layout that improves flow and function.", style: "Architect" },
+      { text: "capture photos and map out a clearer layout.", style: "Architect" },
+      { text: "identify the healthiest areas that need protection.", style: "Guardian" },
+      { text: "flag fragile spots so they stay safe while planning continues.", style: "Guardian" }
+    ]
+  },
 
-    {
-        axis: "People",
-        prompt: "A community survey comes out, and the questions feel biased.",
-        options: [
-            { text: "I call it out: ‘These questions aren’t fair.’", style: "Advocate" },
-            { text: "I ask the organizers to fix it before collecting responses.", style: "Advocate" },
-            { text: "I talk to the organizers privately to understand their thinking.", style: "Connector" },
-            { text: "I gather a few neighbors to discuss how we can improve it.", style: "Connector" }
-        ]
-    },
+  {
+    axis: "Place",
+    prompt: "Heavy rain washes out part of a neighborhood trail. You would…",
+    options: [
+      { text: "plan drainage and signage improvements for a long-lasting fix.", style: "Architect" },
+      { text: "map a sturdier solution by reviewing the affected area.", style: "Architect" },
+      { text: "redirect people away from the damaged section to support recovery.", style: "Guardian" },
+      { text: "assess what parts of the landscape need immediate protection.", style: "Guardian" }
+    ]
+  },
 
-    // ============================
-    // PLACE — Architect vs. Guardian
-    // ============================
+  {
+    axis: "Place",
+    prompt: "A park has a broken bench and a fragile patch of wildflowers. You would…",
+    options: [
+      { text: "reimagine a better seating layout.", style: "Architect" },
+      { text: "design a stronger bench concept that won't fail again.", style: "Architect" },
+      { text: "highlight the fragile wildflowers so people avoid disturbing them.", style: "Guardian" },
+      { text: "mark the delicate patch so it has space to recover.", style: "Guardian" }
+    ]
+  },
 
-    {
-        axis: "Place",
-        prompt: "You walk past a community garden that’s half thriving, half falling apart.",
-        options: [
-            { text: "I’m already sketching where new beds could go and how to fix the walkway.", style: "Architect" },
-            { text: "I take photos and think through a simple layout to make the space work better.", style: "Architect" },
-            { text: "I head straight to the healthy plants to protect them.", style: "Guardian" },
-            { text: "I flag fragile spots: ‘Let’s keep this safe while we figure out the rest.’", style: "Guardian" }
-        ]
-    },
+  {
+    axis: "Place",
+    prompt: "A community center is cluttered and chaotic. You would…",
+    options: [
+      { text: "rearrange the space mentally to make it functional.", style: "Architect" },
+      { text: "identify which shifts would make the room breathe.", style: "Architect" },
+      { text: "locate sentimental or important items that need protection.", style: "Guardian" },
+      { text: "ensure nothing meaningful gets tossed during cleanup.", style: "Guardian" }
+    ]
+  },
 
-    {
-        axis: "Place",
-        prompt: "Your neighborhood trail has a washed‑out section after heavy rain.",
-        options: [
-            { text: "I’m thinking about drainage, signage, and how to rebuild it so it lasts.", style: "Architect" },
-            { text: "I walk the area and mentally map out a sturdier fix.", style: "Architect" },
-            { text: "I focus on keeping people away from the damaged part so the land can recover.", style: "Guardian" },
-            { text: "I check the plants and soil first — what needs protecting right now?", style: "Guardian" }
-        ]
-    },
+  {
+    axis: "Place",
+    prompt: "A neighbor wants to redo their yard but feels unsure. You would…",
+    options: [
+      { text: "sketch a quick layout to show possibilities.", style: "Architect" },
+      { text: "review the space with them and highlight improvements.", style: "Architect" },
+      { text: "ask which plants or spots they love so they stay intact.", style: "Guardian" },
+      { text: "preserve the parts of the yard that already feel special.", style: "Guardian" }
+    ]
+  },
 
-    {
-        axis: "Place",
-        prompt: "A local park has a broken bench and a patch of wildflowers barely hanging on.",
-        options: [
-            { text: "I’m already imagining a better layout for the seating area.", style: "Architect" },
-            { text: "I think through how to rebuild the bench so it doesn’t break again.", style: "Architect" },
-            { text: "I go straight to the wildflowers to make sure they’re not trampled.", style: "Guardian" },
-            { text: "I rope off the fragile patch so it gets a chance to recover.", style: "Guardian" }
-        ]
-    },
+  {
+    axis: "Place",
+    prompt: "A small wooded area is getting worn down by foot traffic. You would…",
+    options: [
+      { text: "plan a simple path or sign to guide people.", style: "Architect" },
+      { text: "outline a layout that protects trees while guiding visitors.", style: "Architect" },
+      { text: "identify fragile spots and shield them from damage.", style: "Guardian" },
+      { text: "encourage people to use sturdier areas to give the woods a break.", style: "Guardian" }
+    ]
+  },
 
-    {
-        axis: "Place",
-        prompt: "A community center is cluttered and chaotic.",
-        options: [
-            { text: "I start rearranging things in my head so the space actually works.", style: "Architect" },
-            { text: "If we moved that shelf and cleared that corner, this place would breathe.", style: "Architect" },
-            { text: "I look for anything sentimental or important that needs protecting.", style: "Guardian" },
-            { text: "I make sure nothing gets tossed that people care about.", style: "Guardian" }
-        ]
-    },
+  {
+    axis: "Purpose",
+    prompt: "A holiday event repeats every year and ends in the same argument. You would…",
+    options: [
+      { text: "generate a new idea that reflects the community's current needs today.", style: "Visionary" },
+      { text: "propose a completely different theme and setup.", style: "Visionary" },
+      { text: "review what actually worked before reinventing anything.", style: "Keeper" },
+      { text: "retrieve old notes to see how past issues were solved.", style: "Keeper" }
+    ]
+  },
 
-    {
-        axis: "Place",
-        prompt: "A neighbor wants to redo their yard but isn’t sure where to start.",
-        options: [
-            { text: "I sketch a quick layout to help them see the possibilities.", style: "Architect" },
-            { text: "I walk the space with them and point out what could be improved.", style: "Architect" },
-            { text: "I ask what plants or spots they love so we don’t mess them up.", style: "Guardian" },
-            { text: "I focus on preserving the parts that already feel special.", style: "Guardian" }
-        ]
-    },
+  {
+    axis: "Purpose",
+    prompt: "A recurring neighborhood issue keeps popping up. You would…",
+    options: [
+      { text: "draft a bold alternative that breaks the usual routine.", style: "Visionary" },
+      { text: "rethink the issue from a fresh angle.", style: "Visionary" },
+      { text: "look at what used to work before things changed.", style: "Keeper" },
+      { text: "recall simple fixes the community may have forgotten.", style: "Keeper" }
+    ]
+  },
 
-    {
-        axis: "Place",
-        prompt: "A small wooded area near your block is getting worn down by foot traffic.",
-        options: [
-            { text: "I think about where a simple path or sign could help.", style: "Architect" },
-            { text: "I picture a layout that guides people without harming the trees.", style: "Architect" },
-            { text: "I check the most fragile spots and try to protect them.", style: "Guardian" },
-            { text: "I gently redirect people to safer areas to give the woods a break.", style: "Guardian" }
-        ]
-    },
+  {
+    axis: "Purpose",
+    prompt: "A local group wants a new tradition but can't agree. You would…",
+    options: [
+      { text: "generate a new idea that fits who the community is now.", style: "Visionary" },
+      { text: "suggest a creative option no one has tried before.", style: "Visionary" },
+      { text: "suggest reviving an older tradition that once brought people together.", style: "Keeper" },
+      { text: "ask longtime neighbors what they remember.", style: "Keeper" }
+    ]
+  },
 
-    // ============================
-    // PURPOSE — Visionary vs. Keeper
-    // ============================
+  {
+    axis: "Purpose",
+    prompt: "A recurring problem keeps showing up at meetings and people are tired. You would…",
+    options: [
+      { text: "rethink the entire issue from a new angle.", style: "Visionary" },
+      { text: "propose a trial replacement instead of fixing the same problem again.", style: "Visionary" },
+      { text: "review when this wasn't a problem and identify what changed.", style: "Keeper" },
+      { text: "reuse an old solution that still works.", style: "Keeper" }
+    ]
+  },
 
-    {
-        axis: "Purpose",
-        prompt: "Every year your block tries the same holiday event, and every year it turns into the same argument.",
-        options: [
-            { text: "Why are we doing this the same way? Let’s try something different.", style: "Visionary" },
-            { text: "What if we flipped the whole thing — new theme, new setup?", style: "Visionary" },
-            { text: "Before we reinvent everything, let’s look at what actually worked.", style: "Keeper" },
-            { text: "Someone solved this once. Let’s dig up the old notes.", style: "Keeper" }
-        ]
-    },
+  {
+    axis: "Purpose",
+    prompt: "A youth group wants to redesign a community space. You would…",
+    options: [
+      { text: "sketch a fresh concept starting from a blank slate.", style: "Visionary" },
+      { text: "draft a bold concept that stretches what the space could be.", style: "Visionary" },
+      { text: "identify meaningful parts worth keeping.", style: "Keeper" },
+      { text: "ask longtime neighbors what they love about the space.", style: "Keeper" }
+    ]
+  },
 
-    {
-        axis: "Purpose",
-        prompt: "A neighborhood issue keeps popping up — parking, noise, trash, whatever.",
-        options: [
-            { text: "We’re stuck in a loop. Let’s imagine a completely new way to handle this.", style: "Visionary" },
-            { text: "What if we tried something bold instead of patching the same routine?", style: "Visionary" },
-            { text: "Let’s look at what used to work before things changed.", style: "Keeper" },
-            { text: "There’s probably a simple fix we’ve forgotten.", style: "Keeper" }
-        ]
-    },
-
-    {
-        axis: "Purpose",
-        prompt: "A local group wants to start a new tradition but can’t agree on what it should be.",
-        options: [
-            { text: "Let’s dream up something fresh that fits who we are now.", style: "Visionary" },
-            { text: "What if we tried something no one’s done before?", style: "Visionary" },
-            { text: "What traditions did we used to have? Maybe we can revive one.", style: "Keeper" },
-            { text: "Let’s ask older neighbors what they remember.", style: "Keeper" }
-        ]
-    },
-
-    {
-        axis: "Purpose",
-        prompt: "A recurring problem keeps showing up at meetings, and people are tired of discussing it.",
-        options: [
-            { text: "We need a totally new angle. Let’s rethink the whole thing.", style: "Visionary" },
-            { text: "What if we stopped trying to fix it and tried replacing it?", style: "Visionary" },
-            { text: "Let’s look back at when this wasn’t a problem. What changed?", style: "Keeper" },
-            { text: "There’s probably an old solution that still works.", style: "Keeper" }
-        ]
-    },
-
-    {
-        axis: "Purpose",
-        prompt: "A youth group wants to redesign a community space.",
-        options: [
-            { text: "Let’s imagine what this place could be if we started from scratch.", style: "Visionary" },
-            { text: "What’s the wildest version of this space that still helps people?", style: "Visionary" },
-            { text: "What parts of the space have meaning? Let’s keep those.", style: "Keeper" },
-            { text: "Let’s ask longtime neighbors what they love about it.", style: "Keeper" }
-        ]
-    },
-
-    {
-        axis: "Purpose",
-        prompt: "A neighborhood committee is split between ‘new ideas’ and ‘the way we’ve always done it.’",
-        options: [
-            { text: "Let’s try the new idea. Worst case, we learn something.", style: "Visionary" },
-            { text: "Why not experiment? We’re not stuck.", style: "Visionary" },
-            { text: "Let’s keep what’s worked — no need to toss good habits.", style: "Keeper" },
-            { text: "We should build on the old approach instead of ditching it.", style: "Keeper" }
-        ]
-    }
+  {
+    axis: "Purpose",
+    prompt: "A committee is split between new ideas and the old way of doing things. You would…",
+    options: [
+      { text: "propose a bold trial version to see what the group learns.", style: "Visionary" },
+      { text: "try the new idea and treat it as an experiment.", style: "Visionary" },
+      { text: "keep what has worked instead of tossing good habits.", style: "Keeper" },
+      { text: "build on the old approach rather than ditching it.", style: "Keeper" }
+    ]
+  }
 ];
