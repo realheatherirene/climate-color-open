@@ -29,26 +29,30 @@
         </div>
     </div>
 
-    <!-- Optimized Progress & Status Indicator -->
+    <!-- Main Quiz Card Container -->
+<main id="quiz">
+
+    <p id="quizInstructions" class="text-muted" style="margin-bottom: 1.25rem;">
+        In this quiz, you'll move through eight neighborhood scenarios—simple civic challenges that invite you to consider how you would respond. Choose the option that feels the most right to you—even if it's not spot-on. There are no right or wrong answers.
+    </p>
+
+    <!-- Progress & Status Indicator (moved here) -->
     <div class="progress-info-bar">
         <span id="progressText">Question 1 of 16</span>
         <span id="progressPercent">0%</span>
     </div>
+
     <div class="progress-container" id="progressContainer" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
         <div class="progress-bar" id="progressBar"></div>
     </div>
 
-    <!-- Main Quiz Card Container -->
-    <main id="quiz">
-        <p id="quizInstructions" class="text-muted" style="margin-bottom: 1.25rem;">
-  In this quiz, you'll move through eight neighborhood scenarios—simple civic challenges that invite you to consider how you would respond. Choose the option that feels the most right to you—even if it's not spot-on. There are no right or wrong answers.
-</p>
-        <div class="quiz-card" id="quizCard">
-            <div class="question-number" id="questionNumber">PACE AXIS</div>
-            <div class="question-text" id="questionText" tabindex="-1"></div>
-            <div class="options-container" id="optionsContainer"></div>
-        </div>
-    </main>
+    <div class="quiz-card" id="quizCard">
+        <div class="question-number" id="questionNumber">PACE AXIS</div>
+        <div class="question-text" id="questionText" tabindex="-1"></div>
+        <div class="options-container" id="optionsContainer"></div>
+    </div>
+
+</main>
 
     <!-- Results Screen Container -->
     <div id="results" hidden></div>
