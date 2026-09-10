@@ -81,8 +81,6 @@ function renderQuestion(activeQuestions) {
 
     if (!qNum || !qText || !container) return;
 
-    const axisName = q.axis ? `${q.axis.toUpperCase()} AXIS` : "QUESTION";
-    qNum.textContent = `${axisName} — Question ${currentQuestion + 1} of ${activeQuestions.length}`;
     qText.textContent = q.prompt;
 
     const pct = (currentQuestion / activeQuestions.length) * 100;
