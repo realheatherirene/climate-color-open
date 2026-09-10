@@ -2,6 +2,12 @@
 .quiz-page * {
     text-align: left !important;
 }
+
+/* Align entire quiz container with header margin */
+.quiz-page {
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
 /* ==========================================================================
    QUIZ CSS: Layouts & Components (Dependent on atlas.css)
    ========================================================================== */
