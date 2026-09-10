@@ -8,19 +8,21 @@
 
 /* Beta Banner */
 .beta-banner {
-    background-color: transperent;
+    background-color: var(--bg-primary);
     color: var(--text-secondary);
-    text-align: center;
+    text-align: left;
     padding: 0.85rem 1rem;
     font-size: 0.85rem;
     border: none;
     border-radius: 8px;
-    margin-bottom: 1.5rem;
+    margin-top: 0.25rem;      /* tighter top margin */
+    margin-bottom: 0.75rem;   /* tighter bottom margin */
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start; /* ensures left alignment */
     align-items: center;
     flex-wrap: wrap;
     gap: 0.5rem;
+    width: 100%; /* anchors the flex container to full width */
 }
 
 .beta-tag {
