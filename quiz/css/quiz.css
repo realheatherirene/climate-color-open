@@ -1,3 +1,7 @@
+/* GLOBAL LEFT-ALIGN OVERRIDE */
+.quiz-page * {
+    text-align: left !important;
+}
 /* ==========================================================================
    QUIZ CSS: Layouts & Components (Dependent on atlas.css)
    ========================================================================== */
