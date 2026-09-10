@@ -78,8 +78,17 @@ function renderQuestion(activeQuestions) {
     const qNum = document.getElementById("questionNumber");
     const qText = document.getElementById("questionText");
     const container = document.getElementById("optionsContainer");
+    const instructions = document.getElementById("quizInstructions");
 
     if (!qNum || !qText || !container) return;
+
+    // Remove axis label entirely
+    qNum.textContent = "";
+
+    // Hide instructions after the first question
+    if (instructions) {
+        instructions.style.display = currentQuestion === 0 ? "block" : "none";
+    }
 
     qText.textContent = q.prompt;
 
@@ -173,13 +182,16 @@ export function calculateConstellation() {
 
 function calculateResults() {
     updateProgress(100, []);
+
     const quizCard = document.getElementById("quizCard");
     const progressContainer = document.getElementById("progressContainer");
     const progressInfoBar = document.querySelector(".progress-info-bar");
+    const instructions = document.getElementById("quizInstructions");
 
     if (quizCard) quizCard.closest("main").hidden = true;
     if (progressContainer) progressContainer.style.display = "none";
     if (progressInfoBar) progressInfoBar.style.display = "none";
+    if (instructions) instructions.style.display = "none";
 
     const { primary, secondary, tertiary } = calculateConstellation();
     renderResultsScreen(primary, secondary, tertiary);
@@ -219,11 +231,14 @@ function initQuizState() {
     const quizMain = document.getElementById("quiz");
     const progressContainer = document.getElementById("progressContainer");
     const progressInfoBar = document.querySelector(".progress-info-bar");
+    const instructions = document.getElementById("quizInstructions");
 
     if (validPrimary) {
         if (quizMain) quizMain.hidden = true;
         if (progressContainer) progressContainer.style.display = "none";
         if (progressInfoBar) progressInfoBar.style.display = "none";
+        if (instructions) instructions.style.display = "none";
+
         updateProgress(100, []);
         renderResultsScreen(
             validPrimary, 
@@ -232,8 +247,8 @@ function initQuizState() {
         );
     } else {
         if (quizMain) quizMain.hidden = false;
+        if (instructions) instructions.style.display = "block";
 
-        // Build a balanced randomized 8-question quiz
         const activeQuestions = selectRandomQuestionsByAxis(questions, 2);
 
         resetScores();
