@@ -34,6 +34,8 @@ export function renderResultsScreen(primaryKey, secondaryKey, tertiaryKey) {
     }
   }
 
+  <h2 class="results-heading">Your climate strengths are:</h2>
+
   const primaryFull = fullResults[primaryKey] || { description: "" };
   const secondaryFull = fullResults[secondaryKey] || { description: "" };
   const tertiaryFull = fullResults[tertiaryKey] || { description: "" };
