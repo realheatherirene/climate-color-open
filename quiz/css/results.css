@@ -13,6 +13,14 @@
 /* ==========================================================================
    Results Bar & Actions Placed Above Constellation Header
    ========================================================================== */
+.results-heading {
+  font-family: 'ADLaM Display', 'Varela Round', sans-serif;
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 1.5rem 0 1rem 0;
+  text-align: left;
+}
 
 .sticky-results-bar {
     position: relative;
