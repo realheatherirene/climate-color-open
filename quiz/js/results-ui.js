@@ -83,7 +83,7 @@ export function renderResultsScreen(primaryKey, secondaryKey, tertiaryKey) {
     <div class="styleBlock primary-card border-${primaryClass}">
       <div class="card-content">
         <div class="styleTitle" style="font-size: 1.25rem;">
-          <span style="color: var(--text-muted); font-weight: 400;">Primary style:</span>
+          <span style="color: var(--text-muted); font-weight: 400;">Primary strength:</span>
           <span class="theme-${primaryClass}" style="font-weight: 700;">${primaryKey}</span>
         </div>
         <div class="styleIdentity">${primaryFull.description ? primaryFull.description.trim() : ''}</div>
@@ -100,7 +100,7 @@ export function renderResultsScreen(primaryKey, secondaryKey, tertiaryKey) {
     <div class="styleBlock border-${secondaryClass}">
       <div class="card-content">
         <div class="styleTitle" style="font-size: 1.15rem;">
-          <span style="color: var(--text-muted); font-weight: 400;">Secondary style:</span>
+          <span style="color: var(--text-muted); font-weight: 400;">Secondary strength:</span>
           <span class="theme-${secondaryClass}" style="font-weight: 700;">${secondaryKey}</span>
         </div>
         <div class="styleIdentity">${secondaryFull.description ? secondaryFull.description.trim() : ''}</div>
@@ -114,7 +114,7 @@ export function renderResultsScreen(primaryKey, secondaryKey, tertiaryKey) {
     <div class="styleBlock border-${tertiaryClass}">
       <div class="card-content">
         <div class="styleTitle" style="font-size: 1.10rem;">
-          <span style="color: var(--text-muted); font-weight: 400;">Tertiary style:</span>
+          <span style="color: var(--text-muted); font-weight: 400;">Tertiary strength:</span>
           <span class="theme-${tertiaryClass}" style="font-weight: 700;">${tertiaryKey}</span>
         </div>
         <div class="styleIdentity">${tertiaryFull.description ? tertiaryFull.description.trim() : ''}</div>
