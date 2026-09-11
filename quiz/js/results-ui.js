@@ -45,6 +45,8 @@ export function renderResultsScreen(primaryKey, secondaryKey, tertiaryKey) {
   resultsEl.innerHTML = `
     <!-- Unboxed Editorial Constellation Header -->
     <div class="constellation-header-section" style="text-align: left; margin: 1.5rem 0 2.5rem 0;">
+
+      <h2 class="results-heading">Your climate strengths are:</h2>
       
       <!-- Uniform Sized Archetype Pills (Now Clickable Links) -->
       <div style="display: flex; align-items: center; gap: 0.6rem; flex-wrap: wrap; margin: 0.5rem 0 1rem 0;">
