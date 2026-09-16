@@ -136,23 +136,53 @@ export function calculateConstellation() {
         { anchor: "Purpose", poleA: "Visionary", poleB: "Keeper" }
     ];
 
+    // Fisher-Yates shuffle, used to break ties without favoring array order
+    function shuffle(arr) {
+        const a = [...arr];
+        for (let i = a.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [a[i], a[j]] = [a[j], a[i]];
+        }
+        return a;
+    }
+
     const axisWinners = axes.map((axis, index) => {
         const scoreA = scores[axis.poleA];
         const scoreB = scores[axis.poleB];
+        // A tied axis (e.g. 1-1) is a genuine coin flip, not a default to poleA
+        const winner = scoreA === scoreB
+            ? (Math.random() < 0.5 ? axis.poleA : axis.poleB)
+            : (scoreA > scoreB ? axis.poleA : axis.poleB);
         return {
             anchor: axis.anchor,
-            winner: scoreA >= scoreB ? axis.poleA : axis.poleB,
+            winner,
             winningScore: Math.max(scoreA, scoreB),
             margin: Math.abs(scoreA - scoreB),
             originalIndex: index
         };
     });
 
-    axisWinners.sort((a, b) => {
+    // Sort by score/margin, but shuffle within any group that's still tied
+    // instead of silently favoring Pace > People > Place > Purpose every time
+    const deterministic = [...axisWinners].sort((a, b) => {
         if (b.winningScore !== a.winningScore) return b.winningScore - a.winningScore;
-        if (b.margin !== a.margin) return b.margin - a.margin;
-        return a.originalIndex - b.originalIndex;
+        return b.margin - a.margin;
     });
+
+    const buckets = [];
+    deterministic.forEach((item, i) => {
+        const prev = deterministic[i - 1];
+        const sameGroup = prev && prev.winningScore === item.winningScore && prev.margin === item.margin;
+        if (sameGroup) {
+            buckets[buckets.length - 1].push(item);
+        } else {
+            buckets.push([item]);
+        }
+    });
+
+    const rankedWinners = buckets.flatMap(shuffle);
+    axisWinners.length = 0;
+    axisWinners.push(...rankedWinners);
 
     const primaryKey = axisWinners[0].winner;
     let secondaryKey = axisWinners[1].winner;
