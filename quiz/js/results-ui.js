@@ -1,4 +1,4 @@
-import { fullResults, starterKits, secondarySyntheses } from './quiz-data.js';
+import { fullResults, secondarySyntheses } from './quiz-data.js';
 
 // Stable, future-proof absolute URL builder for pathway pages
 function pathwayUrl(slug) {
@@ -36,7 +36,6 @@ export function renderResultsScreen(primaryKey, secondaryKey, tertiaryKey) {
   const primaryFull = fullResults[primaryKey] || { description: "" };
   const secondaryFull = fullResults[secondaryKey] || { description: "" };
   const tertiaryFull = fullResults[tertiaryKey] || { description: "" };
-  const primaryKit = starterKits[primaryKey] || { core: [] };
 
   const primaryClass = primaryKey ? primaryKey.toLowerCase() : "";
   const secondaryClass = secondaryKey ? secondaryKey.toLowerCase() : "";
@@ -88,10 +87,6 @@ export function renderResultsScreen(primaryKey, secondaryKey, tertiaryKey) {
           <span class="theme-${primaryClass}" style="font-weight: 700;">${primaryKey}</span>
         </div>
         <div class="styleIdentity">${primaryFull.description ? primaryFull.description.trim() : ''}</div>
-        <div class="styleMeta">Core Practices</div>
-        <ul style="margin: 0.5rem 0 1.25rem 1.25rem; font-size: 0.95rem; color: var(--text-secondary); line-height: 1.6;">
-          ${primaryKit.core.map(item => `<li>${item}</li>`).join('')}
-        </ul>
         <a href="${pathwayUrl(primaryClass)}" class="pill-btn"
           style="padding: 0.45rem 1rem; font-size: 0.85rem;">Explore ${primaryKey} Archetype &rarr;</a>
       </div>

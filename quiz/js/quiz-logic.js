@@ -7,10 +7,10 @@ import { renderResultsScreen } from './results-ui.js';
 
 let currentQuestion = 0;
 let scores = {
-    Driver: 0, Stabilizer: 0,
-    Advocate: 0, Connector: 0,
-    Architect: 0, Guardian: 0,
-    Visionary: 0, Keeper: 0
+    Red: 0, Green: 0,
+    Orange: 0, Purple: 0,
+    Blue: 0, Violet: 0,
+    Yellow: 0, Indigo: 0
 };
 
 /* ==========================================================================
@@ -130,10 +130,10 @@ export function calculateConstellation() {
     }
 
     const axes = [
-        { anchor: "Pace", poleA: "Driver", poleB: "Stabilizer" },
-        { anchor: "People", poleA: "Advocate", poleB: "Connector" },
-        { anchor: "Place", poleA: "Architect", poleB: "Guardian" },
-        { anchor: "Purpose", poleA: "Visionary", poleB: "Keeper" }
+        { anchor: "Pace", poleA: "Red", poleB: "Green" },
+        { anchor: "People", poleA: "Orange", poleB: "Purple" },
+        { anchor: "Place", poleA: "Blue", poleB: "Violet" },
+        { anchor: "Purpose", poleA: "Yellow", poleB: "Indigo" }
     ];
 
     // Fisher-Yates shuffle, used to break ties without favoring array order
@@ -190,11 +190,11 @@ export function calculateConstellation() {
 
     if (secondaryKey === primaryKey) {
         const alt = axisWinners.find(w => w.winner !== primaryKey);
-        secondaryKey = alt ? alt.winner : (primaryKey === "Driver" ? "Stabilizer" : "Driver");
+        secondaryKey = alt ? alt.winner : (primaryKey === "Red" ? "Green" : "Red");
     }
     if (tertiaryKey === primaryKey || tertiaryKey === secondaryKey) {
         const alt = axisWinners.find(w => w.winner !== primaryKey && w.winner !== secondaryKey);
-        tertiaryKey = alt ? alt.winner : (primaryKey === "Architect" ? "Guardian" : "Architect");
+        tertiaryKey = alt ? alt.winner : (primaryKey === "Blue" ? "Violet" : "Blue");
     }
 
     localStorage.setItem('climatecolor_primary', primaryKey);
@@ -252,10 +252,10 @@ function initQuizState() {
         : null;
 
     if (validPrimary && validSecondary && validPrimary === validSecondary) {
-        validSecondary = validPrimary === "Driver" ? "Stabilizer" : "Driver";
+        validSecondary = validPrimary === "Red" ? "Green" : "Red";
     }
     if (!validTertiary && validPrimary) {
-        validTertiary = validPrimary === "Architect" ? "Guardian" : "Architect";
+        validTertiary = validPrimary === "Blue" ? "Violet" : "Blue";
     }
 
     const quizMain = document.getElementById("quiz");
@@ -272,8 +272,8 @@ function initQuizState() {
         updateProgress(100, []);
         renderResultsScreen(
             validPrimary, 
-            validSecondary || (validPrimary === "Driver" ? "Stabilizer" : "Driver"),
-            validTertiary || "Architect"
+            validSecondary || (validPrimary === "Red" ? "Green" : "Red"),
+            validTertiary || "Blue"
         );
     } else {
         if (quizMain) quizMain.hidden = false;
