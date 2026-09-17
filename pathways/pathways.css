@@ -2,6 +2,7 @@
 .pathways-page * {
     text-align: left !important;
 }
+
 /* ==========================================================================
    PATHWAYS CSS: Layouts & Grids matching Directory UI
    ========================================================================== */
@@ -39,14 +40,14 @@
 }
 
 /* Re-color the header font for each card based on its archetype color reference */
-.pathway-card[style*="driver"] h3 { color: var(--driver-color); }
-.pathway-card[style*="advocate"] h3 { color: var(--advocate-color); }
-.pathway-card[style*="visionary"] h3 { color: var(--visionary-color); }
-.pathway-card[style*="stabilizer"] h3 { color: var(--stabilizer-color); }
-.pathway-card[style*="architect"] h3 { color: var(--architect-color); }
-.pathway-card[style*="keeper"] h3 { color: var(--keeper-color); }
-.pathway-card[style*="connector"] h3 { color: var(--connector-color); }
-.pathway-card[style*="guardian"] h3 { color: var(--guardian-color); }
+.pathway-card[style*="red"] h3 { color: var(--red-color); }
+.pathway-card[style*="orange"] h3 { color: var(--orange-color); }
+.pathway-card[style*="yellow"] h3 { color: var(--yellow-color); }
+.pathway-card[style*="green"] h3 { color: var(--green-color); }
+.pathway-card[style*="blue"] h3 { color: var(--blue-color); }
+.pathway-card[style*="indigo"] h3 { color: var(--indigo-color); }
+.pathway-card[style*="purple"] h3 { color: var(--purple-color); }
+.pathway-card[style*="violet"] h3 { color: var(--violet-color); }
 
 .pathway-card h3 {
   font-size: 1.15rem;
@@ -127,4 +128,3 @@
   .pathway-grid { grid-template-columns: 1fr; }
   .pathway-section { padding: 1.25rem; }
 }
-```[cite: 1, 2, 3]
