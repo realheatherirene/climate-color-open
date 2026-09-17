@@ -6,16 +6,18 @@ let rawStyle = urlParams.get('style');
 let activeStyle = "All Styles";
 let searchQuery = "";
 
-// Color-to-Style Alias Map
+// Backward-compat map: old archetype-name slugs (from links shared before the
+// rename to colors) still resolve to the correct color. New links can just
+// use the color name directly (?style=Red) — it now IS the canonical key.
 const styleAliases = {
-    red: "Driver",
-    orange: "Advocate",
-    yellow: "Visionary",
-    green: "Stabilizer",
-    blue: "Architect",
-    indigo: "Keeper",
-    purple: "Connector",
-    violet: "Guardian"
+    driver: "Red",
+    advocate: "Orange",
+    visionary: "Yellow",
+    stabilizer: "Green",
+    architect: "Blue",
+    keeper: "Indigo",
+    connector: "Purple",
+    guardian: "Violet"
 };
 
 // Style parsing
