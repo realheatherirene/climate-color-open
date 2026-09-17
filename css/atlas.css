@@ -4,14 +4,14 @@
 
 :root {
   /* Core Climate Color Palette (Brand Accurate Source of Truth) */
-  --driver-color: #E32322;
-  --advocate-color: #F18E1C;
-  --visionary-color: #E1B809;
-  --stabilizer-color: #5A9129;
-  --architect-color: #2A71B0;
-  --keeper-color: #002060;
-  --connector-color: #6D398B;
-  --guardian-color: #D946EF;
+  --red-color: #E32322;
+  --orange-color: #F18E1C;
+  --yellow-color: #E1B809;
+  --green-color: #5A9129;
+  --blue-color: #2A71B0;
+  --indigo-color: #002060;
+  --purple-color: #6D398B;
+  --violet-color: #D946EF;
 
   /* Brand Accents */
   --brand-sky: #74C1DF;
@@ -117,24 +117,24 @@ body {
 }
 
 /* Archetype Dynamic Color Mapping Classes */
-.pill-driver, .btn-driver-soft { background-color: color-mix(in srgb, var(--driver-color) 10%, white); border: 1px solid color-mix(in srgb, var(--driver-color) 30%, white); color: var(--driver-color); }
-.pill-advocate, .btn-advocate-soft { background-color: color-mix(in srgb, var(--advocate-color) 10%, white); border: 1px solid color-mix(in srgb, var(--advocate-color) 30%, white); color: var(--advocate-color); }
-.pill-visionary, .btn-visionary-soft { background-color: color-mix(in srgb, var(--visionary-color) 10%, white); border: 1px solid color-mix(in srgb, var(--visionary-color) 30%, white); color: var(--visionary-color); }
-.pill-stabilizer, .btn-stabilizer-soft { background-color: color-mix(in srgb, var(--stabilizer-color) 10%, white); border: 1px solid color-mix(in srgb, var(--stabilizer-color) 30%, white); color: var(--stabilizer-color); }
-.pill-architect, .btn-architect-soft { background-color: color-mix(in srgb, var(--architect-color) 10%, white); border: 1px solid color-mix(in srgb, var(--architect-color) 30%, white); color: var(--architect-color); }
-.pill-keeper, .btn-keeper-soft { background-color: color-mix(in srgb, var(--keeper-color) 10%, white); border: 1px solid color-mix(in srgb, var(--keeper-color) 30%, white); color: var(--keeper-color); }
-.pill-connector, .btn-connector-soft { background-color: color-mix(in srgb, var(--connector-color) 10%, white); border: 1px solid color-mix(in srgb, var(--connector-color) 30%, white); color: var(--connector-color); }
-.pill-guardian, .btn-guardian-soft { background-color: color-mix(in srgb, var(--guardian-color) 10%, white); border: 1px solid color-mix(in srgb, var(--guardian-color) 30%, white); color: var(--guardian-color); }
+.pill-red, .btn-red-soft { background-color: color-mix(in srgb, var(--red-color) 10%, white); border: 1px solid color-mix(in srgb, var(--red-color) 30%, white); color: var(--red-color); }
+.pill-orange, .btn-orange-soft { background-color: color-mix(in srgb, var(--orange-color) 10%, white); border: 1px solid color-mix(in srgb, var(--orange-color) 30%, white); color: var(--orange-color); }
+.pill-yellow, .btn-yellow-soft { background-color: color-mix(in srgb, var(--yellow-color) 10%, white); border: 1px solid color-mix(in srgb, var(--yellow-color) 30%, white); color: var(--yellow-color); }
+.pill-green, .btn-green-soft { background-color: color-mix(in srgb, var(--green-color) 10%, white); border: 1px solid color-mix(in srgb, var(--green-color) 30%, white); color: var(--green-color); }
+.pill-blue, .btn-blue-soft { background-color: color-mix(in srgb, var(--blue-color) 10%, white); border: 1px solid color-mix(in srgb, var(--blue-color) 30%, white); color: var(--blue-color); }
+.pill-indigo, .btn-indigo-soft { background-color: color-mix(in srgb, var(--indigo-color) 10%, white); border: 1px solid color-mix(in srgb, var(--indigo-color) 30%, white); color: var(--indigo-color); }
+.pill-purple, .btn-purple-soft { background-color: color-mix(in srgb, var(--purple-color) 10%, white); border: 1px solid color-mix(in srgb, var(--purple-color) 30%, white); color: var(--purple-color); }
+.pill-violet, .btn-violet-soft { background-color: color-mix(in srgb, var(--violet-color) 10%, white); border: 1px solid color-mix(in srgb, var(--violet-color) 30%, white); color: var(--violet-color); }
 
 /* Global Theme Text Helpers */
-.theme-driver { color: var(--driver-color); }
-.theme-advocate { color: var(--advocate-color); }
-.theme-visionary { color: var(--visionary-color); }
-.theme-stabilizer { color: var(--stabilizer-color); }
-.theme-architect { color: var(--architect-color); }
-.theme-keeper { color: var(--keeper-color); }
-.theme-connector { color: var(--connector-color); }
-.theme-guardian { color: var(--guardian-color); }
+.theme-red { color: var(--red-color); }
+.theme-orange { color: var(--orange-color); }
+.theme-yellow { color: var(--yellow-color); }
+.theme-green { color: var(--green-color); }
+.theme-blue { color: var(--blue-color); }
+.theme-indigo { color: var(--indigo-color); }
+.theme-purple { color: var(--purple-color); }
+.theme-violet { color: var(--violet-color); }
 
 /* ==========================================================================
    Global Print Defaults
