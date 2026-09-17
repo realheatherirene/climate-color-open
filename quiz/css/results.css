@@ -178,14 +178,14 @@
 }
 
 /* Dynamic Left Border Color Application via Atlas utilities */
-.styleBlock.border-driver { border-left-color: var(--driver-color); }
-.styleBlock.border-advocate { border-left-color: var(--advocate-color); }
-.styleBlock.border-visionary { border-left-color: var(--visionary-color); }
-.styleBlock.border-stabilizer { border-left-color: var(--stabilizer-color); }
-.styleBlock.border-architect { border-left-color: var(--architect-color); }
-.styleBlock.border-keeper { border-left-color: var(--keeper-color); }
-.styleBlock.border-connector { border-left-color: var(--connector-color); }
-.styleBlock.border-guardian { border-left-color: var(--guardian-color); }
+.styleBlock.border-red { border-left-color: var(--red-color); }
+.styleBlock.border-orange { border-left-color: var(--orange-color); }
+.styleBlock.border-yellow { border-left-color: var(--yellow-color); }
+.styleBlock.border-green { border-left-color: var(--green-color); }
+.styleBlock.border-blue { border-left-color: var(--blue-color); }
+.styleBlock.border-indigo { border-left-color: var(--indigo-color); }
+.styleBlock.border-purple { border-left-color: var(--purple-color); }
+.styleBlock.border-violet { border-left-color: var(--violet-color); }
 
 /* Neutral grey sidebar option for card number three */
 .styleBlock.border-neutral { border-left-color: var(--border-strong); }
@@ -253,11 +253,11 @@
 }
 
 /* Archetype Text Theme Colors (Global Scope) */
-.theme-driver { color: var(--driver-color); }
-.theme-advocate { color: var(--advocate-color); }
-.theme-visionary { color: var(--visionary-color); }
-.theme-stabilizer { color: var(--stabilizer-color); }
-.theme-architect { color: var(--architect-color); }
-.theme-keeper { color: var(--keeper-color); }
-.theme-connector { color: var(--connector-color); }
-.theme-guardian { color: var(--guardian-color); }
+.theme-red { color: var(--red-color); }
+.theme-orange { color: var(--orange-color); }
+.theme-yellow { color: var(--yellow-color); }
+.theme-green { color: var(--green-color); }
+.theme-blue { color: var(--blue-color); }
+.theme-indigo { color: var(--indigo-color); }
+.theme-purple { color: var(--purple-color); }
+.theme-violet { color: var(--violet-color); }
