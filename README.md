@@ -15,7 +15,7 @@ Climate Color is a strengths-based learning and development ecosystem built to a
 ## 🧩 Core Ecosystem Components
 
 * **4-Axis Assessment Matrix:** Evaluates individual and team orientation across Pace, People, Place, and Purpose.
-* **8 Stewardship Color Styles:** Synthesizes scoring profiles into actionable stewardship archetypes (Driver, Advocate, Visionary, Stabilizer, Architect, Keeper, Connector, Guardian).
+* **8 Stewardship Styles:** Synthesizes scoring profiles into actionable, color-referenced stewardship styles.
 * **Secondary Integration Syntheses:** Provides nuanced, dual-style analysis to support multi-faceted roles.
 * **Interactive Directory:** Matches self-assessment results directly to curated organizations, networks, and resources via dynamic category tags.
 
