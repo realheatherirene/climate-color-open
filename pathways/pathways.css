@@ -118,6 +118,16 @@
   margin: 1rem 0;
 }
 
+/* Muted sub-header under the color name — "The Path of X" */
+.pathway-subhead {
+  font-size: 1rem;
+  font-weight: 400;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin: 0.15rem 0 0.75rem 0;
+}
+
 /* Responsive breakpoints */
 @media (max-width: 960px) {
   .pathway-grid { grid-template-columns: repeat(2, 1fr); }
