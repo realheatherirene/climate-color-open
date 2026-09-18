@@ -10,7 +10,7 @@ export const styles = {
     Blue:   { name: "Blue",   axis: "Place",   reflection: "Clarity" },
     Violet: { name: "Violet", axis: "Place",   reflection: "Safety" },
     Yellow: { name: "Yellow", axis: "Purpose", reflection: "Possibility" },
-    Indigo: { name: "Indigo", axis: "Purpose", reflection: "Honor" }
+    Indigo: { name: "Indigo", axis: "Purpose", reflection: "Memory" }
 };
 
 export const fullResults = {
@@ -115,265 +115,165 @@ export const secondarySyntheses = {
 export const questions = [
   {
     axis: "Pace",
-    prompt: "Cleanup day keeps getting delayed. You would…",
+    prompt: "A project has stalled. Your first move is to…",
     options: [
-      { text: "initiate a small part of the plan so others see momentum.", style: "Red" },
-      { text: "signal that you're beginning now and invite others to join in any way they can.", style: "Red" },
-      { text: "pause the group and identify what's causing the repeated stall.", style: "Green" },
-      { text: "organize a quick check-in to clarify availability and needs.", style: "Green" }
+      { text: "jump in and get something moving.", style: "Red" },
+      { text: "push for a quick next step, even a small one.", style: "Red" },
+      { text: "pause to see what's actually holding things up.", style: "Green" },
+      { text: "check in on pacing before changing anything.", style: "Green" }
     ]
   },
-
   {
     axis: "Pace",
-    prompt: "A storm knocks out power and people panic about next steps. You would…",
+    prompt: "Given a tight deadline and an unfinished plan, you'd rather…",
     options: [
-      { text: "compile a rapid list of immediate needs based on neighbor reports.", style: "Red" },
-      { text: "reach out to households to understand who needs support right away.", style: "Red" },
-      { text: "slow the conversation and confirm everyone's safety before decisions are made.", style: "Green" },
-      { text: "establish a shared communication point so people know where to check in.", style: "Green" }
+      { text: "start now and adjust as you go.", style: "Red" },
+      { text: "act on the best information available today.", style: "Red" },
+      { text: "take the extra time to get it right.", style: "Green" },
+      { text: "slow down until the plan feels solid.", style: "Green" }
     ]
   },
-
   {
     axis: "Pace",
-    prompt: "A neighborhood project has been stuck in planning mode for months. You would…",
+    prompt: "When energy in a group starts to dip, you tend to…",
     options: [
-      { text: "draft a rough first version so people have something concrete to react to.", style: "Red" },
-      { text: "schedule a clear first step and encourage the group to begin.", style: "Red" },
-      { text: "identify what's blocking progress before moving forward.", style: "Green" },
-      { text: "create a simple checklist to help the group stop spinning.", style: "Green" }
+      { text: "push for one concrete next step.", style: "Red" },
+      { text: "create urgency to keep things moving.", style: "Red" },
+      { text: "hold steady and let the pace settle.", style: "Green" },
+      { text: "protect the group's ability to keep going long-term.", style: "Green" }
     ]
   },
-
   {
     axis: "Pace",
-    prompt: "A community meeting is dragging on and going in circles. You would…",
+    prompt: "Faced with an unexpected setback, you're more likely to…",
     options: [
-      { text: "name a doable action the group can complete today.", style: "Red" },
-      { text: "offer a quick plan to shift the room from debating to doing.", style: "Red" },
-      { text: "ask the group to clarify the actual goal before deciding anything.", style: "Green" },
-      { text: "slow the conversation to ensure nothing important is being overlooked.", style: "Green" }
-    ]
-  },
-
-  {
-    axis: "Pace",
-    prompt: "A neighbor's basement is flooding and people are texting ideas but not acting. You would…",
-    options: [
-      { text: "coordinate the first steps so the group moves.", style: "Red" },
-      { text: "announce you're initiating support now and invite others to join in any way they can.", style: "Red" },
-      { text: "request clear details so the group doesn't make the situation worse.", style: "Green" },
-      { text: "review what resources or information the group has before moving.", style: "Green" }
-    ]
-  },
-
-  {
-    axis: "Pace",
-    prompt: "A local event is falling apart because volunteers keep canceling. You would…",
-    options: [
-      { text: "take on a couple responsibilities yourself to stabilize the plan.", style: "Red" },
-      { text: "simplify the event so the group can execute quickly.", style: "Red" },
-      { text: "investigate why volunteers keep dropping off.", style: "Green" },
-      { text: "rebuild the schedule so it's realistic and sustainable.", style: "Green" }
+      { text: "move quickly to a new plan.", style: "Red" },
+      { text: "act fast, even without every answer.", style: "Red" },
+      { text: "wait until you understand what happened.", style: "Green" },
+      { text: "stay consistent and let the dust settle.", style: "Green" }
     ]
   },
 
   {
     axis: "People",
-    prompt: "A building rule favors a few people and leaves others out. You would…",
+    prompt: "A new volunteer seems nervous on their first day. You'd probably…",
     options: [
-      { text: "raise the issue publicly so everyone sees the unfairness.", style: "Orange" },
-      { text: "post a clear message expressing concern about the rule.", style: "Orange" },
-      { text: "check in with neighbors privately to hear their reactions.", style: "Purple" },
-      { text: "talk with the decision-makers directly to understand their reasoning.", style: "Purple" }
+      { text: "bring energy to help them feel welcome.", style: "Orange" },
+      { text: "make the moment feel exciting for them.", style: "Orange" },
+      { text: "check in quietly to see how they're doing.", style: "Purple" },
+      { text: "listen for what they actually need right now.", style: "Purple" }
     ]
   },
-
   {
     axis: "People",
-    prompt: "You join a new volunteer group and the vibe is polite but awkward. You would…",
+    prompt: "A conversation online is getting tense. Your instinct is to…",
     options: [
-      { text: "bring energy to the room to help people feel more at ease.", style: "Orange" },
-      { text: "encourage folks to share what excites them about the work.", style: "Orange" },
-      { text: "start casual one-on-one conversations to break the ice.", style: "Purple" },
-      { text: "invite quieter folks into the conversation gently.", style: "Purple" }
+      { text: "post something that lifts the mood.", style: "Orange" },
+      { text: "redirect the energy toward something hopeful.", style: "Orange" },
+      { text: "reach out to someone directly, one-on-one.", style: "Purple" },
+      { text: "try to understand where the tension is coming from.", style: "Purple" }
     ]
   },
-
   {
     axis: "People",
-    prompt: "A neighbor is treated unfairly at a meeting while others stay quiet. You would…",
+    prompt: "A group needs to feel more connected before they'll act. You'd focus on…",
     options: [
-      { text: "speak up right away to shift the room's energy back toward support.", style: "Orange" },
-      { text: "rally others to voice encouragement for the neighbor.", style: "Orange" },
-      { text: "check in with the neighbor afterward to support them.", style: "Purple" },
-      { text: "gather a few people to talk through what happened.", style: "Purple" }
+      { text: "sparking enthusiasm for what's possible.", style: "Orange" },
+      { text: "getting people excited to participate.", style: "Orange" },
+      { text: "building trust between people first.", style: "Purple" },
+      { text: "making space for people to be heard.", style: "Purple" }
     ]
   },
-
   {
     axis: "People",
-    prompt: "A local issue is heating up online and people are arguing. You would…",
+    prompt: "Someone shares an idea that falls flat with the group. You're likely to…",
     options: [
-      { text: "post something upbeat to help redirect the group's energy.", style: "Orange" },
-      { text: "encourage people to focus on what excites them about a solution.", style: "Orange" },
-      { text: "message individuals privately to calm things down.", style: "Purple" },
-      { text: "encourage people to shift the conversation to a more constructive format.", style: "Purple" }
-    ]
-  },
-
-  {
-    axis: "People",
-    prompt: "A new family moves in and seems overwhelmed. You would…",
-    options: [
-      { text: "rally the neighborhood group to organize a warm welcome.", style: "Orange" },
-      { text: "bring enthusiasm to gathering support for the family.", style: "Orange" },
-      { text: "reach out with a warm welcome and see how they're settling in.", style: "Purple" },
-      { text: "introduce them to neighbors so they feel connected.", style: "Purple" }
-    ]
-  },
-
-  {
-    axis: "People",
-    prompt: "A community survey comes out and the questions feel biased. You would…",
-    options: [
-      { text: "energize a small group to push for a better version.", style: "Orange" },
-      { text: "encourage organizers with ideas for how to improve it.", style: "Orange" },
-      { text: "talk privately with organizers to understand their thinking.", style: "Purple" },
-      { text: "gather neighbors to discuss how to improve the survey.", style: "Purple" }
+      { text: "amplify the parts that could still work.", style: "Orange" },
+      { text: "bring energy back to keep momentum going.", style: "Orange" },
+      { text: "check in with that person directly.", style: "Purple" },
+      { text: "help the group understand each other's reactions.", style: "Purple" }
     ]
   },
 
   {
     axis: "Place",
-    prompt: "A community garden is half thriving, half struggling. You would…",
+    prompt: "A shared space is cluttered and hard to use. You'd likely…",
     options: [
-      { text: "sketch ideas for a layout that improves flow and function.", style: "Blue" },
-      { text: "capture photos and map out a clearer layout.", style: "Blue" },
-      { text: "identify the healthiest areas that need protection.", style: "Violet" },
-      { text: "flag fragile spots so they stay safe while planning continues.", style: "Violet" }
+      { text: "redesign the layout so it works better.", style: "Blue" },
+      { text: "organize things so they make more sense.", style: "Blue" },
+      { text: "make sure nothing important gets lost in the cleanup.", style: "Violet" },
+      { text: "protect the fragile or sentimental items first.", style: "Violet" }
     ]
   },
-
   {
     axis: "Place",
-    prompt: "Heavy rain washes out part of a neighborhood trail. You would…",
+    prompt: "A trail is being worn down by heavy use. Your first thought is…",
     options: [
-      { text: "plan drainage and signage improvements for a long-lasting fix.", style: "Blue" },
-      { text: "map a sturdier solution by reviewing the affected area.", style: "Blue" },
-      { text: "redirect people away from the damaged section to support recovery.", style: "Violet" },
-      { text: "assess what parts of the landscape need immediate protection.", style: "Violet" }
+      { text: "design a better path to guide people.", style: "Blue" },
+      { text: "map out a more sustainable layout.", style: "Blue" },
+      { text: "shield the most fragile areas from damage.", style: "Violet" },
+      { text: "redirect traffic away from what needs to recover.", style: "Violet" }
     ]
   },
-
   {
     axis: "Place",
-    prompt: "A park has a broken bench and a fragile patch of wildflowers. You would…",
+    prompt: "You're asked to help with a disorganized project. You gravitate toward…",
     options: [
-      { text: "reimagine a better seating layout.", style: "Blue" },
-      { text: "design a stronger bench concept that won't fail again.", style: "Blue" },
-      { text: "highlight the fragile wildflowers so people avoid disturbing them.", style: "Violet" },
-      { text: "mark the delicate patch so it has space to recover.", style: "Violet" }
+      { text: "building a clearer system from scratch.", style: "Blue" },
+      { text: "untangling the complexity into something workable.", style: "Blue" },
+      { text: "making sure nothing critical gets overlooked.", style: "Violet" },
+      { text: "setting boundaries so people don't burn out.", style: "Violet" }
     ]
   },
-
   {
     axis: "Place",
-    prompt: "A community center is cluttered and chaotic. You would…",
+    prompt: "A natural area near you is at risk of being paved over. You're drawn to…",
     options: [
-      { text: "rearrange the space mentally to make it functional.", style: "Blue" },
-      { text: "identify which shifts would make the room breathe.", style: "Blue" },
-      { text: "locate sentimental or important items that need protection.", style: "Violet" },
-      { text: "ensure nothing meaningful gets tossed during cleanup.", style: "Violet" }
-    ]
-  },
-
-  {
-    axis: "Place",
-    prompt: "A neighbor wants to redo their yard but feels unsure. You would…",
-    options: [
-      { text: "sketch a quick layout to show possibilities.", style: "Blue" },
-      { text: "review the space with them and highlight improvements.", style: "Blue" },
-      { text: "ask which plants or spots they love so they stay intact.", style: "Violet" },
-      { text: "preserve the parts of the yard that already feel special.", style: "Violet" }
-    ]
-  },
-
-  {
-    axis: "Place",
-    prompt: "A small wooded area is getting worn down by foot traffic. You would…",
-    options: [
-      { text: "plan a simple path or sign to guide people.", style: "Blue" },
-      { text: "outline a layout that protects trees while guiding visitors.", style: "Blue" },
-      { text: "identify fragile spots and shield them from damage.", style: "Violet" },
-      { text: "encourage people to use sturdier areas to give the woods a break.", style: "Violet" }
+      { text: "propose a better-designed alternative.", style: "Blue" },
+      { text: "organize a plan that serves both needs.", style: "Blue" },
+      { text: "defend the space directly.", style: "Violet" },
+      { text: "rally people to protect what's there.", style: "Violet" }
     ]
   },
 
   {
     axis: "Purpose",
-    prompt: "A holiday event repeats every year and ends in the same argument. You would…",
+    prompt: "Your community's annual event has followed the same format for a decade, and interest is fading. Some people want to try something new; others want to protect what's meaningful about the tradition. When you imagine how to move forward, you find yourself…",
     options: [
-      { text: "generate a new idea that reflects the community's current needs today.", style: "Yellow" },
-      { text: "propose a completely different theme and setup.", style: "Yellow" },
-      { text: "review what actually worked before reinventing anything.", style: "Indigo" },
-      { text: "retrieve old notes to see how past issues were solved.", style: "Indigo" }
+      { text: "picturing a completely different version of the event.", style: "Yellow" },
+      { text: "getting excited about what it could become.", style: "Yellow" },
+      { text: "thinking about which parts have carried real meaning over the years.", style: "Indigo" },
+      { text: "wanting to preserve what's made the tradition matter.", style: "Indigo" }
     ]
   },
-
   {
     axis: "Purpose",
-    prompt: "A recurring neighborhood issue keeps popping up. You would…",
+    prompt: "A local group keeps running into the same recurring problem, and people are tired of solving it the same way. When you're asked to help, you tend to…",
     options: [
-      { text: "draft a bold alternative that breaks the usual routine.", style: "Yellow" },
-      { text: "rethink the issue from a fresh angle.", style: "Yellow" },
-      { text: "look at what used to work before things changed.", style: "Indigo" },
-      { text: "recall simple fixes the community may have forgotten.", style: "Indigo" }
+      { text: "propose a completely different approach.", style: "Yellow" },
+      { text: "reimagine the problem from scratch.", style: "Yellow" },
+      { text: "look at what's worked in the past and why.", style: "Indigo" },
+      { text: "draw on lessons the group has already learned.", style: "Indigo" }
     ]
   },
-
   {
     axis: "Purpose",
-    prompt: "A local group wants a new tradition but can't agree. You would…",
+    prompt: "A younger member of your community wants to redesign a shared space that holds a lot of history for long-time residents. As the conversation unfolds, you find yourself…",
     options: [
-      { text: "generate a new idea that fits who the community is now.", style: "Yellow" },
-      { text: "suggest a creative option no one has tried before.", style: "Yellow" },
-      { text: "suggest reviving an older tradition that once brought people together.", style: "Indigo" },
-      { text: "ask longtime neighbors what they remember.", style: "Indigo" }
+      { text: "excited by the fresh possibilities they're proposing.", style: "Yellow" },
+      { text: "encouraging them to imagine boldly.", style: "Yellow" },
+      { text: "asking what should be kept from what came before.", style: "Indigo" },
+      { text: "making sure the space's history isn't lost in the redesign.", style: "Indigo" }
     ]
   },
-
   {
     axis: "Purpose",
-    prompt: "A recurring problem keeps showing up at meetings and people are tired. You would…",
+    prompt: "Your group is deciding whether to try something experimental or stick with an approach that's worked reliably for years. When the debate comes up, you tend to…",
     options: [
-      { text: "rethink the entire issue from a new angle.", style: "Yellow" },
-      { text: "propose a trial replacement instead of fixing the same problem again.", style: "Yellow" },
-      { text: "review when this wasn't a problem and identify what changed.", style: "Indigo" },
-      { text: "reuse an old solution that still works.", style: "Indigo" }
-    ]
-  },
-
-  {
-    axis: "Purpose",
-    prompt: "A youth group wants to redesign a community space. You would…",
-    options: [
-      { text: "sketch a fresh concept starting from a blank slate.", style: "Yellow" },
-      { text: "draft a bold concept that stretches what the space could be.", style: "Yellow" },
-      { text: "identify meaningful parts worth keeping.", style: "Indigo" },
-      { text: "ask longtime neighbors what they love about the space.", style: "Indigo" }
-    ]
-  },
-
-  {
-    axis: "Purpose",
-    prompt: "A committee is split between new ideas and the old way of doing things. You would…",
-    options: [
-      { text: "propose a bold trial version to see what the group learns.", style: "Yellow" },
-      { text: "try the new idea and treat it as an experiment.", style: "Yellow" },
-      { text: "keep what has worked instead of tossing good habits.", style: "Indigo" },
-      { text: "build on the old approach rather than ditching it.", style: "Indigo" }
+      { text: "advocate for trying the new idea, even without guarantees.", style: "Yellow" },
+      { text: "get energized by the unknown potential.", style: "Yellow" },
+      { text: "advocate for building on what's already proven.", style: "Indigo" },
+      { text: "want to honor the effort already invested in the current approach.", style: "Indigo" }
     ]
   }
 ];

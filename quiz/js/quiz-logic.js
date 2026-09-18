@@ -1,23 +1,32 @@
 /* ==========================================================================
    Climate Color Quiz — Score Keeping & Engine Logic
+   ==========================================================================
+   DOM, localStorage, and URL handling live here. The actual scoring math
+   lives in quiz-scoring.js (a pure module with no DOM dependency), so it
+   can also be imported directly by the Node simulation harness in
+   tools/simulate-quiz.js without any browser shimming.
    ========================================================================== */
 
 import { styles, questions } from './quiz-data.js';
 import { renderResultsScreen } from './results-ui.js';
+import { emptyScores, computeConstellation } from './quiz-scoring.js';
+
+// Questions sampled per axis per quiz session. The question bank currently
+// holds exactly this many per axis (4), so every session sees the full
+// bank today — but this constant is what you'd change if the bank later
+// grows to include a reserve pool for retake variety (see
+// tools/simulate-quiz.js output / the sampling-depth discussion for why 4
+// was chosen over the previous default of 2).
+const QUESTIONS_PER_AXIS = 4;
 
 let currentQuestion = 0;
-let scores = {
-    Red: 0, Green: 0,
-    Orange: 0, Purple: 0,
-    Blue: 0, Violet: 0,
-    Yellow: 0, Indigo: 0
-};
+let scores = emptyScores();
 
 /* ==========================================================================
-   Balanced Axis-Based Randomizer
+   Axis-Based Randomizer
    ========================================================================== */
 
-function selectRandomQuestionsByAxis(fullList, perAxis = 2) {
+function selectRandomQuestionsByAxis(fullList, perAxis = QUESTIONS_PER_AXIS) {
     const grouped = {
         Pace: [],
         People: [],
@@ -37,7 +46,9 @@ function selectRandomQuestionsByAxis(fullList, perAxis = 2) {
         selected.push(...shuffled.slice(0, perAxis));
     });
 
-    return selected;
+    // Shuffle the combined order too, so the four axes aren't always
+    // presented in the same Pace → People → Place → Purpose block order.
+    return selected.sort(() => Math.random() - 0.5);
 }
 
 /* ==========================================================================
@@ -51,7 +62,7 @@ export function recordAnswer(styleKey) {
 }
 
 export function resetScores() {
-    Object.keys(scores).forEach(key => scores[key] = 0);
+    scores = emptyScores();
     currentQuestion = 0;
 }
 
@@ -119,95 +130,47 @@ function handleAnswer(styleKey, activeQuestions) {
     }
 }
 
+/**
+ * DOM/localStorage/URL-aware wrapper around the pure computeConstellation().
+ * Returns { primary, secondary, tertiary } for backward compatibility with
+ * existing callers, plus confidence/axisBreakdown/excluded for anything
+ * that wants them later (not yet consumed by results-ui.js — that's a
+ * separate, later piece of work).
+ */
 export function calculateConstellation() {
     const urlParams = new URLSearchParams(window.location.search);
     const paramPrimary = urlParams.get('primary');
     const paramSecondary = urlParams.get('secondary');
     const paramTertiary = urlParams.get('tertiary');
 
+    // A shared/bookmarked link carries only the three color names, never
+    // the underlying answers — consistent with the standing "we don't
+    // track your answers" privacy commitment. That means confidence has
+    // no meaning here: it's a property of a specific answer set, not of
+    // the colors themselves, so it's intentionally left undefined rather
+    // than faked from nothing.
     if (styles[paramPrimary] && styles[paramSecondary] && styles[paramTertiary]) {
-        return { primary: paramPrimary, secondary: paramSecondary, tertiary: paramTertiary };
+        return { primary: paramPrimary, secondary: paramSecondary, tertiary: paramTertiary, confidence: undefined };
     }
 
-    const axes = [
-        { anchor: "Pace", poleA: "Red", poleB: "Green" },
-        { anchor: "People", poleA: "Orange", poleB: "Purple" },
-        { anchor: "Place", poleA: "Blue", poleB: "Violet" },
-        { anchor: "Purpose", poleA: "Yellow", poleB: "Indigo" }
-    ];
+    const result = computeConstellation(scores, { perAxis: QUESTIONS_PER_AXIS });
 
-    // Fisher-Yates shuffle, used to break ties without favoring array order
-    function shuffle(arr) {
-        const a = [...arr];
-        for (let i = a.length - 1; i > 0; i--) {
-            const j = Math.floor(Math.random() * (i + 1));
-            [a[i], a[j]] = [a[j], a[i]];
-        }
-        return a;
-    }
-
-    const axisWinners = axes.map((axis, index) => {
-        const scoreA = scores[axis.poleA];
-        const scoreB = scores[axis.poleB];
-        // A tied axis (e.g. 1-1) is a genuine coin flip, not a default to poleA
-        const winner = scoreA === scoreB
-            ? (Math.random() < 0.5 ? axis.poleA : axis.poleB)
-            : (scoreA > scoreB ? axis.poleA : axis.poleB);
-        return {
-            anchor: axis.anchor,
-            winner,
-            winningScore: Math.max(scoreA, scoreB),
-            margin: Math.abs(scoreA - scoreB),
-            originalIndex: index
-        };
-    });
-
-    // Sort by score/margin, but shuffle within any group that's still tied
-    // instead of silently favoring Pace > People > Place > Purpose every time
-    const deterministic = [...axisWinners].sort((a, b) => {
-        if (b.winningScore !== a.winningScore) return b.winningScore - a.winningScore;
-        return b.margin - a.margin;
-    });
-
-    const buckets = [];
-    deterministic.forEach((item, i) => {
-        const prev = deterministic[i - 1];
-        const sameGroup = prev && prev.winningScore === item.winningScore && prev.margin === item.margin;
-        if (sameGroup) {
-            buckets[buckets.length - 1].push(item);
-        } else {
-            buckets.push([item]);
-        }
-    });
-
-    const rankedWinners = buckets.flatMap(shuffle);
-    axisWinners.length = 0;
-    axisWinners.push(...rankedWinners);
-
-    const primaryKey = axisWinners[0].winner;
-    let secondaryKey = axisWinners[1].winner;
-    let tertiaryKey = axisWinners[2].winner;
-
-    if (secondaryKey === primaryKey) {
-        const alt = axisWinners.find(w => w.winner !== primaryKey);
-        secondaryKey = alt ? alt.winner : (primaryKey === "Red" ? "Green" : "Red");
-    }
-    if (tertiaryKey === primaryKey || tertiaryKey === secondaryKey) {
-        const alt = axisWinners.find(w => w.winner !== primaryKey && w.winner !== secondaryKey);
-        tertiaryKey = alt ? alt.winner : (primaryKey === "Blue" ? "Violet" : "Blue");
-    }
-
-    localStorage.setItem('climatecolor_primary', primaryKey);
-    localStorage.setItem('climatecolor_secondary', secondaryKey);
-    localStorage.setItem('climatecolor_tertiary', tertiaryKey);
+    localStorage.setItem('climatecolor_primary', result.primary);
+    localStorage.setItem('climatecolor_secondary', result.secondary);
+    localStorage.setItem('climatecolor_tertiary', result.tertiary);
+    // Full 8-color raw score vector + confidence, persisted for future use
+    // (team-mode aggregation, a later "how sure was I" UI, etc.) even
+    // though nothing reads these back yet.
+    localStorage.setItem('climatecolor_scores', JSON.stringify(scores));
+    localStorage.setItem('climatecolor_confidence', String(result.confidence));
 
     const url = new URL(window.location);
-    url.searchParams.set('primary', primaryKey);
-    url.searchParams.set('secondary', secondaryKey);
-    url.searchParams.set('tertiary', tertiaryKey);
+    url.searchParams.set('primary', result.primary);
+    url.searchParams.set('secondary', result.secondary);
+    url.searchParams.set('tertiary', result.tertiary);
     window.history.pushState({}, '', url);
 
-    return { primary: primaryKey, secondary: secondaryKey, tertiary: tertiaryKey };
+    return result;
 }
 
 function calculateResults() {
@@ -271,7 +234,7 @@ function initQuizState() {
 
         updateProgress(100, []);
         renderResultsScreen(
-            validPrimary, 
+            validPrimary,
             validSecondary || (validPrimary === "Red" ? "Green" : "Red"),
             validTertiary || "Blue"
         );
@@ -279,7 +242,7 @@ function initQuizState() {
         if (quizMain) quizMain.hidden = false;
         if (instructions) instructions.style.display = "block";
 
-        const activeQuestions = selectRandomQuestionsByAxis(questions, 2);
+        const activeQuestions = selectRandomQuestionsByAxis(questions, QUESTIONS_PER_AXIS);
 
         resetScores();
         renderQuestion(activeQuestions);
