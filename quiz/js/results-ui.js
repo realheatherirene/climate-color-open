@@ -1,4 +1,4 @@
-import { fullResults, secondarySyntheses } from './quiz-data.js';
+import { fullResults } from './quiz-data.js';
 
 // Stable, future-proof absolute URL builder for pathway pages
 function pathwayUrl(slug) {
@@ -47,9 +47,9 @@ export function renderResultsScreen(primaryKey, secondaryKey, tertiaryKey) {
 
       <h2 class="results-heading">Your climate strengths are:</h2>
       
-      <!-- Uniform Sized Archetype Pills (Now Clickable Links) -->
+      <!-- Uniform Sized Color Pills (Now Clickable Links) -->
       <div style="display: flex; align-items: center; gap: 0.6rem; flex-wrap: wrap; margin: 0.5rem 0 1rem 0;">
-        <a href="${pathwayUrl(primaryClass)}" class="archetype-pill"
+        <a href="${pathwayUrl(primaryClass)}" class="result-pill"
           style="text-decoration: none; font-size: 0.95rem; font-weight: 600; padding: 0.4rem 1rem; border-radius: 9999px;
           background-color: color-mix(in srgb, var(--${primaryClass}-color, var(--brand-teal)) 15%, transparent);
           color: var(--${primaryClass}-color, var(--brand-teal));
@@ -57,7 +57,7 @@ export function renderResultsScreen(primaryKey, secondaryKey, tertiaryKey) {
           ${primaryKey}
         </a>
 
-        <a href="${pathwayUrl(secondaryClass)}" class="archetype-pill"
+        <a href="${pathwayUrl(secondaryClass)}" class="result-pill"
           style="text-decoration: none; font-size: 0.95rem; font-weight: 600; padding: 0.4rem 1rem; border-radius: 9999px;
           background-color: color-mix(in srgb, var(--${secondaryClass}-color, var(--brand-teal)) 12%, transparent);
           color: var(--${secondaryClass}-color, var(--brand-teal));
@@ -65,7 +65,7 @@ export function renderResultsScreen(primaryKey, secondaryKey, tertiaryKey) {
           ${secondaryKey}
         </a>
 
-        <a href="${pathwayUrl(tertiaryClass)}" class="archetype-pill"
+        <a href="${pathwayUrl(tertiaryClass)}" class="result-pill"
           style="text-decoration: none; font-size: 0.95rem; font-weight: 600; padding: 0.4rem 1rem; border-radius: 9999px;
           background-color: color-mix(in srgb, var(--${tertiaryClass}-color, var(--brand-teal)) 8%, transparent);
           color: var(--${tertiaryClass}-color, var(--brand-teal));
@@ -88,7 +88,7 @@ export function renderResultsScreen(primaryKey, secondaryKey, tertiaryKey) {
         </div>
         <div class="styleIdentity">${primaryFull.description ? primaryFull.description.trim() : ''}</div>
         <a href="${pathwayUrl(primaryClass)}" class="pill-btn"
-          style="padding: 0.45rem 1rem; font-size: 0.85rem;">Explore ${primaryKey} Archetype &rarr;</a>
+          style="padding: 0.45rem 1rem; font-size: 0.85rem;">Explore the ${primaryKey} Pathway &rarr;</a>
       </div>
     </div>
 
@@ -102,7 +102,7 @@ export function renderResultsScreen(primaryKey, secondaryKey, tertiaryKey) {
         <div class="styleIdentity">${secondaryFull.description ? secondaryFull.description.trim() : ''}</div>
         <div class="styleMeta" style="margin-bottom: 1rem;">Supporting Energy</div>
         <a href="${pathwayUrl(secondaryClass)}" class="pill-btn"
-          style="padding: 0.45rem 1rem; font-size: 0.85rem;">Explore ${secondaryKey} Archetype &rarr;</a>
+          style="padding: 0.45rem 1rem; font-size: 0.85rem;">Explore the ${secondaryKey} Pathway &rarr;</a>
       </div>
     </div>
 
@@ -116,7 +116,7 @@ export function renderResultsScreen(primaryKey, secondaryKey, tertiaryKey) {
         <div class="styleIdentity">${tertiaryFull.description ? tertiaryFull.description.trim() : ''}</div>
         <div class="styleMeta" style="margin-bottom: 1rem;">Balancing Accent</div>
         <a href="${pathwayUrl(tertiaryClass)}" class="pill-btn"
-          style="padding: 0.45rem 1rem; font-size: 0.85rem;">Explore ${tertiaryKey} Archetype &rarr;</a>
+          style="padding: 0.45rem 1rem; font-size: 0.85rem;">Explore the ${tertiaryKey} Pathway &rarr;</a>
       </div>
     </div>
   `;
