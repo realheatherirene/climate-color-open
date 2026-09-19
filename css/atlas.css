@@ -9,7 +9,7 @@
   --yellow-color: #E1B809;
   --green-color: #5A9129;
   --blue-color: #2A71B0;
-  --indigo-color: #002060;
+  --indigo-color: #2E1A6B;
   --purple-color: #6D398B;
   --violet-color: #D946EF;
 
@@ -116,7 +116,7 @@ body {
   background: var(--bg-tertiary);
 }
 
-/* Archetype Dynamic Color Mapping Classes */
+/* Color-Keyed Pill & Button Variants */
 .pill-red, .btn-red-soft { background-color: color-mix(in srgb, var(--red-color) 10%, white); border: 1px solid color-mix(in srgb, var(--red-color) 30%, white); color: var(--red-color); }
 .pill-orange, .btn-orange-soft { background-color: color-mix(in srgb, var(--orange-color) 10%, white); border: 1px solid color-mix(in srgb, var(--orange-color) 30%, white); color: var(--orange-color); }
 .pill-yellow, .btn-yellow-soft { background-color: color-mix(in srgb, var(--yellow-color) 10%, white); border: 1px solid color-mix(in srgb, var(--yellow-color) 30%, white); color: var(--yellow-color); }
