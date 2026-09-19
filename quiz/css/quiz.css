@@ -1,10 +1,12 @@
-/* GLOBAL LEFT-ALIGN OVERRIDE */
-.quiz-page * {
-    text-align: left !important;
-}
-
-/* Align entire quiz container with header margin */
+/* Left-align the quiz container. text-align is inherited by default, so
+   setting it once here carries down to every descendant that doesn't
+   declare its own alignment — no universal selector or !important needed.
+   If something still renders centered after this change, it has its own
+   explicit text-align (or a centering layout property like justify-content
+   or margin: auto) that needs a small, scoped override right on that
+   element — not a blanket rule here. */
 .quiz-page {
+    text-align: left;
     padding-left: 1rem;
     padding-right: 1rem;
 }
