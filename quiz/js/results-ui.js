@@ -40,10 +40,12 @@ export function renderResultsScreen(primaryKey, secondaryKey, tertiaryKey) {
 
   // Short, generated blend-personality line — pulled from each color's
   // existing one-word reflection (quiz-data.js), not new hand-written copy.
-  // e.g. "A blend of steadiness, belonging, and safety."
+  // e.g. "Your climate color palette reflects a blend of steadiness,
+  // belonging, and safety." Sits under the "Your Climate Color Palette"
+  // heading rather than in the hero, so it reads as one sentence with it.
   const reflectionOf = (key) => (styles[key]?.reflection || "").toLowerCase();
-  const blendSummary = primaryKey && secondaryKey && tertiaryKey
-    ? `A blend of ${reflectionOf(primaryKey)}, ${reflectionOf(secondaryKey)}, and ${reflectionOf(tertiaryKey)}.`
+  const paletteSummary = primaryKey && secondaryKey && tertiaryKey
+    ? `Your climate color palette reflects a blend of ${reflectionOf(primaryKey)}, ${reflectionOf(secondaryKey)}, and ${reflectionOf(tertiaryKey)}.`
     : "";
 
   resultsEl.innerHTML = `
@@ -57,14 +59,13 @@ export function renderResultsScreen(primaryKey, secondaryKey, tertiaryKey) {
           var(--${primaryClass}-color, var(--brand-teal)),
           var(--${secondaryClass}-color, var(--brand-teal)),
           var(--${tertiaryClass}-color, var(--brand-teal)));"></div>
-      <div class="blend-summary">${blendSummary}</div>
     </div>
 
     <!-- Constellation: the three colors behind the blend, in order of strength -->
     <div class="constellation-header-section" style="text-align: left; margin: 2rem 0 2.5rem 0;">
 
       <h2 class="results-heading">Your Climate Color Palette</h2>
-      <div class="constellation-subtitle">The three colors behind your blend, in order of strength.</div>
+      <div class="constellation-subtitle">${paletteSummary}</div>
 
       <!-- Uniform Sized Color Pills (Now Clickable Links) -->
       <div style="display: flex; align-items: center; gap: 0.6rem; flex-wrap: wrap; margin: 0.75rem 0 0 0;">
