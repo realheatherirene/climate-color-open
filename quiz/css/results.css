@@ -88,8 +88,12 @@
    ========================================================================== */
 
 .blend-hero {
+    background: var(--bg-primary);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    box-shadow: var(--shadow-soft);
     text-align: center;
-    padding: 2rem 1rem 1.75rem 1rem;
+    padding: 2rem 1.75rem 1.75rem 1.75rem;
     margin: 0.5rem 0 2rem 0;
 }
 
@@ -124,11 +128,6 @@
     border-radius: 14px;
     margin: 0 auto 1rem auto;
     box-shadow: var(--shadow-hover);
-}
-
-.blend-summary {
-    font-size: 0.95rem;
-    color: var(--text-secondary);
 }
 
 .constellation-subtitle {
