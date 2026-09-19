@@ -1,63 +1,105 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Stewardship Quiz | Climate Color</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=ADLaM+Display&family=Varela+Round&display=swap" rel="stylesheet">
-    
-    <!-- Paths adjusted to match your actual nested repo structure -->
-    <link rel="stylesheet" href="../css/atlas.css">
-    <link rel="stylesheet" href="css/quiz.css">
-    <link rel="stylesheet" href="css/results.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Climate Color Pathways</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=ADLaM+Display&family=Varela+Round&display=swap" rel="stylesheet">
+
+  <!-- Global & Pathway Styles -->
+  <link rel="stylesheet" href="../css/atlas.css">
+  <link rel="stylesheet" href="pathways.css">
 </head>
+
 <body>
-    <!-- Header -->
-    <header class="quiz-header">
+  <header class="quiz-header">
+    <h1>The Pathways</h1>
+    <p>a collection of <strong>power</strong> and <strong>opportunity snapshots</strong> unique to each climate strength</p>
+  </header>
+
+  <main class="pathway-wrapper">
+
+        <!-- Pathway Card Grid -->
+    <div class="pathway-grid">
+      <div class="pathway-card" style="border-left-color: var(--red-color);">
         <div>
-            <h1>The Quiz</h1>
-            <p>a <strong>self-assessment tool</strong> that can be used to <strong>identify</strong> your climate strengths</p>
+          <h3><a href="red.html">Red</a></h3>
+          <p>The Path of Movement</p>
         </div>
-    </header>
+        <div><a href="red.html" class="btn-pill-soft btn-red-soft">Explore Red &rarr;</a></div>
+      </div>
 
-    <!-- Action Bar -->
-    <div class="beta-banner">
-        <div style="display: flex; gap: 0.75rem; align-items: center;" id="bannerActions">
-        <a href="https://climatecolor.com/quiz-faq" class="btn-sm-action" style="text-decoration: none;">FAQ</a>
+      <div class="pathway-card" style="border-left-color: var(--orange-color);">
+        <div>
+          <h3><a href="orange.html">Orange</a></h3>
+          <p>The Path of Enthusiasm</p>
         </div>
+        <div><a href="orange.html" class="btn-pill-soft btn-orange-soft">Explore Orange &rarr;</a></div>
+      </div>
+
+      <div class="pathway-card" style="border-left-color: var(--yellow-color);">
+        <div>
+          <h3><a href="yellow.html">Yellow</a></h3>
+          <p>The Path of Possibility</p>
+        </div>
+        <div><a href="yellow.html" class="btn-pill-soft btn-yellow-soft">Explore Yellow &rarr;</a></div>
+      </div>
+
+      <div class="pathway-card" style="border-left-color: var(--green-color);">
+        <div>
+          <h3><a href="green.html">Green</a></h3>
+          <p>The Path of Steadiness</p>
+        </div>
+        <div><a href="green.html" class="btn-pill-soft btn-green-soft">Explore Green &rarr;</a></div>
+      </div>
+
+      <div class="pathway-card" style="border-left-color: var(--blue-color);">
+        <div>
+          <h3><a href="blue.html">Blue</a></h3>
+          <p>The Path of Clarity</p>
+        </div>
+        <div><a href="blue.html" class="btn-pill-soft btn-blue-soft">Explore Blue &rarr;</a></div>
+      </div>
+
+      <div class="pathway-card" style="border-left-color: var(--indigo-color);">
+        <div>
+          <h3><a href="indigo.html">Indigo</a></h3>
+          <p>The Path of Memory</p>
+        </div>
+        <div><a href="indigo.html" class="btn-pill-soft btn-indigo-soft">Explore Indigo &rarr;</a></div>
+      </div>
+
+      <div class="pathway-card" style="border-left-color: var(--purple-color);">
+        <div>
+          <h3><a href="purple.html">Purple</a></h3>
+          <p>The Path of Belonging</p>
+        </div>
+        <div><a href="purple.html" class="btn-pill-soft btn-purple-soft">Explore Purple &rarr;</a></div>
+      </div>
+
+      <div class="pathway-card" style="border-left-color: var(--violet-color);">
+        <div>
+          <h3><a href="violet.html">Violet</a></h3>
+          <p>The Path of Safety</p>
+        </div>
+        <div><a href="violet.html" class="btn-pill-soft btn-violet-soft">Explore Violet &rarr;</a></div>
+      </div>
     </div>
 
-    <!-- Main Quiz Card Container -->
-<main id="quiz">
+    <!-- Closing Note -->
+    <section class="pathway-section" style="text-align: center;">
+      <p style="margin: 0; color: var(--text-secondary);">
+        You don’t need to fit into one Pathway.<br>
+        You don’t need to choose.<br>
+        You don’t need to stay the same.<br>
+        <strong>These are simply ways of seeing yourself with gentleness and clarity.</strong>
+      </p>
+    </section>
 
-    <p id="quizInstructions" class="text-muted" style="margin-bottom: 1.25rem;">
-        In this quiz, you'll move through eight neighborhood scenarios—simple civic challenges that invite you to consider how you would respond. Choose the option that feels the most right to you—even if it's not spot-on. There are no right or wrong answers.
-    </p>
-
-    <!-- Progress & Status Indicator (moved here) -->
-    <div class="progress-info-bar">
-        <span id="progressText">Question 1 of 8</span>
-        <span id="progressPercent">0%</span>
-    </div>
-
-    <div class="progress-container" id="progressContainer" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
-        <div class="progress-bar" id="progressBar"></div>
-    </div>
-
-    <div class="quiz-card" id="quizCard">
-        <div class="question-number" id="questionNumber">PACE AXIS</div>
-        <div class="question-text" id="questionText" tabindex="-1"></div>
-        <div class="options-container" id="optionsContainer"></div>
-    </div>
-
-</main>
-
-    <!-- Results Screen Container -->
-    <div id="results" hidden></div>
-
-    <!-- Script path adjusted to point into the js/ subdirectory -->
-    <script type="module" src="js/quiz-logic.js"></script>
+  </main>
 </body>
 </html>
