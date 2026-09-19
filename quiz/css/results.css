@@ -84,6 +84,62 @@
 }
 
 /* ==========================================================================
+   Blend Hero — single color-forward identity, leads the results page
+   ========================================================================== */
+
+.blend-hero {
+    border-radius: 16px;
+    border: 1px solid var(--border-color);
+    padding: 2.5rem 2rem 2rem 2rem;
+    text-align: center;
+    margin: 1rem 0 2rem 0;
+}
+
+.blend-eyebrow {
+    font-size: 0.85rem;
+    letter-spacing: 0.06em;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: var(--brand-teal);
+    margin-bottom: 0.5rem;
+}
+
+.blend-name {
+    font-family: 'ADLaM Display', 'Varela Round', sans-serif;
+    font-size: 2.75rem;
+    font-weight: 500;
+    color: var(--text-primary);
+    line-height: 1;
+    margin-bottom: 1.25rem;
+}
+
+.blend-swatch {
+    width: 140px;
+    height: 56px;
+    border-radius: 14px;
+    margin: 0 auto 1rem auto;
+    box-shadow: var(--shadow-hover);
+}
+
+.blend-descriptor {
+    font-size: 1.05rem;
+    font-style: italic;
+    color: var(--text-secondary);
+    margin-bottom: 0.75rem;
+}
+
+.blend-palette-line {
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+}
+
+.constellation-subtitle {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    margin-top: -0.5rem;
+}
+
+/* ==========================================================================
    Harmonized Spectrum Bar & Results Constellation Card Styles
    ========================================================================== */
 
@@ -210,6 +266,14 @@
     #results {
         padding: 0 0.75rem 3rem 0.75rem;
         margin: 1rem auto;
+    }
+
+    .blend-hero {
+        padding: 2rem 1.25rem 1.5rem 1.25rem;
+    }
+
+    .blend-name {
+        font-size: 2.1rem;
     }
 
     .sticky-results-bar {
