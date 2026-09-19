@@ -4,13 +4,13 @@
 
 export const styles = {
   "All Styles": { color: "#334155", pAnchor: "" },
-  Red: { color: "var(--red-color, #DC2626)", pAnchor: "PACE" },
-  Orange: { color: "var(--orange-color, #EA580C)", pAnchor: "PEOPLE" },
+  Red: { color: "var(--red-color, #E32322)", pAnchor: "PACE" },
+  Orange: { color: "var(--orange-color, #F18E1C)", pAnchor: "PEOPLE" },
   Yellow: { color: "var(--yellow-color, #E1B809)", pAnchor: "PURPOSE" },
-  Green: { color: "var(--green-color, #16A34A)", pAnchor: "PACE" },
-  Blue: { color: "var(--blue-color, #0284C7)", pAnchor: "PLACE" },
-  Indigo: { color: "var(--indigo-color, #4F46E5)", pAnchor: "PURPOSE" },
-  Purple: { color: "var(--purple-color, #9333EA)", pAnchor: "PEOPLE" },
+  Green: { color: "var(--green-color, #5A9129)", pAnchor: "PACE" },
+  Blue: { color: "var(--blue-color, #2A71B0)", pAnchor: "PLACE" },
+  Indigo: { color: "var(--indigo-color, #2E1A6B)", pAnchor: "PURPOSE" },
+  Purple: { color: "var(--purple-color, #6D398B)", pAnchor: "PEOPLE" },
   Violet: { color: "var(--violet-color, #D946EF)", pAnchor: "PLACE" }
 };
 
