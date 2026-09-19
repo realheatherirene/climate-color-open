@@ -128,7 +128,7 @@
 }
 
 /* ==========================================================================
-   Directory Card Components & Archetype Left Borders
+   Directory Card Components & Color-Keyed Left Borders
    ========================================================================== */
 
 .styleBlock {
@@ -252,7 +252,7 @@
     }
 }
 
-/* Archetype Text Theme Colors (Global Scope) */
+/* Color Theme Text Helpers (Global Scope) */
 .theme-red { color: var(--red-color); }
 .theme-orange { color: var(--orange-color); }
 .theme-yellow { color: var(--yellow-color); }
