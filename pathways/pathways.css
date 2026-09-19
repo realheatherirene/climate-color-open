@@ -1,6 +1,8 @@
-/* GLOBAL LEFT-ALIGN OVERRIDE */
-.pathways-page * {
-    text-align: left !important;
+/* Left-align the pathways page. text-align is inherited by default, so
+   setting it once here carries down to every descendant that doesn't
+   declare its own alignment — no universal selector or !important needed. */
+.pathways-page {
+    text-align: left;
 }
 
 /* ==========================================================================
@@ -39,7 +41,7 @@
   box-shadow: var(--shadow-hover);
 }
 
-/* Re-color the header font for each card based on its archetype color reference */
+/* Re-color the header font for each card based on its color-keyed inline style */
 .pathway-card[style*="red"] h3 { color: var(--red-color); }
 .pathway-card[style*="orange"] h3 { color: var(--orange-color); }
 .pathway-card[style*="yellow"] h3 { color: var(--yellow-color); }
@@ -71,7 +73,7 @@
   margin: 0 0 1rem 0;
 }
 
-/* Standardize ALL archetype buttons to look grey like the Directory */
+/* Standardize ALL pathway buttons to look grey like the Directory */
 .pathway-card a[class*="btn-"] {
   display: inline-block;
   width: auto !important;
@@ -93,7 +95,7 @@
   transform: translateY(-1px);
 }
 
-/* Individual Archetype Page Section styling */
+/* Individual Pathway Page Section styling */
 .pathway-section {
   background: var(--bg-primary);
   border: 1px solid var(--border-color);
