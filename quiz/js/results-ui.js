@@ -1,4 +1,4 @@
-import { fullResults } from './quiz-data.js';
+import { fullResults, styles } from './quiz-data.js';
 import { getBlend } from './blends-data.js';
 
 // Stable, future-proof absolute URL builder for pathway pages
@@ -38,32 +38,32 @@ export function renderResultsScreen(primaryKey, secondaryKey, tertiaryKey) {
   // resolve to three of the 8 core colors.
   const blend = getBlend(primaryKey, secondaryKey, tertiaryKey) || { name: "", descriptor: "" };
 
+  // Short, generated blend-personality line — pulled from each color's
+  // existing one-word reflection (quiz-data.js), not new hand-written copy.
+  // e.g. "A blend of steadiness, belonging, and safety."
+  const reflectionOf = (key) => (styles[key]?.reflection || "").toLowerCase();
+  const blendSummary = primaryKey && secondaryKey && tertiaryKey
+    ? `A blend of ${reflectionOf(primaryKey)}, ${reflectionOf(secondaryKey)}, and ${reflectionOf(tertiaryKey)}.`
+    : "";
+
   resultsEl.innerHTML = `
     <!-- Blend Hero: single color-forward identity, leads the results page -->
-    <div class="blend-hero"
-      style="background: linear-gradient(135deg,
-        color-mix(in srgb, var(--${primaryClass}-color, var(--brand-teal)) 10%, var(--bg-secondary)),
-        color-mix(in srgb, var(--${secondaryClass}-color, var(--brand-teal)) 10%, var(--bg-secondary)) 50%,
-        color-mix(in srgb, var(--${tertiaryClass}-color, var(--brand-teal)) 10%, var(--bg-secondary)));">
+    <div class="blend-hero">
       <div class="blend-eyebrow">Your climate color is</div>
       <div class="blend-name">${blend.name}</div>
+      <div class="blend-descriptor">${blend.descriptor}</div>
       <div class="blend-swatch"
         style="background: linear-gradient(135deg,
           var(--${primaryClass}-color, var(--brand-teal)),
           var(--${secondaryClass}-color, var(--brand-teal)),
           var(--${tertiaryClass}-color, var(--brand-teal)));"></div>
-      <div class="blend-descriptor">${blend.descriptor}</div>
-      <div class="blend-palette-line">Your climate color palette is
-        <span style="font-weight: 700; color: var(--${primaryClass}-color, var(--brand-teal));">${primaryKey}</span>,
-        <span style="font-weight: 700; color: var(--${secondaryClass}-color, var(--brand-teal));">${secondaryKey}</span>,
-        <span style="font-weight: 700; color: var(--${tertiaryClass}-color, var(--brand-teal));">${tertiaryKey}</span>.
-      </div>
+      <div class="blend-summary">${blendSummary}</div>
     </div>
 
     <!-- Constellation: the three colors behind the blend, in order of strength -->
     <div class="constellation-header-section" style="text-align: left; margin: 2rem 0 2.5rem 0;">
 
-      <h2 class="results-heading">Your Color Constellation</h2>
+      <h2 class="results-heading">Your Climate Color Palette</h2>
       <div class="constellation-subtitle">The three colors behind your blend, in order of strength.</div>
 
       <!-- Uniform Sized Color Pills (Now Clickable Links) -->
