@@ -1,11 +1,15 @@
-/* GLOBAL LEFT-ALIGN OVERRIDE */
-.directory-page * {
-    text-align: left !important;
-}
-
 /* ==========================================================================
    DIRECTORY CSS: Layouts & Components (Dependent on atlas.css)
    ========================================================================== */
+
+/* Left-align the directory page. text-align is inherited by default, so
+   setting it once here carries down to every descendant that doesn't
+   declare its own alignment — no universal selector or !important needed.
+   (Note: no element in this page currently carries this class — same
+   situation as the quiz.css and pathways.css versions of this fix.) */
+.directory-page {
+    text-align: left;
+}
 
 /* Search Bar */
 .search-bar {
