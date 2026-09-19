@@ -1,19 +1,10 @@
 import { fullResults } from './quiz-data.js';
+import { getBlend } from './blends-data.js';
 
 // Stable, future-proof absolute URL builder for pathway pages
 function pathwayUrl(slug) {
   const repoRoot = window.location.pathname.split('/')[1]; // e.g. "climate-color-open"
   return `${window.location.origin}/${repoRoot}/pathways/${slug}.html`;
-}
-
-// Helper to pull brand-accurate colors directly from atlas.css root variables
-function getThemeColor(styleKey, fallback = "#2A71B0") {
-  if (!styleKey) return fallback;
-  const lower = styleKey.toLowerCase();
-  const val = getComputedStyle(document.documentElement)
-    .getPropertyValue(`--${lower}-color`)
-    .trim();
-  return val || fallback;
 }
 
 export function renderResultsScreen(primaryKey, secondaryKey, tertiaryKey) {
@@ -41,14 +32,42 @@ export function renderResultsScreen(primaryKey, secondaryKey, tertiaryKey) {
   const secondaryClass = secondaryKey ? secondaryKey.toLowerCase() : "";
   const tertiaryClass = tertiaryKey ? tertiaryKey.toLowerCase() : "";
 
-  resultsEl.innerHTML = `
-    <!-- Unboxed Editorial Constellation Header -->
-    <div class="constellation-header-section" style="text-align: left; margin: 1.5rem 0 2.5rem 0;">
+  // Order-independent: the same three colors always resolve to the same
+  // blend, regardless of which one is primary/secondary/tertiary. Falls
+  // back gracefully for a malformed/legacy shared link that doesn't
+  // resolve to three of the 8 core colors.
+  const blend = getBlend(primaryKey, secondaryKey, tertiaryKey) || { name: "", descriptor: "" };
 
-      <h2 class="results-heading">Your climate strengths are:</h2>
-      
+  resultsEl.innerHTML = `
+    <!-- Blend Hero: single color-forward identity, leads the results page -->
+    <div class="blend-hero"
+      style="background: linear-gradient(135deg,
+        color-mix(in srgb, var(--${primaryClass}-color, var(--brand-teal)) 10%, var(--bg-secondary)),
+        color-mix(in srgb, var(--${secondaryClass}-color, var(--brand-teal)) 10%, var(--bg-secondary)) 50%,
+        color-mix(in srgb, var(--${tertiaryClass}-color, var(--brand-teal)) 10%, var(--bg-secondary)));">
+      <div class="blend-eyebrow">Your climate color is</div>
+      <div class="blend-name">${blend.name}</div>
+      <div class="blend-swatch"
+        style="background: linear-gradient(135deg,
+          var(--${primaryClass}-color, var(--brand-teal)),
+          var(--${secondaryClass}-color, var(--brand-teal)),
+          var(--${tertiaryClass}-color, var(--brand-teal)));"></div>
+      <div class="blend-descriptor">${blend.descriptor}</div>
+      <div class="blend-palette-line">Your climate color palette is
+        <span style="font-weight: 700; color: var(--${primaryClass}-color, var(--brand-teal));">${primaryKey}</span>,
+        <span style="font-weight: 700; color: var(--${secondaryClass}-color, var(--brand-teal));">${secondaryKey}</span>,
+        <span style="font-weight: 700; color: var(--${tertiaryClass}-color, var(--brand-teal));">${tertiaryKey}</span>.
+      </div>
+    </div>
+
+    <!-- Constellation: the three colors behind the blend, in order of strength -->
+    <div class="constellation-header-section" style="text-align: left; margin: 2rem 0 2.5rem 0;">
+
+      <h2 class="results-heading">Your Color Constellation</h2>
+      <div class="constellation-subtitle">The three colors behind your blend, in order of strength.</div>
+
       <!-- Uniform Sized Color Pills (Now Clickable Links) -->
-      <div style="display: flex; align-items: center; gap: 0.6rem; flex-wrap: wrap; margin: 0.5rem 0 1rem 0;">
+      <div style="display: flex; align-items: center; gap: 0.6rem; flex-wrap: wrap; margin: 0.75rem 0 0 0;">
         <a href="${pathwayUrl(primaryClass)}" class="result-pill"
           style="text-decoration: none; font-size: 0.95rem; font-weight: 600; padding: 0.4rem 1rem; border-radius: 9999px;
           background-color: color-mix(in srgb, var(--${primaryClass}-color, var(--brand-teal)) 15%, transparent);
@@ -73,17 +92,13 @@ export function renderResultsScreen(primaryKey, secondaryKey, tertiaryKey) {
           ${tertiaryKey}
         </a>
       </div>
-
-      <!-- Full-Width Fluid Gradient Spectrum Bar -->
-      <div id="climate-color-wash-container" class="constellation-spectrum-line"
-        style="height: 8px; width: 100%; border-radius: 9999px; margin: 2rem 0 0.5rem 0;"></div>
     </div>
 
     <!-- Primary Style Card -->
     <div class="styleBlock primary-card border-${primaryClass}">
       <div class="card-content">
         <div class="styleTitle" style="font-size: 1.25rem;">
-          <span style="color: var(--text-muted); font-weight: 400;">Primary strength:</span>
+          <span style="color: var(--text-muted); font-weight: 400;">Primary color:</span>
           <span class="theme-${primaryClass}" style="font-weight: 700;">${primaryKey}</span>
         </div>
         <div class="styleIdentity">${primaryFull.description ? primaryFull.description.trim() : ''}</div>
@@ -96,7 +111,7 @@ export function renderResultsScreen(primaryKey, secondaryKey, tertiaryKey) {
     <div class="styleBlock border-${secondaryClass}">
       <div class="card-content">
         <div class="styleTitle" style="font-size: 1.15rem;">
-          <span style="color: var(--text-muted); font-weight: 400;">Secondary strength:</span>
+          <span style="color: var(--text-muted); font-weight: 400;">Secondary color:</span>
           <span class="theme-${secondaryClass}" style="font-weight: 700;">${secondaryKey}</span>
         </div>
         <div class="styleIdentity">${secondaryFull.description ? secondaryFull.description.trim() : ''}</div>
@@ -110,7 +125,7 @@ export function renderResultsScreen(primaryKey, secondaryKey, tertiaryKey) {
     <div class="styleBlock border-${tertiaryClass}">
       <div class="card-content">
         <div class="styleTitle" style="font-size: 1.10rem;">
-          <span style="color: var(--text-muted); font-weight: 400;">Tertiary strength:</span>
+          <span style="color: var(--text-muted); font-weight: 400;">Tertiary color:</span>
           <span class="theme-${tertiaryClass}" style="font-weight: 700;">${tertiaryKey}</span>
         </div>
         <div class="styleIdentity">${tertiaryFull.description ? tertiaryFull.description.trim() : ''}</div>
@@ -120,15 +135,6 @@ export function renderResultsScreen(primaryKey, secondaryKey, tertiaryKey) {
       </div>
     </div>
   `;
-
-  // Render fluid gradient for the sleek accent line
-  const container = document.getElementById('climate-color-wash-container');
-  if (container) {
-    const pColor = getThemeColor(primaryKey, "#2A71B0");
-    const sColor = getThemeColor(secondaryKey, "#5A9129");
-    const tColor = getThemeColor(tertiaryKey, "#F18E1C");
-    container.style.background = `linear-gradient(90deg, ${pColor}, ${sColor}, ${tColor})`;
-  }
 
   // Copy Link & Reset Handlers
   document.getElementById("btnCopyLink").onclick = () => {
