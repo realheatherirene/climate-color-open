@@ -1,5 +1,6 @@
 import { fullResults, styles } from './quiz-data.js';
 import { getBlend } from './blends-data.js';
+import { renderColorWheel } from './color-wheel-ui.js';
 
 // Stable, future-proof absolute URL builder for pathway pages
 function pathwayUrl(slug) {
@@ -60,6 +61,10 @@ export function renderResultsScreen(primaryKey, secondaryKey, tertiaryKey) {
           var(--${secondaryClass}-color, var(--brand-teal)),
           var(--${tertiaryClass}-color, var(--brand-teal)));"></div>
     </div>
+
+    <!-- 8-Color Wheel: explore all eight colors, with primary/secondary/tertiary
+         extended outward as a persistent "you are here" indicator (B1) -->
+    <div id="colorWheelSection" class="color-wheel-section"></div>
 
     <!-- Constellation: the three colors behind the blend, in order of strength -->
     <div class="constellation-header-section" style="text-align: left; margin: 2rem 0 2.5rem 0;">
@@ -136,6 +141,10 @@ export function renderResultsScreen(primaryKey, secondaryKey, tertiaryKey) {
       </div>
     </div>
   `;
+
+  renderColorWheel(document.getElementById('colorWheelSection'), {
+    primaryKey, secondaryKey, tertiaryKey
+  });
 
   // Copy Link & Reset Handlers
   document.getElementById("btnCopyLink").onclick = () => {
