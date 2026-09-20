@@ -137,6 +137,69 @@
 }
 
 /* ==========================================================================
+   8-Color Wheel (B1) — explore all eight colors; primary/secondary/tertiary
+   extend outward as petals, the only "you are here" cue (no glow, no reveal
+   animation, per design decision)
+   ========================================================================== */
+
+.color-wheel-section {
+    text-align: center;
+    margin: 0.5rem 0 2rem 0;
+}
+
+.color-wheel-wrap {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+    max-width: 380px;
+    margin: 0 auto;
+}
+
+.color-wheel-svg {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.wheel-wedge {
+    cursor: pointer;
+    transition: filter 0.15s ease;
+}
+
+.wheel-wedge:hover,
+.wheel-wedge:focus-visible {
+    filter: brightness(1.06);
+    outline: 3px solid var(--brand-teal);
+    outline-offset: -3px;
+}
+
+.wheel-label {
+    font-family: 'Varela Round', -apple-system, BlinkMacSystemFont, sans-serif;
+    pointer-events: none;
+}
+
+.color-wheel-tooltip {
+    position: absolute;
+    transform: translate(-50%, -130%);
+    background: var(--text-primary);
+    color: var(--bg-primary);
+    font-size: 0.8rem;
+    font-weight: 700;
+    padding: 0.35rem 0.75rem;
+    border-radius: 8px;
+    white-space: nowrap;
+    pointer-events: none;
+    box-shadow: var(--shadow-hover);
+    z-index: 5;
+}
+
+.color-wheel-caption {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    margin-top: 0.75rem;
+}
+
+/* ==========================================================================
    Harmonized Spectrum Bar & Results Constellation Card Styles
    ========================================================================== */
 
