@@ -24,10 +24,13 @@ const RI = 72;             // inner radius / visible white ring
 const GLOBE_D = 115.8;     // globe diameter, centered inside the white ring
 const VIEWBOX_MIN = -40;
 const VIEWBOX_SIZE = 480;
-// This file lives at quiz/js/color-wheel-ui.js; the path below expects the
-// globe asset at quiz/images/climate-color-globe.png (sibling to js/ and css/
-// under quiz/). Move the asset elsewhere and this is the only line to update.
-const GLOBE_SRC = '../images/climate-color-globe.png';
+// This src is written into the page's HTML, so it resolves against the
+// DOCUMENT's URL (quiz/index.html) — not against this script's own location,
+// the way a JS `import` path would. quiz/index.html and quiz/images/ are
+// siblings, so no "../" here. Move the asset elsewhere and this is the only
+// line to update (and re-check against quiz/index.html's location, not
+// color-wheel-ui.js's).
+const GLOBE_SRC = 'images/climate-color-globe.png';
 
 // Wheel order, clockwise from 12 o'clock, matching the brand master wheel.
 // textColor is fixed per color: whichever of black/white actually clears
