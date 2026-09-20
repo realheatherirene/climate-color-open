@@ -13,13 +13,19 @@
 /* ==========================================================================
    Results Bar & Actions Placed Above Constellation Header
    ========================================================================== */
-.results-heading {
+
+/* Shared header voice for all three page-level headers (hero, palette,
+   closing) — same size, weight, and grammar (a full sentence, sentence
+   case, ending in a period) rather than mixing an uppercase eyebrow label,
+   a title-case heading, and a sentence. Approved design: canvas artboard
+   C1 — Results Page: Cohesive Story Flow, 2026-09-20. */
+.identity-heading {
   font-family: 'ADLaM Display', 'Varela Round', sans-serif;
-  font-size: 1.25rem;
-  font-weight: 400;
+  font-size: 1.5rem;
+  font-weight: 500;
   color: var(--text-primary);
-  margin: 1.5rem 0 1rem 0;
-  text-align: left;
+  margin: 0 0 0.75rem 0;
+  text-align: center;
 }
 
 .sticky-results-bar {
@@ -87,23 +93,29 @@
    Blend Hero — single color-forward identity, leads the results page
    ========================================================================== */
 
+/* .blend-hero is reused for BOTH bookend cards (the reveal at top and the
+   "You belong here" invitation at bottom) — same class, same shape, same
+   dynamically-computed background (set inline as `identityWash` in
+   results-ui.js from the person's own primary/secondary colors), so the two
+   always match for any result, not just a hardcoded pair. */
 .blend-hero {
-    background: var(--bg-primary);
-    border: 1px solid var(--border-color);
-    border-radius: 12px;
-    box-shadow: var(--shadow-soft);
+    border: 1px solid var(--border-color); /* overridden inline per-result */
+    border-radius: 16px;
     text-align: center;
     padding: 2rem 1.75rem 1.75rem 1.75rem;
     margin: 0.5rem 0 2rem 0;
 }
 
-.blend-eyebrow {
+.belonging-card {
+    margin: 1.75rem 0 0 0;
+}
+
+.belonging-paragraph {
     font-size: 1rem;
-    letter-spacing: 0.08em;
-    font-weight: 800;
-    text-transform: uppercase;
-    color: var(--brand-teal);
-    margin-bottom: 0.6rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    max-width: 580px;
+    margin: 0 auto 1.4rem auto;
 }
 
 .blend-name {
@@ -130,10 +142,24 @@
     box-shadow: var(--shadow-hover);
 }
 
+/* Palette section: open on the page background rather than boxed, sitting
+   between the two .blend-hero bookend cards as the "explore" beat. */
+.palette-section {
+    text-align: center;
+    margin: 2rem 0 0;
+}
+
 .constellation-subtitle {
     font-size: 0.9rem;
     color: var(--text-muted);
-    margin-top: -0.5rem;
+    max-width: 440px;
+    margin: 0 auto 1rem auto;
+}
+
+.wheel-bridge-line {
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    margin-bottom: 1.1rem;
 }
 
 /* ==========================================================================
@@ -144,14 +170,14 @@
 
 .color-wheel-section {
     text-align: center;
-    margin: 0.5rem 0 2rem 0;
+    margin: 0 0 0.5rem 0;
 }
 
 .color-wheel-wrap {
     position: relative;
     display: inline-block;
     width: 100%;
-    max-width: 380px;
+    max-width: 420px; /* sized up from 380px per the approved mockup's "a little bigger" */
     margin: 0 auto;
 }
 
