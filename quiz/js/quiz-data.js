@@ -37,6 +37,72 @@ export const starterKits = {
     Indigo: { core: ["Document oral histories and local lore", "Preserve traditional ecological knowledge", "Maintain institutional archives"] }
 };
 
+// ==========================================================================
+// Results-page Card 1 (Hero) content — added for the C3 redesign
+// (2026-09-21), approved as: "Love it, love it, love it. Approved. Let's
+// build it!" `primary` is used when this color is the person's PRIMARY
+// (starting) color — it's the "{Color} is you at your X" opener, 3
+// sentences. `short` is used when the color shows up as SECONDARY or
+// TERTIARY — a shorter "{Color} brings the Y" beat, 2 sentences. Both are
+// written in second person and verified at or under a 9th-grade reading
+// level (Flesch-Kincaid, MN plain-language standard) rather than assumed —
+// grades ranged 4.5–6.7, well under the ceiling on purpose (more inclusive
+// for a "welcome total newcomers" goal, not an accident).
+// ==========================================================================
+export const identityBlurbs = {
+    Red: {
+        primary: "Red is you at your most unstoppable. When a project stalls, you're the one who gets it moving again. You'd rather try something imperfect today than wait for a perfect plan tomorrow.",
+        short: "Red brings the momentum. You push things forward when everyone else is still talking about it."
+    },
+    Green: {
+        primary: "Green is you at your steadiest. While others move on to the next exciting thing, you keep showing up, day after day, season after season. That kind of endurance is rare, and the climate movement genuinely needs it.",
+        short: "Green brings the steadiness. You're the reason things keep going long after the excitement fades."
+    },
+    Orange: {
+        primary: "Orange is you at your warmest. You walk into a room and people feel like they belong there too. That warmth turns quiet interest into real momentum.",
+        short: "Orange brings the warmth. You make people feel welcome, and you turn quiet interest into real momentum."
+    },
+    Purple: {
+        primary: "Purple is you at your most connected. You notice who's missing from the room, and you bring them in. That instinct turns separate efforts into one real movement.",
+        short: "Purple brings the connection. You notice who's missing from the room, and you bring them in."
+    },
+    Blue: {
+        primary: "Blue is you at your clearest. You look at a messy problem and see the system underneath it, then you build something that actually works. That clarity turns a tangled goal into a plan people can follow.",
+        short: "Blue brings the clarity. You turn a messy problem into a plan people can actually follow."
+    },
+    Violet: {
+        primary: "Violet is you at your most protective. When something worth saving is at risk, you're the one standing in front of it. That protectiveness is what keeps hard-won progress from slipping away.",
+        short: "Violet brings the protection. When something worth saving is at risk, you're the one standing in front of it."
+    },
+    Yellow: {
+        primary: "Yellow is you at your most imaginative. You're the one still asking what if when everyone else has given up on the old approach. That kind of imagination opens doors other people can't see yet.",
+        short: "Yellow brings the imagination. You're the one still asking 'what if' when everyone else has given up on the old approach."
+    },
+    Indigo: {
+        primary: "Indigo is you at your most grounded. You remember what's worked before, and you make sure good lessons don't get lost the next time around. That memory keeps the movement from repeating its own mistakes.",
+        short: "Indigo brings the memory. You make sure the lessons already learned don't get lost."
+    }
+};
+
+// ==========================================================================
+// Results-page Card 2 (Checklist) content — one concrete, doable action per
+// color. Each is grounded in that color's real "Try This" list on its own
+// pathway page (not invented from scratch) — e.g. Green's line reflects the
+// pathway's "adopt a local habitat" / "join a stewardship program" /
+// "support a community garden" entries. Also verified at or under a
+// 9th-grade reading level.
+// ==========================================================================
+export const checklistActions = {
+    Red: "Lead a cleanup, or start a small action crew with friends who want to move fast.",
+    Green: "Join a habitat crew, garden project, or trail team near you, and keep coming back.",
+    Orange: "Host a coffee chat or a story night about climate. Bring the warmth.",
+    Purple: "Host a small gathering, or welcome someone new into a climate group.",
+    Blue: "Help a local group get organized. Build a simple system for sign-ups and schedules.",
+    Violet: "Join a habitat defense team, or help restore a trail that needs protecting.",
+    Yellow: "Go to a workshop that dreams up new climate ideas. Ask your boldest question.",
+    Indigo: "Record an elder's story, or help track your area's climate history."
+};
+
 export const questions = [
   {
     axis: "Pace",
