@@ -1,4 +1,4 @@
-import { fullResults, styles } from './quiz-data.js';
+import { identityBlurbs, checklistActions } from './quiz-data.js';
 import { getBlend } from './blends-data.js';
 import { renderColorWheel } from './color-wheel-ui.js';
 
@@ -8,9 +8,51 @@ function pathwayUrl(slug) {
   return `${window.location.origin}/${repoRoot}/pathways/${slug}.html`;
 }
 
-function pathwaysIndexUrl() {
-  const repoRoot = window.location.pathname.split('/')[1];
-  return `${window.location.origin}/${repoRoot}/pathways/index.html`;
+// Generic, blend-agnostic closing line — the "reach the soul" beat Heather
+// asked for, shared by all 56 blends rather than hand-written per blend.
+// Verified via Flesch-Kincaid at grade 5.9.
+const SOUL_CLOSER = "Together, these three colors mean you don't just care about the climate. " +
+  "You keep hope alive, and you make it easier for everyone around you to care too.";
+
+// Builds the "What this means for you:" paragraph inside Card 1. Composes:
+// a fixed lead-in naming the blend + primary color, the primary color's
+// 3-sentence "you at your X" blurb, the secondary and tertiary colors'
+// shorter 2-sentence "brings the Y" blurbs, then the shared closing line.
+// Generated, not authored — reused across all 56 blend combinations.
+function buildIdentityParagraph(blendName, primaryKey, secondaryKey, tertiaryKey) {
+  const p = identityBlurbs[primaryKey];
+  const s = identityBlurbs[secondaryKey];
+  const t = identityBlurbs[tertiaryKey];
+  if (!blendName || !p || !s || !t) return "";
+  return `${blendName} starts with ${primaryKey}, and ${p.primary} ${s.short} ${t.short} ${SOUL_CLOSER}`;
+}
+
+// One row of Card 2's checklist for a given palette color. `--item-color`
+// (an inline custom property) drives both the checkbox border and the link
+// color — the same pattern already used for `--pill-true`/`--pill-text`
+// below, so every color-specific styling hook in this file works the same
+// way rather than needing one CSS rule per color.
+function checklistItemHtml(colorKey, colorClass) {
+  const action = checklistActions[colorKey] || "";
+  return `
+    <div class="checklist-item">
+      <div class="checklist-box" style="--item-color: var(--${colorClass}-text, var(--brand-teal));"></div>
+      <div>
+        <div class="checklist-text">${action}</div>
+        <a href="${pathwayUrl(colorClass)}" class="checklist-link" style="--item-color: var(--${colorClass}-text, var(--brand-teal));">More ${colorKey} ideas &rarr;</a>
+      </div>
+    </div>`;
+}
+
+// One palette pill (used for both Card 1's "a blend of" row). `--pill-true`
+// is the color's real atlas.css hue (for the tinted background/border);
+// `--pill-text` is that color's WCAG-darkened counterpart (4.5:1 on white),
+// computed once for all 8 colors — Red/Blue/Indigo/Purple already clear
+// 4.5:1 at full saturation and use their true color for both.
+function palettePillHtml(colorKey, colorClass) {
+  return `<a href="${pathwayUrl(colorClass)}" class="palette-pill"
+      style="--pill-true: var(--${colorClass}-color, var(--brand-teal));
+             --pill-text: var(--${colorClass}-text, var(--brand-teal));">${colorKey}</a>`;
 }
 
 export function renderResultsScreen(primaryKey, secondaryKey, tertiaryKey) {
@@ -30,9 +72,6 @@ export function renderResultsScreen(primaryKey, secondaryKey, tertiaryKey) {
       `);
     }
   }
-  const primaryFull = fullResults[primaryKey] || { description: "" };
-  const secondaryFull = fullResults[secondaryKey] || { description: "" };
-  const tertiaryFull = fullResults[tertiaryKey] || { description: "" };
 
   const primaryClass = primaryKey ? primaryKey.toLowerCase() : "";
   const secondaryClass = secondaryKey ? secondaryKey.toLowerCase() : "";
@@ -42,136 +81,63 @@ export function renderResultsScreen(primaryKey, secondaryKey, tertiaryKey) {
   // blend, regardless of which one is primary/secondary/tertiary. Falls
   // back gracefully for a malformed/legacy shared link that doesn't
   // resolve to three of the 8 core colors.
-  const blend = getBlend(primaryKey, secondaryKey, tertiaryKey) || { name: "", descriptor: "" };
+  const blend = getBlend(primaryKey, secondaryKey, tertiaryKey) || { name: "", descriptor: "", hex: "" };
 
-  // One-word reflection per color (quiz-data.js) — reused below both for the
-  // closing paragraph and as the tooltip text inside the wheel itself.
-  const reflectionOf = (key) => (styles[key]?.reflection || "").toLowerCase();
+  const identityParagraph = buildIdentityParagraph(blend.name, primaryKey, secondaryKey, tertiaryKey);
 
-  // Closing paragraph — walks color → palette → wheel in one generated
-  // sentence, reusing primary's existing fullResults paragraph verbatim and
-  // secondary/tertiary's existing one-word reflections. No new hand-written
-  // copy per blend (56 combinations). B2-tweaks round (2026-09-20): the
-  // standalone "A blend of X, Y, and Z." sentence that used to sit in the
-  // wheel section is gone — this paragraph already carries that same
-  // information (secondary/tertiary reflections), so it was pure repetition,
-  // not a second thing to fold in. Trimmed the closing sentence from two
-  // sentences to one via an em dash to read punchier.
-  const closingParagraph = primaryKey && secondaryKey && tertiaryKey && blend.name
-    ? `${blend.name} starts with ${primaryKey}. ${(primaryFull.description || "").trim()} ` +
-      `${secondaryKey}'s ${reflectionOf(secondaryKey)} and ${tertiaryKey}'s ${reflectionOf(tertiaryKey)} sharpen that instinct — ` +
-      `one of eight ways to show up for the climate movement, and it needs all of them, including yours. ` +
-      `This is your starting point, not a test you passed or failed.`
-    : "";
-
-  // Shared background wash for the two bookend cards (hero + closing), both
-  // driven by the same primary/secondary colors so they always match for
-  // any result, not just this one. Reused as-is on both cards below.
+  // Shared background wash for Card 1 only (Card 2/the checklist stays a
+  // plain neutral card per the approved C3 mockup — no wash needed there).
   const identityWash = `background: linear-gradient(135deg,
       color-mix(in srgb, var(--${primaryClass}-color, var(--brand-teal)) 10%, transparent),
       color-mix(in srgb, var(--${secondaryClass}-color, var(--brand-teal)) 7%, transparent));
     border: 1px solid color-mix(in srgb, var(--${primaryClass}-color, var(--brand-teal)) 22%, transparent);`;
 
-  // Primary/Secondary/Tertiary detail cards — NOT rendered below (their
-  // content now lives in the closing paragraph above instead, per design
-  // decision on 2026-09-20: the wheel + pills already carry this info, so a
-  // full card per color was redundant reading). Left defined, unused, in
-  // case a future redesign wants them back.
-  const detailCardsHtml = `
-    <div class="styleBlock primary-card border-${primaryClass}">
-      <div class="card-content">
-        <div class="styleTitle" style="font-size: 1.25rem;">
-          <span style="color: var(--text-muted); font-weight: 400;">Primary color:</span>
-          <span class="theme-${primaryClass}" style="font-weight: 700;">${primaryKey}</span>
-        </div>
-        <div class="styleIdentity">${primaryFull.description ? primaryFull.description.trim() : ''}</div>
-        <a href="${pathwayUrl(primaryClass)}" class="pill-btn"
-          style="padding: 0.45rem 1rem; font-size: 0.85rem;">Explore the ${primaryKey} Pathway &rarr;</a>
-      </div>
-    </div>
-    <div class="styleBlock border-${secondaryClass}">
-      <div class="card-content">
-        <div class="styleTitle" style="font-size: 1.15rem;">
-          <span style="color: var(--text-muted); font-weight: 400;">Secondary color:</span>
-          <span class="theme-${secondaryClass}" style="font-weight: 700;">${secondaryKey}</span>
-        </div>
-        <div class="styleIdentity">${secondaryFull.description ? secondaryFull.description.trim() : ''}</div>
-        <div class="styleMeta" style="margin-bottom: 1rem;">Supporting Energy</div>
-        <a href="${pathwayUrl(secondaryClass)}" class="pill-btn"
-          style="padding: 0.45rem 1rem; font-size: 0.85rem;">Explore the ${secondaryKey} Pathway &rarr;</a>
-      </div>
-    </div>
-    <div class="styleBlock border-${tertiaryClass}">
-      <div class="card-content">
-        <div class="styleTitle" style="font-size: 1.10rem;">
-          <span style="color: var(--text-muted); font-weight: 400;">Tertiary color:</span>
-          <span class="theme-${tertiaryClass}" style="font-weight: 700;">${tertiaryKey}</span>
-        </div>
-        <div class="styleIdentity">${tertiaryFull.description ? tertiaryFull.description.trim() : ''}</div>
-        <div class="styleMeta" style="margin-bottom: 1rem;">Balancing Accent</div>
-        <a href="${pathwayUrl(tertiaryClass)}" class="pill-btn"
-          style="padding: 0.45rem 1rem; font-size: 0.85rem;">Explore the ${tertiaryKey} Pathway &rarr;</a>
-      </div>
-    </div>
-  `;
-  void detailCardsHtml; // intentionally unused — see comment above
-
   resultsEl.innerHTML = `
-    <!-- ACT 1 — THE REVEAL: single color-forward identity, now including the
-         palette names (moved in from the old palette-section below) as one
-         compact line of text-links. Bookends with the closing card below
-         via the same identityWash background. B2-tweaks round: header
-         shortened from a sentence to a colon-terminated label per Heather's
-         "ultra simple" headers. -->
-    <div class="blend-hero" style="${identityWash}">
-      <div class="identity-heading">Your climate color:</div>
+    <!-- CARD 1 — THE HERO: approved C3 design (2026-09-21), replacing the
+         old separate Box 1 (identity) and Box 3 (closing) cards entirely.
+         Blend name renders in locked neutral black for all 56 blends (a
+         deliberate WCAG decision, not an oversight — see blends-data.js
+         header comment); the swatch pill below it carries the blend's true
+         computed color instead, since a decorative swatch isn't subject to
+         WCAG's text-contrast rule. No blend.descriptor line here by design
+         — the approved mockup dropped it in favor of the fuller paragraph
+         below doing that work in plain language. -->
+    <div class="hero-card" style="${identityWash}">
+      <div class="identity-heading">Your climate color is:</div>
       <div class="blend-name">${blend.name}</div>
-      <div class="blend-descriptor">${blend.descriptor}</div>
-      <div class="blend-swatch"
-        style="background: linear-gradient(135deg,
-          var(--${primaryClass}-color, var(--brand-teal)),
-          var(--${secondaryClass}-color, var(--brand-teal)),
-          var(--${tertiaryClass}-color, var(--brand-teal)));"></div>
-      <div class="palette-line">
-        <span class="palette-label">Your climate palette:</span>
-        <a href="${pathwayUrl(primaryClass)}" class="palette-link theme-${primaryClass}">${primaryKey}</a>
-        <span class="palette-sep">&middot;</span>
-        <a href="${pathwayUrl(secondaryClass)}" class="palette-link theme-${secondaryClass}">${secondaryKey}</a>
-        <span class="palette-sep">&middot;</span>
-        <a href="${pathwayUrl(tertiaryClass)}" class="palette-link theme-${tertiaryClass}">${tertiaryKey}</a>
+      <div class="blend-swatch-pill" style="background: ${blend.hex || 'var(--brand-teal)'};"></div>
+
+      <div class="blend-of-label">A blend of:</div>
+      <div class="palette-pills">
+        ${palettePillHtml(primaryKey, primaryClass)}
+        ${palettePillHtml(secondaryKey, secondaryClass)}
+        ${palettePillHtml(tertiaryKey, tertiaryClass)}
+      </div>
+
+      <div class="identity-heading">What this means for you:</div>
+      <div class="action-paragraph">${identityParagraph}</div>
+    </div>
+
+    <!-- CARD 2 — THE CHECKLIST: pulled out of the paragraph into its own
+         card per Heather's note ("a new paragraph, a new card, or something
+         else... what if the user had their checklist, at this point?").
+         One row per palette color, each a real action grounded in that
+         color's own pathway page, plus a link into the full pathway for
+         more. -->
+    <div class="checklist-card">
+      <div class="identity-heading">Your starting checklist:</div>
+      <div class="checklist-items">
+        ${checklistItemHtml(primaryKey, primaryClass)}
+        ${checklistItemHtml(secondaryKey, secondaryClass)}
+        ${checklistItemHtml(tertiaryKey, tertiaryClass)}
       </div>
     </div>
 
-    <!-- ACT 2 — EXPLORE: just the wheel. B2-tweaks round: the heading,
-         summary sentence, big pill links, and bridge line that used to sit
-         above the wheel are gone — the palette names live in Box 1 now, the
-         wheel's own caption ("Hover or tap any color to explore.") already
-         tells people what to do with it, and the wheel is self-explanatory
-         once someone has their result. Nothing else needed here. -->
+    <!-- EXPLORE: just the wheel, positioned after both cards now — "the
+         larger context" that follows the printable plan itself. Content
+         here is still TBD pending a future round (interactive wheel today;
+         pathway/directory links may join it later). -->
     <div id="colorWheelSection" class="color-wheel-section"></div>
-
-    <!-- ACT 3 — THE INVITATION: closes the story instead of trailing off.
-         Same identityWash as the hero card above, so the two visually
-         bookend the page. Primary/secondary/tertiary detail is folded into
-         this one paragraph instead of three separate cards (see
-         detailCardsHtml above). B2-tweaks round: header changed from "You
-         belong here." to "Your climate colors in action." — the belonging
-         sentiment stays in the paragraph body ("your starting point, not a
-         test..."), it's just no longer the literal header text. Also
-         removed a "climate strengths" framing that used to run through this
-         part of the page. -->
-    <div class="blend-hero belonging-card" style="${identityWash}">
-      <div class="identity-heading">Your climate colors in action.</div>
-      <div class="belonging-paragraph">${closingParagraph}</div>
-      <div style="display: flex; gap: 0.75rem; justify-content: center; flex-wrap: wrap;">
-        <a href="${pathwaysIndexUrl()}" class="pill-btn" style="padding: 0.6rem 1.4rem; font-size: 0.9rem;">Explore All 8 Colors</a>
-      </div>
-      <!-- "Share Your Color" from the mockup isn't shipped yet on purpose:
-           a button with no real action behind it is a dead click and an
-           accessibility trap (a screen reader announces a control that does
-           nothing). Add it once there's an actual mechanism, e.g. a
-           shareable image export. -->
-    </div>
   `;
 
   renderColorWheel(document.getElementById('colorWheelSection'), {
