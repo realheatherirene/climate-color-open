@@ -85,6 +85,20 @@ export function renderResultsScreen(primaryKey, secondaryKey, tertiaryKey) {
 
   const identityParagraph = buildIdentityParagraph(blend.name, primaryKey, secondaryKey, tertiaryKey);
 
+  // Swatch pill background: the blend's true computed color when available.
+  // If blend.hex is ever missing (a blends-data.js that predates the hex
+  // field, or a malformed/legacy shared link that didn't resolve to a real
+  // blend), fall back to a gradient of the person's own 3 colors instead of
+  // one flat static color — so a stale data file degrades to "still shows
+  // your actual colors, just as a blend instead of a blend" rather than
+  // silently showing the same unrelated color for every single result.
+  const swatchBackground = blend.hex
+    ? blend.hex
+    : `linear-gradient(135deg,
+        var(--${primaryClass}-color, var(--brand-teal)),
+        var(--${secondaryClass}-color, var(--brand-teal)),
+        var(--${tertiaryClass}-color, var(--brand-teal)))`;
+
   // Shared background wash for Card 1 only (Card 2/the checklist stays a
   // plain neutral card per the approved C3 mockup — no wash needed there).
   const identityWash = `background: linear-gradient(135deg,
@@ -105,7 +119,7 @@ export function renderResultsScreen(primaryKey, secondaryKey, tertiaryKey) {
     <div class="hero-card" style="${identityWash}">
       <div class="identity-heading">Your climate color is:</div>
       <div class="blend-name">${blend.name}</div>
-      <div class="blend-swatch-pill" style="background: ${blend.hex || 'var(--brand-teal)'};"></div>
+      <div class="blend-swatch-pill" style="background: ${swatchBackground};"></div>
 
       <div class="blend-of-label">A blend of:</div>
       <div class="palette-pills">
