@@ -44,24 +44,23 @@ export function renderResultsScreen(primaryKey, secondaryKey, tertiaryKey) {
   // resolve to three of the 8 core colors.
   const blend = getBlend(primaryKey, secondaryKey, tertiaryKey) || { name: "", descriptor: "" };
 
-  // Short, generated blend-personality line — pulled from each color's
-  // existing one-word reflection (quiz-data.js), not new hand-written copy.
-  // e.g. "A blend of steadiness, belonging, and safety."
+  // One-word reflection per color (quiz-data.js) — reused below both for the
+  // closing paragraph and as the tooltip text inside the wheel itself.
   const reflectionOf = (key) => (styles[key]?.reflection || "").toLowerCase();
-  const paletteSummary = primaryKey && secondaryKey && tertiaryKey
-    ? `A blend of ${reflectionOf(primaryKey)}, ${reflectionOf(secondaryKey)}, and ${reflectionOf(tertiaryKey)}.`
-    : "";
 
-  // Closing "You belong here" paragraph — walks color → palette → wheel in
-  // one generated sentence, reusing primary's existing fullResults paragraph
-  // verbatim and secondary/tertiary's existing one-word reflections. No new
-  // hand-written copy per blend (56 combinations), same generated-not-
-  // authored approach as paletteSummary above. Approved design: canvas
-  // artboard C1 — Results Page: Cohesive Story Flow, 2026-09-20.
+  // Closing paragraph — walks color → palette → wheel in one generated
+  // sentence, reusing primary's existing fullResults paragraph verbatim and
+  // secondary/tertiary's existing one-word reflections. No new hand-written
+  // copy per blend (56 combinations). B2-tweaks round (2026-09-20): the
+  // standalone "A blend of X, Y, and Z." sentence that used to sit in the
+  // wheel section is gone — this paragraph already carries that same
+  // information (secondary/tertiary reflections), so it was pure repetition,
+  // not a second thing to fold in. Trimmed the closing sentence from two
+  // sentences to one via an em dash to read punchier.
   const closingParagraph = primaryKey && secondaryKey && tertiaryKey && blend.name
     ? `${blend.name} starts with ${primaryKey}. ${(primaryFull.description || "").trim()} ` +
-      `${secondaryKey}'s ${reflectionOf(secondaryKey)} and ${tertiaryKey}'s ${reflectionOf(tertiaryKey)} sharpen that instinct. ` +
-      `That's one of eight ways to show up for the climate movement, and it needs all of them, including yours. ` +
+      `${secondaryKey}'s ${reflectionOf(secondaryKey)} and ${tertiaryKey}'s ${reflectionOf(tertiaryKey)} sharpen that instinct — ` +
+      `one of eight ways to show up for the climate movement, and it needs all of them, including yours. ` +
       `This is your starting point, not a test you passed or failed.`
     : "";
 
@@ -118,10 +117,14 @@ export function renderResultsScreen(primaryKey, secondaryKey, tertiaryKey) {
   void detailCardsHtml; // intentionally unused — see comment above
 
   resultsEl.innerHTML = `
-    <!-- ACT 1 — THE REVEAL: single color-forward identity. Bookends with
-         the closing card below via the same identityWash background. -->
+    <!-- ACT 1 — THE REVEAL: single color-forward identity, now including the
+         palette names (moved in from the old palette-section below) as one
+         compact line of text-links. Bookends with the closing card below
+         via the same identityWash background. B2-tweaks round: header
+         shortened from a sentence to a colon-terminated label per Heather's
+         "ultra simple" headers. -->
     <div class="blend-hero" style="${identityWash}">
-      <div class="identity-heading">This is your climate color.</div>
+      <div class="identity-heading">Your climate color:</div>
       <div class="blend-name">${blend.name}</div>
       <div class="blend-descriptor">${blend.descriptor}</div>
       <div class="blend-swatch"
@@ -129,57 +132,36 @@ export function renderResultsScreen(primaryKey, secondaryKey, tertiaryKey) {
           var(--${primaryClass}-color, var(--brand-teal)),
           var(--${secondaryClass}-color, var(--brand-teal)),
           var(--${tertiaryClass}-color, var(--brand-teal)));"></div>
-    </div>
-
-    <!-- ACT 2+3 — PALETTE, THEN PALETTE IN CONTEXT: open on the page
-         background rather than boxed, so the two solid cards (reveal,
-         invitation) read as the page's bookends and this stays the
-         "explore" beat between them. -->
-    <div class="palette-section">
-      <h2 class="identity-heading">This is your climate color palette.</h2>
-      <div class="constellation-subtitle">${paletteSummary}</div>
-
-      <!-- Uniform Sized Color Pills (Now Clickable Links) -->
-      <div style="display: flex; align-items: center; justify-content: center; gap: 0.6rem; flex-wrap: wrap; margin: 0.75rem 0 1.8rem 0;">
-        <a href="${pathwayUrl(primaryClass)}" class="result-pill"
-          style="text-decoration: none; font-size: 0.95rem; font-weight: 600; padding: 0.4rem 1rem; border-radius: 9999px;
-          background-color: color-mix(in srgb, var(--${primaryClass}-color, var(--brand-teal)) 15%, transparent);
-          color: var(--${primaryClass}-color, var(--brand-teal));
-          border: 1px solid color-mix(in srgb, var(--${primaryClass}-color, var(--brand-teal)) 40%, transparent);">
-          ${primaryKey}
-        </a>
-
-        <a href="${pathwayUrl(secondaryClass)}" class="result-pill"
-          style="text-decoration: none; font-size: 0.95rem; font-weight: 600; padding: 0.4rem 1rem; border-radius: 9999px;
-          background-color: color-mix(in srgb, var(--${secondaryClass}-color, var(--brand-teal)) 12%, transparent);
-          color: var(--${secondaryClass}-color, var(--brand-teal));
-          border: 1px solid color-mix(in srgb, var(--${secondaryClass}-color, var(--brand-teal)) 30%, transparent);">
-          ${secondaryKey}
-        </a>
-
-        <a href="${pathwayUrl(tertiaryClass)}" class="result-pill"
-          style="text-decoration: none; font-size: 0.95rem; font-weight: 600; padding: 0.4rem 1rem; border-radius: 9999px;
-          background-color: color-mix(in srgb, var(--${tertiaryClass}-color, var(--brand-teal)) 8%, transparent);
-          color: var(--${tertiaryClass}-color, var(--brand-teal));
-          border: 1px solid color-mix(in srgb, var(--${tertiaryClass}-color, var(--brand-teal)) 25%, transparent);">
-          ${tertiaryKey}
-        </a>
+      <div class="palette-line">
+        <span class="palette-label">Your climate palette:</span>
+        <a href="${pathwayUrl(primaryClass)}" class="palette-link theme-${primaryClass}">${primaryKey}</a>
+        <span class="palette-sep">&middot;</span>
+        <a href="${pathwayUrl(secondaryClass)}" class="palette-link theme-${secondaryClass}">${secondaryKey}</a>
+        <span class="palette-sep">&middot;</span>
+        <a href="${pathwayUrl(tertiaryClass)}" class="palette-link theme-${tertiaryClass}">${tertiaryKey}</a>
       </div>
-
-      <div class="wheel-bridge-line">Here's how ${blend.name} fits among all eight climate colors.</div>
-
-      <!-- 8-Color Wheel: explore all eight colors, with primary/secondary/tertiary
-           extended outward as a persistent "you are here" indicator (B1) -->
-      <div id="colorWheelSection" class="color-wheel-section"></div>
     </div>
 
-    <!-- ACT 4 — THE INVITATION: closes the story instead of trailing off.
+    <!-- ACT 2 — EXPLORE: just the wheel. B2-tweaks round: the heading,
+         summary sentence, big pill links, and bridge line that used to sit
+         above the wheel are gone — the palette names live in Box 1 now, the
+         wheel's own caption ("Hover or tap any color to explore.") already
+         tells people what to do with it, and the wheel is self-explanatory
+         once someone has their result. Nothing else needed here. -->
+    <div id="colorWheelSection" class="color-wheel-section"></div>
+
+    <!-- ACT 3 — THE INVITATION: closes the story instead of trailing off.
          Same identityWash as the hero card above, so the two visually
          bookend the page. Primary/secondary/tertiary detail is folded into
          this one paragraph instead of three separate cards (see
-         detailCardsHtml above). -->
+         detailCardsHtml above). B2-tweaks round: header changed from "You
+         belong here." to "Your climate colors in action." — the belonging
+         sentiment stays in the paragraph body ("your starting point, not a
+         test..."), it's just no longer the literal header text. Also
+         removed a "climate strengths" framing that used to run through this
+         part of the page. -->
     <div class="blend-hero belonging-card" style="${identityWash}">
-      <div class="identity-heading">You belong here.</div>
+      <div class="identity-heading">Your climate colors in action.</div>
       <div class="belonging-paragraph">${closingParagraph}</div>
       <div style="display: flex; gap: 0.75rem; justify-content: center; flex-wrap: wrap;">
         <a href="${pathwaysIndexUrl()}" class="pill-btn" style="padding: 0.6rem 1.4rem; font-size: 0.9rem;">Explore All 8 Colors</a>
