@@ -14,11 +14,12 @@
    Results Bar & Actions Placed Above Constellation Header
    ========================================================================== */
 
-/* Shared header voice for all three page-level headers (hero, palette,
-   closing) — same size, weight, and grammar (a full sentence, sentence
-   case, ending in a period) rather than mixing an uppercase eyebrow label,
-   a title-case heading, and a sentence. Approved design: canvas artboard
-   C1 — Results Page: Cohesive Story Flow, 2026-09-20. */
+/* Shared header voice for both bookend headers (hero, closing) — same
+   size, weight, and color. Originally a matched pair of full sentences
+   (canvas artboard C1 — Results Page: Cohesive Story Flow, 2026-09-20);
+   the B2-tweaks round shortened both to short, colon-terminated labels
+   ("Your climate color:" / "Your climate colors in action.") for a
+   punchier, less wordy page — size/weight/color stay unified either way. */
 .identity-heading {
   font-family: 'ADLaM Display', 'Varela Round', sans-serif;
   font-size: 1.5rem;
@@ -142,24 +143,39 @@
     box-shadow: var(--shadow-hover);
 }
 
-/* Palette section: open on the page background rather than boxed, sitting
-   between the two .blend-hero bookend cards as the "explore" beat. */
-.palette-section {
-    text-align: center;
-    margin: 2rem 0 0;
-}
-
-.constellation-subtitle {
-    font-size: 0.9rem;
-    color: var(--text-muted);
-    max-width: 440px;
-    margin: 0 auto 1rem auto;
-}
-
-.wheel-bridge-line {
+/* Compact palette line inside Box 1 (the hero card) — B2-tweaks round:
+   replaces the old standalone palette-section below (heading, subtitle,
+   three big pill links, bridge sentence into the wheel), all removed. Just
+   three small colored text-links, still pointing at each color's pathway
+   page. Reuses the existing .theme-x color classes (already used elsewhere
+   on the site as plain colored text) rather than introducing a new
+   color-as-text pattern that would need its own contrast check. */
+.palette-line {
+    margin-top: 1.1rem;
     font-size: 0.95rem;
+}
+
+.palette-label {
+    font-weight: 600;
     color: var(--text-secondary);
-    margin-bottom: 1.1rem;
+    margin-right: 0.35rem;
+}
+
+.palette-link {
+    font-weight: 700;
+    text-decoration: none;
+    border-bottom: 1px solid currentColor;
+    padding-bottom: 1px;
+}
+
+.palette-link:hover,
+.palette-link:focus-visible {
+    opacity: 0.75;
+}
+
+.palette-sep {
+    color: var(--text-muted);
+    margin: 0 0.3rem;
 }
 
 /* ==========================================================================
@@ -168,9 +184,13 @@
    animation, per design decision)
    ========================================================================== */
 
+/* B2-tweaks round: this used to sit inside .palette-section (which supplied
+   the top spacing before it, plus a heading/subtitle/pills/bridge-line above
+   it). That wrapper is gone now — this is Box 2 in full, wheel only — so the
+   top margin moved here directly. */
 .color-wheel-section {
     text-align: center;
-    margin: 0 0 0.5rem 0;
+    margin: 2rem 0 1.75rem 0;
 }
 
 .color-wheel-wrap {
