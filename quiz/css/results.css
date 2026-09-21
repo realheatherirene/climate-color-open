@@ -2,6 +2,26 @@
    Climate Color Quiz — Results Screen Styles (Directory Harmonized)
    ========================================================================== */
 
+/* WCAG-safe darkened counterparts of the 8 core atlas.css colors, for text
+   that sits on a light/tinted background (palette pills, checklist boxes
+   and links) — added for the C3 hero/checklist redesign (2026-09-21).
+   Computed once via the same method used for blends-data.js: darken toward
+   black in small steps until contrast-vs-white clears 4.5:1. Red, Blue,
+   Indigo, and Purple already clear 4.5:1 at full saturation, so their
+   "-text" value is identical to their atlas.css "-color" value; Orange,
+   Yellow, Green, and Violet needed real darkening. Recompute if any of the
+   8 core hex values in atlas.css ever change. */
+:root {
+    --red-text: #E32322;
+    --orange-text: #A96314;
+    --yellow-text: #8B7206;
+    --green-text: #518325;
+    --blue-text: #2A71B0;
+    --indigo-text: #2E1A6B;
+    --purple-text: #6D398B;
+    --violet-text: #BB3CCE;
+}
+
 #results {
     max-width: 1120px;
     margin: 2rem auto;
@@ -91,91 +111,142 @@
 }
 
 /* ==========================================================================
-   Blend Hero — single color-forward identity, leads the results page
+   Card 1 — Hero: single color-forward identity + "what this means for you"
+   paragraph. Card 2 — Checklist: one action per palette color. Together
+   these replace the old .blend-hero (used for both a top identity card and
+   a bottom closing card) and .belonging-card/.belonging-paragraph from the
+   B2-tweaks round — approved C3 mockup, 2026-09-21 ("Love it, love it,
+   love it. Approved. Let's build it!").
    ========================================================================== */
 
-/* .blend-hero is reused for BOTH bookend cards (the reveal at top and the
-   "You belong here" invitation at bottom) — same class, same shape, same
-   dynamically-computed background (set inline as `identityWash` in
-   results-ui.js from the person's own primary/secondary colors), so the two
-   always match for any result, not just a hardcoded pair. */
-.blend-hero {
-    border: 1px solid var(--border-color); /* overridden inline per-result */
+.hero-card {
+    border: 1px solid var(--border-color); /* overridden inline per-result via identityWash */
     border-radius: 16px;
     text-align: center;
-    padding: 2rem 1.75rem 1.75rem 1.75rem;
-    margin: 0.5rem 0 2rem 0;
-}
-
-.belonging-card {
-    margin: 1.75rem 0 0 0;
-}
-
-.belonging-paragraph {
-    font-size: 1rem;
-    color: var(--text-secondary);
-    line-height: 1.6;
-    max-width: 580px;
-    margin: 0 auto 1.4rem auto;
+    padding: 2rem 1.75rem 2rem 1.75rem;
+    margin: 0.5rem 0 1.5rem 0;
 }
 
 .blend-name {
     font-family: 'ADLaM Display', 'Varela Round', sans-serif;
-    font-size: 2.75rem;
+    font-size: 2.35rem; /* sized down from 2.75rem now that it's rendered in solid black */
     font-weight: 500;
-    color: var(--text-primary);
     line-height: 1;
-    margin-bottom: 0.75rem;
+    margin-bottom: 1rem;
+    color: var(--text-primary); /* locked: neutral black for all 56 blends — sidesteps WCAG entirely */
 }
 
-.blend-descriptor {
-    font-size: 1.3rem;
-    font-style: italic;
-    color: var(--text-primary);
-    margin-bottom: 1.25rem;
+/* Decorative only — no text sits on this pill, so it isn't subject to
+   WCAG's text-contrast rule the way .blend-name is. Verified against the
+   least-visible of the 56 blends (Chartreuse, 2.66:1 vs. white) with the
+   drop shadow alone providing enough definition; no border needed. */
+.blend-swatch-pill {
+    display: inline-block;
+    width: 190px;
+    height: 42px;
+    border-radius: 9999px;
+    box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+    margin-bottom: 1.5rem;
 }
 
-.blend-swatch {
-    width: 140px;
-    height: 56px;
-    border-radius: 14px;
-    margin: 0 auto 1rem auto;
-    box-shadow: var(--shadow-hover);
-}
-
-/* Compact palette line inside Box 1 (the hero card) — B2-tweaks round:
-   replaces the old standalone palette-section below (heading, subtitle,
-   three big pill links, bridge sentence into the wheel), all removed. Just
-   three small colored text-links, still pointing at each color's pathway
-   page. Reuses the existing .theme-x color classes (already used elsewhere
-   on the site as plain colored text) rather than introducing a new
-   color-as-text pattern that would need its own contrast check. */
-.palette-line {
-    margin-top: 1.1rem;
-    font-size: 0.95rem;
-}
-
-.palette-label {
-    font-weight: 600;
-    color: var(--text-secondary);
-    margin-right: 0.35rem;
-}
-
-.palette-link {
+.blend-of-label {
+    font-size: 0.85rem;
     font-weight: 700;
-    text-decoration: none;
-    border-bottom: 1px solid currentColor;
-    padding-bottom: 1px;
-}
-
-.palette-link:hover,
-.palette-link:focus-visible {
-    opacity: 0.75;
-}
-
-.palette-sep {
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
     color: var(--text-muted);
-    margin: 0 0.3rem;
+    margin-bottom: 0.65rem;
+}
+
+.palette-pills {
+    display: flex;
+    gap: 0.55rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 2rem;
+}
+
+/* One rule for all 8 colors instead of 8 hardcoded pill-x classes — the
+   two custom properties (--pill-true, --pill-text) are set inline per pill
+   in results-ui.js, the same pattern .checklist-box/.checklist-link use
+   below via --item-color. */
+.palette-pill {
+    text-decoration: none;
+    font-size: 0.95rem;
+    font-weight: 700;
+    padding: 0.4rem 1.1rem;
+    border-radius: 9999px;
+    display: inline-block;
+    background-color: color-mix(in srgb, var(--pill-true, var(--brand-teal)) 15%, white);
+    border: 1px solid color-mix(in srgb, var(--pill-true, var(--brand-teal)) 40%, white);
+    color: var(--pill-text, var(--brand-teal));
+}
+
+.palette-pill:hover,
+.palette-pill:focus-visible {
+    background-color: color-mix(in srgb, var(--pill-true, var(--brand-teal)) 25%, white);
+}
+
+.action-paragraph {
+    font-size: 1rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    max-width: 540px;
+    margin: 0 auto;
+    text-align: left;
+}
+
+.checklist-card {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    padding: 1.75rem 1.75rem 1.5rem 1.75rem;
+    margin: 0 0 2rem 0;
+    text-align: center;
+}
+
+.checklist-items {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    text-align: left;
+    max-width: 480px;
+    margin: 0 auto;
+}
+
+.checklist-item {
+    display: flex;
+    gap: 0.75rem;
+    align-items: flex-start;
+}
+
+.checklist-box {
+    flex: 0 0 auto;
+    width: 22px;
+    height: 22px;
+    border-radius: 6px;
+    border: 2px solid var(--item-color, var(--text-muted));
+    margin-top: 0.1rem;
+}
+
+.checklist-text {
+    font-size: 1rem;
+    color: var(--text-primary);
+    line-height: 1.5;
+}
+
+.checklist-link {
+    display: inline-block;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--item-color, var(--brand-teal));
+    text-decoration: none;
+    margin-top: 0.25rem;
+}
+
+.checklist-link:hover,
+.checklist-link:focus-visible {
+    opacity: 0.75;
 }
 
 /* ==========================================================================
@@ -374,16 +445,13 @@
         margin: 1rem auto;
     }
 
-    .blend-hero {
-        padding: 2rem 1.25rem 1.5rem 1.25rem;
+    .hero-card,
+    .checklist-card {
+        padding: 1.75rem 1.25rem 1.5rem 1.25rem;
     }
 
     .blend-name {
-        font-size: 2.1rem;
-    }
-
-    .blend-descriptor {
-        font-size: 1.1rem;
+        font-size: 1.9rem;
     }
 
     .sticky-results-bar {
@@ -407,22 +475,37 @@
 }
 
 @media print {
-    .sticky-results-bar { 
-        display: none !important; 
+    .sticky-results-bar {
+        display: none !important;
     }
-    body { 
+    body {
         background: var(--bg-primary) !important;
         color: var(--text-primary) !important;
     }
-    .styleBlock { 
-        break-inside: avoid; 
-        box-shadow: none !important; 
+    .styleBlock {
+        break-inside: avoid;
+        box-shadow: none !important;
         border: 1px solid var(--border-strong) !important;
         background: var(--bg-primary) !important;
         color: var(--text-primary) !important;
     }
     .styleIdentity, .styleMeta, .styleTitle {
         color: var(--text-primary) !important;
+    }
+
+    /* Card 1 + Card 2 are the "look at me and my plan, all ready to go"
+       printable moment this design was built for — keep each one on a
+       single page and drop the swatch's drop shadow, which prints as a
+       gray smudge on most printers. The color-mix washes/tints print fine
+       as-is in Chrome/Edge/Safari with background graphics on; browsers
+       that strip them by default still leave a legible plain card. */
+    .hero-card,
+    .checklist-card {
+        break-inside: avoid;
+    }
+    .blend-swatch-pill {
+        box-shadow: none !important;
+        border: 1px solid var(--border-strong);
     }
 }
 
