@@ -32,13 +32,18 @@
     <!-- Main Quiz Card Container -->
 <main id="quiz">
 
+    <!-- Updated 2026-09-22 for the normative rewrite: 40 independent items
+         (was 16 paired-choice items), each answered on its own with the
+         Probably not / Maybe / Probably yes scale (was "pick one of four
+         options"). If quiz-faq.html also describes the old format/count,
+         it needs the same update. -->
     <p id="quizInstructions" class="text-muted" style="margin-bottom: 1.25rem;">
-        In this quiz, you'll move through sixteen quick scenarios—everyday moments that invite you to consider how you would respond. Choose the option that feels the most right to you—even if it's not spot-on. There are no right or wrong answers.
+        You'll move through 40 quick, everyday situations. For each one, choose Probably not, Maybe, or Probably yes, whatever feels most true for you. There's no right or wrong answer.
     </p>
 
     <!-- Progress & Status Indicator (moved here) -->
     <div class="progress-info-bar">
-        <span id="progressText">Question 1 of 16</span>
+        <span id="progressText">Question 1 of 40</span>
         <span id="progressPercent">0%</span>
     </div>
 
@@ -47,7 +52,12 @@
     </div>
 
     <div class="quiz-card" id="quizCard">
-        <div class="question-number" id="questionNumber">PACE AXIS</div>
+        <!-- Left empty (was a static "PACE AXIS" label): quiz-logic.js always
+             overwrites this with "" on render anyway now that axes are
+             retired, but the old hardcoded text would've flashed before JS
+             ran. Element/id kept only because quiz-logic.js still targets
+             #questionNumber — safe to remove entirely in a later pass. -->
+        <div class="question-number" id="questionNumber"></div>
         <div class="question-text" id="questionText" tabindex="-1"></div>
         <div class="options-container" id="optionsContainer"></div>
     </div>
