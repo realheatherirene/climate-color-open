@@ -131,13 +131,32 @@
     transition: all 0.15s ease;
 }
 
-.option-btn:hover, 
+.option-btn:hover,
 .option-btn:focus {
     border-color: var(--brand-teal);
     background: color-mix(in srgb, var(--brand-teal) 8%, white);
     transform: translateY(-1px);
     outline: 2px solid var(--brand-teal);
     outline-offset: 1px;
+}
+
+/* Fixed 3-point scale (Probably not / Maybe / Probably yes) — added for the
+   2026-09-22 normative rewrite. Every question now uses this same 3-button
+   row instead of the old 4-option column, so it gets its own layout: three
+   equal-width buttons side by side (rather than the old .options-container
+   column), each answer weighted equally in width/prominence on purpose —
+   this is a neutral rating scale, not a "pick the right one" list, so no
+   option should visually read as more or less inviting than another. */
+.scale-options {
+    flex-direction: row;
+    gap: 0.75rem;
+}
+
+.scale-btn {
+    flex: 1;
+    text-align: center;
+    font-weight: 600;
+    padding: 0.85rem 0.5rem;
 }
 
 /* Button & Pill Utilities */
@@ -167,4 +186,8 @@
     .cta-container { flex-direction: column; gap: 0.5rem; }
     .beta-banner { text-align: left; }
     .option-btn { padding: 0.6rem 0.8rem; font-size: 0.9rem; }
+    /* Three side-by-side buttons get cramped on a phone-width screen —
+       stack them instead, same as the old option list did. */
+    .scale-options { flex-direction: column; gap: 0.5rem; }
+    .scale-btn { padding: 0.7rem 0.8rem; }
 }
