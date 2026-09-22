@@ -196,6 +196,15 @@
     text-align: left;
 }
 
+/* ==========================================================================
+   RETIRED 2026-09-23: Card 2 (the checklist) is no longer rendered —
+   replaced by the "Look for this" three-card section below, which reuses
+   the .styleBlock/.styleTitle/.styleIdentity component from directory.css
+   / pathways.css instead of this bespoke checkbox layout. Left in place
+   deliberately (same standing practice as the dormant .styleBlock rules
+   this file already carried before today) in case the checkbox treatment
+   is wanted again for something else later.
+   ========================================================================== */
 .checklist-card {
     background: var(--bg-secondary);
     border: 1px solid var(--border-color);
@@ -247,6 +256,56 @@
 .checklist-link:hover,
 .checklist-link:focus-visible {
     opacity: 0.75;
+}
+
+/* ==========================================================================
+   "Look for this" — three per-color resource cards (primary/secondary/
+   tertiary), replacing Card 2 above (2026-09-23). Deliberately built on the
+   .styleBlock/.styleTitle/.styleIdentity/.border-{color} component already
+   defined below (originally shared with directory.css, kept dormant here
+   for exactly this) rather than a new one-off component — same card family
+   as the Directory and Pathways grids, just carrying two buttons instead
+   of one since each card needs to point to both its pathway page and its
+   filtered spot in the Directory. .cta-container/.btn-pill-soft mirror
+   directory.css's versions verbatim so all three "resource card" surfaces
+   (Directory, Pathways, Results) share one visual language.
+   ========================================================================== */
+.lookforthis-section {
+    margin-bottom: 2rem;
+}
+
+.lookforthis-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.25rem;
+}
+
+.cta-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: auto;
+}
+
+.btn-pill-soft {
+    display: inline-block;
+    width: auto !important;
+    padding: 0.45rem 1rem !important;
+    font-size: 0.85rem !important;
+    font-weight: 700;
+    text-align: left;
+    text-decoration: none;
+    border-radius: 9999px;
+    border: 1px solid var(--border-strong);
+    background-color: var(--bg-secondary);
+    color: var(--text-secondary) !important;
+    transition: all 0.15s ease;
+}
+
+.btn-pill-soft:hover {
+    background-color: var(--border-color);
+    border-color: var(--text-muted);
+    transform: translateY(-1px);
 }
 
 /* ==========================================================================
@@ -375,6 +434,12 @@
     box-shadow: var(--shadow-soft);
     margin-bottom: 1.5rem;
     transition: transform 0.15s ease, box-shadow 0.15s ease;
+    /* Flex column so .cta-container (margin-top: auto) sits flush at the
+       bottom of every card regardless of how long that color's action copy
+       runs — matches pathway-card's own layout in pathways.css. */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 .styleBlock:hover {
@@ -445,13 +510,25 @@
         margin: 1rem auto;
     }
 
-    .hero-card,
-    .checklist-card {
+    .hero-card {
         padding: 1.75rem 1.25rem 1.5rem 1.25rem;
     }
 
     .blend-name {
         font-size: 1.9rem;
+    }
+
+    /* The revived primary/secondary/tertiary cards stack to one column on
+       mobile (matching directory.css's own resource-grid breakpoint), and
+       drop to the same tighter padding directory.css uses for .styleBlock
+       at small widths, since three side-by-side cards' worth of padding
+       doesn't fit a phone screen. */
+    .lookforthis-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .lookforthis-section .styleBlock {
+        padding: 1rem 1.15rem;
     }
 
     .sticky-results-bar {
@@ -493,14 +570,16 @@
         color: var(--text-primary) !important;
     }
 
-    /* Card 1 + Card 2 are the "look at me and my plan, all ready to go"
-       printable moment this design was built for — keep each one on a
-       single page and drop the swatch's drop shadow, which prints as a
-       gray smudge on most printers. The color-mix washes/tints print fine
-       as-is in Chrome/Edge/Safari with background graphics on; browsers
-       that strip them by default still leave a legible plain card. */
+    /* The hero card and the "Look for this" section are the "look at me and
+       my plan, all ready to go" printable moment this design was built for
+       — keep each one on a single page and drop the swatch's drop shadow,
+       which prints as a gray smudge on most printers. The color-mix
+       washes/tints print fine as-is in Chrome/Edge/Safari with background
+       graphics on; browsers that strip them by default still leave a
+       legible plain card. Per-card break-avoidance for the three
+       .styleBlock cards themselves is already handled above. */
     .hero-card,
-    .checklist-card {
+    .lookforthis-section {
         break-inside: avoid;
     }
     .blend-swatch-pill {
