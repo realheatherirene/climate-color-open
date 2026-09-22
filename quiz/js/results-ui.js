@@ -117,7 +117,7 @@ export function renderResultsScreen(primaryKey, secondaryKey, tertiaryKey) {
          — the approved mockup dropped it in favor of the fuller paragraph
          below doing that work in plain language. -->
     <div class="hero-card" style="${identityWash}">
-      <div class="identity-heading">Your climate color is:</div>
+      <div class="identity-heading">Your climate color:</div>
       <div class="blend-name">${blend.name}</div>
       <div class="blend-swatch-pill" style="background: ${swatchBackground};"></div>
 
@@ -128,7 +128,7 @@ export function renderResultsScreen(primaryKey, secondaryKey, tertiaryKey) {
         ${palettePillHtml(tertiaryKey, tertiaryClass)}
       </div>
 
-      <div class="identity-heading">What this means for you:</div>
+      <div class="identity-heading">Your climate color in action:</div>
       <div class="action-paragraph">${identityParagraph}</div>
     </div>
 
