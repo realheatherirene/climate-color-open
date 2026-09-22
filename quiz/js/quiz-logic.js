@@ -1,63 +1,56 @@
 /* ==========================================================================
-   Climate Color Quiz — Score Keeping & Engine Logic
+   Climate Color Quiz — Score Keeping & Engine Logic (Normative rewrite,
+   2026-09-22)
    ==========================================================================
    DOM, localStorage, and URL handling live here. The actual scoring math
    lives in quiz-scoring.js (a pure module with no DOM dependency), so it
    can also be imported directly by the Node simulation harness in
    tools/simulate-quiz.js without any browser shimming.
+
+   This replaces the old axis-paired, forced-choice ipsative wrapper. There
+   is no more per-axis sampling: every item belongs to exactly one color
+   and is answered independently on the fixed 3-point scale from
+   quiz-scoring.js, so the full 40-item bank is administered every session
+   (order shuffled), rather than sampling N items per axis out of a larger
+   pool.
    ========================================================================== */
 
-import { styles, questions } from './quiz-data.js';
+import { questions, styles } from './quiz-data.js';
 import { renderResultsScreen } from './results-ui.js';
-import { emptyScores, computeConstellation } from './quiz-scoring.js';
+import { emptyScores, computeConstellation, SCALE } from './quiz-scoring.js';
 
-// Questions sampled per axis per quiz session. The question bank currently
-// holds exactly this many per axis (4), so every session sees the full
-// bank today — but this constant is what you'd change if the bank later
-// grows to include a reserve pool for retake variety (see
-// tools/simulate-quiz.js output / the sampling-depth discussion for why 4
-// was chosen over the previous default of 2).
-const QUESTIONS_PER_AXIS = 4;
+// Items answered per color this session. The question bank currently holds
+// exactly this many per color (5), so every session sees the full bank —
+// this constant is what the confidence calculation normalizes against, and
+// what a future retest/variety pool would sample down to.
+const ITEMS_PER_COLOR = 5;
 
 let currentQuestion = 0;
 let scores = emptyScores();
 
 /* ==========================================================================
-   Axis-Based Randomizer
+   Presentation-order Shuffle
    ========================================================================== */
 
-function selectRandomQuestionsByAxis(fullList, perAxis = QUESTIONS_PER_AXIS) {
-    const grouped = {
-        Pace: [],
-        People: [],
-        Place: [],
-        Purpose: []
-    };
-
-    fullList.forEach(q => {
-        if (grouped[q.axis]) {
-            grouped[q.axis].push(q);
-        }
-    });
-
-    const selected = [];
-    Object.keys(grouped).forEach(axis => {
-        const shuffled = grouped[axis].sort(() => Math.random() - 0.5);
-        selected.push(...shuffled.slice(0, perAxis));
-    });
-
-    // Shuffle the combined order too, so the four axes aren't always
-    // presented in the same Pace → People → Place → Purpose block order.
-    return selected.sort(() => Math.random() - 0.5);
+// Fisher-Yates — an unbiased shuffle of the full 40-item bank, so the 8
+// colors' items are interleaved rather than always appearing in color-block
+// order, and no color is systematically favored by presentation position.
+function shuffleQuestions(fullList) {
+    const a = [...fullList];
+    for (let i = a.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [a[i], a[j]] = [a[j], a[i]];
+    }
+    return a;
 }
 
 /* ==========================================================================
    Core Quiz Logic
    ========================================================================== */
 
-export function recordAnswer(styleKey) {
-    if (scores[styleKey] !== undefined) {
-        scores[styleKey]++;
+export function recordAnswer(colorKey, points) {
+    if (scores[colorKey] !== undefined) {
+        scores[colorKey] += points;
     }
 }
 
@@ -107,12 +100,19 @@ function renderQuestion(activeQuestions) {
     updateProgress(pct, activeQuestions);
 
     container.innerHTML = "";
+    // Distinguishes the fixed 3-button scale layout from the old 4-option
+    // column layout, without touching .options-container/.option-btn
+    // (still shared base styling — just laid out differently here).
+    container.classList.add("scale-options");
 
-    q.options.forEach(opt => {
+    // Fixed 3-point behaviorally-anchored scale (Probably not / Maybe /
+    // Probably yes) — the same three buttons on every question, since the
+    // scale itself is the constant and the color/points come from the item.
+    SCALE.forEach(opt => {
         const btn = document.createElement("button");
-        btn.className = "option-btn";
-        btn.textContent = opt.text;
-        btn.addEventListener("click", () => handleAnswer(opt.style, activeQuestions));
+        btn.className = "option-btn scale-btn";
+        btn.textContent = opt.label;
+        btn.addEventListener("click", () => handleAnswer(q.color, opt.points, activeQuestions));
         container.appendChild(btn);
     });
 
@@ -120,8 +120,8 @@ function renderQuestion(activeQuestions) {
     qText.focus();
 }
 
-function handleAnswer(styleKey, activeQuestions) {
-    recordAnswer(styleKey);
+function handleAnswer(colorKey, points, activeQuestions) {
+    recordAnswer(colorKey, points);
     currentQuestion++;
     if (currentQuestion < activeQuestions.length) {
         renderQuestion(activeQuestions);
@@ -133,9 +133,9 @@ function handleAnswer(styleKey, activeQuestions) {
 /**
  * DOM/localStorage/URL-aware wrapper around the pure computeConstellation().
  * Returns { primary, secondary, tertiary } for backward compatibility with
- * existing callers, plus confidence/axisBreakdown/excluded for anything
- * that wants them later (not yet consumed by results-ui.js — that's a
- * separate, later piece of work).
+ * existing callers, plus confidence/breakdown/excluded for anything that
+ * wants them later (not yet consumed by results-ui.js — that's a separate,
+ * later piece of work).
  */
 export function calculateConstellation() {
     const urlParams = new URLSearchParams(window.location.search);
@@ -149,11 +149,11 @@ export function calculateConstellation() {
     // no meaning here: it's a property of a specific answer set, not of
     // the colors themselves, so it's intentionally left undefined rather
     // than faked from nothing.
-    if (styles[paramPrimary] && styles[paramSecondary] && styles[paramTertiary]) {
+    if (isValidColor(paramPrimary) && isValidColor(paramSecondary) && isValidColor(paramTertiary)) {
         return { primary: paramPrimary, secondary: paramSecondary, tertiary: paramTertiary, confidence: undefined };
     }
 
-    const result = computeConstellation(scores, { perAxis: QUESTIONS_PER_AXIS });
+    const result = computeConstellation(scores, { itemsPerColor: ITEMS_PER_COLOR });
 
     localStorage.setItem('climatecolor_primary', result.primary);
     localStorage.setItem('climatecolor_secondary', result.secondary);
@@ -190,27 +190,34 @@ function calculateResults() {
     renderResultsScreen(primary, secondary, tertiary);
 }
 
+// Small helper so calculateConstellation()/initQuizState() don't each need
+// their own lookup logic just to validate a URL/localStorage value against
+// the 8 real color keys.
+function isValidColor(key) {
+    return !!(key && styles[key]);
+}
+
 function initQuizState() {
     const urlParams = new URLSearchParams(window.location.search);
     const paramPrimary = urlParams.get('primary');
     const paramSecondary = urlParams.get('secondary');
     const paramTertiary = urlParams.get('tertiary');
 
-    const validPrimary = styles[paramPrimary]
+    const validPrimary = isValidColor(paramPrimary)
         ? paramPrimary
-        : styles[localStorage.getItem('climatecolor_primary')]
+        : isValidColor(localStorage.getItem('climatecolor_primary'))
         ? localStorage.getItem('climatecolor_primary')
         : null;
 
-    let validSecondary = styles[paramSecondary]
+    let validSecondary = isValidColor(paramSecondary)
         ? paramSecondary
-        : styles[localStorage.getItem('climatecolor_secondary')]
+        : isValidColor(localStorage.getItem('climatecolor_secondary'))
         ? localStorage.getItem('climatecolor_secondary')
         : null;
 
-    let validTertiary = styles[paramTertiary]
+    let validTertiary = isValidColor(paramTertiary)
         ? paramTertiary
-        : styles[localStorage.getItem('climatecolor_tertiary')]
+        : isValidColor(localStorage.getItem('climatecolor_tertiary'))
         ? localStorage.getItem('climatecolor_tertiary')
         : null;
 
@@ -242,7 +249,7 @@ function initQuizState() {
         if (quizMain) quizMain.hidden = false;
         if (instructions) instructions.style.display = "block";
 
-        const activeQuestions = selectRandomQuestionsByAxis(questions, QUESTIONS_PER_AXIS);
+        const activeQuestions = shuffleQuestions(questions);
 
         resetScores();
         renderQuestion(activeQuestions);
