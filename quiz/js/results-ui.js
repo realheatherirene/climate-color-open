@@ -8,6 +8,15 @@ function pathwayUrl(slug) {
   return `${window.location.origin}/${repoRoot}/pathways/${slug}.html`;
 }
 
+// Absolute URL builder for a color's pre-filtered Directory listing, mirroring
+// pathwayUrl() above. directory-logic.js resolves the `?style=` param against
+// the real style names case-insensitively, so the color's proper-case name
+// (e.g. "Green") is exactly what it expects.
+function directoryUrl(colorKey) {
+  const repoRoot = window.location.pathname.split('/')[1];
+  return `${window.location.origin}/${repoRoot}/directory/index.html?style=${encodeURIComponent(colorKey)}`;
+}
+
 // Generic, blend-agnostic closing line — the "reach the soul" beat Heather
 // asked for, shared by all 56 blends rather than hand-written per blend.
 // Verified via Flesch-Kincaid at grade 5.9.
@@ -27,19 +36,25 @@ function buildIdentityParagraph(blendName, primaryKey, secondaryKey, tertiaryKey
   return `${blendName} starts with ${primaryKey}, and ${p.primary} ${s.short} ${t.short} ${SOUL_CLOSER}`;
 }
 
-// One row of Card 2's checklist for a given palette color. `--item-color`
-// (an inline custom property) drives both the checkbox border and the link
-// color — the same pattern already used for `--pill-true`/`--pill-text`
-// below, so every color-specific styling hook in this file works the same
-// way rather than needing one CSS rule per color.
-function checklistItemHtml(colorKey, colorClass) {
+// One revived "resource card" for a given palette color — same
+// .styleBlock/.styleTitle/.styleIdentity component family already used by
+// the Pathways and Directory pages (kept dormant in results.css for this
+// exact purpose). `isPrimary` adds the .primary-card modifier (thicker
+// border + stronger hover shadow) so the person's primary color reads as
+// the lead card among the three. Each card carries its own expanded action
+// content (see quiz-data.js's checklistActions) plus two buttons out to
+// that color's Pathway page and its pre-filtered Directory listing.
+function colorCardHtml(colorKey, colorClass, isPrimary) {
   const action = checklistActions[colorKey] || "";
   return `
-    <div class="checklist-item">
-      <div class="checklist-box" style="--item-color: var(--${colorClass}-text, var(--brand-teal));"></div>
-      <div>
-        <div class="checklist-text">${action}</div>
-        <a href="${pathwayUrl(colorClass)}" class="checklist-link" style="--item-color: var(--${colorClass}-text, var(--brand-teal));">More ${colorKey} ideas &rarr;</a>
+    <div class="styleBlock border-${colorClass}${isPrimary ? ' primary-card' : ''}">
+      <div class="card-content">
+        <div class="styleTitle">${colorKey}</div>
+        <div class="styleIdentity">${action}</div>
+      </div>
+      <div class="cta-container">
+        <a href="${pathwayUrl(colorClass)}" class="btn-pill-soft">Explore ${colorKey} &rarr;</a>
+        <a href="${directoryUrl(colorKey)}" class="btn-pill-soft">${colorKey} in the Directory &rarr;</a>
       </div>
     </div>`;
 }
@@ -132,18 +147,18 @@ export function renderResultsScreen(primaryKey, secondaryKey, tertiaryKey) {
       <div class="action-paragraph">${identityParagraph}</div>
     </div>
 
-    <!-- CARD 2 — THE CHECKLIST: pulled out of the paragraph into its own
-         card per Heather's note ("a new paragraph, a new card, or something
-         else... what if the user had their checklist, at this point?").
-         One row per palette color, each a real action grounded in that
-         color's own pathway page, plus a link into the full pathway for
-         more. -->
-    <div class="checklist-card">
-      <div class="identity-heading">Your starting checklist:</div>
-      <div class="checklist-items">
-        ${checklistItemHtml(primaryKey, primaryClass)}
-        ${checklistItemHtml(secondaryKey, secondaryClass)}
-        ${checklistItemHtml(tertiaryKey, tertiaryClass)}
+    <!-- LOOK FOR THIS: revived from the original primary/secondary/tertiary
+         card design (2026-09-22), replacing the short-lived checklist card.
+         Each card carries its own expanded action content plus two buttons
+         — one to that color's Pathway page, one to its pre-filtered
+         Directory listing — so a person who never scrolls past this point
+         still leaves with real, usable next steps for all three colors. -->
+    <div class="lookforthis-section">
+      <div class="identity-heading">Look for this:</div>
+      <div class="lookforthis-grid">
+        ${colorCardHtml(primaryKey, primaryClass, true)}
+        ${colorCardHtml(secondaryKey, secondaryClass, false)}
+        ${colorCardHtml(tertiaryKey, tertiaryClass, false)}
       </div>
     </div>
 

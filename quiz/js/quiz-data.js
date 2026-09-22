@@ -90,22 +90,25 @@ export const identityBlurbs = {
 };
 
 // ==========================================================================
-// Results-page Card 2 (Checklist) content — one concrete, doable action per
-// color. Each is grounded in that color's real "Try This" list on its own
-// pathway page (not invented from scratch) — e.g. Green's line reflects the
-// pathway's "adopt a local habitat" / "join a stewardship program" /
-// "support a community garden" entries. Also verified at or under a
-// 9th-grade reading level.
+// Results-page "Look for this" card content — expanded 2026-09-22 to stand
+// on its own (previously a single teaser line for the retired checklist
+// card; now the results page's main action content, since not every user
+// clicks through to a Pathway or the Directory). Each is still grounded in
+// that color's real "Try This" list from its own pathway page (not invented
+// from scratch) — e.g. Green's line reflects the pathway's "adopt a local
+// habitat" / "join a stewardship program" / "support a community garden"
+// entries — just with more of that list surfaced instead of one line of it.
+// Verified at or under a 9th-grade reading level (Flesch-Kincaid).
 // ==========================================================================
 export const checklistActions = {
-    Red: "Lead a cleanup, or start a small action crew with friends who want to move fast.",
-    Green: "Join a habitat crew, garden project, or trail team near you, and keep coming back.",
-    Orange: "Host a coffee chat or a story night about climate. Bring the warmth.",
-    Purple: "Host a small gathering, or welcome someone new into a climate group.",
-    Blue: "Help a local group get organized. Build a simple system for sign-ups and schedules.",
-    Violet: "Join a habitat defense team, or help restore a trail that needs protecting.",
-    Yellow: "Go to a workshop that dreams up new climate ideas. Ask your boldest question.",
-    Indigo: "Record an elder's story, or help track your area's climate history."
+    Red: "Look for ways to get something moving right away. Lead a cleanup or restoration shift, start a small action crew with friends who want to move fast, or volunteer as a project lead for a parks or watershed group near you.",
+    Orange: "Look for ways to bring people in. Host a story night about climate, record a short video about a local project, or join an outreach team that spreads the word.",
+    Yellow: "Look for spaces built for fresh ideas. Go to a climate workshop, join a planning meeting and offer a new angle, or help a group brainstorm zero-waste solutions.",
+    Green: "Look for something you can stick with for the long haul. Adopt a local habitat through your parks department, join a trail or garden crew, or take a regular shift with a conservation group near you.",
+    Blue: "Look for the mess that needs sorting out. Help run logistics for a cleanup event, build a simple sign-up system for a local group, or offer your organizing skills to a nonprofit near you.",
+    Indigo: "Look for what needs to be remembered and kept. Support a land trust with long-term involvement, help maintain a local heritage site, or record an elder's story about how your area has changed.",
+    Purple: "Look for the people who need a way in. Volunteer as a welcomer for a climate group, host a small gathering that builds trust, or help lead a conversation about local needs.",
+    Violet: "Look for what needs defending. Join a habitat defense team, volunteer with a climate justice group, or help with trail restoration work that needs steady hands."
 };
 
 export const questions = [
