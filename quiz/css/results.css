@@ -215,6 +215,23 @@
     background-color: color-mix(in srgb, var(--pill-true, var(--brand-teal)) 25%, white);
 }
 
+/* New 2026-09-23: replaces the old "Your climate color in action:"
+   .identity-heading label. The summary's own opening nature-imagery
+   sentence ("{Blend} is the color of {image}.") now sits here instead —
+   styled as a small lead-in line rather than a full heading: smaller and
+   lighter-weight than .identity-heading (1.5rem/500), but given the brand
+   teal accent color so it still pops instead of blending into the body
+   copy below it. */
+.nature-subheader {
+    font-size: 1.2rem;
+    font-weight: 400;
+    color: var(--brand-teal);
+    line-height: 1.4;
+    max-width: 540px;
+    margin: 0 auto 0.85rem auto;
+    text-align: left;
+}
+
 .action-paragraph {
     font-size: 1rem;
     color: var(--text-secondary);
@@ -224,9 +241,12 @@
     text-align: left;
 }
 
-/* Split into 3 <p> elements 2026-09-23 (was one unbroken block of text) —
-   Heather: break the summary "into intuitively broken paragraphs... so
-   it's easier to read." */
+/* Split into separate <p> elements 2026-09-23 (was one unbroken block of
+   text) — Heather: break the summary "into intuitively broken paragraphs...
+   so it's easier to read." Same-day follow-up moved the nature-imagery
+   sentence out into .nature-subheader above and replaced the old "starts
+   with" paragraph with three parallel per-color paragraphs, so this now
+   renders 4 <p>s (primary, secondary, tertiary, closing) instead of 3. */
 .action-paragraph p {
     margin: 0 0 1rem 0;
 }
