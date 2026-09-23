@@ -1,4 +1,4 @@
-import { identityBlurbs, checklistActions } from './quiz-data.js';
+import { identityBlurbs, colorActivities } from './quiz-data.js';
 import { getBlend } from './blends-data.js';
 import { renderColorWheel } from './color-wheel-ui.js';
 
@@ -23,38 +23,53 @@ function directoryUrl(colorKey) {
 const SOUL_CLOSER = "Together, these three colors mean you don't just care about the climate. " +
   "You keep hope alive, and you make it easier for everyone around you to care too.";
 
-// Builds the "What this means for you:" paragraph inside Card 1. Composes:
-// a fixed lead-in naming the blend + primary color, the primary color's
-// 3-sentence "you at your X" blurb, the secondary and tertiary colors'
-// shorter 2-sentence "brings the Y" blurbs, then the shared closing line.
-// Generated, not authored — reused across all 56 blend combinations.
-function buildIdentityParagraph(blendName, primaryKey, secondaryKey, tertiaryKey) {
+// Builds the hero card's summary as an array of paragraphs (2026-09-23,
+// replacing the old single-string version) so results-ui.js can render each
+// as its own <p> instead of one dense block. Three paragraphs:
+//   1. The new nature-imagery opener ("{Blend} is the color of {image}.")
+//      plus the "{Blend} starts with {Primary}" lead-in and the primary
+//      color's 3-sentence "you at your X" blurb.
+//   2. The secondary and tertiary colors' shorter "brings the Y" blurbs.
+//   3. The shared closing line (SOUL_CLOSER).
+// Still generated, not authored per blend — reused across all 56 blend
+// combinations via blends-data.js's `natureImage` field.
+function buildIdentityParagraphs(blend, primaryKey, secondaryKey, tertiaryKey) {
   const p = identityBlurbs[primaryKey];
   const s = identityBlurbs[secondaryKey];
   const t = identityBlurbs[tertiaryKey];
-  if (!blendName || !p || !s || !t) return "";
-  return `${blendName} starts with ${primaryKey}, and ${p.primary} ${s.short} ${t.short} ${SOUL_CLOSER}`;
+  if (!blend.name || !p || !s || !t) return [];
+
+  const natureLine = blend.natureImage ? `${blend.name} is the color of ${blend.natureImage}. ` : "";
+  const paragraph1 = `${natureLine}${blend.name} starts with ${primaryKey}, and ${p.primary}`;
+  const paragraph2 = `${s.short} ${t.short}`;
+  const paragraph3 = SOUL_CLOSER;
+
+  return [paragraph1, paragraph2, paragraph3];
 }
 
-// One revived "resource card" for a given palette color — same
+// One "action palette" card for a given palette color — same
 // .styleBlock/.styleTitle/.styleIdentity component family already used by
 // the Pathways and Directory pages (kept dormant in results.css for this
 // exact purpose). `isPrimary` adds the .primary-card modifier (thicker
 // border + stronger hover shadow) so the person's primary color reads as
-// the lead card among the three. Each card carries its own expanded action
-// content (see quiz-data.js's checklistActions) plus two buttons out to
+// the lead card among the three. Cards are now full-width stacked rows
+// (2026-09-23, replacing the 3-column grid Heather felt made them "too
+// skinny") with a short lead line plus a 3-item bullet list (quiz-data.js's
+// colorActivities) instead of one dense sentence, and two buttons out to
 // that color's Pathway page and its pre-filtered Directory listing.
 function colorCardHtml(colorKey, colorClass, isPrimary) {
-  const action = checklistActions[colorKey] || "";
+  const activities = colorActivities[colorKey] || [];
+  const itemsHtml = activities.map(item => `<li>${item}</li>`).join('');
   return `
     <div class="styleBlock border-${colorClass}${isPrimary ? ' primary-card' : ''}">
       <div class="card-content">
         <div class="styleTitle">${colorKey}</div>
-        <div class="styleIdentity">${action}</div>
+        <div class="styleIdentity">People with ${colorKey} in their palette tend to enjoy:</div>
+        <ul class="action-palette-items">${itemsHtml}</ul>
       </div>
-      <div class="lookforthis-cta">
-        <a href="${pathwayUrl(colorClass)}" class="btn-pill-soft">Explore ${colorKey} &rarr;</a>
-        <a href="${directoryUrl(colorKey)}" class="btn-pill-soft">${colorKey} in the Directory &rarr;</a>
+      <div class="action-palette-cta">
+        <a href="${pathwayUrl(colorClass)}" class="btn-pill-soft">Explore ${colorKey} ideas &rarr;</a>
+        <a href="${directoryUrl(colorKey)}" class="btn-pill-soft">Explore ${colorKey} resources &rarr;</a>
       </div>
     </div>`;
 }
@@ -96,9 +111,10 @@ export function renderResultsScreen(primaryKey, secondaryKey, tertiaryKey) {
   // blend, regardless of which one is primary/secondary/tertiary. Falls
   // back gracefully for a malformed/legacy shared link that doesn't
   // resolve to three of the 8 core colors.
-  const blend = getBlend(primaryKey, secondaryKey, tertiaryKey) || { name: "", descriptor: "", hex: "" };
+  const blend = getBlend(primaryKey, secondaryKey, tertiaryKey) || { name: "", descriptor: "", natureImage: "", hex: "" };
 
-  const identityParagraph = buildIdentityParagraph(blend.name, primaryKey, secondaryKey, tertiaryKey);
+  const identityParagraphs = buildIdentityParagraphs(blend, primaryKey, secondaryKey, tertiaryKey);
+  const identityParagraphsHtml = identityParagraphs.map(p => `<p>${p}</p>`).join('');
 
   // Swatch pill background: the blend's true computed color when available.
   // If blend.hex is ever missing (a blends-data.js that predates the hex
@@ -114,24 +130,21 @@ export function renderResultsScreen(primaryKey, secondaryKey, tertiaryKey) {
         var(--${secondaryClass}-color, var(--brand-teal)),
         var(--${tertiaryClass}-color, var(--brand-teal)))`;
 
-  // Shared background wash for Card 1 only (Card 2/the checklist stays a
-  // plain neutral card per the approved C3 mockup — no wash needed there).
-  const identityWash = `background: linear-gradient(135deg,
-      color-mix(in srgb, var(--${primaryClass}-color, var(--brand-teal)) 10%, transparent),
-      color-mix(in srgb, var(--${secondaryClass}-color, var(--brand-teal)) 7%, transparent));
-    border: 1px solid color-mix(in srgb, var(--${primaryClass}-color, var(--brand-teal)) 22%, transparent);`;
-
   resultsEl.innerHTML = `
     <!-- CARD 1 — THE HERO: approved C3 design (2026-09-21), replacing the
          old separate Box 1 (identity) and Box 3 (closing) cards entirely.
-         Blend name renders in locked neutral black for all 56 blends (a
+         Background changed 2026-09-23 from a per-blend color wash to a flat
+         neutral grey (Heather: "I just don't love the color-aligned
+         shading, and it's not necessary") — see results.css's .hero-card
+         for the actual color; no inline style needed here anymore. Blend
+         name renders in locked neutral black for all 56 blends (a
          deliberate WCAG decision, not an oversight — see blends-data.js
          header comment); the swatch pill below it carries the blend's true
          computed color instead, since a decorative swatch isn't subject to
-         WCAG's text-contrast rule. No blend.descriptor line here by design
-         — the approved mockup dropped it in favor of the fuller paragraph
-         below doing that work in plain language. -->
-    <div class="hero-card" style="${identityWash}">
+         WCAG's text-contrast rule. The summary paragraph now opens with a
+         nature-imagery sentence built from blends-data.js's natureImage
+         field, then splits into 3 paragraphs instead of one dense block. -->
+    <div class="hero-card">
       <div class="identity-heading">Your climate color:</div>
       <div class="blend-name">${blend.name}</div>
       <div class="blend-swatch-pill" style="background: ${swatchBackground};"></div>
@@ -144,18 +157,20 @@ export function renderResultsScreen(primaryKey, secondaryKey, tertiaryKey) {
       </div>
 
       <div class="identity-heading">Your climate color in action:</div>
-      <div class="action-paragraph">${identityParagraph}</div>
+      <div class="action-paragraph">${identityParagraphsHtml}</div>
     </div>
 
-    <!-- LOOK FOR THIS: revived from the original primary/secondary/tertiary
-         card design (2026-09-22), replacing the short-lived checklist card.
-         Each card carries its own expanded action content plus two buttons
-         — one to that color's Pathway page, one to its pre-filtered
-         Directory listing — so a person who never scrolls past this point
-         still leaves with real, usable next steps for all three colors. -->
-    <div class="lookforthis-section">
-      <div class="identity-heading">Look for this:</div>
-      <div class="lookforthis-grid">
+    <!-- YOUR ACTION PALETTE: revived from the original primary/secondary/
+         tertiary card design (2026-09-22), relabeled and restyled
+         2026-09-23 (was "Look for this") as full-width stacked rows instead
+         of a 3-column grid Heather felt made the cards "too skinny." Each
+         card carries a short bullet list plus two buttons — one to that
+         color's Pathway page, one to its pre-filtered Directory listing —
+         so a person who never scrolls past this point still leaves with
+         real, usable next steps for all three colors. -->
+    <div class="action-palette-section">
+      <div class="identity-heading">Your action palette:</div>
+      <div class="action-palette-list">
         ${colorCardHtml(primaryKey, primaryClass, true)}
         ${colorCardHtml(secondaryKey, secondaryClass, false)}
         ${colorCardHtml(tertiaryKey, tertiaryClass, false)}
