@@ -45,14 +45,24 @@ export const starterKits = {
 // ==========================================================================
 // Results-page Card 1 (Hero) content — added for the C3 redesign
 // (2026-09-21), approved as: "Love it, love it, love it. Approved. Let's
-// build it!" `primary` is used when this color is the person's PRIMARY
-// (starting) color — it's the "{Color} is you at your X" opener, 3
-// sentences. `short` is used when the color shows up as SECONDARY or
-// TERTIARY — a shorter "{Color} brings the Y" beat, 2 sentences. Both are
-// written in second person and verified at or under a 9th-grade reading
-// level (Flesch-Kincaid, MN plain-language standard) rather than assumed —
-// grades ranged 4.5–6.7, well under the ceiling on purpose (more inclusive
-// for a "welcome total newcomers" goal, not an accident).
+// build it!" Originally, `primary` was used when this color was the
+// person's PRIMARY (starting) color — the "{Color} is you at your X"
+// opener, 3 sentences — and `short` for when it showed up as SECONDARY or
+// TERTIARY — a shorter "{Color} brings the Y" beat, 2 sentences.
+//
+// 2026-09-23: results-ui.js no longer uses `primary` at all — Heather asked
+// for the hero summary's three color paragraphs to read as parallel,
+// equally punchy "{Color} brings the..." statements rather than giving the
+// primary color a longer, differently-voiced treatment, so all three
+// palette colors now pull from `short`. `primary` is left in place (each
+// entry's data, not deleted) in case a future layout wants the longer
+// per-color voice back, but it's currently dormant/unused.
+//
+// Both fields are written in second person and verified at or under a
+// 9th-grade reading level (Flesch-Kincaid, MN plain-language standard)
+// rather than assumed — grades ranged 4.5–6.7, well under the ceiling on
+// purpose (more inclusive for a "welcome total newcomers" goal, not an
+// accident).
 // ==========================================================================
 export const identityBlurbs = {
     Red: {
