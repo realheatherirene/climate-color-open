@@ -23,28 +23,33 @@ function directoryUrl(colorKey) {
 const SOUL_CLOSER = "Together, these three colors mean you don't just care about the climate. " +
   "You keep hope alive, and you make it easier for everyone around you to care too.";
 
-// Builds the hero card's summary as an array of paragraphs (2026-09-23,
-// replacing the old single-string version) so results-ui.js can render each
-// as its own <p> instead of one dense block. Three paragraphs:
-//   1. The new nature-imagery opener ("{Blend} is the color of {image}.")
-//      plus the "{Blend} starts with {Primary}" lead-in and the primary
-//      color's 3-sentence "you at your X" blurb.
-//   2. The secondary and tertiary colors' shorter "brings the Y" blurbs.
-//   3. The shared closing line (SOUL_CLOSER).
+// Builds the hero card's summary content (revised 2026-09-23, replacing the
+// prior version's "{Blend} starts with {Primary}, and {3-sentence blurb}"
+// opening paragraph). Returns { subheader, paragraphs }:
+//   - `subheader` is just the nature-imagery line ("{Blend} is the color of
+//     {image}.") on its own, now standing in for the retired "Your climate
+//     color in action:" label instead of leading into a paragraph — Heather:
+//     that label "isn't needed and not accurate." Rendered separately by
+//     renderResultsScreen as a small styled line, not one of the <p>s below.
+//   - `paragraphs` is four short, parallel entries: the primary, secondary,
+//     and tertiary colors' own "{Color} brings the {trait}." blurbs (all
+//     three now pull from identityBlurbs' `short` field — the longer
+//     "{Color} is you at your most X" `primary` field is no longer used
+//     here, so all three colors read as one consistent, punchy pattern
+//     instead of the primary color getting a different, longer treatment),
+//     plus the shared closing line (SOUL_CLOSER) last.
 // Still generated, not authored per blend — reused across all 56 blend
 // combinations via blends-data.js's `natureImage` field.
 function buildIdentityParagraphs(blend, primaryKey, secondaryKey, tertiaryKey) {
   const p = identityBlurbs[primaryKey];
   const s = identityBlurbs[secondaryKey];
   const t = identityBlurbs[tertiaryKey];
-  if (!blend.name || !p || !s || !t) return [];
+  if (!blend.name || !p || !s || !t) return { subheader: "", paragraphs: [] };
 
-  const natureLine = blend.natureImage ? `${blend.name} is the color of ${blend.natureImage}. ` : "";
-  const paragraph1 = `${natureLine}${blend.name} starts with ${primaryKey}, and ${p.primary}`;
-  const paragraph2 = `${s.short} ${t.short}`;
-  const paragraph3 = SOUL_CLOSER;
+  const subheader = blend.natureImage ? `${blend.name} is the color of ${blend.natureImage}.` : "";
+  const paragraphs = [p.short, s.short, t.short, SOUL_CLOSER];
 
-  return [paragraph1, paragraph2, paragraph3];
+  return { subheader, paragraphs };
 }
 
 // One "action palette" card for a given palette color — same
@@ -113,7 +118,7 @@ export function renderResultsScreen(primaryKey, secondaryKey, tertiaryKey) {
   // resolve to three of the 8 core colors.
   const blend = getBlend(primaryKey, secondaryKey, tertiaryKey) || { name: "", descriptor: "", natureImage: "", hex: "" };
 
-  const identityParagraphs = buildIdentityParagraphs(blend, primaryKey, secondaryKey, tertiaryKey);
+  const { subheader, paragraphs: identityParagraphs } = buildIdentityParagraphs(blend, primaryKey, secondaryKey, tertiaryKey);
   const identityParagraphsHtml = identityParagraphs.map(p => `<p>${p}</p>`).join('');
 
   // Swatch pill background: the blend's true computed color when available.
@@ -141,9 +146,13 @@ export function renderResultsScreen(primaryKey, secondaryKey, tertiaryKey) {
          deliberate WCAG decision, not an oversight — see blends-data.js
          header comment); the swatch pill below it carries the blend's true
          computed color instead, since a decorative swatch isn't subject to
-         WCAG's text-contrast rule. The summary paragraph now opens with a
-         nature-imagery sentence built from blends-data.js's natureImage
-         field, then splits into 3 paragraphs instead of one dense block. -->
+         WCAG's text-contrast rule. The old "Your climate color in action:"
+         label is retired 2026-09-23 (Heather: "it's not needed and not
+         accurate") — the nature-imagery sentence built from blends-data.js's
+         natureImage field now stands alone as a small styled lead-in line
+         (.nature-subheader) in its place, followed by three short, parallel
+         "{Color} brings the..." paragraphs (one per palette color) and the
+         shared closing line. -->
     <div class="hero-card">
       <div class="identity-heading">Your climate color:</div>
       <div class="blend-name">${blend.name}</div>
@@ -156,7 +165,7 @@ export function renderResultsScreen(primaryKey, secondaryKey, tertiaryKey) {
         ${palettePillHtml(tertiaryKey, tertiaryClass)}
       </div>
 
-      <div class="identity-heading">Your climate color in action:</div>
+      ${subheader ? `<div class="nature-subheader">${subheader}</div>` : ''}
       <div class="action-paragraph">${identityParagraphsHtml}</div>
     </div>
 
