@@ -139,12 +139,21 @@
 /* Decorative only — no text sits on this pill, so it isn't subject to
    WCAG's text-contrast rule the way .blend-name is. Verified against the
    least-visible of the 56 blends (Chartreuse, 2.66:1 vs. white) with the
-   drop shadow alone providing enough definition; no border needed. */
+   drop shadow alone providing enough definition; no border needed.
+   Radius changed 2026-09-23 from 9999px (full pill/stadium shape) to 12px
+   (Heather: "shouldn't be a rounded pill... it looks like it is [clickable]"
+   — correct instinct: 9999px is this page's dedicated "this is a button/
+   link" shape language, used consistently by .palette-pill, .btn-pill-soft,
+   and .btn-sm-action. 12px instead matches .styleBlock's card radius — the
+   page's "this is content, not a control" language — so a decorative,
+   unclickable swatch no longer reads as an interactive pill by shape
+   alone. Class name kept as -swatch-pill since renaming it isn't needed to
+   fix the visual issue and would just add unrelated diff noise. */
 .blend-swatch-pill {
     display: inline-block;
     width: 190px;
     height: 42px;
-    border-radius: 9999px;
+    border-radius: 12px;
     box-shadow: 0 6px 12px rgba(0,0,0,0.1);
     margin-bottom: 1.5rem;
 }
@@ -266,10 +275,19 @@
    for exactly this) rather than a new one-off component — same card family
    as the Directory and Pathways grids, just carrying two buttons instead
    of one since each card needs to point to both its pathway page and its
-   filtered spot in the Directory. .cta-container/.btn-pill-soft mirror
-   directory.css's versions verbatim so all three "resource card" surfaces
-   (Directory, Pathways, Results) share one visual language.
-   ========================================================================== */
+   filtered spot in the Directory. .lookforthis-cta/.btn-pill-soft mirror
+   directory.css's .cta-container/.btn-pill-soft verbatim in every property
+   so all three "resource card" surfaces (Directory, Pathways, Results)
+   still share one visual language — just under a results-page-scoped
+   class name instead of the shared one. Found 2026-09-23 while fixing the
+   print page: quiz.css (loaded on this same page, unlike on the Directory
+   or Pathways pages) already owns an unrelated, long-standing
+   `.cta-container` utility with its own `@media print { display: none }`
+   rule. Reusing the exact same class name here silently caught that rule
+   too and hid these two buttons on every printed/saved results page —
+   renaming this wrapper (and results-ui.js's matching div class) is the
+   actual fix, rather than fighting the collision with a competing
+   !important override that could just as easily break again later. */
 .lookforthis-section {
     margin-bottom: 2rem;
 }
@@ -280,7 +298,7 @@
     gap: 1.25rem;
 }
 
-.cta-container {
+.lookforthis-cta {
     display: flex;
     flex-wrap: wrap;
     gap: 0.5rem;
@@ -434,7 +452,7 @@
     box-shadow: var(--shadow-soft);
     margin-bottom: 1.5rem;
     transition: transform 0.15s ease, box-shadow 0.15s ease;
-    /* Flex column so .cta-container (margin-top: auto) sits flush at the
+    /* Flex column so .lookforthis-cta (margin-top: auto) sits flush at the
        bottom of every card regardless of how long that color's action copy
        runs — matches pathway-card's own layout in pathways.css. */
     display: flex;
@@ -552,6 +570,24 @@
 }
 
 @media print {
+    /* Root-cause fix (2026-09-23) for the empty blend-swatch-pill Heather
+       flagged from her print PDF: Chrome/Edge/Firefox all default the
+       print dialog's "Background graphics" toggle to OFF, which silently
+       drops every CSS background-color/background-image/gradient from the
+       printed page — including the swatch pill's inline background (its
+       *only* visual content), the palette pills' color-mix tints, and the
+       hero card's identityWash gradient. print-color-adjust: exact (plus
+       its -webkit- prefix, still needed for Chrome/Safari) tells the
+       browser to keep those colors regardless of that toggle, so the
+       person printing/saving-as-PDF doesn't need to know that setting
+       exists. Applied with `*` so it also covers anything colored added
+       to this page later, not just today's known trouble spots. */
+    * {
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+        color-adjust: exact !important;
+    }
+
     .sticky-results-bar {
         display: none !important;
     }
@@ -573,11 +609,9 @@
     /* The hero card and the "Look for this" section are the "look at me and
        my plan, all ready to go" printable moment this design was built for
        — keep each one on a single page and drop the swatch's drop shadow,
-       which prints as a gray smudge on most printers. The color-mix
-       washes/tints print fine as-is in Chrome/Edge/Safari with background
-       graphics on; browsers that strip them by default still leave a
-       legible plain card. Per-card break-avoidance for the three
-       .styleBlock cards themselves is already handled above. */
+       which prints as a gray smudge on most printers. Per-card
+       break-avoidance for the three .styleBlock cards themselves is
+       already handled above. */
     .hero-card,
     .lookforthis-section {
         break-inside: avoid;
@@ -585,6 +619,18 @@
     .blend-swatch-pill {
         box-shadow: none !important;
         border: 1px solid var(--border-strong);
+    }
+
+    /* The wheel's interactive affordances don't mean anything on paper —
+       "Hover or tap any color to explore" was bleeding into the printed
+       page (Heather's second flagged defect). Hide the caption outright,
+       and defensively hide the tooltip too, in case someone prints right
+       after tapping a wedge and it's still visible in the DOM. The wheel
+       diagram itself still prints — it's a legible static image without
+       either of these, just not an instruction to interact with it. */
+    .color-wheel-caption,
+    .color-wheel-tooltip {
+        display: none !important;
     }
 }
 
