@@ -90,25 +90,59 @@ export const identityBlurbs = {
 };
 
 // ==========================================================================
-// Results-page "Look for this" card content — expanded 2026-09-22 to stand
-// on its own (previously a single teaser line for the retired checklist
-// card; now the results page's main action content, since not every user
-// clicks through to a Pathway or the Directory). Each is still grounded in
-// that color's real "Try This" list from its own pathway page (not invented
-// from scratch) — e.g. Green's line reflects the pathway's "adopt a local
-// habitat" / "join a stewardship program" / "support a community garden"
-// entries — just with more of that list surfaced instead of one line of it.
-// Verified at or under a 9th-grade reading level (Flesch-Kincaid).
+// Results-page "action palette" card content — restructured 2026-09-23 from
+// one dense sentence per color into a short, punchy bullet list (Heather:
+// the sentence form "reads like a powerpoint slide" in the narrow card
+// layout; bullets scan faster). Each color still gets exactly 3 items, each
+// grounded in that color's real "Try This" list from its own pathway page
+// (not invented from scratch) — e.g. Green's items reflect the pathway's
+// "adopt a local habitat" / "join a stewardship program" / "support a
+// community garden" entries, just condensed to short gerund phrases instead
+// of full sentences. Renamed from checklistActions (the "checklist" framing
+// left this file two content pivots ago) to colorActivities, its only
+// consumer (results-ui.js) updated to match.
 // ==========================================================================
-export const checklistActions = {
-    Red: "Look for ways to get something moving right away. Lead a cleanup or restoration shift, start a small action crew with friends who want to move fast, or volunteer as a project lead for a parks or watershed group near you.",
-    Orange: "Look for ways to bring people in. Host a story night about climate, record a short video about a local project, or join an outreach team that spreads the word.",
-    Yellow: "Look for spaces built for fresh ideas. Go to a climate workshop, join a planning meeting and offer a new angle, or help a group brainstorm zero-waste solutions.",
-    Green: "Look for something you can stick with for the long haul. Adopt a local habitat through your parks department, join a trail or garden crew, or take a regular shift with a conservation group near you.",
-    Blue: "Look for the mess that needs sorting out. Help run logistics for a cleanup event, build a simple sign-up system for a local group, or offer your organizing skills to a nonprofit near you.",
-    Indigo: "Look for what needs to be remembered and kept. Support a land trust with long-term involvement, help maintain a local heritage site, or record an elder's story about how your area has changed.",
-    Purple: "Look for the people who need a way in. Volunteer as a welcomer for a climate group, host a small gathering that builds trust, or help lead a conversation about local needs.",
-    Violet: "Look for what needs defending. Join a habitat defense team, volunteer with a climate justice group, or help with trail restoration work that needs steady hands."
+export const colorActivities = {
+    Red: [
+        "Leading a local cleanup or restoration shift",
+        "Starting a small action crew with friends",
+        "Stepping up as a project lead"
+    ],
+    Orange: [
+        "Hosting a climate storytelling night",
+        "Recording a video about a local project",
+        "Joining an outreach team that spreads the word"
+    ],
+    Yellow: [
+        "Going to a climate innovation workshop",
+        "Offering a fresh angle at a planning meeting",
+        "Brainstorming zero-waste solutions with a local group"
+    ],
+    Green: [
+        "Adopting a local habitat",
+        "Joining a trail or garden crew",
+        "Taking a recurring conservation shift"
+    ],
+    Blue: [
+        "Running logistics for a cleanup event",
+        "Building a simple sign-up system",
+        "Offering your organizing skills to a nonprofit"
+    ],
+    Indigo: [
+        "Supporting a land trust long-term",
+        "Helping maintain a local heritage site",
+        "Recording an elder's story about the area"
+    ],
+    Purple: [
+        "Volunteering as a welcomer for a climate group",
+        "Hosting a small gathering that builds trust",
+        "Helping lead a conversation about local needs"
+    ],
+    Violet: [
+        "Joining a habitat defense team",
+        "Volunteering with a climate justice group",
+        "Helping with trail restoration work"
+    ]
 };
 
 export const questions = [
