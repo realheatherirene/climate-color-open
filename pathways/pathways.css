@@ -1,13 +1,15 @@
-/* Left-align the pathways page. text-align is inherited by default, so
-   setting it once here carries down to every descendant that doesn't
-   declare its own alignment — no universal selector or !important needed. */
-.pathways-page {
-    text-align: left;
-}
-
 /* ==========================================================================
    PATHWAYS CSS: Layouts & Grids matching Directory UI
    ========================================================================== */
+
+/* Left-align the pathways page. text-align is inherited by default, so
+   setting it once here carries down to every descendant that doesn't
+   declare its own alignment — no universal selector or !important needed.
+   (Note: no element in the pathway pages currently carries this class —
+   see the note sent alongside this file.) */
+.pathways-page {
+    text-align: left;
+}
 
 .pathway-wrapper {
   width: 100%;
@@ -41,7 +43,7 @@
   box-shadow: var(--shadow-hover);
 }
 
-/* Re-color the header font for each card based on its color-keyed inline style */
+/* Re-color the header font for each card based on its color reference */
 .pathway-card[style*="red"] h3 { color: var(--red-color); }
 .pathway-card[style*="orange"] h3 { color: var(--orange-color); }
 .pathway-card[style*="yellow"] h3 { color: var(--yellow-color); }
@@ -95,7 +97,7 @@
   transform: translateY(-1px);
 }
 
-/* Individual Pathway Page Section styling */
+/* Individual Color Pathway Page Section styling */
 .pathway-section {
   background: var(--bg-primary);
   border: 1px solid var(--border-color);
@@ -118,6 +120,25 @@
   color: var(--brand-teal);
   font-weight: 700;
   margin: 1rem 0;
+}
+
+/* Key Words — 2026-09-23: replaces the pill-shaped .pill-btn/.pill-{color}
+   tags (from atlas.css) these used to carry. These never linked
+   anywhere and were never meant to, but the pill/button shape (rounded,
+   bordered, hover lift) falsely implied they were clickable — the same
+   "shape implies affordance" issue already fixed elsewhere on the site
+   (the results page's color swatch, the print sidebar borders). Rendered
+   now as one line of plain, bold, color-tinted text — color comes from the
+   existing .theme-{color} helper in atlas.css (already used for this same
+   page's H1), not a new per-word color, since every Key Word on a given
+   pathway page shares that one page's color anyway. Leaves atlas.css's
+   .pill-btn/.pill-{color} rules untouched for now, since other pathway
+   pages not yet updated to this class still reference them — see the note
+   sent alongside this file. */
+.key-words {
+    font-weight: 700;
+    font-size: 1rem;
+    letter-spacing: 0.01em;
 }
 
 /* Muted sub-header under the color name — "The Path of X" */
