@@ -17,9 +17,9 @@ function directoryUrl(colorKey) {
   return `${window.location.origin}/${repoRoot}/directory/index.html?style=${encodeURIComponent(colorKey)}`;
 }
 
-// Generic, blend-agnostic closing line — the "reach the soul" beat Heather
-// asked for, shared by all 56 blends rather than hand-written per blend.
-// Verified via Flesch-Kincaid at grade 5.9.
+// Generic, blend-agnostic closing line — a "reach the soul" beat shared by
+// all 56 blends rather than hand-written per blend. Verified via
+// Flesch-Kincaid at grade 5.9.
 const SOUL_CLOSER = "Together, these three colors mean you don't just care about the climate. " +
   "You keep hope alive, and you make it easier for everyone around you to care too.";
 
@@ -28,8 +28,8 @@ const SOUL_CLOSER = "Together, these three colors mean you don't just care about
 // opening paragraph). Returns { subheader, paragraphs }:
 //   - `subheader` is just the nature-imagery line ("{Blend} is the color of
 //     {image}.") on its own, now standing in for the retired "Your climate
-//     color in action:" label instead of leading into a paragraph — Heather:
-//     that label "isn't needed and not accurate." Rendered separately by
+//     color in action:" label (dropped as unneeded and inaccurate) instead
+//     of leading into a paragraph. Rendered separately by
 //     renderResultsScreen as a small styled line, not one of the <p>s below.
 //   - `paragraphs` is four short, parallel entries: the primary, secondary,
 //     and tertiary colors' own "{Color} brings the {trait}." blurbs (all
@@ -58,8 +58,8 @@ function buildIdentityParagraphs(blend, primaryKey, secondaryKey, tertiaryKey) {
 // exact purpose). `isPrimary` adds the .primary-card modifier (thicker
 // border + stronger hover shadow) so the person's primary color reads as
 // the lead card among the three. Cards are now full-width stacked rows
-// (2026-09-23, replacing the 3-column grid Heather felt made them "too
-// skinny") with a short lead line plus a 3-item bullet list (quiz-data.js's
+// (2026-09-23, replacing a 3-column grid that made them feel too narrow)
+// with a short lead line plus a 3-item bullet list (quiz-data.js's
 // colorActivities) instead of one dense sentence, and two buttons out to
 // that color's Pathway page and its pre-filtered Directory listing.
 function colorCardHtml(colorKey, colorClass, isPrimary) {
@@ -139,16 +139,15 @@ export function renderResultsScreen(primaryKey, secondaryKey, tertiaryKey) {
     <!-- CARD 1 — THE HERO: approved C3 design (2026-09-21), replacing the
          old separate Box 1 (identity) and Box 3 (closing) cards entirely.
          Background changed 2026-09-23 from a per-blend color wash to a flat
-         neutral grey (Heather: "I just don't love the color-aligned
-         shading, and it's not necessary") — see results.css's .hero-card
-         for the actual color; no inline style needed here anymore. Blend
-         name renders in locked neutral black for all 56 blends (a
-         deliberate WCAG decision, not an oversight — see blends-data.js
-         header comment); the swatch pill below it carries the blend's true
-         computed color instead, since a decorative swatch isn't subject to
-         WCAG's text-contrast rule. The old "Your climate color in action:"
-         label is retired 2026-09-23 (Heather: "it's not needed and not
-         accurate") — the nature-imagery sentence built from blends-data.js's
+         neutral grey for a cleaner, more consistent look — see
+         results.css's .hero-card for the actual color; no inline style
+         needed here anymore. Blend name renders in locked neutral black for
+         all 56 blends (a deliberate WCAG decision, not an oversight — see
+         blends-data.js header comment); the swatch pill below it carries
+         the blend's true computed color instead, since a decorative swatch
+         isn't subject to WCAG's text-contrast rule. The old "Your climate
+         color in action:" label is retired 2026-09-23 as unneeded and
+         inaccurate — the nature-imagery sentence built from blends-data.js's
          natureImage field now stands alone as a small styled lead-in line
          (.nature-subheader) in its place, followed by three short, parallel
          "{Color} brings the..." paragraphs (one per palette color) and the
@@ -172,7 +171,7 @@ export function renderResultsScreen(primaryKey, secondaryKey, tertiaryKey) {
     <!-- YOUR ACTION PALETTE: revived from the original primary/secondary/
          tertiary card design (2026-09-22), relabeled and restyled
          2026-09-23 (was "Look for this") as full-width stacked rows instead
-         of a 3-column grid Heather felt made the cards "too skinny." Each
+         of a 3-column grid that made the cards feel too narrow. Each
          card carries a short bullet list plus two buttons — one to that
          color's Pathway page, one to its pre-filtered Directory listing —
          so a person who never scrolls past this point still leaves with
