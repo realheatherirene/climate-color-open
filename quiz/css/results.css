@@ -22,8 +22,16 @@
     --violet-text: #BB3CCE;
 }
 
+/* Widened 2026-09-23 from 1120px (Heather: "extra wide margins left and
+   right of the hero box" on a wide monitor). The quiz-taking screen itself
+   has no max-width at all (just 1rem padding — see .quiz-page in quiz.css),
+   so results previously narrowed dramatically the moment the quiz ended;
+   1400px closes most of that gap without letting a line of body text or a
+   stretched card look "weird" at very wide viewports — the identity
+   paragraph keeps its own 540px reading-width cap regardless of how wide
+   this outer column gets. */
 #results {
-    max-width: 1120px;
+    max-width: 1400px;
     margin: 2rem auto;
     padding: 0 1rem 4rem 1rem;
     font-family: inherit;
@@ -119,9 +127,20 @@
    love it. Approved. Let's build it!").
    ========================================================================== */
 
+/* Background changed 2026-09-23 from a per-blend inline gradient wash
+   (results-ui.js used to set it per-result) to one flat neutral grey —
+   Heather: "I just don't love the color-aligned shading, and it's not
+   necessary. Light grey will look clean and consistent." Same
+   --bg-secondary token the rest of the site already uses for this exact
+   treatment (it was the retired checklist-card's background, and matches
+   directory.css's own resource-section fills), plus a shadow so the card
+   still reads as elevated now that it's no longer visually distinct via
+   color. */
 .hero-card {
-    border: 1px solid var(--border-color); /* overridden inline per-result via identityWash */
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
     border-radius: 16px;
+    box-shadow: var(--shadow-soft);
     text-align: center;
     padding: 2rem 1.75rem 2rem 1.75rem;
     margin: 0.5rem 0 1.5rem 0;
@@ -205,6 +224,17 @@
     text-align: left;
 }
 
+/* Split into 3 <p> elements 2026-09-23 (was one unbroken block of text) —
+   Heather: break the summary "into intuitively broken paragraphs... so
+   it's easier to read." */
+.action-paragraph p {
+    margin: 0 0 1rem 0;
+}
+
+.action-paragraph p:last-child {
+    margin-bottom: 0;
+}
+
 /* ==========================================================================
    RETIRED 2026-09-23: Card 2 (the checklist) is no longer rendered —
    replaced by the "Look for this" three-card section below, which reuses
@@ -268,41 +298,93 @@
 }
 
 /* ==========================================================================
-   "Look for this" — three per-color resource cards (primary/secondary/
-   tertiary), replacing Card 2 above (2026-09-23). Deliberately built on the
+   "Your action palette" (labeled "Look for this" until 2026-09-23) — three
+   per-color resource cards (primary/secondary/tertiary), replacing the
+   retired checklist Card 2. Built on the
    .styleBlock/.styleTitle/.styleIdentity/.border-{color} component already
    defined below (originally shared with directory.css, kept dormant here
    for exactly this) rather than a new one-off component — same card family
    as the Directory and Pathways grids, just carrying two buttons instead
    of one since each card needs to point to both its pathway page and its
-   filtered spot in the Directory. .lookforthis-cta/.btn-pill-soft mirror
+   filtered spot in the Directory. .action-palette-cta/.btn-pill-soft mirror
    directory.css's .cta-container/.btn-pill-soft verbatim in every property
    so all three "resource card" surfaces (Directory, Pathways, Results)
-   still share one visual language — just under a results-page-scoped
-   class name instead of the shared one. Found 2026-09-23 while fixing the
-   print page: quiz.css (loaded on this same page, unlike on the Directory
-   or Pathways pages) already owns an unrelated, long-standing
-   `.cta-container` utility with its own `@media print { display: none }`
-   rule. Reusing the exact same class name here silently caught that rule
-   too and hid these two buttons on every printed/saved results page —
-   renaming this wrapper (and results-ui.js's matching div class) is the
-   actual fix, rather than fighting the collision with a competing
-   !important override that could just as easily break again later. */
-.lookforthis-section {
-    margin-bottom: 2rem;
+   still share one visual language — just under a results-page-scoped class
+   name instead of the shared one (quiz.css, loaded on this same page unlike
+   on the Directory or Pathways pages, already owns an unrelated
+   `.cta-container` utility with its own print-hide rule that silently
+   caught these buttons too when this used that shared name — see git
+   history/prior comment on this file from 2026-09-23 for the full story).
+
+   Layout changed 2026-09-23 from a 3-column grid to full-width stacked rows
+   — Heather: "I don't like how skinny the boxes are." Each card's content
+   also changed from one dense sentence to a lead line + a short bullet
+   list (quiz-data.js's colorActivities), since a full-width row has room
+   for a real list instead of a cramped paragraph. */
+.action-palette-section {
+    background: var(--bg-primary);
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    box-shadow: var(--shadow-soft);
+    padding: 2rem 1.75rem;
+    margin-bottom: 1.5rem;
 }
 
-.lookforthis-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1.25rem;
+/* Plain block flow, not a flex column — found 2026-09-23 while testing
+   print: Chromium's print engine doesn't reliably fragment a flex
+   container's children across page breaks, so with `display: flex` here,
+   all 3 cards got pushed together to whichever page had room for the
+   entire group, orphaning the "Your action palette:" heading alone on the
+   page before it. Plain block-level children paginate exactly like
+   ordinary paragraphs, letting each break-inside: avoid .styleBlock land on
+   whichever page it fits, same as it would in a print flow with no flexbox
+   involved at all. The visual gap moves to .styleBlock's own margin-bottom
+   below instead of a flex `gap`. */
+.action-palette-list {
+    display: block;
 }
 
-.lookforthis-cta {
+.action-palette-list .styleBlock {
+    margin-bottom: 1.25rem;
+}
+
+.action-palette-list .styleBlock:last-child {
+    margin-bottom: 0;
+}
+
+.action-palette-cta {
     display: flex;
     flex-wrap: wrap;
     gap: 0.5rem;
     margin-top: auto;
+}
+
+/* The bullet list of 3 short activities per card. Two columns once a card
+   has real width to spare (matches the "section is a wide desktop panel"
+   breakpoint below) so a 3-item list doesn't leave the right half of a
+   full-width card empty; back to one column below that, including on
+   mobile via the 768px breakpoint further down. */
+.action-palette-items {
+    margin: 0 0 1.25rem 0;
+    padding-left: 1.25rem;
+    color: var(--text-secondary);
+    font-size: 1.05rem;
+    line-height: 1.6;
+}
+
+.action-palette-items li {
+    margin-bottom: 0.35rem;
+}
+
+.action-palette-items li:last-child {
+    margin-bottom: 0;
+}
+
+@media (min-width: 900px) {
+    .action-palette-items {
+        columns: 2;
+        column-gap: 2rem;
+    }
 }
 
 .btn-pill-soft {
@@ -335,10 +417,19 @@
 /* B2-tweaks round: this used to sit inside .palette-section (which supplied
    the top spacing before it, plus a heading/subtitle/pills/bridge-line above
    it). That wrapper is gone now — this is Box 2 in full, wheel only — so the
-   top margin moved here directly. */
+   top margin moved here directly. Given a background/border/shadow panel
+   treatment 2026-09-23 to complete the page's grey/white/grey alternating
+   rhythm (hero = grey, action palette = white, this = grey) — Heather's
+   general instruction to alternate section backgrounds "with each new
+   section," extended here since the wheel is now the third such panel. */
 .color-wheel-section {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    box-shadow: var(--shadow-soft);
     text-align: center;
-    margin: 2rem 0 1.75rem 0;
+    padding: 2rem 1.75rem;
+    margin: 0 0 1.5rem 0;
 }
 
 .color-wheel-wrap {
@@ -452,9 +543,9 @@
     box-shadow: var(--shadow-soft);
     margin-bottom: 1.5rem;
     transition: transform 0.15s ease, box-shadow 0.15s ease;
-    /* Flex column so .lookforthis-cta (margin-top: auto) sits flush at the
-       bottom of every card regardless of how long that color's action copy
-       runs — matches pathway-card's own layout in pathways.css. */
+    /* Flex column so .action-palette-cta (margin-top: auto) sits flush at
+       the bottom of every card regardless of how long that color's bullet
+       list runs — matches pathway-card's own layout in pathways.css. */
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -536,17 +627,18 @@
         font-size: 1.9rem;
     }
 
-    /* The revived primary/secondary/tertiary cards stack to one column on
-       mobile (matching directory.css's own resource-grid breakpoint), and
-       drop to the same tighter padding directory.css uses for .styleBlock
-       at small widths, since three side-by-side cards' worth of padding
-       doesn't fit a phone screen. */
-    .lookforthis-grid {
-        grid-template-columns: 1fr;
+    /* The action palette cards are full-width stacked rows at every screen
+       size now (no grid-column-count override needed here anymore), but
+       still drop to the same tighter padding directory.css uses for
+       .styleBlock at small widths, since a phone screen can't spare the
+       desktop card padding. */
+    .action-palette-section .styleBlock {
+        padding: 1rem 1.15rem;
     }
 
-    .lookforthis-section .styleBlock {
-        padding: 1rem 1.15rem;
+    .action-palette-section,
+    .color-wheel-section {
+        padding: 1.5rem 1.15rem;
     }
 
     .sticky-results-bar {
@@ -595,10 +687,19 @@
         background: var(--bg-primary) !important;
         color: var(--text-primary) !important;
     }
+    /* Fixed 2026-09-23 — Heather: "can we get the thin, colored sidebars
+       to show up on the page 2 content?" Root cause: the line below used to
+       be the `border` SHORTHAND with !important, which sets all four sides
+       at once — including border-left, wiping out the color and width that
+       .border-{color}/.primary-card apply there. Splitting it into
+       top/right/bottom leaves border-left alone, so its color and 6px/8px
+       width (set by the non-print rules below) survive into print. */
     .styleBlock {
         break-inside: avoid;
         box-shadow: none !important;
-        border: 1px solid var(--border-strong) !important;
+        border-top: 1px solid var(--border-strong) !important;
+        border-right: 1px solid var(--border-strong) !important;
+        border-bottom: 1px solid var(--border-strong) !important;
         background: var(--bg-primary) !important;
         color: var(--text-primary) !important;
     }
@@ -606,15 +707,27 @@
         color: var(--text-primary) !important;
     }
 
-    /* The hero card and the "Look for this" section are the "look at me and
-       my plan, all ready to go" printable moment this design was built for
-       — keep each one on a single page and drop the swatch's drop shadow,
-       which prints as a gray smudge on most printers. Per-card
-       break-avoidance for the three .styleBlock cards themselves is
-       already handled above. */
+    /* The hero card and the wheel section are short enough to always fit on
+       one page, so they keep break-inside: avoid — the "look at me and my
+       plan, all ready to go" printable moment this design was built for,
+       and the swatch's drop shadow is dropped here too since it prints as a
+       gray smudge on most printers. .action-palette-section is NOT given
+       break-inside: avoid, on purpose, as of 2026-09-23: now that its 3
+       cards are full-width stacked rows instead of a 3-column grid, the
+       whole section is routinely taller than one printed page, and asking
+       a browser to avoid breaking inside something taller than a page
+       doesn't shrink it — it just breaks wherever it wants anyway, which
+       in testing orphaned the "Your action palette:" heading alone on its
+       own page while all 3 cards jumped to the next one. Per-card
+       break-avoidance on .styleBlock above already keeps any single card
+       from splitting across a page; break-after: avoid below keeps the
+       heading attached to what follows it instead. */
     .hero-card,
-    .lookforthis-section {
+    .color-wheel-section {
         break-inside: avoid;
+    }
+    .action-palette-section > .identity-heading {
+        break-after: avoid;
     }
     .blend-swatch-pill {
         box-shadow: none !important;
