@@ -52,7 +52,7 @@ function colorCardHtml(colorKey, colorClass, isPrimary) {
         <div class="styleTitle">${colorKey}</div>
         <div class="styleIdentity">${action}</div>
       </div>
-      <div class="cta-container">
+      <div class="lookforthis-cta">
         <a href="${pathwayUrl(colorClass)}" class="btn-pill-soft">Explore ${colorKey} &rarr;</a>
         <a href="${directoryUrl(colorKey)}" class="btn-pill-soft">${colorKey} in the Directory &rarr;</a>
       </div>
