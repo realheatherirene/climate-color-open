@@ -218,14 +218,15 @@
 /* New 2026-09-23: replaces the old "Your climate color in action:"
    .identity-heading label. The summary's own opening nature-imagery
    sentence ("{Blend} is the color of {image}.") now sits here instead —
-   styled as a small lead-in line rather than a full heading: smaller and
-   lighter-weight than .identity-heading (1.5rem/500), but given the brand
-   teal accent color so it still pops instead of blending into the body
-   copy below it. */
+   styled as a small lead-in line rather than a full heading: smaller than
+   .identity-heading (1.5rem), so it still reads as a step down from the
+   real heading above it. Revised same day: color changed from the brand
+   teal accent to bold black (--text-primary) — Heather's call, matching
+   the same locked-neutral treatment already used for .blend-name. */
 .nature-subheader {
     font-size: 1.2rem;
-    font-weight: 400;
-    color: var(--brand-teal);
+    font-weight: 700;
+    color: var(--text-primary);
     line-height: 1.4;
     max-width: 540px;
     margin: 0 auto 0.85rem auto;
