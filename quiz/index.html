@@ -17,8 +17,8 @@
     <!-- Header -->
     <header class="quiz-header">
         <div>
-            <h1>The Quiz</h1>
-            <p>a <strong>self-assessment tool</strong> that helps you find <strong>your place</strong> in the climate movement</p>
+            <h1>Climate Color Quiz</h1>
+            <p>What color energy do you bring to the climate movement?</p>
         </div>
     </header>
 
@@ -69,5 +69,15 @@
 
     <!-- Script path adjusted to point into the js/ subdirectory -->
     <script type="module" src="js/quiz-logic.js"></script>
+
+    <!-- 2026-09-23: posts this page's real height up to the Squarespace
+         parent page so the embedding <iframe> can be resized to match —
+         fixes results/questions being cut off when scrolling the outer
+         Squarespace page instead of the iframe itself. Plain script (not
+         type="module") so it runs independently of quiz-logic.js and keeps
+         working even if that module fails to load. See iframe-resize.js
+         for the full explanation; the matching listener lives in
+         Squarespace's own code injection, not in this repo. -->
+    <script src="js/iframe-resize.js"></script>
 </body>
 </html>
