@@ -29,7 +29,7 @@
    Their descriptors were updated only enough to stop being factually wrong
    for the new name (e.g. Fawn no longer says "cool like deep woods"). This
    is NOT the broader pass on descriptor redundancy across the other 49
-   blends that Heather flagged separately — that's deliberately deferred.
+   blends, which is deliberately deferred.
    ========================================================================== */
 
 // `natureImage` added 2026-09-23: originally drafted as the noun-phrase half

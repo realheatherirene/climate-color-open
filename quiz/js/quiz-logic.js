@@ -79,15 +79,11 @@ function updateProgress(percentage, activeQuestions) {
 
 function renderQuestion(activeQuestions) {
     const q = activeQuestions[currentQuestion];
-    const qNum = document.getElementById("questionNumber");
     const qText = document.getElementById("questionText");
     const container = document.getElementById("optionsContainer");
     const instructions = document.getElementById("quizInstructions");
 
-    if (!qNum || !qText || !container) return;
-
-    // Remove axis label entirely
-    qNum.textContent = "";
+    if (!qText || !container) return;
 
     // Hide instructions after the first question
     if (instructions) {
