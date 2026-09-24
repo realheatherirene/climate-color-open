@@ -39,6 +39,13 @@ if (!perColorCounts.every(n => n === BANK_ITEMS_PER_COLOR)) {
         Object.fromEntries(COLORS.map((c, i) => [c, perColorCounts[i]])));
     process.exit(1);
 }
+// Every item needs a unique, stable id — recorded pilot responses are keyed
+// to it, so a missing or duplicated id would silently merge or orphan data.
+const ids = questions.map(q => q.id);
+if (ids.some(id => !id) || new Set(ids).size !== ids.length) {
+    console.error('Question ids are missing or duplicated in quiz-data.js.');
+    process.exit(1);
+}
 if (SCALE.map(s => s.points).join() !== '0,1,2') {
     console.error('SCALE is no longer 0/1/2 — review the response-probability model below before trusting this output.');
     process.exit(1);
