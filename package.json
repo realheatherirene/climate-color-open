@@ -2,5 +2,5 @@
   "name": "climate-color-dev-tools",
   "private": true,
   "type": "module",
-  "description": "Local dev-only package.json so Node treats js/*.js as ES modules for tools/simulate-quiz.js. Not part of the deployed site."
+  "description": "Dev-only package.json so Node treats the repo's .js files as ES modules when running tools/simulate-quiz.js. Not part of the deployed site."
 }
