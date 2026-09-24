@@ -15,7 +15,7 @@
    so each session records exactly which wording the participant agreed to.
    ========================================================================== */
 
-export const ENDPOINT_URL = "";
+export const ENDPOINT_URL = "https://script.google.com/a/macros/kinfeather.com/s/AKfycbzIH12JLiYUaHqC6Mx4wTY0NzpPfgt9DGTD7rliTTlbajoKdFxpbhpplv8tV60Z4Uy5Lw/exec";
 
 export const CONSENT_VERSION = "2026-09-24-v1";
 
