@@ -44,19 +44,18 @@ export const starterKits = {
 
 // ==========================================================================
 // Results-page Card 1 (Hero) content — added for the C3 redesign
-// (2026-09-21), approved as: "Love it, love it, love it. Approved. Let's
-// build it!" Originally, `primary` was used when this color was the
+// (2026-09-21). Originally, `primary` was used when this color was the
 // person's PRIMARY (starting) color — the "{Color} is you at your X"
 // opener, 3 sentences — and `short` for when it showed up as SECONDARY or
 // TERTIARY — a shorter "{Color} brings the Y" beat, 2 sentences.
 //
-// 2026-09-23: results-ui.js no longer uses `primary` at all — Heather asked
-// for the hero summary's three color paragraphs to read as parallel,
-// equally punchy "{Color} brings the..." statements rather than giving the
-// primary color a longer, differently-voiced treatment, so all three
-// palette colors now pull from `short`. `primary` is left in place (each
-// entry's data, not deleted) in case a future layout wants the longer
-// per-color voice back, but it's currently dormant/unused.
+// 2026-09-23: results-ui.js no longer uses `primary` at all — the hero
+// summary's three color paragraphs now read as parallel, equally punchy
+// "{Color} brings the..." statements rather than giving the primary color a
+// longer, differently-voiced treatment, so all three palette colors now
+// pull from `short`. `primary` is left in place (each entry's data, not
+// deleted) in case a future layout wants the longer per-color voice back,
+// but it's currently dormant/unused.
 //
 // Both fields are written in second person and verified at or under a
 // 9th-grade reading level (Flesch-Kincaid, MN plain-language standard)
@@ -101,9 +100,9 @@ export const identityBlurbs = {
 
 // ==========================================================================
 // Results-page "action palette" card content — restructured 2026-09-23 from
-// one dense sentence per color into a short, punchy bullet list (Heather:
-// the sentence form "reads like a powerpoint slide" in the narrow card
-// layout; bullets scan faster). Each color still gets exactly 3 items, each
+// one dense sentence per color into a short, punchy bullet list (the
+// sentence form read too dense in the narrow card layout; bullets scan
+// faster). Each color still gets exactly 3 items, each
 // grounded in that color's real "Try This" list from its own pathway page
 // (not invented from scratch) — e.g. Green's items reflect the pathway's
 // "adopt a local habitat" / "join a stewardship program" / "support a
