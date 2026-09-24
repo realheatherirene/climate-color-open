@@ -8,7 +8,6 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=ADLaM+Display&family=Varela+Round&display=swap" rel="stylesheet">
 
-    <!-- Paths adjusted to match your actual nested repo structure -->
     <link rel="stylesheet" href="../css/atlas.css">
     <link rel="stylesheet" href="css/quiz.css">
     <link rel="stylesheet" href="css/results.css">
@@ -35,8 +34,8 @@
     <!-- Updated 2026-09-22 for the normative rewrite: 40 independent items
          (was 16 paired-choice items), each answered on its own with the
          Probably not / Maybe / Probably yes scale (was "pick one of four
-         options"). If quiz-faq.html also describes the old format/count,
-         it needs the same update. -->
+         options"). quiz-faq.html describes neither the item count nor the
+         format, so it needed no change. -->
     <p id="quizInstructions" class="text-muted" style="margin-bottom: 1.25rem;">
         You'll move through 40 quick, everyday situations. For each one, choose Probably not, Maybe, or Probably yes, whatever feels most true for you. There's no right or wrong answer.
     </p>
@@ -52,12 +51,6 @@
     </div>
 
     <div class="quiz-card" id="quizCard">
-        <!-- Left empty (was a static "PACE AXIS" label): quiz-logic.js always
-             overwrites this with "" on render anyway now that axes are
-             retired, but the old hardcoded text would've flashed before JS
-             ran. Element/id kept only because quiz-logic.js still targets
-             #questionNumber — safe to remove entirely in a later pass. -->
-        <div class="question-number" id="questionNumber"></div>
         <div class="question-text" id="questionText" tabindex="-1"></div>
         <div class="options-container" id="optionsContainer"></div>
     </div>
@@ -67,17 +60,6 @@
     <!-- Results Screen Container -->
     <div id="results" hidden></div>
 
-    <!-- Script path adjusted to point into the js/ subdirectory -->
     <script type="module" src="js/quiz-logic.js"></script>
-
-    <!-- 2026-09-23: posts this page's real height up to the Squarespace
-         parent page so the embedding <iframe> can be resized to match —
-         fixes results/questions being cut off when scrolling the outer
-         Squarespace page instead of the iframe itself. Plain script (not
-         type="module") so it runs independently of quiz-logic.js and keeps
-         working even if that module fails to load. See iframe-resize.js
-         for the full explanation; the matching listener lives in
-         Squarespace's own code injection, not in this repo. -->
-    <script src="js/iframe-resize.js"></script>
 </body>
 </html>
