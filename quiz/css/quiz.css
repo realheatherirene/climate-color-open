@@ -90,15 +90,6 @@
     margin-bottom: 2rem;
 }
 
-.question-number {
-    font-size: 0.85rem;
-    font-weight: 700;
-    color: var(--text-muted);
-    text-transform: uppercase;
-    margin-bottom: 0.5rem;
-    letter-spacing: 0.05em;
-}
-
 .question-text {
     font-size: 1.25rem;
     font-weight: 700;
