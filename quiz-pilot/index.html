@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Unlisted research page; keep it out of search results. -->
+    <meta name="robots" content="noindex, nofollow">
+    <title>Climate Color Quiz — Pilot</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=ADLaM+Display&family=Varela+Round&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="../css/atlas.css">
+    <link rel="stylesheet" href="snapshot/quiz.css">
+    <link rel="stylesheet" href="snapshot/results.css">
+    <link rel="stylesheet" href="css/pilot.css">
+</head>
+<body>
+    <header class="quiz-header">
+        <div>
+            <h1>Climate Color Quiz <span class="pilot-tag">Pilot</span></h1>
+            <p>What color energy do you bring to the climate movement?</p>
+        </div>
+    </header>
+
+    <div id="testBanner" class="test-banner" role="status" hidden>
+        Test mode — responses from this session are marked as test data and excluded from analysis.
+    </div>
+
+    <div class="beta-banner">
+        <div style="display: flex; gap: 0.75rem; align-items: center;" id="bannerActions"></div>
+    </div>
+
+    <!-- Consent: both choices are equally prominent, and declining is exactly
+         as easy as accepting. Nothing is sent before "Continue". If the text
+         below changes, update CONSENT_VERSION in js/pilot-config.js. -->
+    <section id="consent" class="quiz-card consent-card" aria-labelledby="consentTitle">
+        <h2 id="consentTitle" class="consent-title">Before you start</h2>
+        <p>This is a pilot version of the Climate Color Quiz. Unlike the public quiz — which never records your answers — this version saves your answers, how long each one took, and your result, so we can check whether the quiz is working the way it's meant to.</p>
+        <p>Afterward, we'll ask a few optional questions about whether your result felt accurate and a little about your background. We don't ask for your name or email.</p>
+        <p>Your responses are stored privately by Climate Color, used only to improve the quiz, never shared publicly, and deleted within 90 days after the pilot ends. If you stop partway through, the answers you've already given are kept and used the same way.</p>
+        <p>Taking part is completely optional, and you can take the regular, untracked quiz instead.</p>
+
+        <div id="consentActions" class="consent-actions">
+            <button type="button" id="btnConsent" class="consent-btn">Continue with the pilot</button>
+            <a id="linkStandardQuiz" class="consent-btn" href="../quiz/">Take the standard quiz instead</a>
+        </div>
+        <p id="pilotUnavailable" class="pilot-unavailable" hidden>
+            The pilot is temporarily unavailable. You can take the <a href="../quiz/">standard quiz</a> instead.
+        </p>
+    </section>
+
+    <main id="quiz" hidden>
+        <p id="quizInstructions" class="text-muted" style="margin-bottom: 1.25rem;">
+            You'll move through 40 quick, everyday situations. For each one, choose Probably not, Maybe, or Probably yes, whatever feels most true for you. There's no right or wrong answer.
+        </p>
+
+        <div class="progress-info-bar">
+            <span id="progressText">Question 1 of 40</span>
+            <span id="progressPercent">0%</span>
+        </div>
+        <div class="progress-container" id="progressContainer" role="progressbar" aria-label="Quiz progress"
+             aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+            <div class="progress-bar" id="progressBar"></div>
+        </div>
+
+        <div class="quiz-card" id="quizCard">
+            <div class="question-text" id="questionText" tabindex="-1"></div>
+            <div class="options-container scale-options" id="optionsContainer"></div>
+        </div>
+    </main>
+
+    <div id="results" hidden></div>
+
+    <!-- Inserted after the result's hero card once the quiz is finished. -->
+    <template id="feedbackTemplate">
+        <section id="feedbackCard" class="feedback-card" aria-labelledby="feedbackTitle">
+            <h2 id="feedbackTitle" class="feedback-title">A few quick questions</h2>
+            <p class="text-muted">All optional. Answer what you like, then press Send.</p>
+            <form id="feedbackForm">
+                <fieldset>
+                    <legend>How well does this result describe you?</legend>
+                    <label><input type="radio" name="resonance" value="1"> Not at all</label>
+                    <label><input type="radio" name="resonance" value="2"> A little</label>
+                    <label><input type="radio" name="resonance" value="3"> Mostly</label>
+                    <label><input type="radio" name="resonance" value="4"> Very well</label>
+                </fieldset>
+
+                <fieldset>
+                    <legend>Have you taken the Climate Color quiz before?</legend>
+                    <label><input type="radio" name="priorExposure" value="yes"> Yes</label>
+                    <label><input type="radio" name="priorExposure" value="no"> No</label>
+                    <label><input type="radio" name="priorExposure" value="unsure"> Not sure</label>
+                </fieldset>
+
+                <label class="field-label" for="comments">Did anything feel off, confusing, or tedious?</label>
+                <textarea id="comments" name="comments" rows="3" maxlength="2000"></textarea>
+
+                <fieldset>
+                    <legend>A little about you</legend>
+
+                    <label class="field-label" for="segment">Which best describes you?</label>
+                    <select id="segment" name="segment">
+                        <option value="">Choose one (optional)</option>
+                        <option value="educator">Educator</option>
+                        <option value="student">Student</option>
+                        <option value="activist">Activist or organizer</option>
+                        <option value="policymaker">Policymaker or public servant</option>
+                        <option value="citizen">None of these / everyday citizen</option>
+                        <option value="prefer_not">Prefer not to say</option>
+                    </select>
+
+                    <label class="field-label" for="englishFirst">Is English your first language?</label>
+                    <select id="englishFirst" name="englishFirst">
+                        <option value="">Choose one (optional)</option>
+                        <option value="yes">Yes</option>
+                        <option value="no">No</option>
+                        <option value="prefer_not">Prefer not to say</option>
+                    </select>
+
+                    <label class="field-label" for="grewUp">Where did you mainly grow up?</label>
+                    <select id="grewUp" name="grewUp">
+                        <option value="">Choose one (optional)</option>
+                        <option value="us">In the United States</option>
+                        <option value="outside_us">Outside the United States</option>
+                        <option value="prefer_not">Prefer not to say</option>
+                    </select>
+                </fieldset>
+
+                <button type="submit" class="consent-btn feedback-submit">Send</button>
+            </form>
+        </section>
+    </template>
+
+    <script type="module" src="js/pilot-logic.js"></script>
+</body>
+</html>
