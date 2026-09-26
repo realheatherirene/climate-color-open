@@ -20,10 +20,16 @@ export const COLORS = ["Red", "Orange", "Yellow", "Green", "Blue", "Indigo", "Pu
 
 // The only response scale in the quiz. Kept here (not just in quiz-data.js)
 // because the point values are load-bearing scoring logic, not UI copy.
+//
+// Labels revised 2026-09-26 for the v3 bank: short, gut-reaction answers to
+// the shared stem "Would that energize you?" (quiz-data.js ITEM_STEM). Point
+// values are unchanged, but the anchors changed, so v3 responses should not
+// be pooled with v2 responses. "Yes" deliberately has no exclamation point:
+// all three answers stay equally plain so none looks more inviting.
 export const SCALE = [
-    { label: "Probably not", points: 0 },
+    { label: "Not really", points: 0 },
     { label: "Maybe", points: 1 },
-    { label: "Probably yes", points: 2 }
+    { label: "Yes", points: 2 }
 ];
 
 export function emptyScores() {

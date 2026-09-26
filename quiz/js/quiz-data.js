@@ -73,8 +73,8 @@ export const identityBlurbs = {
         short: "Green brings the steadiness. You're the reason things keep going long after the excitement fades."
     },
     Orange: {
-        primary: "Orange is you at your warmest. You walk into a room and people feel like they belong there too. That warmth turns quiet interest into real momentum.",
-        short: "Orange brings the warmth. You make people feel welcome, and you turn quiet interest into real momentum."
+        primary: "Orange is you at your most energizing. When a room goes flat, you're the one who lights it back up. That excitement turns quiet interest into real momentum.",
+        short: "Orange brings the energy. You turn quiet interest into real momentum."
     },
     Purple: {
         primary: "Purple is you at your most connected. You notice who's missing from the room, and you bring them in. That instinct turns separate efforts into one real movement.",
@@ -162,62 +162,115 @@ export const colorActivities = {
 // different wordings of the same item are never pooled by accident. All 40
 // items were baselined at v: 1 on 2026-09-24. Presentation order is still
 // shuffled at runtime; array order here carries no meaning.
-export const QUESTION_BANK_VERSION = "2026-09-25";
+// ==========================================================================
+// Color definitions — added 2026-09-26, BEFORE the v3 item rewrite, so every
+// item below could be written from (and checked against) one clear standard.
+// Every color is defined the same way: as a MOVE a person is energized to
+// make, anchored to that color's three wheel verbs and its `reflection`
+// word. User-facing: each definition stands on its own and never mentions
+// another color, so no color reads as defined by (or against) another.
+// ==========================================================================
+export const colorDefinitions = {
+    Red:    { move: "Getting action started.",               spark: "Something needs doing, and nobody has begun." },
+    Orange: { move: "Raising people's energy.",              spark: "People are curious but not yet involved." },
+    Yellow: { move: "Imagining what could be.",              spark: "Someone asks, \"What if?\"" },
+    Green:  { move: "Keeping effort going.",                 spark: "A job needs someone who'll show up again and again." },
+    Blue:   { move: "Organizing things so they work.",       spark: "Something is messy and could run better." },
+    Indigo: { move: "Keeping what matters from being lost.", spark: "A story, place, or lesson might be forgotten." },
+    Purple: { move: "Connecting people to each other.",      spark: "Someone is left out, or two groups haven't met." },
+    Violet: { move: "Protecting what's at risk.",            spark: "Something worth saving is under threat." }
+};
+
+/* --------------------------------------------------------------------------
+   ITEM-WRITER BOUNDARIES — internal only, never rendered.
+   The pairs of colors most likely to be confused in a single item, each
+   pair listed once. Before adding or revising an item, check it against
+   every boundary that touches its color: if a reader could reasonably sort
+   it into the other color in the pair, rewrite it. (Some colors touch more
+   boundaries than others — that reflects how easy they are to confuse, not
+   their importance, which is why this list stays out of the UI.)
+
+     Red / Green     — starting the effort       vs. keeping it going
+     Red / Blue      — starting the doing        vs. giving it a structure
+     Orange / Purple — raising people's energy   vs. connecting people to each other
+                       (welcoming and belonging are Purple's, not Orange's)
+     Yellow / Blue   — imagining what could be   vs. making what exists work
+     Yellow / Indigo — reaching for the new      vs. keeping what's been
+     Green / Indigo  — keeping the effort alive  vs. keeping the memory alive
+     Indigo / Violet — guarding the past         vs. guarding what's threatened now
+     Purple / Indigo — listening to connect      vs. listening to preserve
+   -------------------------------------------------------------------------- */
+
+// v3 stem (2026-09-26): ONE question, identical on every item, asked about
+// energy/preference rather than willingness-at-a-cost. Replaces v2's
+// per-item stems, which mixed costly actions ("Do you still show up?") with
+// cost-free feelings ("Do you light up?") — four of the six feeling stems
+// were Yellow, which likely made Yellow easier to score high on. The stem
+// lives here, not in each prompt, so it can't drift again.
+export const ITEM_STEM = "Would that energize you?";
+
+// v3 prompts: a neutral moment plus the color's move, with v2's friction
+// clauses ("and it isn't your job," "and you're worn out") removed. Those
+// clauses guarded against saying yes to everything, but results rank colors
+// against each other, so a uniformly agreeable answerer shifts all eight
+// colors equally; the friction was mostly adding weight, not precision.
+// Watch pilot data for ceiling effects (many 10/10 scores) instead.
+export const QUESTION_BANK_VERSION = "2026-09-26";
 
 export const questions = [
-  // Red — five items
-  { id: "red-1", v: 2, color: "Red", prompt: "You're the first to arrive at a beach cleanup, and no one has told you where to begin. Do you start picking up trash on your own?" },
-  { id: "red-2", v: 2, color: "Red", prompt: "Your group has argued for weeks over where to put a community garden, and no one will decide. Do you pick a spot and get started?" },
-  { id: "red-3", v: 2, color: "Red", prompt: "A friend keeps saying they'll find people for a community storytelling project someday, but never does. Do you take over the search?" },
-  { id: "red-4", v: 2, color: "Red", prompt: "A recycling project meeting ends with \"let's draft it tomorrow,\" and nothing's due before then. Do you feel a pull to start tonight?" },
-  { id: "red-5", v: 2, color: "Red", prompt: "You notice old event posters still up in your building, and it isn't your job to remove them. Do you take them down yourself?" },
+  // Red — getting action started
+  { id: "red-1", v: 3, color: "Red", prompt: "You're the first one at a beach cleanup. You grab a bag and dive in before anyone else arrives." },
+  { id: "red-2", v: 3, color: "Red", prompt: "Your group can't decide where to put a community garden. You pick a spot and break ground that weekend." },
+  { id: "red-3", v: 3, color: "Red", prompt: "A tool-share library has been \"a good idea\" in your neighborhood for months. You set a date and launch it with the tools in your garage." },
+  { id: "red-4", v: 3, color: "Red", prompt: "A recycling project meeting ends with \"let's draft it tomorrow.\" You start the draft that night." },
+  { id: "red-5", v: 3, color: "Red", prompt: "Old event posters are cluttering your building's hallway. You take them all down on the spot." },
 
-  // Orange — five items
-  { id: "orange-1", v: 2, color: "Orange", prompt: "A new neighbor moves in looking overwhelmed, and it doesn't seem like a good time to chat. Do you go introduce yourself anyway?" },
-  { id: "orange-2", v: 2, color: "Orange", prompt: "Someone at a neighborhood block party seems unsure they belong, and it isn't your event. Do you go out of your way to welcome them?" },
-  { id: "orange-3", v: 2, color: "Orange", prompt: "A friend says they're curious about climate issues but doesn't know where to start. Do you jump right in and tell them all about it?" },
-  { id: "orange-4", v: 2, color: "Orange", prompt: "You're invited, but not required, to tell a room of strangers why climate action matters to you. Do you say yes?" },
-  { id: "orange-5", v: 2, color: "Orange", prompt: "A group chat has been quiet for weeks, and no one seems ready to revive it. Do you post something to get it going again?" },
+  // Orange — raising people's energy
+  { id: "orange-1", v: 3, color: "Orange", prompt: "Your block is planning a cleanup day. You go door to door getting neighbors excited to come." },
+  { id: "orange-2", v: 3, color: "Orange", prompt: "At a planning meeting, the room feels flat. You share a story that gets everyone fired up again." },
+  { id: "orange-3", v: 3, color: "Orange", prompt: "A friend says they're curious about climate issues. You tell them all about a local project you love." },
+  { id: "orange-4", v: 3, color: "Orange", prompt: "You're invited to tell a room of strangers why climate action matters to you. You take the mic." },
+  { id: "orange-5", v: 3, color: "Orange", prompt: "A group chat has gone quiet. You post something that gets everyone talking again." },
 
-  // Yellow — five items
-  { id: "yellow-1", v: 2, color: "Yellow", prompt: "Your town's festival has looked the same for years, and people are losing interest. Do you start picturing ways to make it better?" },
-  { id: "yellow-2", v: 2, color: "Yellow", prompt: "Your group's street cleanup has followed the same route for years, and no one has asked for a change. Do you suggest a new one?" },
-  { id: "yellow-3", v: 2, color: "Yellow", prompt: "Your idea to compost at the office gets shut down with \"we don't do that here,\" and they may have a point. Do you want to try even harder?" },
-  { id: "yellow-4", v: 2, color: "Yellow", prompt: "You're asked to picture your neighborhood twenty years from now, and it may not change much. Do you get excited imagining something different?" },
-  { id: "yellow-5", v: 2, color: "Yellow", prompt: "Talk turns to redesigning your town's recycling program from scratch, even though the current one works fine. Do you light up at the idea?" },
+  // Yellow — imagining what could be
+  { id: "yellow-1", v: 3, color: "Yellow", prompt: "Your town's festival has looked the same for years. You dream up a fresh new version of it." },
+  { id: "yellow-2", v: 3, color: "Yellow", prompt: "Your group's street cleanup always follows the same route. You imagine turning it into a walking tour of hidden local gardens." },
+  { id: "yellow-3", v: 3, color: "Yellow", prompt: "Someone says your office could never go zero-waste. You start picturing what it would look like if it did." },
+  { id: "yellow-4", v: 3, color: "Yellow", prompt: "You're asked to picture your neighborhood twenty years from now. You imagine something totally different from today." },
+  { id: "yellow-5", v: 3, color: "Yellow", prompt: "Talk turns to reinventing your town's recycling program from scratch. You start tossing out bold new ideas." },
 
-  // Green — five items
-  { id: "green-1", v: 2, color: "Green", prompt: "You signed up to water a community garden all summer, and by the last week you're worn out. Do you still show up?" },
-  { id: "green-2", v: 2, color: "Green", prompt: "Sorting food bank donations turns out to be duller than you expected, and you'd like to leave. Do you stick it out?" },
-  { id: "green-3", v: 2, color: "Green", prompt: "No one else renewed their spot on the monthly cleanup crew, but your name is still on the list. Do you keep showing up?" },
-  { id: "green-4", v: 2, color: "Green", prompt: "A garden irrigation project has been stuck for months waiting on permits, and there's little you can do. Do you keep checking in?" },
-  { id: "green-5", v: 2, color: "Green", prompt: "Your part of the creek restoration is done, but the whole project will take years. Do you stay involved for the long haul?" },
+  // Green — keeping effort going
+  { id: "green-1", v: 3, color: "Green", prompt: "You signed up to water a community garden this summer. You show up every week, right to the end of the season." },
+  { id: "green-2", v: 3, color: "Green", prompt: "The food bank needs people to sort donations every Saturday. You become one of the regulars." },
+  { id: "green-3", v: 3, color: "Green", prompt: "Your neighborhood has a monthly cleanup crew. You keep your name on the list year after year." },
+  { id: "green-4", v: 3, color: "Green", prompt: "A garden irrigation project will take months to finish. You check in every week to keep it on track." },
+  { id: "green-5", v: 3, color: "Green", prompt: "A creek restoration project will take years. You stay involved for the long haul." },
 
-  // Blue — five items
-  { id: "blue-1", v: 2, color: "Blue", prompt: "Your group's sign-up sheet is a mess of crossed-out names and sticky notes, but it still works. Do you offer to redo it?" },
-  { id: "blue-2", v: 2, color: "Blue", prompt: "The shared supply closet has turned into chaos, and fixing it isn't anyone's job. Do you take it on and organize it?" },
-  { id: "blue-3", v: 2, color: "Blue", prompt: "Your team keeps forgetting to log volunteer hours after events, though it hasn't caused problems yet. Do you set up a simple checklist?" },
-  { id: "blue-4", v: 2, color: "Blue", prompt: "A friend is overwhelmed planning a tree-planting day with lots of moving parts, but hasn't asked for help. Do you offer to map it out?" },
-  { id: "blue-5", v: 2, color: "Blue", prompt: "Directions for a group hike are spread across three group texts, and so far everyone has figured it out. Do you pull them into one clear plan?" },
+  // Blue — organizing things so they work
+  { id: "blue-1", v: 3, color: "Blue", prompt: "Your group's sign-up sheet is a mess of crossed-out names. You redo it so it's clear and easy to use." },
+  { id: "blue-2", v: 3, color: "Blue", prompt: "The shared supply closet is a jumble. You sort it so everything has a place." },
+  { id: "blue-3", v: 3, color: "Blue", prompt: "Your team keeps forgetting to log volunteer hours. You set up a simple checklist." },
+  { id: "blue-4", v: 3, color: "Blue", prompt: "A tree-planting day has lots of moving parts. You map out who does what, where, and when." },
+  { id: "blue-5", v: 3, color: "Blue", prompt: "Directions for a group hike are spread across three group texts. You pull them into one clear plan." },
 
-  // Indigo — five items
-  { id: "indigo-1", v: 2, color: "Indigo", prompt: "Your community center is being renovated, and old records that matter to longtime residents will be boxed up. Do you speak up so nothing gets lost?" },
-  { id: "indigo-2", v: 2, color: "Indigo", prompt: "At an antique shop, you find an old photo of your neighborhood, and nothing is written on the back. Do you want to track down its story?" },
-  { id: "indigo-3", v: 2, color: "Indigo", prompt: "A new playground is planned for a lot that used to flood, though it hasn't in years. Do you bring up what happened back then?" },
-  { id: "indigo-4", v: 2, color: "Indigo", prompt: "An elder in your community offers to tell you how the land has changed over the years, and your week is already full. Do you make time to listen?" },
-  { id: "indigo-5", v: 2, color: "Indigo", prompt: "Your town's river cleanup festival draws a smaller crowd every year, and some say it has run its course. Do you work to keep it alive?" },
+  // Indigo — keeping what matters from being lost
+  { id: "indigo-1", v: 3, color: "Indigo", prompt: "Your community center is being renovated, and its old records will be boxed up. You make sure the important ones are saved." },
+  { id: "indigo-2", v: 3, color: "Indigo", prompt: "At an antique shop, you find an old photo of your neighborhood. You track down the story behind it." },
+  { id: "indigo-3", v: 3, color: "Indigo", prompt: "A new playground is planned for a lot that used to flood. You share what happened there years ago." },
+  { id: "indigo-4", v: 3, color: "Indigo", prompt: "An elder tells you how the local land has changed over the years. You record their stories so others can hear them later." },
+  { id: "indigo-5", v: 3, color: "Indigo", prompt: "Your town's river festival has a long history. You gather old photos and stories to share at this year's event." },
 
-  // Purple — five items
-  { id: "purple-1", v: 2, color: "Purple", prompt: "At a community meeting, someone sits alone and hasn't said a word, and you can't tell if they'd want company. Do you go sit with them?" },
-  { id: "purple-2", v: 2, color: "Purple", prompt: "Two friend groups you're part of have never really mixed, and you're not sure everyone would get along. Do you try to bring them together?" },
-  { id: "purple-3", v: 2, color: "Purple", prompt: "Two friends are arguing about a fundraiser they're planning together, and it's really between them. Do you step in to help them hear each other?" },
-  { id: "purple-4", v: 2, color: "Purple", prompt: "A coworker seems to have been left out of the team's plans, probably by accident. Do you loop them in yourself?" },
-  { id: "purple-5", v: 2, color: "Purple", prompt: "A new person joins your climate group, and welcoming people is usually someone else's job. Do you make sure they leave with one new connection?" },
+  // Purple — connecting people to each other
+  { id: "purple-1", v: 3, color: "Purple", prompt: "At a community meeting, you notice someone sitting on their own. You introduce them to a few people they'd get along with." },
+  { id: "purple-2", v: 3, color: "Purple", prompt: "Two friend groups you're part of have never really mixed. You bring them together." },
+  { id: "purple-3", v: 3, color: "Purple", prompt: "Two friends planning a fundraiser keep talking past each other. You help them hear each other." },
+  { id: "purple-4", v: 3, color: "Purple", prompt: "A new neighbor has just moved onto your block. You introduce them to the people next door." },
+  { id: "purple-5", v: 3, color: "Purple", prompt: "A new person joins your climate group. You make sure they leave with at least one new friend." },
 
-  // Violet — five items
-  { id: "violet-1", v: 2, color: "Violet", prompt: "A crew starts marking trees for removal in a park you love, and it might just be routine. Do you go find out what's happening?" },
-  { id: "violet-2", v: 2, color: "Violet", prompt: "You hear that a nearby wetland is quietly at risk, and someone else may already be on it. Do you look into it yourself?" },
-  { id: "violet-3", v: 2, color: "Violet", prompt: "Someone suggests a shortcut that would disturb a nearby nesting site, even though other routes would work. Do you push back?" },
-  { id: "violet-4", v: 2, color: "Violet", prompt: "A plan to close the only nearby bus route overlooks an elderly neighbor, and it isn't really your place to weigh in. Do you speak up for them?" },
-  { id: "violet-5", v: 2, color: "Violet", prompt: "You notice early signs of erosion on a trail you care about, and it might settle on its own. Do you act before it gets worse?" }
+  // Violet — protecting what's at risk
+  { id: "violet-1", v: 3, color: "Violet", prompt: "A crew starts marking trees for removal in a park you love. You find out whether the trees can be saved." },
+  { id: "violet-2", v: 3, color: "Violet", prompt: "A nearby wetland is threatened by new construction. You join the effort to protect it." },
+  { id: "violet-3", v: 3, color: "Violet", prompt: "Someone suggests a shortcut through a nesting site. You speak up to protect the birds." },
+  { id: "violet-4", v: 3, color: "Violet", prompt: "A plan would cut a bus route some of your neighbors rely on. You stand up to keep it running." },
+  { id: "violet-5", v: 3, color: "Violet", prompt: "A trail you care about is starting to erode. You step in to protect it before it gets worse." }
 ];

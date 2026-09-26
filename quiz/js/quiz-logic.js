@@ -15,7 +15,7 @@
    pool.
    ========================================================================== */
 
-import { questions, styles } from './quiz-data.js';
+import { questions, styles, ITEM_STEM } from './quiz-data.js';
 import { renderResultsScreen } from './results-ui.js';
 import { emptyScores, computeConstellation, SCALE } from './quiz-scoring.js';
 
@@ -27,6 +27,11 @@ const ITEMS_PER_COLOR = 5;
 
 let currentQuestion = 0;
 let scores = emptyScores();
+// 2026-09-26: answers given so far, in order, so Back can undo exactly the
+// last one (subtracting its points) instead of forcing a restart. Kept in
+// memory only, like scores, so it never leaves the browser.
+let answerHistory = [];
+let activeList = [];
 
 /* ==========================================================================
    Presentation-order Shuffle
@@ -57,6 +62,7 @@ export function recordAnswer(colorKey, points) {
 export function resetScores() {
     scores = emptyScores();
     currentQuestion = 0;
+    answerHistory = [];
 }
 
 function updateProgress(percentage, activeQuestions) {
@@ -79,18 +85,33 @@ function updateProgress(percentage, activeQuestions) {
 
 function renderQuestion(activeQuestions) {
     const q = activeQuestions[currentQuestion];
+    const qNum = document.getElementById("questionNumber");
     const qText = document.getElementById("questionText");
     const container = document.getElementById("optionsContainer");
     const instructions = document.getElementById("quizInstructions");
 
-    if (!qText || !container) return;
+    if (!qNum || !qText || !container) return;
+
+    // Remove axis label entirely
+    qNum.textContent = "";
 
     // Hide instructions after the first question
     if (instructions) {
         instructions.style.display = currentQuestion === 0 ? "block" : "none";
     }
 
-    qText.textContent = q.prompt;
+    // 2026-09-26: the scenario and the shared stem render as two separate
+    // lines, so the stem is always in the same spot and reads at a glance.
+    qText.textContent = "";
+    const promptEl = document.createElement("span");
+    promptEl.textContent = q.prompt;
+    const stemEl = document.createElement("span");
+    stemEl.className = "question-stem";
+    stemEl.textContent = ITEM_STEM;
+    qText.append(promptEl, stemEl);
+
+    const backBtn = document.getElementById("backBtn");
+    if (backBtn) backBtn.hidden = currentQuestion === 0;
 
     const pct = (currentQuestion / activeQuestions.length) * 100;
     updateProgress(pct, activeQuestions);
@@ -118,6 +139,7 @@ function renderQuestion(activeQuestions) {
 
 function handleAnswer(colorKey, points, activeQuestions) {
     recordAnswer(colorKey, points);
+    answerHistory.push({ colorKey, points });
     currentQuestion++;
     if (currentQuestion < activeQuestions.length) {
         renderQuestion(activeQuestions);
@@ -125,6 +147,33 @@ function handleAnswer(colorKey, points, activeQuestions) {
         calculateResults();
     }
 }
+
+// Undo the most recent answer and show that question again.
+function goBack() {
+    const last = answerHistory.pop();
+    if (!last) return;
+    scores[last.colorKey] -= last.points;
+    currentQuestion--;
+    renderQuestion(activeList);
+}
+
+// Keyboard shortcuts for fast answering: 1 / 2 / 3 pick the answer in
+// scale order, Backspace goes back. Registered once at module load; ignored
+// whenever the quiz itself isn't on screen (e.g. the results page).
+document.addEventListener("keydown", (e) => {
+    const quizMain = document.getElementById("quiz");
+    if (!quizMain || quizMain.hidden || e.metaKey || e.ctrlKey || e.altKey) return;
+    const tag = (e.target && e.target.tagName) || "";
+    if (tag === "INPUT" || tag === "TEXTAREA") return;
+    const idx = ["1", "2", "3"].indexOf(e.key);
+    if (idx !== -1) {
+        const btns = document.querySelectorAll("#optionsContainer .scale-btn");
+        if (btns[idx]) { e.preventDefault(); btns[idx].click(); }
+    } else if (e.key === "Backspace" && answerHistory.length) {
+        e.preventDefault();
+        goBack();
+    }
+});
 
 /**
  * DOM/localStorage/URL-aware wrapper around the pure computeConstellation().
@@ -246,9 +295,13 @@ function initQuizState() {
         if (instructions) instructions.style.display = "block";
 
         const activeQuestions = shuffleQuestions(questions);
+        activeList = activeQuestions;
 
         resetScores();
         renderQuestion(activeQuestions);
+
+        const backBtn = document.getElementById("backBtn");
+        if (backBtn) backBtn.onclick = goBack;
     }
 }
 
