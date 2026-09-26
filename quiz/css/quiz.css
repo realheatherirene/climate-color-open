@@ -90,6 +90,15 @@
     margin-bottom: 2rem;
 }
 
+.question-number {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+    letter-spacing: 0.05em;
+}
+
 .question-text {
     font-size: 1.25rem;
     font-weight: 700;
@@ -146,9 +155,35 @@
 .scale-btn {
     flex: 1;
     text-align: center;
-    font-weight: 600;
+    font-weight: 700;
+    font-size: 1.05rem;
+    min-height: 56px;
     padding: 0.85rem 0.5rem;
 }
+
+/* 2026-09-26: the shared stem ("Would that energize you?") sits on its own
+   line under every scenario, always in the same place, so the eye learns
+   where to land and reactions stay quick. */
+.question-stem {
+    display: block;
+    margin-top: 0.75rem;
+    color: var(--brand-teal);
+}
+
+.back-btn {
+    margin-top: 1rem;
+    min-height: 44px;
+    padding: 0 0.5rem;
+    background: none;
+    border: none;
+    color: var(--text-secondary);
+    font-family: inherit;
+    font-size: 0.9rem;
+    cursor: pointer;
+}
+.back-btn:hover, .back-btn:focus-visible { color: var(--text-primary); text-decoration: underline; }
+
+.key-hint { display: block; margin-top: 0.35rem; font-size: 0.85rem; }
 
 /* Button & Pill Utilities */
 .cta-container {
@@ -177,8 +212,11 @@
     .cta-container { flex-direction: column; gap: 0.5rem; }
     .beta-banner { text-align: left; }
     .option-btn { padding: 0.6rem 0.8rem; font-size: 0.9rem; }
-    /* Three side-by-side buttons get cramped on a phone-width screen —
-       stack them instead, same as the old option list did. */
-    .scale-options { flex-direction: column; gap: 0.5rem; }
-    .scale-btn { padding: 0.7rem 0.8rem; }
+    /* 2026-09-26: the v3 labels are short enough (Not really / Maybe / Yes)
+       to stay side by side on phones, so all three sit under one thumb in
+       the same spot every time instead of stacking. */
+    .scale-options { gap: 0.5rem; }
+    .scale-btn { padding: 0.7rem 0.25rem; font-size: 1rem; }
+    /* Number-key tip is only useful with a keyboard. */
+    .key-hint { display: none; }
 }
