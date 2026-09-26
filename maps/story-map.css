@@ -1,0 +1,95 @@
+/* ==========================================================================
+   STORY MAP CSS: map-specific pieces only (Dependent on atlas.css and
+   ../directory/directory.css, which supply the pills, search bar, cards,
+   and empty state — so the Story Map and Directory always look alike).
+   ========================================================================== */
+
+.story-map-frame {
+    margin-bottom: 0.75rem;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 0.75rem;
+}
+
+#storyMap {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+.map-dots circle { fill: var(--border-strong); }
+
+/* Pins: a solid dot in the story's color with a white ring, plus a soft
+   halo that only shows on hover, focus, or when the story is selected. */
+.pin { cursor: pointer; outline: none; }
+.pin-hit { fill: transparent; }
+.pin-dot {
+    fill: var(--pin-color);
+    stroke: var(--bg-primary);
+}
+.pin-halo {
+    fill: var(--pin-color);
+    opacity: 0;
+    transition: opacity 0.15s ease;
+}
+.pin:hover .pin-halo,
+.pin:focus-visible .pin-halo { opacity: 0.25; }
+.pin:focus-visible .pin-dot { stroke: var(--text-primary); }
+.pin.is-selected .pin-halo { opacity: 0.35; }
+.pin.is-selected .pin-dot { stroke: var(--text-primary); }
+
+.story-count {
+    min-height: 1.4em;
+    margin: 0 0 1rem;
+    font-size: 0.9rem;
+    color: var(--text-muted);
+}
+
+.draft-notice {
+    margin: 0 0 1rem;
+    padding: 0.6rem 1rem;
+    border-radius: 9999px;
+    background: color-mix(in srgb, var(--yellow-color) 12%, white);
+    border: 1px solid color-mix(in srgb, var(--yellow-color) 40%, white);
+    color: var(--text-primary);
+    font-size: 0.88rem;
+}
+
+/* Cards reuse the Directory's .styleBlock; these add story-only details. */
+.story-card h2.styleTitle { margin-top: 0; }
+.story-card:focus { outline: none; }
+.story-card.is-selected {
+    box-shadow: 0 0 0 2px var(--text-secondary), var(--shadow-hover);
+}
+
+.story-place {
+    font-size: 0.82rem;
+    color: var(--text-muted);
+    margin-bottom: 0.35rem;
+}
+
+.story-blend {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    margin-bottom: 0.75rem;
+}
+.story-blend-swatch {
+    width: 1.5rem;
+    height: 0.75rem;
+    border-radius: 9999px;
+    flex-shrink: 0;
+}
+
+.story-actions { flex-wrap: wrap; gap: 0.5rem; }
+.story-actions .btn-pill-soft { cursor: pointer; font-family: inherit; }
+
+@media (max-width: 640px) {
+    .story-map-frame { padding: 0.4rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+    .pin-halo { transition: none; }
+}

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Story Map | Climate Color</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=ADLaM+Display&family=Varela+Round&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="../css/atlas.css">
+    <!-- Shared with the Directory on purpose: pills, search, cards. -->
+    <link rel="stylesheet" href="../directory/directory.css">
+    <link rel="stylesheet" href="story-map.css">
+</head>
+<body>
+
+    <header class="quiz-header">
+        <h1>The Story Map</h1>
+        <p><strong>good things happening</strong> in climate action around the world, sorted by climate color</p>
+    </header>
+
+    <p id="draftNotice" class="draft-notice" hidden>Preview mode: draft stories are showing. Remove <strong>?drafts=1</strong> from the address to see the public page.</p>
+
+    <div class="search-bar">
+        <input id="searchInput" class="search-input" placeholder="Search stories or places…" aria-label="Search stories or places">
+    </div>
+
+    <div class="filter-pills" id="pillContainer"></div>
+
+    <div class="story-map-frame">
+        <svg id="storyMap" role="group" aria-label="World map of stories. Select a pin to jump to its story."></svg>
+    </div>
+    <p id="storyCount" class="story-count" aria-live="polite"></p>
+
+    <div class="resource-grid" id="storyContainer"></div>
+
+    <script type="module" src="story-map-logic.js"></script>
+</body>
+</html>
