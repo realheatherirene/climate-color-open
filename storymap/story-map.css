@@ -42,7 +42,6 @@
 }
 
 .pill-btn {
-    border: 1px solid transparent;
     padding: 0.45rem 0.95rem;
     border-radius: 9999px;
     font-family: inherit;
@@ -50,10 +49,6 @@
     font-weight: 700;
     cursor: pointer;
     transition: all 0.15s ease;
-}
-.pill-btn:hover {
-    transform: translateY(-1px);
-    filter: brightness(0.96);
 }
 .pill-btn.active {
     background-color: var(--text-secondary) !important;
