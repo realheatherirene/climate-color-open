@@ -84,23 +84,10 @@ function renderPills() {
         // stays as the pill's tint, so color still leads visually.
         btn.textContent = pillLabel(key);
         
-        const styleInfo = styles[key];
-        if (key === activeStyle) {
-            btn.classList.add("active");
-        } else {
-            if (key === "All") {
-                btn.style.backgroundColor = "var(--bg-tertiary)";
-                btn.style.borderColor = "var(--border-strong)";
-                btn.style.color = "var(--text-secondary)";
-            } else {
-                btn.style.backgroundColor = `color-mix(in srgb, ${styleInfo.color} 8%, transparent)`;
-                btn.style.borderColor = `color-mix(in srgb, ${styleInfo.color} 25%, transparent)`;
-            // The site-wide pill recipe (see core/atlas.css): words in the
-            // text shade mixed 88% with black, on an 8% tint with a 25%
-            // border, so every pill clears 4.5:1.
-            btn.style.color = `color-mix(in srgb, ${styleInfo.text || styleInfo.color} 88%, black)`;
-            }
-        }
+        // Colors, hover, and focus come from the shared pill classes in
+        // core/atlas.css.
+        btn.classList.add(key === "All" ? "pill-all" : `pill-${key.toLowerCase()}`);
+        if (key === activeStyle) btn.classList.add("active");
         btn.onclick = () => selectStyle(key);
         container.appendChild(btn);
     });
