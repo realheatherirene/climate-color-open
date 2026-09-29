@@ -133,7 +133,7 @@ export function wheelSVG(options = {}) {
         const v0 = a0 + j * vStep, v1 = v0 + vStep, vm = v0 + vStep / 2;
         const p = point(rv, vm);
         g += `<path class="ccw-wedge ccw-verb" d="${wedgePath(r1, r0 - 0.5, v0, v1)}" ${paint(c.key, `tint-${j + 1}`)}/>`;
-        g += `<text x="${f(p.x)}" y="${f(p.y)}" transform="rotate(${f(verbRotation(vm))} ${f(p.x)} ${f(p.y)})" ` +
+        g += `<text class="ccw-verb-text" x="${f(p.x)}" y="${f(p.y)}" transform="rotate(${f(verbRotation(vm))} ${f(p.x)} ${f(p.y)})" ` +
              `text-anchor="middle" dominant-baseline="central" font-family="${VERB_FONT}" font-weight="600" ` +
              `font-size="${SIZE.verb}" letter-spacing="0.4" fill="${verbInk}" aria-hidden="true">${esc(verb.toUpperCase())}</text>`;
       });
@@ -146,7 +146,7 @@ export function wheelSVG(options = {}) {
     g += `<text x="${f(lp.x)}" y="${f(lp.y)}" text-anchor="middle" fill="${ink}" ` +
          `font-family="${NAME_FONT}" aria-hidden="true">` +
          `<tspan x="${f(lp.x)}" dy="-0.15em" font-size="${SIZE.name}" font-weight="800">${esc(c.key)}</tspan>` +
-         `<tspan x="${f(lp.x)}" dy="1.3em" font-size="${SIZE.archetype}" font-weight="700">${esc(c.archetype)}</tspan></text>`;
+         `<tspan class="ccw-archetype" x="${f(lp.x)}" dy="1.3em" font-size="${SIZE.archetype}" font-weight="700">${esc(c.archetype)}</tspan></text>`;
 
     const name = `${c.key}, the ${c.archetype}`;
     if (links) {
@@ -182,6 +182,14 @@ const STYLES = `
   box-shadow: 0 4px 10px rgba(0,0,0,0.15); z-index: 2; }
 .ccw-tip strong { display: block; }
 .ccw-caption { margin-top: 0.5rem; text-align: center; font-size: 0.9rem; color: var(--text-muted, #64748B); }
+/* On phones the wheel is small, so the verbs and archetypes get a little
+   bigger. At this size ENCOURAGE, the longest verb, still clears both
+   edges of the outer ring; don't go larger without checking it. Downloads
+   are drawn without these styles, so they keep the brand sizes. */
+@media (max-width: 640px) {
+  .ccw-verb-text { font-size: 12.75px; letter-spacing: 0.1px; }
+  .ccw-archetype { font-size: 13px; }
+}
 `;
 
 function addStyles() {
