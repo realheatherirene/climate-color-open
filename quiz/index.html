@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stewardship Quiz | Climate Color</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=ADLaM+Display&family=Varela+Round&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="../core/atlas.css">
+    <link rel="stylesheet" href="css/quiz.css">
+    <link rel="stylesheet" href="css/results.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="quiz-header">
+        <div>
+            <h1>Climate Color Quiz</h1>
+            <p>a quick and easy <strong>self-assessment</strong> that helps you find your <strong>climate strengths</strong></p>
+
+        </div>
+    </header>
+
+    <!-- Action bar (the results page adds Print, Copy, and Retake here) -->
+    <div class="beta-banner">
+        <div style="display: flex; gap: 0.75rem; align-items: center;" id="bannerActions">
+        <a href="quiz-faq.html" class="btn-sm-action" style="text-decoration: none;">FAQ</a>
+        </div>
+    </div>
+
+    <!-- Main Quiz Card Container -->
+<main id="quiz">
+
+    <!-- 40 moments, one per screen, each followed by the same question,
+         "Would that energize you?", answered Not really / Maybe / Yes. -->
+    <p id="quizInstructions" class="text-muted" style="margin-bottom: 1.25rem;">
+        Go with your gut. Every answer points toward a strength, and "Not really" just means that one is someone else's color.
+        <span class="key-hint">Tip: press 1, 2, or 3 to answer.</span>
+    </p>
+
+    <!-- Progress & Status Indicator -->
+    <div class="progress-info-bar">
+        <span id="progressText">Question 1 of 40</span>
+        <span id="progressPercent">0%</span>
+    </div>
+
+    <div class="progress-container" id="progressContainer" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+        <div class="progress-bar" id="progressBar"></div>
+    </div>
+
+    <div class="quiz-card" id="quizCard">
+        <div class="question-text" id="questionText" tabindex="-1"></div>
+        <div class="options-container" id="optionsContainer"></div>
+        <!-- Undo a mis-tap without restarting. Hidden on the first question;
+             quiz-logic.js shows and hides it. -->
+        <button type="button" id="backBtn" class="back-btn" hidden>&larr; Back</button>
+    </div>
+
+</main>
+
+    <!-- Results Screen Container -->
+    <div id="results" hidden></div>
+
+    <script type="module" src="js/quiz-logic.js"></script>
+
+    <!-- Tells the Squarespace page how tall the quiz is, so its box can
+         grow and shrink to fit. The matching listener lives in
+         Squarespace's code injection (copy kept in
+         tools/squarespace-quiz-listener.html). A plain script, not a
+         module, so it keeps working even if the quiz script fails. -->
+    <script src="js/iframe-resize.js"></script>
+</body>
+</html>
