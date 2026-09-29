@@ -166,7 +166,6 @@ body {
   display: inline-block;
 }
 
-.pill-btn:hover,
 .btn-pill-soft:hover {
   transform: translateY(-1px);
   background: var(--bg-tertiary);
@@ -175,15 +174,54 @@ body {
 /* Color pills and buttons. One recipe for every pill on the site: an 8%
    tint of the color, a 25% tint border, and words in the text shade mixed
    88% with black, so they always clear 4.5:1. core/index.html shows each
-   one with its contrast. */
-.pill-red, .btn-red-soft { background-color: color-mix(in srgb, var(--red-color) 8%, white); border: 1px solid color-mix(in srgb, var(--red-color) 25%, white); color: color-mix(in srgb, var(--red-text) 88%, black); }
-.pill-orange, .btn-orange-soft { background-color: color-mix(in srgb, var(--orange-color) 8%, white); border: 1px solid color-mix(in srgb, var(--orange-color) 25%, white); color: color-mix(in srgb, var(--orange-text) 88%, black); }
-.pill-yellow, .btn-yellow-soft { background-color: color-mix(in srgb, var(--yellow-color) 8%, white); border: 1px solid color-mix(in srgb, var(--yellow-color) 25%, white); color: color-mix(in srgb, var(--yellow-text) 88%, black); }
-.pill-green, .btn-green-soft { background-color: color-mix(in srgb, var(--green-color) 8%, white); border: 1px solid color-mix(in srgb, var(--green-color) 25%, white); color: color-mix(in srgb, var(--green-text) 88%, black); }
-.pill-blue, .btn-blue-soft { background-color: color-mix(in srgb, var(--blue-color) 8%, white); border: 1px solid color-mix(in srgb, var(--blue-color) 25%, white); color: color-mix(in srgb, var(--blue-text) 88%, black); }
-.pill-indigo, .btn-indigo-soft { background-color: color-mix(in srgb, var(--indigo-color) 8%, white); border: 1px solid color-mix(in srgb, var(--indigo-color) 25%, white); color: color-mix(in srgb, var(--indigo-text) 88%, black); }
-.pill-purple, .btn-purple-soft { background-color: color-mix(in srgb, var(--purple-color) 8%, white); border: 1px solid color-mix(in srgb, var(--purple-color) 25%, white); color: color-mix(in srgb, var(--purple-text) 88%, black); }
-.pill-violet, .btn-violet-soft { background-color: color-mix(in srgb, var(--violet-color) 8%, white); border: 1px solid color-mix(in srgb, var(--violet-color) 25%, white); color: color-mix(in srgb, var(--violet-text) 88%, black); }
+   one with its contrast. Each color class names its color and text shade
+   (in wheel order); the rule after them turns those into the pill. */
+.pill-yellow, .btn-yellow-soft { --pill-color: var(--yellow-color); --pill-text: var(--yellow-text); }
+.pill-orange, .btn-orange-soft { --pill-color: var(--orange-color); --pill-text: var(--orange-text); }
+.pill-red, .btn-red-soft { --pill-color: var(--red-color); --pill-text: var(--red-text); }
+.pill-violet, .btn-violet-soft { --pill-color: var(--violet-color); --pill-text: var(--violet-text); }
+.pill-indigo, .btn-indigo-soft { --pill-color: var(--indigo-color); --pill-text: var(--indigo-text); }
+.pill-purple, .btn-purple-soft { --pill-color: var(--purple-color); --pill-text: var(--purple-text); }
+.pill-green, .btn-green-soft { --pill-color: var(--green-color); --pill-text: var(--green-text); }
+.pill-blue, .btn-blue-soft { --pill-color: var(--blue-color); --pill-text: var(--blue-text); }
+.pill-yellow, .pill-orange, .pill-red, .pill-violet,
+.pill-indigo, .pill-purple, .pill-green, .pill-blue,
+.btn-yellow-soft, .btn-orange-soft, .btn-red-soft, .btn-violet-soft,
+.btn-indigo-soft, .btn-purple-soft, .btn-green-soft, .btn-blue-soft {
+  background-color: color-mix(in srgb, var(--pill-color) 8%, white);
+  border: 1px solid color-mix(in srgb, var(--pill-color) 25%, white);
+  color: color-mix(in srgb, var(--pill-text) 88%, black);
+}
+
+/* The neutral "All" pill in the Directory and Story Map filters. */
+.pill-all {
+  --pill-color: var(--text-muted);
+  --pill-text: var(--text-secondary);
+  background-color: var(--bg-tertiary);
+  border: 1px solid var(--border-strong);
+  color: var(--text-secondary);
+}
+
+/* Filter pills: hover darkens only the border, so the words keep their
+   contrast. Keyboard focus adds a ring in the same color as the words,
+   which clears 4.5:1 on the pill's tint. The ring sits just inside the
+   pill's edge, so the edge of the page can't cut it off. On the selected
+   pill (dark fill) the ring is white. The small lift is skipped for
+   anyone who has asked their device to reduce motion. */
+.pill-btn:hover {
+  border-color: var(--pill-color, var(--text-muted));
+}
+.pill-btn:focus-visible {
+  border-color: var(--pill-color, var(--text-muted));
+  outline: 2px solid color-mix(in srgb, var(--pill-text, var(--text-secondary)) 88%, black);
+  outline-offset: -4px;
+}
+.pill-btn.active:focus-visible {
+  outline-color: var(--bg-primary);
+}
+@media (prefers-reduced-motion: no-preference) {
+  .pill-btn:hover { transform: translateY(-1px); }
+}
 
 /* Global Theme Text Helpers: words in a color use its text shade. */
 .theme-red { color: var(--red-text); }
