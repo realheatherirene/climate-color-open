@@ -119,6 +119,12 @@
     margin: 0;
 }
 
+.reassurance-line {
+    font-size: 1rem;
+    color: var(--text-secondary);
+    margin: 0.6rem 0 0 0;
+}
+
 /* The wheel is drawn and styled by core/wheel.js; this sets its size. */
 .hero-wheel {
     width: 100%;
@@ -188,11 +194,17 @@
     font-size: 1.05rem;
 }
 
+/* Leads into the picks below it, so it carries the gap above them. */
+.bridge-line {
+    font-size: 1rem;
+    margin: 1.4rem 0 0 0;
+}
+
 .picks-label {
     font-size: 0.95rem;
     font-weight: 700;
     color: var(--text-secondary);
-    margin: 1.4rem 0 0 0;
+    margin: 0.6rem 0 0 0;
 }
 
 .picks {
