@@ -21,6 +21,13 @@
     gap: 0.5rem;
 }
 
+.banner-actions {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
 /* Progress Bar & Status Info */
 .progress-info-bar {
     display: flex;
@@ -173,4 +180,4 @@
     .scale-btn { padding: 0.7rem 0.25rem; font-size: 1rem; }
     /* Number-key tip is only useful with a keyboard. */
     .key-hint { display: none; }
-}
+}

@@ -3,6 +3,14 @@
    js/results-ui.js). Colors, pills, and the wheel come from core/.
    ========================================================================== */
 
+/* One left edge for every line of text on the page. The grey and white
+   boxes keep their outer edge on the column, and everything outside a box
+   (the wordmark, the headings, the links, the closing line) steps in by
+   the same amount as the words inside one, so all the text lines up. */
+.is-results {
+    --inset: 2rem;
+}
+
 #results {
     max-width: 1040px;
     margin: 2rem auto;
@@ -10,25 +18,64 @@
     color: var(--text-primary);
 }
 
-/* Print, Copy, and Retake in the top bar, in the Directory's soft style. */
+/* The top bar on the results page: the quiz title shrinks to a small
+   wordmark and shares one row with the buttons, lined up with the results
+   column. The tagline is for people starting the quiz, so it's hidden. */
+.is-results .top-bar {
+    max-width: 1040px;
+    margin: 1rem auto 0 auto;
+    padding: 0 calc(1rem + var(--inset));
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 0.75rem 1.5rem;
+}
+
+.is-results .quiz-header {
+    margin: 0;
+}
+
+.is-results .quiz-header h1 {
+    font-size: 1.35rem;
+    margin: 0;
+}
+
+.is-results .quiz-header p {
+    display: none;
+}
+
+.is-results .beta-banner {
+    margin: 0;
+    padding: 0;
+}
+
+/* Print, Copy, Retake, and FAQ: quiet outlined pills, so they stay out of
+   the result's way until someone needs them. */
 .btn-sm-action {
-    background-color: color-mix(in srgb, var(--brand-teal) 12%, white);
-    color: var(--brand-teal);
-    border: 1px solid color-mix(in srgb, var(--brand-teal) 35%, white);
-    padding: 0.45rem 1.25rem;
+    display: inline-block;
+    background-color: var(--bg-primary);
+    color: color-mix(in srgb, var(--brand-teal) 70%, black);
+    border: 1px solid var(--border-strong);
+    padding: 0.4rem 0.95rem;
+    font-family: inherit;
     font-size: 0.85rem;
     font-weight: 700;
     border-radius: 9999px;
     cursor: pointer;
-    transition: all 0.2s ease;
+    transition: background-color 0.15s ease, border-color 0.15s ease;
     text-decoration: none;
     line-height: 1.2;
 }
 
 .btn-sm-action:hover {
-    background-color: color-mix(in srgb, var(--brand-teal) 20%, white);
-    border-color: color-mix(in srgb, var(--brand-teal) 50%, white);
-    transform: translateY(-1px);
+    background-color: color-mix(in srgb, var(--brand-teal) 8%, white);
+    border-color: var(--brand-teal);
+}
+
+.btn-sm-action:focus-visible {
+    outline: 2px solid var(--brand-teal);
+    outline-offset: 2px;
 }
 
 /* The quiet "Link copied." note beside the buttons. */
@@ -52,91 +99,170 @@
 }
 
 /* ==========================================================================
-   1. Recognition: the blend and its swatch, the three colors, and the
-   petal wheel beside them (above them on narrow screens).
+   1. Recognition: one card in the same light grey as the first-step card
+   below, with a soft white glow behind the wheel so its palest wedges
+   keep a clear edge. --blend and --c1 to --c3 are set on the card by
+   results-ui.js (for the color bar and the reassurance rule).
    ========================================================================== */
 .results-hero {
     display: grid;
-    grid-template-columns: 1.1fr 1fr;
-    gap: 2rem;
+    grid-template-columns: 1fr 1.1fr;
+    grid-template-rows: auto 1fr;
+    grid-template-areas: "heading wheel" "text wheel";
+    gap: 1.5rem 2rem;
     align-items: center;
+    padding: 2.75rem var(--inset);
+    border-radius: 28px;
+    background:
+        radial-gradient(circle at 76% 50%, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0) 45%),
+        var(--bg-secondary);
+    border: 1px solid var(--border-color);
 }
 
-.results-eyebrow {
-    font-size: 0.8rem;
-    font-weight: 700;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--text-muted);
-    margin: 0 0 0.35rem 0;
+/* The heading tops the words; the wheel runs the full height beside them. */
+.results-hero .results-heading { grid-area: heading; margin: 0; align-self: end; }
+.hero-text { grid-area: text; align-self: start; }
+.hero-wheel { grid-area: wheel; }
+
+/* The short line that leads from the three colors into the blend. */
+.blend-lead {
+    font-size: 1rem;
+    color: var(--text-secondary);
+    margin: 1.75rem 0 0.1rem 0;
 }
 
 /* Neutral black for all 56 blends, so the name is always readable. */
 .blend-name {
     font-family: 'ADLaM Display', 'Varela Round', sans-serif;
-    font-size: 3rem;
+    font-size: clamp(2.6rem, 5.5vw, 3.75rem);
     font-weight: 500;
-    line-height: 1.05;
+    line-height: 1;
+    letter-spacing: -0.01em;
     margin: 0;
     color: var(--text-primary);
 }
 
-/* The blend's swatch. Decorative only: no text sits on it. */
-.blend-swatch {
-    width: 140px;
-    height: 12px;
+/* The three colors running into each other, strongest first: the blend,
+   drawn. Decorative only: no text sits on it. */
+.blend-bar {
+    width: min(260px, 100%);
+    height: 10px;
     border-radius: 9999px;
-    margin: 0.75rem 0 0.9rem 0;
+    margin: 0.8rem 0 0.9rem 0;
+    background: linear-gradient(90deg, var(--c1), var(--c2), var(--c3));
 }
 
 .nature-line {
-    font-size: 1.05rem;
-    color: var(--text-secondary);
-    margin: 0 0 1.1rem 0;
-}
-
-/* The three colors in their full wheel colors. Plain labels, not links:
-   on this page solid color means "this is you" and light tints mean
-   "select this". The words use the wheel's black or white label color. */
-.palette-chips {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-    list-style: none;
-    padding: 0;
-    margin: 0 0 0.9rem 0;
-}
-
-.palette-chip {
-    border-radius: 9999px;
-    padding: 0.4rem 1rem;
-    font-size: 0.95rem;
-    font-weight: 700;
-}
-
-.archetype-line {
-    font-size: 1.1rem;
+    text-wrap: balance;
+    font-size: 1.15rem;
+    line-height: 1.45;
+    color: var(--text-primary);
     margin: 0;
 }
 
+/* The three colors, each a solid dot with its name and archetype. Plain
+   labels, not links: on this page solid color means "this is you" and
+   light tints mean "select this". */
+.palette-lineup {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    list-style: none;
+    padding: 0;
+    margin: 0 0 1rem 0;
+}
+
+.lineup-item {
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
+    padding: 0.5rem 1.1rem 0.5rem 0.5rem;
+    background: var(--bg-primary);
+    border-radius: 9999px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06);
+}
+
+.lineup-dot {
+    width: 2.1rem;
+    height: 2.1rem;
+    border-radius: 50%;
+    flex: none;
+}
+
+.lineup-words {
+    line-height: 1.15;
+}
+
+.lineup-name {
+    display: block;
+    font-weight: 700;
+    font-size: 1.05rem;
+}
+
+.lineup-arch {
+    display: block;
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+}
+
+.archetype-line {
+    text-wrap: balance;
+    font-size: 1.15rem;
+    font-weight: 700;
+    margin: 0;
+}
+
+/* The reassurance reads as a quiet aside, set off by a short rule. */
 .reassurance-line {
     font-size: 1rem;
     color: var(--text-secondary);
-    margin: 0.6rem 0 0 0;
+    margin: 1.5rem 0 0 0;
+    padding-left: 0.9rem;
+    border-left: 3px solid color-mix(in srgb, var(--blend) 45%, white);
 }
 
-/* The wheel is drawn and styled by core/wheel.js; this sets its size. */
+/* The full brand wheel, drawn by core/wheel.js exactly as on the Pathways
+   landing page; this only sets its size. It gets a little more room than
+   the words, since its 24 verbs need it to stay readable. */
 .hero-wheel {
     width: 100%;
-    max-width: 380px;
+    max-width: 460px;
     justify-self: center;
 }
+
+.hero-wheel .ccw-svg {
+    filter: drop-shadow(0 4px 14px rgba(0, 0, 0, 0.1));
+}
+
+/* A small welcome: the card rises in. Skipped for anyone who has asked
+   their device to reduce motion. */
+@media (prefers-reduced-motion: no-preference) {
+    .results-hero {
+        animation: hero-in 0.5s ease-out both;
+    }
+}
+
+@keyframes hero-in {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: none; }
+}
+
 
 /* ==========================================================================
    Sections 2 to 4
    ========================================================================== */
 .results-section {
-    margin-top: 2.5rem;
+    margin-top: 3rem;
+}
+
+.results-section-first {
+    margin-top: 0;
+}
+
+/* Inside a grey box the heading already sits on the box's inner edge. */
+.results-hero .results-heading,
+.first-step .results-heading {
+    padding: 0;
 }
 
 .results-heading {
@@ -145,34 +271,51 @@
     font-weight: 500;
     color: var(--text-primary);
     margin: 0 0 1rem 0;
+    padding: 0 var(--inset);
 }
 
-/* 2. One row per color: a bar in the color, then "Purple · The Connector"
-   and its move and spark. The color name uses its text shade. */
-.color-rows {
+/* 2. One card per color, strongest first, side by side. Each card has a
+   thick top edge in its color; the color name uses its text shade. */
+.color-cards {
     display: grid;
-    gap: 0.75rem;
-}
-
-.color-row {
-    display: grid;
-    grid-template-columns: 6px 1fr;
+    grid-template-columns: repeat(3, 1fr);
     gap: 1rem;
-    padding: 0.35rem 0;
-}
-
-.color-row-bar {
-    border-radius: 6px;
-}
-
-.color-row-title {
-    font-size: 1.1rem;
+    list-style: none;
+    padding: 0;
     margin: 0;
 }
 
-.color-row-text {
+.color-card {
+    background: var(--bg-primary);
+    border: 1px solid var(--border-color);
+    border-top: 6px solid var(--card-color);
+    border-radius: 16px;
+    padding: 1.1rem var(--inset) 1.25rem var(--inset);
+}
+
+.color-card-rank {
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin: 0 0 0.35rem 0;
+}
+
+.color-card-title {
+    font-size: 1.15rem;
+    line-height: 1.3;
+    margin: 0 0 0.5rem 0;
+}
+
+.color-card-move {
+    font-weight: 700;
+    margin: 0 0 0.35rem 0;
+}
+
+.color-card-spark {
     color: var(--text-secondary);
-    margin: 0.15rem 0 0 0;
+    margin: 0;
 }
 
 /* 3. The first step: one main button to the strongest color's pathway
@@ -181,7 +324,7 @@
     background: var(--bg-secondary);
     border: 1px solid var(--border-color);
     border-radius: 16px;
-    padding: 1.5rem;
+    padding: 1.5rem var(--inset);
 }
 
 .first-step-lead {
@@ -285,8 +428,10 @@
     border-radius: 50%;
 }
 
-/* 4. Keep going */
+/* 3, continued: links to everything for the palette, after the grey box. */
 .more-links {
+    margin-top: 1.5rem;
+    padding: 0 var(--inset);
     display: flex;
     flex-wrap: wrap;
     gap: 0.6rem;
@@ -315,15 +460,24 @@
     outline-offset: 2px;
 }
 
+/* The closing line, set a size up so the page ends on it. */
 .results-closer {
-    color: var(--text-secondary);
-    margin: 1.5rem 0 0 0;
+    font-size: 1.15rem;
+    line-height: 1.55;
+    color: var(--text-primary);
+    max-width: 44rem;
+    margin: 2rem 0 0 0;
+    padding: 0 var(--inset);
 }
 
 /* ==========================================================================
    Smaller screens: one column, with the wheel first.
    ========================================================================== */
 @media (max-width: 760px) {
+    .is-results .top-bar {
+        padding: 0 calc(0.75rem + var(--inset));
+    }
+
     #results {
         padding: 0 0.75rem 3rem 0.75rem;
         margin: 1rem auto;
@@ -331,16 +485,33 @@
 
     .results-hero {
         grid-template-columns: 1fr;
-        gap: 1rem;
+        gap: 0.5rem;
+        padding: 1.5rem var(--inset) 1.75rem var(--inset);
+        border-radius: 22px;
+        background:
+            radial-gradient(circle at 50% 25%, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0) 50%),
+            var(--bg-secondary);
+    }
+
+    .results-hero {
+        grid-template-rows: auto;
+        grid-template-areas: "heading" "wheel" "text";
     }
 
     .hero-wheel {
-        order: -1;
-        max-width: 300px;
+        max-width: 360px;
     }
 
     .blend-name {
-        font-size: 2.4rem;
+        font-size: 2.6rem;
+    }
+
+    .nature-line {
+        font-size: 1.1rem;
+    }
+
+    .color-cards {
+        grid-template-columns: 1fr;
     }
 
     .picks {
@@ -348,17 +519,19 @@
     }
 
     .first-step {
-        padding: 1.1rem;
+        padding: 1.1rem var(--inset);
     }
 }
 
-/* Top-bar buttons go full width on tablets and phones. */
-@media (max-width: 768px) {
-    .btn-sm-action {
-        width: 100%;
-        text-align: center;
-        padding: 0.5rem 1rem !important;
-        font-size: 0.8rem !important;
+/* On phones the wordmark and buttons stack, and the buttons stay small. */
+@media (max-width: 640px) {
+    .is-results {
+        --inset: 1.1rem;
+    }
+
+    .is-results .top-bar {
+        padding: 0 var(--inset);
+        margin-top: 0;
     }
 }
 
@@ -388,10 +561,20 @@
         margin: 0 auto;
     }
 
+    /* On paper the wordmark is enough; the buttons are already hidden. */
+    .is-results .top-bar {
+        margin-top: 0;
+    }
+
+    .results-hero {
+        animation: none !important;
+        padding: 1.5rem var(--inset);
+    }
+
     /* Each part stays whole on the page, and headings stay with what
        follows them. */
     .results-hero,
-    .color-row,
+    .color-card,
     .pick-card,
     .first-step {
         break-inside: avoid;
