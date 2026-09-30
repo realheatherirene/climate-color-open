@@ -17,14 +17,18 @@ export const RESULTS_TEXT = {
     natureLine: (blendName, image) => `${blendName} is the color of ${image}.`,
     // Color first, archetype right after.
     archetypeLine: (a, b, c) => `You're part ${a}, part ${b}, and part ${c}.`,
+    // Leads from the three colors into the blend they make.
+    blendLead: "Together, they make:",
     reassurance: "You don't need to become anyone new. Who you are is enough to start.",
     chipsLabel: "Your three colors",
 
-    colorsHeading: "What your colors do",
+    colorsHeading: "Your climate colors in action",
+    // Small label above each color, strongest first.
+    rankLabels: ["Your strongest color", "Your second color", "Your third color"],
     // Built from each color's move and spark in core/climate-color.js.
     sparkLead: "You light up when",
 
-    firstStepHeading: "Your first step",
+    firstStepHeading: "Your climate colors in the wild",
     firstStepLead: (colorKey, archetype) =>
         `Start with ${colorKey}, your strongest color. Its path shows what a ${archetype} can do, with ideas to try this week.`,
     pathButton: archetype => `Explore the ${archetype}'s Path`,
@@ -39,7 +43,6 @@ export const RESULTS_TEXT = {
         : "Matches one of your colors",
     newTab: "(opens in a new tab)",
 
-    keepGoingHeading: "Keep going",
     moreResources: n => `All ${n} resources for your palette`,
     moreStories: n => `All ${n} stories for your palette`,
 
