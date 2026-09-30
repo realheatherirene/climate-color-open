@@ -12,11 +12,12 @@
    ========================================================================== */
 
 export const RESULTS_TEXT = {
-    heroLabel: "Your climate color",
+    heroLabel: "Your climate colors",
     // "{Blend} is the color of {image}."
     natureLine: (blendName, image) => `${blendName} is the color of ${image}.`,
     // Color first, archetype right after.
     archetypeLine: (a, b, c) => `You're part ${a}, part ${b}, and part ${c}.`,
+    reassurance: "You don't need to become anyone new. Who you are is enough to start.",
     chipsLabel: "Your three colors",
 
     colorsHeading: "What your colors do",
@@ -27,6 +28,8 @@ export const RESULTS_TEXT = {
     firstStepLead: (colorKey, archetype) =>
         `Start with ${colorKey}, your strongest color. Its path shows what a ${archetype} can do, with ideas to try this week.`,
     pathButton: archetype => `Explore the ${archetype}'s Path`,
+    bridgeLine: "Your colors show what you already bring to the climate movement. " +
+        "The resources and stories below share your colors, so if you're wondering how to get involved, start there.",
     picksLabel: "Picked for your palette",
     resourceKind: "A resource to try",
     storyKind: "A story to read",

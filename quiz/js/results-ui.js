@@ -94,7 +94,7 @@ export function renderResultsScreen(primaryKey, secondaryKey, tertiaryKey) {
   // A broken shared link that doesn't name three different colors of the
   // eight gets a short message instead of a half-built page.
   if (!blend || palette.some(c => !c)) {
-    resultsEl.innerHTML = `<section class="results-section"><p>This result link is missing a color. <a href="${esc(window.location.pathname)}">Take the quiz</a> to find your climate color.</p></section>`;
+    resultsEl.innerHTML = `<section class="results-section"><p>This result link is missing a color. <a href="${esc(window.location.pathname)}">Take the quiz</a> to find your climate colors.</p></section>`;
     wireButtons(colorKeys);
     return;
   }
@@ -117,6 +117,7 @@ export function renderResultsScreen(primaryKey, secondaryKey, tertiaryKey) {
           ${palette.map(c => `<li class="palette-chip" style="background: var(--${c.key.toLowerCase()}-color); color: ${chipInk(c)};">${esc(c.key)}</li>`).join("")}
         </ul>
         <p class="archetype-line">${esc(T.archetypeLine(p.archetype, s.archetype, t.archetype))}</p>
+        <p class="reassurance-line">${esc(T.reassurance)}</p>
       </div>
       <div class="hero-wheel" id="colorWheelSection"></div>
     </section>
@@ -142,6 +143,7 @@ export function renderResultsScreen(primaryKey, secondaryKey, tertiaryKey) {
       <div class="first-step">
         <p class="first-step-lead">${esc(T.firstStepLead(p.key, p.archetype))}</p>
         <a class="pill-btn pill-${p.key.toLowerCase()} first-step-btn" href="${pathwayUrl(p.key)}">${esc(T.pathButton(p.archetype))} <span aria-hidden="true">&rarr;</span></a>
+        <p class="bridge-line">${esc(T.bridgeLine)}</p>
         <p class="picks-label">${T.picksLabel}</p>
         <div class="picks">
           ${pickHtml(T.resourceKind, topResource, colorKeys, topResource?.item.type, topResource?.item.desc)}
