@@ -1,198 +1,199 @@
-import { identityBlurbs, colorActivities } from './results-content.js';
-import { getColor } from '../../core/climate-color.js';
+import { RESULTS_TEXT as T } from './results-content.js';
+import { getColor, paletteMatches } from '../../core/climate-color.js';
 import { getBlend, blendHex } from '../../core/blends.js';
 import { renderWheel } from '../../core/wheel.js';
+import { resources } from '../../directory/directory-data.js';
+import { stories } from '../../storymap/story-map-data.js';
 
-// Full link to a color's pathway page
-function pathwayUrl(slug) {
-  const repoRoot = window.location.pathname.split('/')[1]; // e.g. "climate-color-open"
-  return `${window.location.origin}/${repoRoot}/pathways/${slug}.html`;
-}
+/* ==========================================================================
+   RESULTS PAGE: one guided path, in four parts.
+     1. Recognition: the blend, its swatch, the three colors, and the
+        petal wheel.
+     2. Understanding: each color with its archetype, move, and spark.
+     3. A first step: the strongest color's pathway, plus one resource and
+        one story picked for the whole palette.
+     4. Keep going: the Directory and Story Map, filtered to the palette.
+   Print, Copy, and Retake stay in the quiz's top bar, next to the FAQ.
 
-// Full link to a color's Directory view. The Directory reads ?style= in
-// any capitalization, so the color name works as is.
-function directoryUrl(colorKey) {
+   Solid color means "this is you" (the chips and the wheel); light tints
+   mean "select this" (buttons and links). Keep the chips as plain text,
+   not links, so that rule holds.
+   ========================================================================== */
+
+// Pages are linked by full address, built from the repo name in the
+// current address (e.g. "climate-color-open").
+function siteUrl(path) {
   const repoRoot = window.location.pathname.split('/')[1];
-  return `${window.location.origin}/${repoRoot}/directory/index.html?style=${encodeURIComponent(colorKey)}`;
+  return `${window.location.origin}/${repoRoot}/${path}`;
+}
+const pathwayUrl = colorKey => siteUrl(`pathways/${colorKey.toLowerCase()}.html`);
+// The Directory and Story Map read a whole palette from ?style=, in any
+// order and capitalization. Commas are left readable.
+const paletteQuery = colors => `?style=${colors.map(encodeURIComponent).join(",")}`;
+const directoryUrl = colors => siteUrl(`directory/index.html${paletteQuery(colors)}`);
+const storyMapUrl = colors => siteUrl(`storymap/index.html${paletteQuery(colors)}`);
+
+const esc = s => String(s ?? "").replace(/&/g, "&amp;").replace(/</g, "&lt;")
+  .replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+const lowerFirst = s => s.charAt(0).toLowerCase() + s.slice(1);
+// Words on a solid color chip: the same black or white as the wheel labels,
+// which core/index.html checks at 4.5:1.
+const chipInk = c => c.label === "black" ? "#000000" : "#FFFFFF";
+
+// Items that share at least one of the palette's colors, best first: the
+// most shared colors, then those that include the strongest color, then
+// the data's own order. Items without a real link are left out.
+function rankForPalette(items, colors) {
+  return items
+    .map((item, i) => ({ item, i, n: paletteMatches(item.styles, colors), top: item.styles.includes(colors[0]) }))
+    .filter(x => x.n > 0 && !x.item.draft && x.item.url && x.item.url !== "#")
+    .sort((a, b) => b.n - a.n || (b.top - a.top) || a.i - b.i);
 }
 
-// Full link to a color's view of the Story Map (reads ?style= the same
-// way).
-function storyMapUrl(colorKey) {
-  const repoRoot = window.location.pathname.split('/')[1];
-  return `${window.location.origin}/${repoRoot}/storymap/index.html?style=${encodeURIComponent(colorKey)}`;
+function matchDots(itemColors, colors) {
+  return itemColors.filter(k => colors.includes(k)).map(k =>
+    `<span class="match-color"><span class="match-dot" style="background: var(--${k.toLowerCase()}-color);" aria-hidden="true"></span>${esc(k)}</span>`
+  ).join(" ");
 }
 
-// The closing line, shared by all 56 blends (reading level: grade 5.9).
-const SOUL_CLOSER = "Together, these three colors mean you don't just care about the climate. " +
-  "You keep hope alive, and you make it easier for everyone around you to care too.";
-
-// Builds the hero card's summary. Returns { subheader, paragraphs }:
-//   - `subheader`: the nature line, "{Blend} is the color of {image}.",
-//     shown on its own as a small lead-in.
-//   - `paragraphs`: one short "{Color} brings the..." line for each of the
-//     three colors (identityBlurbs' `short`), so all three read as equals,
-//     then the shared closing line.
-// Built from data, so it works for all 56 blends.
-function buildIdentityParagraphs(blend, primaryKey, secondaryKey, tertiaryKey) {
-  const p = identityBlurbs[primaryKey];
-  const s = identityBlurbs[secondaryKey];
-  const t = identityBlurbs[tertiaryKey];
-  if (!blend.name || !p || !s || !t) return { subheader: "", paragraphs: [] };
-
-  const subheader = blend.natureImage ? `${blend.name} is the color of ${blend.natureImage}.` : "";
-  const paragraphs = [p.short, s.short, t.short, SOUL_CLOSER];
-
-  return { subheader, paragraphs };
-}
-
-// A color's archetype, or "" for an unknown key, so a broken shared link
-// just leaves the archetype out instead of printing "undefined".
-function archetypeOf(colorKey) {
-  return getColor(colorKey)?.archetype || "";
-}
-
-// One action palette card, in the same card style as the Directory and
-// Pathways. `isPrimary` adds .primary-card (a thicker border and stronger
-// shadow), so the person's primary color leads.
-function colorCardHtml(colorKey, colorClass, isPrimary) {
-  const activities = colorActivities[colorKey] || [];
-  const archetype = archetypeOf(colorKey);
-  const itemsHtml = activities.map(item => `<li>${item}</li>`).join('');
+// One pick card: a resource or a story, opening at its source.
+function pickHtml(kind, ranked, colors, meta, text) {
+  if (!ranked) return "";
+  const { item, n } = ranked;
   return `
-    <div class="styleBlock border-${colorClass}${isPrimary ? ' primary-card' : ''}">
-      <div class="card-content">
-        <div class="styleTitle">${colorKey}</div>
-        ${archetype ? `<div class="card-archetype">The ${archetype}</div>` : ''}
-        <div class="styleIdentity">People with ${colorKey} in their palette tend to enjoy:</div>
-        <ul class="action-palette-items">${itemsHtml}</ul>
-      </div>
-      <div class="action-palette-cta">
-        <a href="${pathwayUrl(colorClass)}" class="btn-pill-soft">Explore ${colorKey} pathways &rarr;</a>
-        <a href="${directoryUrl(colorKey)}" class="btn-pill-soft">Explore ${colorKey} resources &rarr;</a>
-        <a href="${storyMapUrl(colorKey)}" class="btn-pill-soft">Explore ${colorKey} stories &rarr;</a>
-      </div>
-    </div>`;
-}
-
-// One palette pill in the hero card's "A blend of" row. `--pill-true`
-// is the color (for the tint and border) and `--pill-text` its text shade,
-// both from core/atlas.css. results.css turns them into the site-wide pill
-// recipe, which clears 4.5:1 for all eight colors.
-function palettePillHtml(colorKey, colorClass) {
-  return `<a href="${pathwayUrl(colorClass)}" class="palette-pill"
-      style="--pill-true: var(--${colorClass}-color, var(--brand-teal));
-             --pill-text: var(--${colorClass}-text, var(--brand-teal));">${colorKey}</a>`;
+    <a class="pick-card" href="${esc(item.url)}" target="_blank" rel="noopener noreferrer">
+      <span class="pick-kind">${kind}</span>
+      <h3 class="pick-title">${esc(item.title)}<span class="visually-hidden"> ${T.newTab}</span></h3>
+      <p class="pick-text">${esc(text)}</p>
+      <span class="pick-meta">${esc(meta)}</span>
+      <span class="pick-match">${T.matchLine(n)}: ${matchDots(item.styles, colors)}</span>
+    </a>`;
 }
 
 export function renderResultsScreen(primaryKey, secondaryKey, tertiaryKey) {
   const resultsEl = document.getElementById("results");
   if (!resultsEl) return;
-
   resultsEl.hidden = false;
 
-  // Add the Print, Copy, and Retake buttons to the top banner
+  // Print, Copy, and Retake join the FAQ in the top bar, where the quiz
+  // keeps its controls.
   const bannerActions = document.getElementById('bannerActions');
-  if (bannerActions) {
-    if (!document.getElementById('btnCopyLink')) {
-      bannerActions.insertAdjacentHTML('afterbegin', `
-        <button onclick="window.print()" class="btn-sm-action">Print</button>
-        <button id="btnCopyLink" class="btn-sm-action">Copy</button>
-        <button id="btnResetQuiz" class="btn-sm-action">Retake</button>
-      `);
-    }
+  if (bannerActions && !document.getElementById('btnCopyLink')) {
+    bannerActions.insertAdjacentHTML('afterbegin', `
+      <button type="button" onclick="window.print()" class="btn-sm-action">Print</button>
+      <button type="button" id="btnCopyLink" class="btn-sm-action">Copy</button>
+      <button type="button" id="btnResetQuiz" class="btn-sm-action">Retake</button>
+    `);
+    bannerActions.insertAdjacentHTML('beforeend', `<span class="copy-status" id="copyStatus" aria-live="polite"></span>`);
   }
 
-  const primaryClass = primaryKey ? primaryKey.toLowerCase() : "";
-  const secondaryClass = secondaryKey ? secondaryKey.toLowerCase() : "";
-  const tertiaryClass = tertiaryKey ? tertiaryKey.toLowerCase() : "";
+  const colorKeys = [primaryKey, secondaryKey, tertiaryKey];
+  const palette = colorKeys.map(getColor);
+  const blend = getBlend(...colorKeys);
 
-  // The same three colors always give the same blend, in any order. A
-  // broken shared link that doesn't name three of the eight colors gets an
-  // empty blend instead of an error.
-  const blend = getBlend(primaryKey, secondaryKey, tertiaryKey) || { name: "", descriptor: "", natureImage: "", hex: "" };
+  // A broken shared link that doesn't name three different colors of the
+  // eight gets a short message instead of a half-built page.
+  if (!blend || palette.some(c => !c)) {
+    resultsEl.innerHTML = `<section class="results-section"><p>This result link is missing a color. <a href="${esc(window.location.pathname)}">Take the quiz</a> to find your climate color.</p></section>`;
+    wireButtons(colorKeys);
+    return;
+  }
 
-  const { subheader, paragraphs: identityParagraphs } = buildIdentityParagraphs(blend, primaryKey, secondaryKey, tertiaryKey);
-  const identityParagraphsHtml = identityParagraphs.map(p => `<p>${p}</p>`).join('');
-
-  // Color first, archetype right after: the pills are the hook, and this
-  // line under them says what they mean. All three archetypes are named
-  // equally, in palette order.
-  const [aP, aS, aT] = [primaryKey, secondaryKey, tertiaryKey].map(archetypeOf);
-  const archetypeLine = (aP && aS && aT)
-    ? `<div class="archetype-line">You're part ${aP}, part ${aS}, and part ${aT}.</div>`
-    : '';
-
-  // Swatch pill background: the blend's color, worked out live from
-  // core/atlas.css (core/blends.js). If it can't be (a malformed or legacy
-  // shared link that didn't resolve to a real blend), fall back to a
-  // gradient of the person's own three colors.
-  const swatchHex = blend.name ? blendHex(blend) : "";
-  const swatchBackground = swatchHex
-    ? swatchHex
-    : `linear-gradient(135deg,
-        var(--${primaryClass}-color, var(--brand-teal)),
-        var(--${secondaryClass}-color, var(--brand-teal)),
-        var(--${tertiaryClass}-color, var(--brand-teal)))`;
+  const [p, s, t] = palette;
+  const topResource = rankForPalette(resources, colorKeys)[0];
+  const topStory = rankForPalette(stories, colorKeys)[0];
+  const resourceCount = resources.filter(r => paletteMatches(r.styles, colorKeys) > 0).length;
+  const storyCount = stories.filter(st => !st.draft && paletteMatches(st.styles, colorKeys) > 0).length;
 
   resultsEl.innerHTML = `
-    <!-- Hero card: the blend name (always neutral black, so it's readable
-         for all 56 blends), its swatch (decorative, in the blend's real
-         color), the three color pills, the archetype line, the nature
-         line, and the summary. -->
-    <div class="hero-card">
-      <div class="identity-heading">Your climate color:</div>
-      <div class="blend-name">${blend.name}</div>
-      <div class="blend-swatch-pill" style="background: ${swatchBackground};"></div>
-
-      <div class="blend-of-label">A blend of:</div>
-      <div class="palette-pills">
-        ${palettePillHtml(primaryKey, primaryClass)}
-        ${palettePillHtml(secondaryKey, secondaryClass)}
-        ${palettePillHtml(tertiaryKey, tertiaryClass)}
+    <!-- 1. Recognition -->
+    <section class="results-hero" aria-labelledby="blendName">
+      <div class="hero-text">
+        <p class="results-eyebrow">${T.heroLabel}</p>
+        <h2 class="blend-name" id="blendName">${esc(blend.name)}</h2>
+        <div class="blend-swatch" style="background: ${blendHex(blend)};" aria-hidden="true"></div>
+        <p class="nature-line">${esc(T.natureLine(blend.name, blend.natureImage))}</p>
+        <ul class="palette-chips" aria-label="${T.chipsLabel}">
+          ${palette.map(c => `<li class="palette-chip" style="background: var(--${c.key.toLowerCase()}-color); color: ${chipInk(c)};">${esc(c.key)}</li>`).join("")}
+        </ul>
+        <p class="archetype-line">${esc(T.archetypeLine(p.archetype, s.archetype, t.archetype))}</p>
       </div>
-      ${archetypeLine}
+      <div class="hero-wheel" id="colorWheelSection"></div>
+    </section>
 
-      ${subheader ? `<div class="nature-subheader">${subheader}</div>` : ''}
-      <div class="action-paragraph">${identityParagraphsHtml}</div>
-    </div>
-
-    <!-- Your action palette: one card per color, each with a short list
-         and three buttons (pathways, resources, stories), so the next steps
-         are clear even for someone who reads no further. -->
-    <div class="action-palette-section">
-      <div class="identity-heading">Your action palette:</div>
-      <div class="action-palette-list">
-        ${colorCardHtml(primaryKey, primaryClass, true)}
-        ${colorCardHtml(secondaryKey, secondaryClass, false)}
-        ${colorCardHtml(tertiaryKey, tertiaryClass, false)}
+    <!-- 2. Understanding -->
+    <section class="results-section" aria-labelledby="colorsHeading">
+      <h2 class="results-heading" id="colorsHeading">${T.colorsHeading}</h2>
+      <div class="color-rows">
+        ${palette.map(c => `
+        <div class="color-row">
+          <span class="color-row-bar" style="background: var(--${c.key.toLowerCase()}-color);" aria-hidden="true"></span>
+          <div>
+            <h3 class="color-row-title"><span class="theme-${c.key.toLowerCase()}">${esc(c.key)}</span> · The ${esc(c.archetype)}</h3>
+            <p class="color-row-text">${esc(c.move)} ${T.sparkLead} ${esc(lowerFirst(c.spark))}</p>
+          </div>
+        </div>`).join("")}
       </div>
-    </div>
+    </section>
 
-    <!-- The wheel, after the cards: the bigger picture. -->
-    <div id="colorWheelSection" class="color-wheel-section"></div>
+    <!-- 3. A first step -->
+    <section class="results-section" aria-labelledby="firstStepHeading">
+      <h2 class="results-heading" id="firstStepHeading">${T.firstStepHeading}</h2>
+      <div class="first-step">
+        <p class="first-step-lead">${esc(T.firstStepLead(p.key, p.archetype))}</p>
+        <a class="pill-btn pill-${p.key.toLowerCase()} first-step-btn" href="${pathwayUrl(p.key)}">${esc(T.pathButton(p.archetype))} <span aria-hidden="true">&rarr;</span></a>
+        <p class="picks-label">${T.picksLabel}</p>
+        <div class="picks">
+          ${pickHtml(T.resourceKind, topResource, colorKeys, topResource?.item.type, topResource?.item.desc)}
+          ${pickHtml(T.storyKind, topStory, colorKeys, topStory ? `${topStory.item.place} · ${topStory.item.source}` : "", topStory?.item.summary)}
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. Keep going -->
+    <section class="results-section" aria-labelledby="keepGoingHeading">
+      <h2 class="results-heading" id="keepGoingHeading">${T.keepGoingHeading}</h2>
+      <div class="more-links">
+        <a class="btn-pill-soft" href="${directoryUrl(colorKeys)}">${T.moreResources(resourceCount)} <span aria-hidden="true">&rarr;</span></a>
+        <a class="btn-pill-soft" href="${storyMapUrl(colorKeys)}">${T.moreStories(storyCount)} <span aria-hidden="true">&rarr;</span></a>
+      </div>
+      <p class="results-closer">${T.closer}</p>
+    </section>
+
   `;
 
   // The wheel from core/wheel.js, with the person's three colors reaching
-  // out as petals. Hover or tap shows each color's archetype and move.
+  // out as petals. A picture only (no tooltips): the rows under "What your
+  // colors do" already say what each color means, and keyboard users reach
+  // the first step without eight extra stops.
   renderWheel(document.getElementById('colorWheelSection'), {
     variant: "simple",
+    tooltip: false,
     petals: { primary: primaryKey, secondary: secondaryKey, tertiary: tertiaryKey },
     label: "Wheel of all eight climate colors. Your three colors reach further out from the ring."
   });
 
-  // Copy Link & Reset Handlers
-  document.getElementById("btnCopyLink").onclick = () => {
+  wireButtons(colorKeys);
+}
+
+function wireButtons([primaryKey, secondaryKey, tertiaryKey]) {
+  // Copy puts a share link on the clipboard and says so quietly, without
+  // a pop-up. If the browser won't allow it, the link is shown instead.
+  const copyBtn = document.getElementById("btnCopyLink");
+  if (copyBtn) copyBtn.onclick = () => {
     const shareUrl = `${window.location.origin}${window.location.pathname}?primary=${encodeURIComponent(primaryKey)}&secondary=${encodeURIComponent(secondaryKey)}&tertiary=${encodeURIComponent(tertiaryKey)}`;
-    navigator.clipboard?.writeText(shareUrl)
-      .then(() => alert("Link copied to clipboard!"))
-      .catch(() => prompt("Copy your share link below:", shareUrl));
+    const status = document.getElementById("copyStatus");
+    const say = text => { if (status) status.textContent = text; };
+    const fallback = () => say(`${T.copyFallback} ${shareUrl}`);
+    if (navigator.clipboard?.writeText) navigator.clipboard.writeText(shareUrl).then(() => say(T.copied), fallback);
+    else fallback();
   };
 
   // Retake clears everything the quiz saved: the three colors, the raw
   // scores, and the confidence. It removes every "climatecolor_" key, so
   // anything saved under that prefix later is cleared too.
-  document.getElementById("btnResetQuiz").onclick = () => {
+  const resetBtn = document.getElementById("btnResetQuiz");
+  if (resetBtn) resetBtn.onclick = () => {
     Object.keys(localStorage)
       .filter(key => key.startsWith('climatecolor_'))
       .forEach(key => localStorage.removeItem(key));
