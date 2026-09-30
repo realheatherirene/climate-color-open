@@ -1,7 +1,7 @@
 import { stories } from './story-map-data.js';
 import { worldRows, DOT_DEG, LAT_TOP, LON_LEFT } from './world-dots.js';
-import { COLORS, resolveColor } from '../core/climate-color.js';
-import { getBlend } from '../core/blends.js';
+import { COLORS, COLOR_KEYS, resolveColors, paletteMatches } from '../core/climate-color.js';
+import { getBlend, blendHex } from '../core/blends.js';
 
 /* ==========================================================================
    STORY MAP LOGIC — imports only files in this folder and core/ (the
@@ -21,7 +21,8 @@ for (const c of COLORS) {
 
 const urlParams = new URLSearchParams(window.location.search);
 let rawStyle = urlParams.get('style');
-let activeStyle = "All";
+// The selected colors, in wheel order. Empty means "All".
+let activeColors = [];
 let searchQuery = "";
 let selectedIndex = null; // index into `stories` of the highlighted story
 
@@ -31,6 +32,12 @@ const showDrafts = urlParams.get('drafts') === '1';
 // Archetype labels from core/: plural on pills, singular on cards.
 function pillLabel(key) { return styles[key]?.plural || key; }
 function tagLabel(key) { return styles[key]?.archetype || key; }
+// "Connectors", "Connectors or Keepers", "Connectors, Keepers, or Amplifiers".
+function colorList(keys) {
+    const names = keys.map(pillLabel);
+    return names.length < 3 ? names.join(" or ") : `${names.slice(0, -1).join(", ")}, or ${names[names.length - 1]}`;
+}
+function inWheelOrder(keys) { return COLOR_KEYS.filter(k => keys.includes(k)); }
 // URLSearchParams already decodes the ?style= value; decoding again only
 // matters for a double-encoded link. A stray "%" (e.g. ?style=100%) made
 // decodeURIComponent throw and stopped the whole page from loading, so a
@@ -38,18 +45,16 @@ function tagLabel(key) { return styles[key]?.archetype || key; }
 function safeDecode(value) {
     try { return decodeURIComponent(value); } catch { return value; }
 }
-// Colors, archetypes, plurals, and old archetype names ("driver") all
-// resolve, in any capitalization, through core/climate-color.js.
-function resolveStyle(input) {
-    const clean = safeDecode(input).trim();
-    if (clean.toLowerCase() === "all") return "All";
-    return resolveColor(clean) || undefined;
+// A link can name one color (?style=Red) or a whole palette
+// (?style=Purple,Indigo,Orange, as the quiz results page sends). Colors,
+// archetypes, plurals, and old archetype names ("driver") all resolve, in
+// any capitalization, through core/climate-color.js. "All" or anything
+// unknown shows everything.
+function colorsFromLink(input) {
+    return input ? inWheelOrder(resolveColors(safeDecode(input))) : [];
 }
 
-if (rawStyle) {
-    const foundKey = resolveStyle(rawStyle);
-    if (foundKey) activeStyle = foundKey;
-}
+activeColors = colorsFromLink(rawStyle);
 
 // Map geometry: one dot every DOT_DEG degrees, 10 SVG units apart.
 const UNIT = 10;
@@ -107,7 +112,7 @@ function visibleStories() {
         .map((story, index) => ({ story, index }))
         .filter(({ story }) => {
             if (story.draft && !showDrafts) return false;
-            const matchesStyle = activeStyle === "All" || story.styles.includes(activeStyle);
+            const matchesStyle = activeColors.length === 0 || paletteMatches(story.styles, activeColors) > 0;
             // Also searches the source and year, e.g. "Mongabay" or "2019".
             const matchesSearch = matchesAllWords(searchWords(searchQuery), [
                 story.title, story.summary, story.place, story.type,
@@ -128,24 +133,37 @@ function renderPills() {
         btn.type = "button";
         btn.className = "pill-btn";
         btn.textContent = pillLabel(key);
-        btn.setAttribute("aria-pressed", String(key === activeStyle));
+        const on = key === "All" ? activeColors.length === 0 : activeColors.includes(key);
+        btn.setAttribute("aria-pressed", String(on));
         // Colors, hover, and focus come from the shared pill classes in
         // core/atlas.css.
         btn.classList.add(key === "All" ? "pill-all" : `pill-${key.toLowerCase()}`);
-        if (key === activeStyle) btn.classList.add("active");
-        btn.onclick = () => selectStyle(key);
+        if (on) btn.classList.add("active");
+        btn.onclick = () => toggleColor(key);
         container.appendChild(btn);
     });
 }
 
-function selectStyle(key) {
-    activeStyle = key;
+// Color pills work together: each one adds or removes its color, so
+// people can see their whole palette at once. "All" clears them.
+function toggleColor(key) {
+    if (key === "All") activeColors = [];
+    else if (activeColors.includes(key)) activeColors = activeColors.filter(k => k !== key);
+    else activeColors = inWheelOrder([...activeColors, key]);
     selectedIndex = null;
     const newUrl = new URL(window.location);
-    if (key === "All") newUrl.searchParams.delete("style");
-    else newUrl.searchParams.set("style", key);
+    if (activeColors.length) newUrl.searchParams.set("style", activeColors.join(","));
+    else newUrl.searchParams.delete("style");
+    // Keeps the commas readable in the address bar.
+    newUrl.search = newUrl.searchParams.toString().replace(/%2C/g, ",");
     window.history.pushState({}, "", newUrl);
     renderAll();
+}
+
+// A story's color for its pin and card edge: its first color that's
+// selected, or its own first color when showing everything.
+function storyColorKey(story) {
+    return story.styles.find(k => activeColors.includes(k)) || story.styles[0];
 }
 
 /* ---------- Map ---------- */
@@ -190,7 +208,7 @@ function renderPins(list) {
         (a.index === selectedIndex) - (b.index === selectedIndex));
     ordered.forEach(({ story, index }) => {
         const { x, y } = project(story.lat, story.lng);
-        const colorName = activeStyle !== "All" ? activeStyle : story.styles[0];
+        const colorName = storyColorKey(story);
         const g = document.createElementNS(SVG_NS, "g");
         g.setAttribute("class", "pin" + (index === selectedIndex ? " is-selected" : ""));
         g.setAttribute("tabindex", "0");
@@ -259,19 +277,22 @@ function renderCards(list) {
         return;
     }
 
-    const sorted = [...list].sort((a, b) => a.story.title.localeCompare(b.story.title));
+    // Best matches first (most of the selected colors), then by title.
+    const matches = s => paletteMatches(s.styles, activeColors);
+    const sorted = [...list].sort((a, b) =>
+        matches(b.story) - matches(a.story) || a.story.title.localeCompare(b.story.title));
     sorted.forEach(({ story, index }) => {
         // Same as the Directory: a neutral gray edge on every card, switching
-        // to the selected color only while a pill filter is active. The
-        // color names inside the card still show each story's colors.
-        const borderColor = activeStyle !== "All" ? styleColor(activeStyle) : "var(--border-strong)";
+        // to the story's first selected color while a pill filter is active.
+        // The color names inside the card still show each story's colors.
+        const borderColor = activeColors.length ? styleColor(storyColorKey(story)) : "var(--border-strong)";
         const styleTextHtml = story.styles.map(name =>
             `<span class="style-text-item" style="color: ${styleTextColor(name)};">${escapeHtml(tagLabel(name))}</span>`
         ).join("");
 
         const blend = story.styles.length === 3 ? getBlend(...story.styles) : null;
         const blendHtml = blend
-            ? `<div class="story-blend"><span class="story-blend-swatch" style="background: ${blend.hex};" aria-hidden="true"></span>A ${escapeHtml(blend.name)} story</div>`
+            ? `<div class="story-blend"><span class="story-blend-swatch" style="background: ${blendHex(blend)};" aria-hidden="true"></span>A ${escapeHtml(blend.name)} story</div>`
             : "";
 
         const hasLink = story.url && story.url !== "#";
@@ -304,8 +325,9 @@ function renderCards(list) {
 function renderCount(list) {
     const el = document.getElementById("storyCount");
     const n = list.length;
-    const colorText = activeStyle === "All" ? "" : ` with ${pillLabel(activeStyle)}`;
-    el.textContent = n === 0 ? "" : `${n} ${n === 1 ? "story" : "stories"}${colorText}`;
+    const colorText = activeColors.length ? ` with ${colorList(activeColors)}` : "";
+    const order = activeColors.length > 1 ? ", best matches first" : "";
+    el.textContent = n === 0 ? "" : `${n} ${n === 1 ? "story" : "stories"}${colorText}${order}`;
 }
 
 function renderAll() {
@@ -323,9 +345,7 @@ document.getElementById("searchInput").addEventListener("input", e => {
 });
 
 window.addEventListener("popstate", () => {
-    const p = new URLSearchParams(window.location.search).get("style");
-    const found = p && resolveStyle(p);
-    activeStyle = found || "All";
+    activeColors = colorsFromLink(new URLSearchParams(window.location.search).get("style"));
     renderAll();
 });
 
