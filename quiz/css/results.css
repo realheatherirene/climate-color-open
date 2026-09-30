@@ -1,34 +1,16 @@
 /* ==========================================================================
-   RESULTS PAGE STYLES: the hero card, the action palette cards, and the
-   wheel panel. Cards share the Directory's look.
+   RESULTS PAGE STYLES: one guided column, in four parts (see
+   js/results-ui.js). Colors, pills, and the wheel come from core/.
    ========================================================================== */
 
-/* Wide enough that the page doesn't narrow sharply after the quiz; text
-   keeps its own reading width (540px). */
 #results {
-    max-width: 1400px;
+    max-width: 1040px;
     margin: 2rem auto;
     padding: 0 1rem 4rem 1rem;
-    font-family: inherit;
     color: var(--text-primary);
 }
 
-/* ==========================================================================
-   Section labels and the Print / Copy / Retake buttons
-   ========================================================================== */
-
-/* Shared style for the section labels ("Your climate color:", "Your
-   action palette:"). */
-.identity-heading {
-  font-family: 'ADLaM Display', 'Varela Round', sans-serif;
-  font-size: 1.5rem;
-  font-weight: 500;
-  color: var(--text-primary);
-  margin: 0 0 0.75rem 0;
-  text-align: center;
-}
-
-/* Soft blue buttons (Print, Copy, Retake), in the Directory's style */
+/* Print, Copy, and Retake in the top bar, in the Directory's soft style. */
 .btn-sm-action {
     background-color: color-mix(in srgb, var(--brand-teal) 12%, white);
     color: var(--brand-teal);
@@ -49,314 +31,317 @@
     transform: translateY(-1px);
 }
 
-/* ==========================================================================
-   Hero card: the blend name, its swatch, the three color pills, and the
-   summary
-   ========================================================================== */
-
-/* Flat light gray, with a shadow so the card still reads as raised. */
-.hero-card {
-    background: var(--bg-secondary);
-    border: 1px solid var(--border-color);
-    border-radius: 16px;
-    box-shadow: var(--shadow-soft);
-    text-align: center;
-    padding: 2rem 1.75rem 2rem 1.75rem;
-    margin: 0.5rem 0 1.5rem 0;
+/* The quiet "Link copied." note beside the buttons. */
+.copy-status {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    overflow-wrap: anywhere;
 }
 
+/* For words only screen readers need, like "(opens in a new tab)". */
+.visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+/* ==========================================================================
+   1. Recognition: the blend and its swatch, the three colors, and the
+   petal wheel beside them (above them on narrow screens).
+   ========================================================================== */
+.results-hero {
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+    gap: 2rem;
+    align-items: center;
+}
+
+.results-eyebrow {
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin: 0 0 0.35rem 0;
+}
+
+/* Neutral black for all 56 blends, so the name is always readable. */
 .blend-name {
     font-family: 'ADLaM Display', 'Varela Round', sans-serif;
-    font-size: 2.35rem;
+    font-size: 3rem;
     font-weight: 500;
-    line-height: 1;
-    margin-bottom: 1rem;
-    color: var(--text-primary); /* neutral black for all 56 blends, so the name is always readable */
-}
-
-/* The blend's swatch. Decorative only: no text sits on it. The 12px
-   corners (not a full pill shape) keep it from looking clickable, since on
-   this page full pill shapes mean buttons and links. */
-.blend-swatch-pill {
-    display: inline-block;
-    width: 190px;
-    height: 42px;
-    border-radius: 12px;
-    box-shadow: 0 6px 12px rgba(0,0,0,0.1);
-    margin-bottom: 1.5rem;
-}
-
-.blend-of-label {
-    font-size: 0.85rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    color: var(--text-muted);
-    margin-bottom: 0.65rem;
-}
-
-.palette-pills {
-    display: flex;
-    gap: 0.55rem;
-    justify-content: center;
-    flex-wrap: wrap;
-    margin-bottom: 2rem;
-}
-
-/* One rule for all eight colors: results-ui.js sets --pill-true (the
-   color) and --pill-text (its text shade) on each pill. Uses the site-wide
-   pill recipe (see core/atlas.css), which clears 4.5:1 for every color.
-   Hover and focus darken only the border, so the words stay readable. */
-.palette-pill {
-    text-decoration: none;
-    font-size: 0.95rem;
-    font-weight: 700;
-    padding: 0.4rem 1.1rem;
-    border-radius: 9999px;
-    display: inline-block;
-    background-color: color-mix(in srgb, var(--pill-true, var(--brand-teal)) 8%, white);
-    border: 1px solid color-mix(in srgb, var(--pill-true, var(--brand-teal)) 25%, white);
-    color: color-mix(in srgb, var(--pill-text, var(--brand-teal)) 88%, black);
-}
-
-.palette-pill:hover {
-    border-color: var(--pill-true, var(--brand-teal));
-}
-
-.palette-pill:focus-visible {
-    border-color: var(--pill-true, var(--brand-teal));
-    outline: 2px solid var(--pill-text, var(--brand-teal));
-    outline-offset: 2px;
-}
-
-/* The lead-in line, "{Blend} is the color of {image}." Smaller than the
-   section labels, in bold black. */
-.nature-subheader {
-    font-size: 1.2rem;
-    font-weight: 700;
+    line-height: 1.05;
+    margin: 0;
     color: var(--text-primary);
-    line-height: 1.4;
-    max-width: 540px;
-    margin: 0 auto 0.85rem auto;
-    text-align: left;
 }
 
-.action-paragraph {
-    font-size: 1rem;
+/* The blend's swatch. Decorative only: no text sits on it. */
+.blend-swatch {
+    width: 140px;
+    height: 12px;
+    border-radius: 9999px;
+    margin: 0.75rem 0 0.9rem 0;
+}
+
+.nature-line {
+    font-size: 1.05rem;
     color: var(--text-secondary);
-    line-height: 1.6;
-    max-width: 540px;
-    margin: 0 auto;
-    text-align: left;
+    margin: 0 0 1.1rem 0;
 }
 
-/* The summary: one short paragraph per color, then a closing line. */
-.action-paragraph p {
-    margin: 0 0 1rem 0;
-}
-
-.action-paragraph p:last-child {
-    margin-bottom: 0;
-}
-
-/* ==========================================================================
-   Your action palette: one card per color (primary, secondary, tertiary),
-   in the same card style as the Directory and Pathways. Each card has a
-   short list of activities (results-content.js) and three buttons:
-   pathways, resources, and stories. The buttons sit in
-   .action-palette-cta rather than the shared .cta-container, because
-   quiz.css hides .cta-container when printing.
-   ========================================================================== */
-.action-palette-section {
-    background: var(--bg-primary);
-    border: 1px solid var(--border-color);
-    border-radius: 16px;
-    box-shadow: var(--shadow-soft);
-    padding: 2rem 1.75rem;
-    margin-bottom: 1.5rem;
-}
-
-/* Plain block layout, not flex: browsers don't split flex children
-   cleanly across printed pages, which left the heading alone on one page
-   and the cards on the next. The space between cards comes from
-   .styleBlock's margin-bottom instead. */
-.action-palette-list {
-    display: block;
-}
-
-.action-palette-list .styleBlock {
-    margin-bottom: 1.25rem;
-}
-
-.action-palette-list .styleBlock:last-child {
-    margin-bottom: 0;
-}
-
-.action-palette-cta {
+/* The three colors in their full wheel colors. Plain labels, not links:
+   on this page solid color means "this is you" and light tints mean
+   "select this". The words use the wheel's black or white label color. */
+.palette-chips {
     display: flex;
     flex-wrap: wrap;
     gap: 0.5rem;
-    margin-top: auto;
+    list-style: none;
+    padding: 0;
+    margin: 0 0 0.9rem 0;
 }
 
-/* The activity list: two columns on wide screens, so a short list doesn't
-   leave half the card empty; one column on smaller screens. */
-.action-palette-items {
-    margin: 0 0 1.25rem 0;
-    padding-left: 1.25rem;
+.palette-chip {
+    border-radius: 9999px;
+    padding: 0.4rem 1rem;
+    font-size: 0.95rem;
+    font-weight: 700;
+}
+
+.archetype-line {
+    font-size: 1.1rem;
+    margin: 0;
+}
+
+/* The wheel is drawn and styled by core/wheel.js; this sets its size. */
+.hero-wheel {
+    width: 100%;
+    max-width: 380px;
+    justify-self: center;
+}
+
+/* ==========================================================================
+   Sections 2 to 4
+   ========================================================================== */
+.results-section {
+    margin-top: 2.5rem;
+}
+
+.results-heading {
+    font-family: 'ADLaM Display', 'Varela Round', sans-serif;
+    font-size: 1.55rem;
+    font-weight: 500;
+    color: var(--text-primary);
+    margin: 0 0 1rem 0;
+}
+
+/* 2. One row per color: a bar in the color, then "Purple · The Connector"
+   and its move and spark. The color name uses its text shade. */
+.color-rows {
+    display: grid;
+    gap: 0.75rem;
+}
+
+.color-row {
+    display: grid;
+    grid-template-columns: 6px 1fr;
+    gap: 1rem;
+    padding: 0.35rem 0;
+}
+
+.color-row-bar {
+    border-radius: 6px;
+}
+
+.color-row-title {
+    font-size: 1.1rem;
+    margin: 0;
+}
+
+.color-row-text {
     color: var(--text-secondary);
+    margin: 0.15rem 0 0 0;
+}
+
+/* 3. The first step: one main button to the strongest color's pathway
+   (the shared pill from core/atlas.css, a size up), then two picks. */
+.first-step {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    padding: 1.5rem;
+}
+
+.first-step-lead {
     font-size: 1.05rem;
-    line-height: 1.6;
+    margin: 0 0 1rem 0;
 }
 
-.action-palette-items li {
-    margin-bottom: 0.35rem;
+.first-step-btn {
+    padding: 0.7rem 1.35rem;
+    font-size: 1.05rem;
 }
 
-.action-palette-items li:last-child {
-    margin-bottom: 0;
+.picks-label {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--text-secondary);
+    margin: 1.4rem 0 0 0;
 }
 
-@media (min-width: 900px) {
-    .action-palette-items {
-        columns: 2;
-        column-gap: 2rem;
-    }
+.picks {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.9rem;
+    margin-top: 0.75rem;
+}
+
+.pick-card {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+    background: var(--bg-primary);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 1rem 1.1rem;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.pick-card:hover {
+    border-color: var(--border-strong);
+    box-shadow: var(--shadow-hover);
+}
+
+.pick-card:focus-visible {
+    outline: 2px solid var(--text-secondary);
+    outline-offset: 2px;
+}
+
+.pick-kind {
+    display: block;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+}
+
+.pick-title {
+    font-size: 1.08rem;
+    line-height: 1.3;
+    margin: 0.25rem 0 0.35rem 0;
+    color: var(--text-primary);
+}
+
+.pick-text {
+    font-size: 0.93rem;
+    line-height: 1.5;
+    color: var(--text-secondary);
+    margin: 0 0 0.6rem 0;
+}
+
+.pick-meta,
+.pick-match {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.35rem;
+    font-size: 0.82rem;
+    color: var(--text-muted);
+}
+
+.pick-match {
+    margin-top: 0.3rem;
+}
+
+/* Each shared color is named, with a dot in its color beside it. */
+.match-color {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+.match-dot {
+    width: 0.7rem;
+    height: 0.7rem;
+    border-radius: 50%;
+}
+
+/* 4. Keep going */
+.more-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
 }
 
 .btn-pill-soft {
     display: inline-block;
-    width: auto !important;
-    padding: 0.45rem 1rem !important;
-    font-size: 0.85rem !important;
+    padding: 0.55rem 1.1rem;
+    font-size: 0.98rem;
     font-weight: 700;
-    text-align: left;
     text-decoration: none;
     border-radius: 9999px;
     border: 1px solid var(--border-strong);
     background-color: var(--bg-secondary);
-    color: var(--text-secondary) !important;
+    color: var(--text-secondary);
     transition: all 0.15s ease;
 }
 
 .btn-pill-soft:hover {
     background-color: var(--border-color);
     border-color: var(--text-muted);
-    transform: translateY(-1px);
 }
 
-/* ==========================================================================
-   The wheel panel. The person's three colors reach further out, like
-   petals.
-   ========================================================================== */
-
-/* A panel like the hero card, so the page alternates gray, white, gray. */
-.color-wheel-section {
-    background: var(--bg-secondary);
-    border: 1px solid var(--border-color);
-    border-radius: 16px;
-    box-shadow: var(--shadow-soft);
-    text-align: center;
-    padding: 2rem 1.75rem;
-    margin: 0 0 1.5rem 0;
+.btn-pill-soft:focus-visible {
+    outline: 2px solid var(--text-secondary);
+    outline-offset: 2px;
 }
 
-/* The wheel itself (and its tooltip and caption) is drawn and styled by
-   core/wheel.js. This only sets its size inside the results panel. */
-.color-wheel-section .ccw-wrap {
-    max-width: 420px;
-}
-
-/* ==========================================================================
-   Card component (shared look with the Directory and Pathways) and
-   colored left borders
-   ========================================================================== */
-
-.styleBlock {
-    background: var(--bg-primary);
-    border: 1px solid var(--border-color);
-    border-radius: 12px;
-    padding: 1.75rem;
-    border-left-width: 6px;
-    border-left-style: solid;
-    text-align: left;
-    box-shadow: var(--shadow-soft);
-    margin-bottom: 1.5rem;
-    transition: transform 0.15s ease, box-shadow 0.15s ease;
-    /* Flex column so the buttons sit at the bottom of every card, however
-       long its list is. */
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-}
-
-.styleBlock:hover {
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-hover);
-}
-
-.card-content { 
-    margin-bottom: 0; 
-}
-
-.styleTitle {
-    font-size: 1.25rem;
-    font-weight: 700;
-    margin-bottom: 0.75rem;
-    color: var(--text-primary);
-}
-
-.styleIdentity {
-    font-size: 1.05rem;
+.results-closer {
     color: var(--text-secondary);
-    line-height: 1.6;
-    margin-bottom: 1rem;
-}
-
-/* Left border in each card's color */
-.styleBlock.border-red { border-left-color: var(--red-color); }
-.styleBlock.border-orange { border-left-color: var(--orange-color); }
-.styleBlock.border-yellow { border-left-color: var(--yellow-color); }
-.styleBlock.border-green { border-left-color: var(--green-color); }
-.styleBlock.border-blue { border-left-color: var(--blue-color); }
-.styleBlock.border-indigo { border-left-color: var(--indigo-color); }
-.styleBlock.border-purple { border-left-color: var(--purple-color); }
-.styleBlock.border-violet { border-left-color: var(--violet-color); }
-
-/* The primary color's card stands out a little more */
-.styleBlock.primary-card {
-    border-left-width: 8px;
-    box-shadow: var(--shadow-hover);
+    margin: 1.5rem 0 0 0;
 }
 
 /* ==========================================================================
-   Smaller screens
+   Smaller screens: one column, with the wheel first.
    ========================================================================== */
-
-@media (max-width: 768px) {
+@media (max-width: 760px) {
     #results {
         padding: 0 0.75rem 3rem 0.75rem;
         margin: 1rem auto;
     }
 
-    .hero-card {
-        padding: 1.75rem 1.25rem 1.5rem 1.25rem;
+    .results-hero {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+
+    .hero-wheel {
+        order: -1;
+        max-width: 300px;
     }
 
     .blend-name {
-        font-size: 1.9rem;
+        font-size: 2.4rem;
     }
 
-    /* Tighter card padding on small screens, matching the Directory. */
-    .action-palette-section .styleBlock {
-        padding: 1rem 1.15rem;
+    .picks {
+        grid-template-columns: 1fr;
     }
 
-    .action-palette-section,
-    .color-wheel-section {
-        padding: 1.5rem 1.15rem;
+    .first-step {
+        padding: 1.1rem;
     }
+}
 
+/* Top-bar buttons go full width on tablets and phones. */
+@media (max-width: 768px) {
     .btn-sm-action {
         width: 100%;
         text-align: center;
@@ -376,47 +361,37 @@
 
 @media print {
     /* Print in color: browsers leave out background colors by default,
-       which would print an empty swatch and plain pills. This keeps
-       them. */
+       which would print a blank swatch, chips, and bars. */
     * {
         -webkit-print-color-adjust: exact !important;
         print-color-adjust: exact !important;
-        color-adjust: exact !important;
     }
 
     body {
         background: var(--bg-primary) !important;
         color: var(--text-primary) !important;
     }
-    /* Card borders for print. Top, right, and bottom are set separately so
-       the colored left border stays. */
-    .styleBlock {
-        break-inside: avoid;
-        box-shadow: none !important;
-        border-top: 1px solid var(--border-strong) !important;
-        border-right: 1px solid var(--border-strong) !important;
-        border-bottom: 1px solid var(--border-strong) !important;
-        background: var(--bg-primary) !important;
-        color: var(--text-primary) !important;
-    }
-    .styleIdentity, .styleTitle {
-        color: var(--text-primary) !important;
+
+    #results {
+        margin: 0 auto;
     }
 
-    /* The hero card and wheel panel always fit on one page, so they never
-       split. The action palette can be taller than a page, so it may
-       split between cards (each card stays whole), and its heading stays
-       with the first card. */
-    .hero-card,
-    .color-wheel-section {
+    /* Each part stays whole on the page, and headings stay with what
+       follows them. */
+    .results-hero,
+    .color-row,
+    .pick-card,
+    .first-step {
         break-inside: avoid;
     }
-    .action-palette-section > .identity-heading {
+
+    .results-heading {
         break-after: avoid;
     }
-    .blend-swatch-pill {
+
+    .pick-card {
         box-shadow: none !important;
-        border: 1px solid var(--border-strong);
+        border-color: var(--border-strong);
     }
 
     /* Hover and tap hints mean nothing on paper, so the wheel's caption and
@@ -424,33 +399,5 @@
     .ccw-caption,
     .ccw-tip {
         display: none !important;
-    }
-}
-
-/* ==========================================================================
-   Archetypes: color first, archetype right after. .archetype-line sits
-   under the three pills and says what they mean; .card-archetype is the
-   small line under each card's color name.
-   ========================================================================== */
-.archetype-line {
-    font-size: 1.05rem;
-    font-weight: 700;
-    color: var(--text-secondary);
-    line-height: 1.4;
-    max-width: 540px;
-    margin: -1.1rem auto 2rem auto;
-}
-
-.card-archetype {
-    font-size: 1rem;
-    font-weight: 700;
-    color: var(--text-secondary);
-    margin: -0.5rem 0 0.75rem 0;
-}
-
-@media print {
-    .archetype-line,
-    .card-archetype {
-        color: var(--text-primary) !important;
     }
 }
