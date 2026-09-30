@@ -119,6 +119,22 @@ export function resolveColor(name) {
   return lookup.get(name.trim().toLowerCase()) || null;
 }
 
+/* A list of colors from a link, like "Purple,Indigo,Orange". Each name
+   resolves the same way as resolveColor. Unknown names and repeats are
+   dropped, and the order given is kept:
+   resolveColors("purple, keepers, purple") -> ["Purple", "Indigo"]. */
+export function resolveColors(text) {
+  if (typeof text !== "string") return [];
+  return [...new Set(text.split(",").map(resolveColor).filter(Boolean))];
+}
+
+/* How many of a palette's colors an item carries. Pages use it to show
+   the best matches first:
+   paletteMatches(["Purple", "Orange"], ["Purple", "Indigo", "Orange"]) -> 2. */
+export function paletteMatches(itemColors, palette) {
+  return itemColors.filter(k => palette.includes(k)).length;
+}
+
 /* The full record for a color key (or any name resolveColor accepts). */
 export function getColor(name) {
   return byKey.get(resolveColor(name)) || null;
