@@ -1,53 +1,17 @@
 /* ==========================================================================
-   RESULTS PAGE STYLES: one guided column, in four parts (see
-   js/results-ui.js). Colors, pills, and the wheel come from core/.
+   RESULTS PAGE STYLES: one guided path, in three parts (see
+   js/results-ui.js). Every color comes from core/atlas.css, and the wheel
+   from core/wheel.js. The header and page margins are the shared ones
+   from core/atlas.css, the same as the Directory and Pathways.
    ========================================================================== */
 
-/* One left edge for every line of text on the page. The grey and white
-   boxes keep their outer edge on the column, and everything outside a box
-   (the wordmark, the headings, the links, the closing line) steps in by
-   the same amount as the words inside one, so all the text lines up. */
-.is-results {
-    --inset: 2rem;
-}
-
+/* No column of its own: like the Directory and Pathways, the page runs
+   from the shared left edge (Squarespace's page margins on wider screens,
+   core/atlas.css's side spacing on phones). */
 #results {
-    max-width: 1040px;
-    margin: 2rem auto;
-    padding: 0 1rem 4rem 1rem;
+    margin: 1rem 0 0 0;
+    padding: 0 0 4rem 0;
     color: var(--text-primary);
-}
-
-/* The top bar on the results page: the quiz title shrinks to a small
-   wordmark and shares one row with the buttons, lined up with the results
-   column. The tagline is for people starting the quiz, so it's hidden. */
-.is-results .top-bar {
-    max-width: 1040px;
-    margin: 1rem auto 0 auto;
-    padding: 0 calc(1rem + var(--inset));
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 0.75rem 1.5rem;
-}
-
-.is-results .quiz-header {
-    margin: 0;
-}
-
-.is-results .quiz-header h1 {
-    font-size: 1.35rem;
-    margin: 0;
-}
-
-.is-results .quiz-header p {
-    display: none;
-}
-
-.is-results .beta-banner {
-    margin: 0;
-    padding: 0;
 }
 
 /* Print, Copy, Retake, and FAQ: quiet outlined pills, so they stay out of
@@ -69,7 +33,7 @@
 }
 
 .btn-sm-action:hover {
-    background-color: color-mix(in srgb, var(--brand-teal) 8%, white);
+    background-color: color-mix(in srgb, var(--brand-teal) 8%, var(--bg-primary));
     border-color: var(--brand-teal);
 }
 
@@ -100,9 +64,8 @@
 
 /* ==========================================================================
    1. Recognition: one card in the same light grey as the first-step card
-   below, with a soft white glow behind the wheel so its palest wedges
-   keep a clear edge. --blend and --c1 to --c3 are set on the card by
-   results-ui.js (for the color bar and the reassurance rule).
+   below. --blend and --c1 to --c3 are set on the card by results-ui.js
+   from core/ (for the color bar and the reassurance rule).
    ========================================================================== */
 .results-hero {
     display: grid;
@@ -111,11 +74,9 @@
     grid-template-areas: "heading wheel" "text wheel";
     gap: 1.5rem 2rem;
     align-items: center;
-    padding: 2.75rem var(--inset);
-    border-radius: 28px;
-    background:
-        radial-gradient(circle at 76% 50%, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0) 45%),
-        var(--bg-secondary);
+    padding: 1.5rem;
+    border-radius: 12px;
+    background: var(--bg-secondary);
     border: 1px solid var(--border-color);
 }
 
@@ -179,7 +140,7 @@
     padding: 0.5rem 1.1rem 0.5rem 0.5rem;
     background: var(--bg-primary);
     border-radius: 9999px;
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06);
+    box-shadow: var(--shadow-soft);
 }
 
 .lineup-dot {
@@ -218,7 +179,7 @@
     color: var(--text-secondary);
     margin: 1.5rem 0 0 0;
     padding-left: 0.9rem;
-    border-left: 3px solid color-mix(in srgb, var(--blend) 45%, white);
+    border-left: 3px solid color-mix(in srgb, var(--blend) 45%, var(--bg-primary));
 }
 
 /* The full brand wheel, drawn by core/wheel.js exactly as on the Pathways
@@ -230,26 +191,10 @@
     justify-self: center;
 }
 
-.hero-wheel .ccw-svg {
-    filter: drop-shadow(0 4px 14px rgba(0, 0, 0, 0.1));
-}
-
-/* A small welcome: the card rises in. Skipped for anyone who has asked
-   their device to reduce motion. */
-@media (prefers-reduced-motion: no-preference) {
-    .results-hero {
-        animation: hero-in 0.5s ease-out both;
-    }
-}
-
-@keyframes hero-in {
-    from { opacity: 0; transform: translateY(8px); }
-    to { opacity: 1; transform: none; }
-}
 
 
 /* ==========================================================================
-   Sections 2 to 4
+   Sections 2 and 3
    ========================================================================== */
 .results-section {
     margin-top: 3rem;
@@ -259,11 +204,6 @@
     margin-top: 0;
 }
 
-/* Inside a grey box the heading already sits on the box's inner edge. */
-.results-hero .results-heading,
-.first-step .results-heading {
-    padding: 0;
-}
 
 .results-heading {
     font-family: 'ADLaM Display', 'Varela Round', sans-serif;
@@ -271,15 +211,15 @@
     font-weight: 500;
     color: var(--text-primary);
     margin: 0 0 1rem 0;
-    padding: 0 var(--inset);
 }
 
-/* 2. One card per color, strongest first, side by side. Each card has a
-   thick top edge in its color; the color name uses its text shade. */
+/* 2. One card per color, strongest first, side by side. Same card as the
+   Directory and Pathways (.styleBlock, .pathway-card): a 6px edge in its
+   color on the left; the color name uses its text shade. */
 .color-cards {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 1rem;
+    gap: 1.25rem;
     list-style: none;
     padding: 0;
     margin: 0;
@@ -288,9 +228,10 @@
 .color-card {
     background: var(--bg-primary);
     border: 1px solid var(--border-color);
-    border-top: 6px solid var(--card-color);
-    border-radius: 16px;
-    padding: 1.1rem var(--inset) 1.25rem var(--inset);
+    border-left: 6px solid var(--card-color);
+    border-radius: 12px;
+    padding: 1.25rem;
+    box-shadow: var(--shadow-soft);
 }
 
 .color-card-rank {
@@ -323,8 +264,8 @@
 .first-step {
     background: var(--bg-secondary);
     border: 1px solid var(--border-color);
-    border-radius: 16px;
-    padding: 1.5rem var(--inset);
+    border-radius: 12px;
+    padding: 1.5rem;
 }
 
 .first-step-lead {
@@ -431,7 +372,6 @@
 /* 3, continued: links to everything for the palette, after the grey box. */
 .more-links {
     margin-top: 1.5rem;
-    padding: 0 var(--inset);
     display: flex;
     flex-wrap: wrap;
     gap: 0.6rem;
@@ -467,30 +407,20 @@
     color: var(--text-primary);
     max-width: 44rem;
     margin: 2rem 0 0 0;
-    padding: 0 var(--inset);
 }
 
 /* ==========================================================================
    Smaller screens: one column, with the wheel first.
    ========================================================================== */
 @media (max-width: 760px) {
-    .is-results .top-bar {
-        padding: 0 calc(0.75rem + var(--inset));
-    }
-
     #results {
-        padding: 0 0.75rem 3rem 0.75rem;
-        margin: 1rem auto;
+        padding-bottom: 3rem;
     }
 
     .results-hero {
         grid-template-columns: 1fr;
         gap: 0.5rem;
-        padding: 1.5rem var(--inset) 1.75rem var(--inset);
-        border-radius: 22px;
-        background:
-            radial-gradient(circle at 50% 25%, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0) 50%),
-            var(--bg-secondary);
+        padding: 1.1rem;
     }
 
     .results-hero {
@@ -519,28 +449,7 @@
     }
 
     .first-step {
-        padding: 1.1rem var(--inset);
-    }
-}
-
-/* On phones the wordmark and buttons stack, and the buttons stay small. */
-@media (max-width: 640px) {
-    .is-results {
-        --inset: 1.1rem;
-    }
-
-    .is-results .top-bar {
-        padding: 0 var(--inset);
-        margin-top: 0;
-    }
-}
-
-/* On phones the page itself has side spacing (core/atlas.css), so the
-   results column adds none of its own. */
-@media (max-width: 640px) {
-    #results {
-        padding-left: 0;
-        padding-right: 0;
+        padding: 1.1rem;
     }
 }
 
@@ -558,17 +467,7 @@
     }
 
     #results {
-        margin: 0 auto;
-    }
-
-    /* On paper the wordmark is enough; the buttons are already hidden. */
-    .is-results .top-bar {
-        margin-top: 0;
-    }
-
-    .results-hero {
-        animation: none !important;
-        padding: 1.5rem var(--inset);
+        margin: 0;
     }
 
     /* Each part stays whole on the page, and headings stay with what
