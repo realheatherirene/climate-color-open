@@ -1,6 +1,6 @@
 import { RESULTS_TEXT as T } from './results-content.js';
 import { getColor, paletteMatches } from '../../core/climate-color.js';
-import { getBlend } from '../../core/blends.js';
+import { getBlend, blendHex } from '../../core/blends.js';
 import { renderWheel } from '../../core/wheel.js';
 import { resources } from '../../directory/directory-data.js';
 import { stories } from '../../storymap/story-map-data.js';
@@ -10,7 +10,7 @@ import { stories } from '../../storymap/story-map-data.js';
    that starts "Your climate colors". The first part holds everything a
    person needs; the other two are there for anyone who scrolls on.
      1. Recognition: the three colors first, then the blend they make
-        (with a bar running through the three), and the full brand wheel,
+        (with a swatch of its own color), and the full brand wheel,
         linked to the pathways as on the Pathways landing page.
      2. Understanding: "You're part ..." first, then each color with its
         archetype, move, and spark.
@@ -146,7 +146,7 @@ export function renderResultsScreen(primaryKey, secondaryKey, tertiaryKey) {
     <!-- 1. Recognition: the three colors come first, then the blend they
          make, with the wheel beside the words. -->
     <section class="results-section results-section-first results-hero" aria-labelledby="heroHeading"
-      style="${palette.map((c, i) => `--c${i + 1}: var(--${c.key.toLowerCase()}-color);`).join(" ")}">
+      style="--blend-color: ${blendHex(blend)};">
       <h2 class="results-heading" id="heroHeading">${T.heroLabel}</h2>
       <div class="hero-text">
         <ul class="palette-lineup" aria-label="${T.chipsLabel}">
