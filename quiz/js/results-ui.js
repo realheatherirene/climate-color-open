@@ -7,18 +7,21 @@ import { stories } from '../../storymap/story-map-data.js';
 
 /* ==========================================================================
    RESULTS PAGE: one guided path, in three parts, each under a heading
-   that starts "Your climate colors".
-     1. Recognition: the three colors first, then
-        the blend they make (with a bar running through the three), and
-        the full brand wheel (the same one as the Pathways landing page).
-     2. Understanding: each color with its archetype, move, and spark.
-     3. In the wild: the strongest color's pathway, one resource and one
-        story picked for the whole palette, then the Directory and Story
-        Map, filtered to the palette. The page closes with the closer and
-        the reassurance together.
-   Print, Copy, and Retake stay in the quiz's top bar, next to the FAQ.
-   The header and page margins are the shared ones, as on the Directory
-   and Pathways.
+   that starts "Your climate colors". The first part holds everything a
+   person needs; the other two are there for anyone who scrolls on.
+     1. Recognition: the three colors first, then the blend they make
+        (with a bar running through the three), and the full brand wheel,
+        linked to the pathways as on the Pathways landing page.
+     2. Understanding: "You're part ..." first, then each color with its
+        archetype, move, and spark.
+     3. Checklist: a few small steps, each one line: the strongest
+        color's pathway, one resource and one story picked for the whole
+        palette, then the Directory and Story Map, filtered to the
+        palette. The page closes with the closer and the reassurance
+        together.
+   Print, Copy, and Retake join the FAQ in the quiz's top bar, which moves
+   up beside the page title on wider screens. The header and page margins
+   are the shared ones, as on the Directory and Pathways.
 
    Solid color means "this is you" (the lineup and the card edges);
    light tints mean "select this" (buttons and links). Keep the
@@ -52,24 +55,49 @@ function rankForPalette(items, colors) {
     .sort((a, b) => b.n - a.n || (b.top - a.top) || a.i - b.i);
 }
 
+// Checklist ticks are kept in this browser only, for this palette, under
+// a "climatecolor_" key so Retake clears them with everything else.
+const CHECKS_KEY = "climatecolor_checklist";
+
+function readChecks(paletteId) {
+  try {
+    const saved = JSON.parse(localStorage.getItem(CHECKS_KEY) || "null");
+    return saved && saved.palette === paletteId && Array.isArray(saved.done) ? saved.done : [];
+  } catch { return []; }
+}
+
+function saveChecks(paletteId, done) {
+  try { localStorage.setItem(CHECKS_KEY, JSON.stringify({ palette: paletteId, done })); } catch { /* storage off */ }
+}
+
+// One checklist step: a checkbox, then the step's words and a short note.
+// The checkbox is named by the step's words, so a screen reader says
+// "Done: Explore the Keeper's Path" and so on.
+function stepHtml(id, mainHtml, noteHtml) {
+  return `
+        <li class="check-step">
+          <input type="checkbox" class="check-box" id="${id}" aria-labelledby="${id}-label">
+          <div class="check-body">
+            <p class="check-main" id="${id}-label">${mainHtml}</p>
+            ${noteHtml ? `<p class="check-note">${noteHtml}</p>` : ""}
+          </div>
+        </li>`;
+}
+
 function matchDots(itemColors, colors) {
   return itemColors.filter(k => colors.includes(k)).map(k =>
     `<span class="match-color"><span class="match-dot" style="background: var(--${k.toLowerCase()}-color);" aria-hidden="true"></span>${esc(k)}</span>`
   ).join(" ");
 }
 
-// One pick card: a resource or a story, opening at its source.
-function pickHtml(kind, ranked, colors, meta, text) {
+// One pick: a resource or a story, opening at its source, with a short
+// note and the colors it shares with the palette.
+function pickStep(id, kind, ranked, colors, note) {
   if (!ranked) return "";
   const { item, n } = ranked;
-  return `
-    <a class="pick-card" href="${esc(item.url)}" target="_blank" rel="noopener noreferrer">
-      <span class="pick-kind">${kind}</span>
-      <h3 class="pick-title">${esc(item.title)}<span class="visually-hidden"> ${T.newTab}</span></h3>
-      <p class="pick-text">${esc(text)}</p>
-      <span class="pick-meta">${esc(meta)}</span>
-      <span class="pick-match">${T.matchLine(n)}: ${matchDots(item.styles, colors)}</span>
-    </a>`;
+  const link = `<a class="check-link" href="${esc(item.url)}" target="_blank" rel="noopener noreferrer">${esc(item.title)}<span class="visually-hidden"> ${T.newTab}</span> <span aria-hidden="true">&#8599;</span></a>`;
+  return stepHtml(id, `${kind} ${link}`,
+    `${esc(note)} <span class="check-match">${T.matchLine(n)}: ${matchDots(item.styles, colors)}</span>`);
 }
 
 export function renderResultsScreen(primaryKey, secondaryKey, tertiaryKey) {
@@ -78,8 +106,15 @@ export function renderResultsScreen(primaryKey, secondaryKey, tertiaryKey) {
   resultsEl.hidden = false;
 
   // Print, Copy, and Retake join the FAQ in the top bar, where the quiz
-  // keeps its controls.
+  // keeps its controls. The bar moves into the header, so on wider screens
+  // it can sit to the right of the page title, above the wheel.
   const bannerActions = document.getElementById('bannerActions');
+  const header = document.querySelector('.quiz-header');
+  const banner = bannerActions?.closest('.beta-banner');
+  if (header && banner && banner.parentElement !== header) {
+    header.classList.add('quiz-header-results');
+    header.appendChild(banner);
+  }
   if (bannerActions && !document.getElementById('btnCopyLink')) {
     bannerActions.insertAdjacentHTML('afterbegin', `
       <button type="button" onclick="window.print()" class="btn-sm-action">Print</button>
@@ -121,7 +156,6 @@ export function renderResultsScreen(primaryKey, secondaryKey, tertiaryKey) {
             <span class="lineup-words"><span class="lineup-name">${esc(c.key)}</span> <span class="lineup-arch">${esc(c.archetype)}</span></span>
           </li>`).join("")}
         </ul>
-        <p class="archetype-line">${esc(T.archetypeLine(p.archetype, s.archetype, t.archetype))}</p>
         <p class="blend-lead">${T.blendLead}</p>
         <h3 class="blend-name">${esc(blend.name)}</h3>
         <div class="blend-bar" aria-hidden="true"></div>
@@ -130,9 +164,11 @@ export function renderResultsScreen(primaryKey, secondaryKey, tertiaryKey) {
       <div class="hero-wheel" id="colorWheelSection"></div>
     </section>
 
-    <!-- 2. Understanding: one card per color, strongest first. -->
+    <!-- 2. Understanding: "You're part ..." first, then one card per
+         color, strongest first. -->
     <section class="results-section" aria-labelledby="colorsHeading">
       <h2 class="results-heading" id="colorsHeading">${T.colorsHeading}</h2>
+      <p class="archetype-line">${esc(T.archetypeLine(p.archetype, s.archetype, t.archetype))}</p>
       <ol class="color-cards">
         ${palette.map((c, i) => `
         <li class="color-card" style="--card-color: var(--${c.key.toLowerCase()}-color);">
@@ -144,24 +180,20 @@ export function renderResultsScreen(primaryKey, secondaryKey, tertiaryKey) {
       </ol>
     </section>
 
-    <!-- 3. In the wild: the first step, two picks, and the links to
-         everything else for this palette. -->
-    <section class="results-section" aria-labelledby="firstStepHeading">
-      <div class="first-step">
-        <h2 class="results-heading" id="firstStepHeading">${T.firstStepHeading}</h2>
-        <p class="first-step-lead">${esc(T.firstStepLead(p.key, p.archetype))}</p>
-        <a class="pill-btn pill-${p.key.toLowerCase()} first-step-btn" href="${pathwayUrl(p.key)}">${esc(T.pathButton(p.archetype))} <span aria-hidden="true">&rarr;</span></a>
-        <p class="bridge-line">${esc(T.bridgeLine)}</p>
-        <p class="picks-label">${T.picksLabel}</p>
-        <div class="picks">
-          ${pickHtml(T.resourceKind, topResource, colorKeys, topResource?.item.type, topResource?.item.desc)}
-          ${pickHtml(T.storyKind, topStory, colorKeys, topStory ? `${topStory.item.place} · ${topStory.item.source}` : "", topStory?.item.summary)}
-        </div>
-      </div>
-      <div class="more-links">
-        <a class="btn-pill-soft" href="${directoryUrl(colorKeys)}">${T.moreResources(resourceCount)} <span aria-hidden="true">&rarr;</span></a>
-        <a class="btn-pill-soft" href="${storyMapUrl(colorKeys)}">${T.moreStories(storyCount)} <span aria-hidden="true">&rarr;</span></a>
-      </div>
+    <!-- 3. Checklist: one line per step, with a short note under it. -->
+    <section class="results-section" aria-labelledby="checklistHeading">
+      <h2 class="results-heading" id="checklistHeading">${T.checklistHeading}</h2>
+      <p class="checklist-lead">${T.checklistLead}</p>
+      <ul class="checklist">
+        ${stepHtml("step-path",
+          `<a class="pill-btn pill-${p.key.toLowerCase()} check-path-btn" href="${pathwayUrl(p.key)}">${esc(T.pathButton(p.archetype))} <span aria-hidden="true">&rarr;</span></a>`,
+          esc(T.firstStepLead(p.key, p.archetype)))}
+        ${pickStep("step-resource", T.resourceKind, topResource, colorKeys, topResource?.item.desc)}
+        ${pickStep("step-story", T.storyKind, topStory, colorKeys, topStory ? `${topStory.item.place} · ${topStory.item.source}` : "")}
+        ${stepHtml("step-more",
+          `${T.moreLead} <a class="check-link" href="${directoryUrl(colorKeys)}">${T.moreResources(resourceCount)}</a> · <a class="check-link" href="${storyMapUrl(colorKeys)}">${T.moreStories(storyCount)}</a>`,
+          "")}
+      </ul>
       <p class="results-closer">${T.closer} ${esc(T.reassurance)}</p>
     </section>
 
@@ -170,17 +202,28 @@ export function renderResultsScreen(primaryKey, secondaryKey, tertiaryKey) {
   // The full brand wheel from core/wheel.js, the same one on the Pathways
   // landing page, so a first-time visitor sees the whole system: all eight
   // colors and all 24 verbs, none faded, whole enough to screenshot or
-  // print. A picture only (no links or tooltips): the words beside it
-  // already name the person's three colors, and keyboard users reach the
-  // first step without eight extra stops.
+  // print. As on Pathways, each wedge opens that color's pathway.
   renderWheel(document.getElementById('colorWheelSection'), {
     variant: "brand",
-    tooltip: false,
-    caption: "",
-    label: `The Climate Color wheel: all eight colors, each with its archetype and three verbs. Your colors are ${p.key}, ${s.key}, and ${t.key}.`
+    links: pathwayUrl,
+    caption: "Tap a color to explore its path.",
+    label: `The Climate Color wheel. Your colors are ${p.key}, ${s.key}, and ${t.key}. Each color opens its pathway.`
   });
 
+  wireChecklist(colorKeys.join(","));
   wireButtons(colorKeys);
+}
+
+// Ticks are restored when the page loads and saved on every change.
+function wireChecklist(paletteId) {
+  const boxes = [...document.querySelectorAll("#results .check-box")];
+  const done = readChecks(paletteId);
+  boxes.forEach(box => {
+    box.checked = done.includes(box.id);
+    box.addEventListener("change", () => {
+      saveChecks(paletteId, boxes.filter(b => b.checked).map(b => b.id));
+    });
+  });
 }
 
 function wireButtons([primaryKey, secondaryKey, tertiaryKey]) {
