@@ -28,18 +28,23 @@ import { stories } from '../../storymap/story-map-data.js';
    color lineup as plain text, not links, so that rule holds.
    ========================================================================== */
 
-// Pages are linked by full address, built from the repo name in the
-// current address (e.g. "climate-color-open").
-function siteUrl(path) {
-  const repoRoot = window.location.pathname.split('/')[1];
-  return `${window.location.origin}/${repoRoot}/${path}`;
-}
-const pathwayUrl = colorKey => siteUrl(`pathways/${colorKey.toLowerCase()}.html`);
-// The Directory and Story Map read a whole palette from ?style=, in any
-// order and capitalization. Commas are left readable.
+// The site's own pages, which embed the Pathways, Directory, and Story
+// Map. Links from here open in the whole window (target="_top"), so a
+// visitor leaves the quiz's box and lands on the site page with its
+// header and navigation. Each page passes ?style= on to the page it
+// embeds (the script in tools/squarespace-embed-links.html), and the
+// Pathways page opens the one color's page when ?style= names just one.
+const SITE = {
+  pathways: "https://climatecolor.com/pathways",
+  directory: "https://climatecolor.com/directory",
+  storyMap: "https://climatecolor.com/storymap"
+};
+// A whole palette in the link, in any order and capitalization. Commas
+// are left readable.
 const paletteQuery = colors => `?style=${colors.map(encodeURIComponent).join(",")}`;
-const directoryUrl = colors => siteUrl(`directory/index.html${paletteQuery(colors)}`);
-const storyMapUrl = colors => siteUrl(`storymap/index.html${paletteQuery(colors)}`);
+const pathwayUrl = colorKey => `${SITE.pathways}${paletteQuery([colorKey])}`;
+const directoryUrl = colors => `${SITE.directory}${paletteQuery(colors)}`;
+const storyMapUrl = colors => `${SITE.storyMap}${paletteQuery(colors)}`;
 
 const esc = s => String(s ?? "").replace(/&/g, "&amp;").replace(/</g, "&lt;")
   .replace(/>/g, "&gt;").replace(/"/g, "&quot;");
@@ -186,12 +191,12 @@ export function renderResultsScreen(primaryKey, secondaryKey, tertiaryKey) {
       <p class="checklist-lead">${T.checklistLead}</p>
       <ul class="checklist">
         ${stepHtml("step-path",
-          `<a class="pill-btn pill-${p.key.toLowerCase()} check-path-btn" href="${pathwayUrl(p.key)}">${esc(T.pathButton(p.archetype))} <span aria-hidden="true">&rarr;</span></a>`,
+          `<a class="pill-btn pill-${p.key.toLowerCase()} check-path-btn" href="${pathwayUrl(p.key)}" target="_top">${esc(T.pathButton(p.archetype))} <span aria-hidden="true">&rarr;</span></a>`,
           esc(T.firstStepLead(p.key, p.archetype)))}
         ${pickStep("step-resource", T.resourceKind, topResource, colorKeys, topResource?.item.desc)}
         ${pickStep("step-story", T.storyKind, topStory, colorKeys, topStory ? `${topStory.item.place} · ${topStory.item.source}` : "")}
         ${stepHtml("step-more",
-          `${T.moreLead} <a class="check-link" href="${directoryUrl(colorKeys)}">${T.moreResources(resourceCount)}</a> · <a class="check-link" href="${storyMapUrl(colorKeys)}">${T.moreStories(storyCount)}</a>`,
+          `${T.moreLead} <a class="check-link" href="${directoryUrl(colorKeys)}" target="_top">${T.moreResources(resourceCount)}</a> · <a class="check-link" href="${storyMapUrl(colorKeys)}" target="_top">${T.moreStories(storyCount)}</a>`,
           "")}
       </ul>
       <p class="results-closer">${T.closer} ${esc(T.reassurance)}</p>
@@ -203,12 +208,14 @@ export function renderResultsScreen(primaryKey, secondaryKey, tertiaryKey) {
   // landing page, so a first-time visitor sees the whole system: all eight
   // colors and all 24 verbs, none faded, whole enough to screenshot or
   // print. As on Pathways, each wedge opens that color's pathway.
-  renderWheel(document.getElementById('colorWheelSection'), {
+  const wheel = renderWheel(document.getElementById('colorWheelSection'), {
     variant: "brand",
     links: pathwayUrl,
     caption: "Tap a color to explore its path.",
     label: `The Climate Color wheel. Your colors are ${p.key}, ${s.key}, and ${t.key}. Each color opens its pathway.`
   });
+  // The wedges open in the whole window too, like the checklist's links.
+  wheel?.querySelectorAll(".ccw-link").forEach(a => a.setAttribute("target", "_top"));
 
   wireChecklist(colorKeys.join(","));
   wireButtons(colorKeys);
