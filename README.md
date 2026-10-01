@@ -16,7 +16,7 @@ It also gives groups a shared language, so a team can see what each person bring
 
 ## 🧩 What's Inside
 
-* **The Quiz:** 40 short moments, each with one question: "Would that energize you?" Each color is scored on its own, and the top three make your result.
+* **The Quiz:** 40 short activities, each with one question: "Would you enjoy this?" Each color is scored on its own, and the top three make your result.
 * **8 Colors, 8 Archetypes:** Yellow the Visionary, Orange the Amplifier, Red the Catalyst, Violet the Guardian, Indigo the Keeper, Purple the Connector, Green the Anchor, and Blue the Architect.
 * **56 Blends:** every mix of three colors, each named for something in nature.
 * **Pathways:** a page for each color, with ways to put it to work.
