@@ -15,8 +15,9 @@ import { stories } from '../../storymap/story-map-data.js';
      3. In the wild: the strongest color's pathway, one resource and one
         story picked for the whole palette, then the Directory and Story
         Map, filtered to the palette.
-   Print, Copy, and Retake stay in the quiz's top bar, next to the FAQ,
-   which shrinks to one slim row on this page (body.is-results).
+   Print, Copy, and Retake stay in the quiz's top bar, next to the FAQ.
+   The header and page margins are the shared ones, as on the Directory
+   and Pathways.
 
    Solid color means "this is you" (the lineup and the card edges);
    light tints mean "select this" (buttons and links). Keep the
@@ -77,12 +78,11 @@ export function renderResultsScreen(primaryKey, secondaryKey, tertiaryKey) {
 
   // Print, Copy, and Retake join the FAQ in the top bar, where the quiz
   // keeps its controls.
-  document.body.classList.add('is-results');
   const bannerActions = document.getElementById('bannerActions');
   if (bannerActions && !document.getElementById('btnCopyLink')) {
     bannerActions.insertAdjacentHTML('afterbegin', `
       <button type="button" onclick="window.print()" class="btn-sm-action">Print</button>
-      <button type="button" id="btnCopyLink" class="btn-sm-action">Copy link</button>
+      <button type="button" id="btnCopyLink" class="btn-sm-action">Copy</button>
       <button type="button" id="btnResetQuiz" class="btn-sm-action">Retake</button>
     `);
     bannerActions.insertAdjacentHTML('beforeend', `<span class="copy-status" id="copyStatus" aria-live="polite"></span>`);
