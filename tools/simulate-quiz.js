@@ -65,7 +65,7 @@ function mulberry32(seed) {
     };
 }
 
-// Response probabilities [Probably not, Maybe, Probably yes] by latent level.
+// Response probabilities [Not for me, Maybe, I'd enjoy it] by latent level.
 const LEVEL = {
     high: [0.10, 0.30, 0.60],
     mid:  [0.30, 0.40, 0.30],
