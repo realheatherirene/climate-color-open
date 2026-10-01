@@ -1,0 +1,30 @@
+<!-- ==========================================================================
+     Climate Color: Squarespace helper that passes ?style= into the embeds
+     ==========================================================================
+     This is a copy for safekeeping. The live copy is pasted into
+     Squarespace: Settings > Advanced > Code Injection > Footer, next to
+     the quiz listener.
+
+     The quiz results page links to the site's own pages with a palette
+     in the address, like climatecolor.com/directory?style=Violet,Green,
+     Yellow. The page itself is a Squarespace page, and the Directory
+     inside it is an embedded box with its own address, which doesn't know
+     about the palette. This script copies ?style= from the page's address
+     onto every Climate Color box on the page, so the Directory and Story
+     Map open already filtered, and the Pathways page opens the one color
+     named. With no ?style= in the address it does nothing.
+     ========================================================================== -->
+<script>
+(function () {
+  var style = new URLSearchParams(window.location.search).get("style");
+  if (!style) return;
+  var frames = document.getElementsByTagName("iframe");
+  for (var i = 0; i < frames.length; i++) {
+    var src = frames[i].getAttribute("src") || "";
+    if (src.indexOf("/climate-color-open/") === -1) continue;
+    var url = new URL(src, window.location.href);
+    url.searchParams.set("style", style);
+    frames[i].src = url.href.replace(/%2C/g, ",");
+  }
+})();
+</script>
