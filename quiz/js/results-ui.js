@@ -1,6 +1,6 @@
 import { RESULTS_TEXT as T } from './results-content.js';
 import { getColor, paletteMatches } from '../../core/climate-color.js';
-import { getBlend, blendHex } from '../../core/blends.js';
+import { getBlend } from '../../core/blends.js';
 import { renderWheel } from '../../core/wheel.js';
 import { resources } from '../../directory/directory-data.js';
 import { stories } from '../../storymap/story-map-data.js';
@@ -8,13 +8,14 @@ import { stories } from '../../storymap/story-map-data.js';
 /* ==========================================================================
    RESULTS PAGE: one guided path, in three parts, each under a heading
    that starts "Your climate colors".
-     1. Recognition, on a light grey card: the three colors first, then
+     1. Recognition: the three colors first, then
         the blend they make (with a bar running through the three), and
         the full brand wheel (the same one as the Pathways landing page).
      2. Understanding: each color with its archetype, move, and spark.
      3. In the wild: the strongest color's pathway, one resource and one
         story picked for the whole palette, then the Directory and Story
-        Map, filtered to the palette.
+        Map, filtered to the palette. The page closes with the closer and
+        the reassurance together.
    Print, Copy, and Retake stay in the quiz's top bar, next to the FAQ.
    The header and page margins are the shared ones, as on the Directory
    and Pathways.
@@ -107,11 +108,10 @@ export function renderResultsScreen(primaryKey, secondaryKey, tertiaryKey) {
   const storyCount = stories.filter(st => !st.draft && paletteMatches(st.styles, colorKeys) > 0).length;
 
   resultsEl.innerHTML = `
-    <!-- 1. Recognition: one light grey card, heading inside it. The three
-         colors come first, then the blend they make, with the wheel
-         beside the words. -->
+    <!-- 1. Recognition: the three colors come first, then the blend they
+         make, with the wheel beside the words. -->
     <section class="results-section results-section-first results-hero" aria-labelledby="heroHeading"
-      style="--blend: ${blendHex(blend)}; ${palette.map((c, i) => `--c${i + 1}: var(--${c.key.toLowerCase()}-color);`).join(" ")}">
+      style="${palette.map((c, i) => `--c${i + 1}: var(--${c.key.toLowerCase()}-color);`).join(" ")}">
       <h2 class="results-heading" id="heroHeading">${T.heroLabel}</h2>
       <div class="hero-text">
         <ul class="palette-lineup" aria-label="${T.chipsLabel}">
@@ -126,7 +126,6 @@ export function renderResultsScreen(primaryKey, secondaryKey, tertiaryKey) {
         <h3 class="blend-name">${esc(blend.name)}</h3>
         <div class="blend-bar" aria-hidden="true"></div>
         <p class="nature-line">${esc(T.natureLine(blend.name, blend.natureImage))}</p>
-        <p class="reassurance-line">${esc(T.reassurance)}</p>
       </div>
       <div class="hero-wheel" id="colorWheelSection"></div>
     </section>
@@ -163,7 +162,7 @@ export function renderResultsScreen(primaryKey, secondaryKey, tertiaryKey) {
         <a class="btn-pill-soft" href="${directoryUrl(colorKeys)}">${T.moreResources(resourceCount)} <span aria-hidden="true">&rarr;</span></a>
         <a class="btn-pill-soft" href="${storyMapUrl(colorKeys)}">${T.moreStories(storyCount)} <span aria-hidden="true">&rarr;</span></a>
       </div>
-      <p class="results-closer">${T.closer}</p>
+      <p class="results-closer">${T.closer} ${esc(T.reassurance)}</p>
     </section>
 
   `;

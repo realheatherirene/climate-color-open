@@ -19,6 +19,7 @@ export const RESULTS_TEXT = {
     archetypeLine: (a, b, c) => `You're part ${a}, part ${b}, and part ${c}.`,
     // Leads from the three colors into the blend they make.
     blendLead: "Together, they make:",
+    // Ends the page, right after the closer, in the same paragraph.
     reassurance: "You don't need to become anyone new. Who you are is enough to start.",
     chipsLabel: "Your three colors",
 
