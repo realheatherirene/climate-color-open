@@ -107,9 +107,9 @@
     outline-offset: 1px;
 }
 
-/* The answer scale: three equal buttons side by side (Not really / Maybe /
-   Yes). Equal width on purpose: it's a rating scale, so no answer should
-   look more inviting than another. */
+/* The answer scale: three equal buttons side by side (Not for me / Maybe /
+   I'd enjoy it). Equal width on purpose: it's a rating scale, so no answer
+   should look more inviting than another. */
 .scale-options {
     flex-direction: row;
     gap: 0.75rem;
@@ -124,8 +124,8 @@
     padding: 0.85rem 0.5rem;
 }
 
-/* The shared question ("Would that energize you?") sits on its own line
-   under every moment, always in the same place, so answers stay quick. */
+/* The shared question ("Would you enjoy this?") sits on its own line
+   under every activity, always in the same place, so answers stay quick. */
 .question-stem {
     display: block;
     margin-top: 0.75rem;
