@@ -17,7 +17,11 @@
     width: 100%;
     margin-bottom: 1.5rem;
 }
+/* type="search" gives phones a search keyboard; the browser's own search
+   styling is turned off so the pill shape stays. */
 .search-input {
+    appearance: none;
+    -webkit-appearance: none;
     width: 100%;
     padding: 0.65rem 1rem;
     font-size: 0.95rem;

@@ -139,6 +139,7 @@ function renderPills() {
         // core/atlas.css.
         btn.classList.add(key === "All" ? "pill-all" : `pill-${key.toLowerCase()}`);
         if (on) btn.classList.add("active");
+        btn.dataset.color = key;
         btn.onclick = () => toggleColor(key);
         container.appendChild(btn);
     });
@@ -158,6 +159,9 @@ function toggleColor(key) {
     newUrl.search = newUrl.searchParams.toString().replace(/%2C/g, ",");
     window.history.pushState({}, "", newUrl);
     renderAll();
+    // The pills are redrawn, so keyboard focus goes back to the one just
+    // pressed instead of dropping to the top of the page.
+    document.querySelector(`#pillContainer [data-color="${key}"]`)?.focus();
 }
 
 // A story's color for its pin and card edge: its first color that's
