@@ -13,7 +13,15 @@
    follows.
    ========================================================================== */
 
-import { getColor } from "../core/climate-color.js";
+import { getColor, resolveColors } from "../core/climate-color.js";
+
+// A link that names one color (?style=Indigo, as the quiz results page
+// sends) goes straight to that color's page. Any other ?style= value, or
+// none, shows the index as usual.
+const linked = resolveColors(new URLSearchParams(window.location.search).get("style") || "");
+if (linked.length === 1 && /\/index\.html$|\/$/.test(window.location.pathname)) {
+  window.location.replace(`${linked[0].toLowerCase()}.html`);
+}
 
 document.querySelectorAll("[data-path]").forEach(el => {
   const c = getColor(el.dataset.path);
