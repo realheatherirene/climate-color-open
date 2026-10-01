@@ -241,12 +241,15 @@ function wireButtons([primaryKey, secondaryKey, tertiaryKey]) {
 
   // Retake clears everything the quiz saved: the three colors, the raw
   // scores, and the confidence. It removes every "climatecolor_" key, so
-  // anything saved under that prefix later is cleared too.
+  // anything saved under that prefix later is cleared too. If the browser
+  // blocks storage, there is nothing saved to clear.
   const resetBtn = document.getElementById("btnResetQuiz");
   if (resetBtn) resetBtn.onclick = () => {
-    Object.keys(localStorage)
-      .filter(key => key.startsWith('climatecolor_'))
-      .forEach(key => localStorage.removeItem(key));
+    try {
+      Object.keys(localStorage)
+        .filter(key => key.startsWith('climatecolor_'))
+        .forEach(key => localStorage.removeItem(key));
+    } catch { /* storage off */ }
     window.location.href = window.location.pathname;
   };
 }

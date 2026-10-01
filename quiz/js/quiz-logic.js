@@ -24,6 +24,15 @@ let scores = emptyScores();
 let answerHistory = [];
 let activeList = [];
 
+// The browser's saved result. Some browsers block storage inside an
+// embedded page (strict privacy settings, some school and work devices);
+// these never throw, so the quiz still runs and shows its result, it just
+// isn't remembered.
+const saved = {
+    get(key) { try { return localStorage.getItem(key); } catch { return null; } },
+    set(key, value) { try { localStorage.setItem(key, value); } catch { /* storage off */ } }
+};
+
 /* ==========================================================================
    Presentation-order Shuffle
    ========================================================================== */
@@ -181,13 +190,13 @@ export function calculateConstellation() {
 
     const result = computeConstellation(scores, { itemsPerColor: ITEMS_PER_COLOR });
 
-    localStorage.setItem('climatecolor_primary', result.primary);
-    localStorage.setItem('climatecolor_secondary', result.secondary);
-    localStorage.setItem('climatecolor_tertiary', result.tertiary);
+    saved.set('climatecolor_primary', result.primary);
+    saved.set('climatecolor_secondary', result.secondary);
+    saved.set('climatecolor_tertiary', result.tertiary);
     // All eight scores and the confidence are saved too, for later uses such
     // as team results. Nothing reads them yet.
-    localStorage.setItem('climatecolor_scores', JSON.stringify(scores));
-    localStorage.setItem('climatecolor_confidence', String(result.confidence));
+    saved.set('climatecolor_scores', JSON.stringify(scores));
+    saved.set('climatecolor_confidence', String(result.confidence));
 
     const url = new URL(window.location);
     url.searchParams.set('primary', result.primary);
@@ -228,30 +237,26 @@ function initQuizState() {
     const paramSecondary = resolveColor(urlParams.get('secondary'));
     const paramTertiary = resolveColor(urlParams.get('tertiary'));
 
+    // A link's colors win; otherwise the browser's saved result. Nothing is
+    // made up: a link that doesn't name three different colors gets the
+    // results page's "missing a color" note instead.
     const validPrimary = isValidColor(paramPrimary)
         ? paramPrimary
-        : isValidColor(localStorage.getItem('climatecolor_primary'))
-        ? localStorage.getItem('climatecolor_primary')
+        : isValidColor(saved.get('climatecolor_primary'))
+        ? saved.get('climatecolor_primary')
         : null;
 
-    let validSecondary = isValidColor(paramSecondary)
+    const validSecondary = isValidColor(paramSecondary)
         ? paramSecondary
-        : isValidColor(localStorage.getItem('climatecolor_secondary'))
-        ? localStorage.getItem('climatecolor_secondary')
+        : isValidColor(saved.get('climatecolor_secondary'))
+        ? saved.get('climatecolor_secondary')
         : null;
 
-    let validTertiary = isValidColor(paramTertiary)
+    const validTertiary = isValidColor(paramTertiary)
         ? paramTertiary
-        : isValidColor(localStorage.getItem('climatecolor_tertiary'))
-        ? localStorage.getItem('climatecolor_tertiary')
+        : isValidColor(saved.get('climatecolor_tertiary'))
+        ? saved.get('climatecolor_tertiary')
         : null;
-
-    if (validPrimary && validSecondary && validPrimary === validSecondary) {
-        validSecondary = validPrimary === "Red" ? "Green" : "Red";
-    }
-    if (!validTertiary && validPrimary) {
-        validTertiary = validPrimary === "Blue" ? "Violet" : "Blue";
-    }
 
     const quizMain = document.getElementById("quiz");
     const progressContainer = document.getElementById("progressContainer");
@@ -265,11 +270,7 @@ function initQuizState() {
         if (instructions) instructions.style.display = "none";
 
         updateProgress(100, []);
-        renderResultsScreen(
-            validPrimary,
-            validSecondary || (validPrimary === "Red" ? "Green" : "Red"),
-            validTertiary || "Blue"
-        );
+        renderResultsScreen(validPrimary, validSecondary, validTertiary);
     } else {
         if (quizMain) quizMain.hidden = false;
         if (instructions) instructions.style.display = "block";
