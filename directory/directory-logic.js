@@ -35,6 +35,14 @@ function inWheelOrder(keys) {
     return COLOR_KEYS.filter(k => keys.includes(k));
 }
 
+// Resource words go into the page as text, never as markup, so a "&" or
+// quote in a title can't break the card.
+function escapeHtml(str) {
+    return String(str ?? "").replace(/[&<>"']/g, c => (
+        { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]
+    ));
+}
+
 // URLSearchParams already decodes the ?style= value; decoding again only
 // matters for a double-encoded link. A stray "%" (e.g. ?style=100%) made
 // decodeURIComponent throw and stopped the whole page from loading, so a
@@ -98,6 +106,7 @@ function renderPills() {
         // core/atlas.css.
         btn.classList.add(key === "All" ? "pill-all" : `pill-${key.toLowerCase()}`);
         if (on) btn.classList.add("active");
+        btn.dataset.color = key;
         btn.onclick = () => toggleColor(key);
         container.appendChild(btn);
     });
@@ -118,6 +127,9 @@ function toggleColor(key) {
     window.history.pushState({}, '', newUrl);
     renderPills();
     renderResources();
+    // The pills are redrawn, so keyboard focus goes back to the one just
+    // pressed instead of dropping to the top of the page.
+    document.querySelector(`#pillContainer [data-color="${key}"]`)?.focus();
 }
 
 function renderResources() {
@@ -166,29 +178,31 @@ function renderResources() {
             const color = sInfo ? (sInfo.text || sInfo.color) : "var(--text-secondary)";
             return `
                 <span class="style-text-item" style="color: ${color};">
-                    ${tagLabel(styleName)}
+                    ${escapeHtml(tagLabel(styleName))}
                 </span>
             `;
         }).join('');
 
-        const card = document.createElement("div");
+        // Each card is an article with a heading, as on the Story Map, so
+        // screen readers can jump from resource to resource.
+        const card = document.createElement("article");
         card.className = "styleBlock";
         card.style.borderLeftColor = activeColor;
         card.innerHTML = `
             <div class="card-content">
-                <div class="styleTitle">
-                    <a href="${res.url}" target="_blank" rel="noopener noreferrer">
-                        ${res.title}
+                <h2 class="styleTitle">
+                    <a href="${escapeHtml(res.url)}" target="_blank" rel="noopener noreferrer">
+                        ${escapeHtml(res.title)}
                     </a>
-                </div>
-                <div class="styleIdentity">${res.desc}</div>
+                </h2>
+                <div class="styleIdentity">${escapeHtml(res.desc)}</div>
                 <div class="style-text-container">
                     ${styleTextHtml}
                 </div>
             </div>
             
             <div class="cta-container">
-                <a href="${res.url}" target="_blank" rel="noopener noreferrer" class="btn-pill-soft">
+                <a href="${escapeHtml(res.url)}" target="_blank" rel="noopener noreferrer" class="btn-pill-soft">
                     Visit Resource &rarr;
                 </a>
             </div>
