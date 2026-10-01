@@ -20,14 +20,16 @@ export const COLORS = ["Red", "Orange", "Yellow", "Green", "Blue", "Indigo", "Pu
 // questions, because the point values are scoring logic, not wording.
 //
 // The labels are short, gut-reaction answers to the shared question
-// "Would that energize you?" (ITEM_STEM in questions.js). Answers to this
-// version (v3) must not be pooled with v2 answers, which used different
-// labels. "Yes" has no exclamation point on purpose: all three answers
-// stay equally plain, so none looks more inviting.
+// "Would you enjoy this?" (ITEM_STEM in questions.js), worded to answer it
+// directly rather than as a yes or no. Answers to this version (v4) must
+// not be pooled with earlier versions, which used different items and
+// labels. "Not for me" is a comfortable no that says nothing bad about the
+// person. No answer has an exclamation point: all three stay equally
+// plain, so none looks more inviting.
 export const SCALE = [
-    { label: "Not really", points: 0 },
+    { label: "Not for me", points: 0 },
     { label: "Maybe", points: 1 },
-    { label: "Yes", points: 2 }
+    { label: "I'd enjoy it", points: 2 }
 ];
 
 export function emptyScores() {

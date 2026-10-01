@@ -87,7 +87,7 @@ function renderQuestion(activeQuestions) {
         instructions.style.display = currentQuestion === 0 ? "block" : "none";
     }
 
-    // The moment and the shared question render as two separate lines, so
+    // The activity and the shared question render as two separate lines, so
     // the question is always in the same spot and reads at a glance.
     qText.textContent = "";
     const promptEl = document.createElement("span");
@@ -108,7 +108,7 @@ function renderQuestion(activeQuestions) {
     // buttons, laid out in a row).
     container.classList.add("scale-options");
 
-    // Fixed 3-point scale (Not really / Maybe / Yes, from quiz-scoring.js
+    // Fixed 3-point scale (Not for me / Maybe / I'd enjoy it, from quiz-scoring.js
     // SCALE) — the same three buttons on every question, since the
     // scale itself is the constant and the color/points come from the item.
     SCALE.forEach(opt => {
