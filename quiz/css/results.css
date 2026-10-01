@@ -90,8 +90,9 @@
 }
 
 /* ==========================================================================
-   1. Recognition: no box, so phones get the full width. --c1 to --c3 are
-   set on the section by results-ui.js from core/ (for the color bar).
+   1. Recognition: no box, so phones get the full width. --blend-color is
+   set on the section by results-ui.js, from blendHex() in core/blends.js
+   (for the swatch).
    ========================================================================== */
 .results-hero {
     display: grid;
@@ -125,14 +126,15 @@
     color: var(--text-primary);
 }
 
-/* The three colors running into each other, strongest first: the blend,
-   drawn. Decorative only: no text sits on it. */
+/* The blend's own color: one solid swatch, the same color as on the
+   reference page (core/index.html). As tall as the dots in the color
+   chips above it. Decorative only: no text sits on it. */
 .blend-bar {
     width: min(260px, 100%);
-    height: 10px;
+    height: 2.1rem;
     border-radius: 9999px;
     margin: 0.8rem 0 0.9rem 0;
-    background: linear-gradient(90deg, var(--c1), var(--c2), var(--c3));
+    background: var(--blend-color);
 }
 
 .nature-line {
@@ -221,7 +223,7 @@
 
 .results-heading {
     font-family: 'ADLaM Display', 'Varela Round', sans-serif;
-    font-size: 1.55rem;
+    font-size: 1.8rem;
     font-weight: 500;
     color: var(--text-primary);
     margin: 0 0 1rem 0;
@@ -449,6 +451,12 @@
 
     .blend-name {
         font-size: 2.6rem;
+    }
+
+    /* A step down from the wider-screen size, so the longer headings
+       wrap less on phones. */
+    .results-heading {
+        font-size: 1.65rem;
     }
 
     .nature-line {
