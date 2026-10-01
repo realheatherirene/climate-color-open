@@ -63,9 +63,8 @@
 }
 
 /* ==========================================================================
-   1. Recognition: one card in the same light grey as the first-step card
-   below. --blend and --c1 to --c3 are set on the card by results-ui.js
-   from core/ (for the color bar and the reassurance rule).
+   1. Recognition: no box, so phones get the full width. --c1 to --c3 are
+   set on the section by results-ui.js from core/ (for the color bar).
    ========================================================================== */
 .results-hero {
     display: grid;
@@ -74,10 +73,6 @@
     grid-template-areas: "heading wheel" "text wheel";
     gap: 1.5rem 2rem;
     align-items: center;
-    padding: 1.5rem;
-    border-radius: 12px;
-    background: var(--bg-secondary);
-    border: 1px solid var(--border-color);
 }
 
 /* The heading tops the words; the wheel runs the full height beside them. */
@@ -173,15 +168,6 @@
     margin: 0;
 }
 
-/* The reassurance reads as a quiet aside, set off by a short rule. */
-.reassurance-line {
-    font-size: 1rem;
-    color: var(--text-secondary);
-    margin: 1.5rem 0 0 0;
-    padding-left: 0.9rem;
-    border-left: 3px solid color-mix(in srgb, var(--blend) 45%, var(--bg-primary));
-}
-
 /* The full brand wheel, drawn by core/wheel.js exactly as on the Pathways
    landing page; this only sets its size. It gets a little more room than
    the words, since its 24 verbs need it to stay readable. */
@@ -260,13 +246,8 @@
 }
 
 /* 3. The first step: one main button to the strongest color's pathway
-   (the shared pill from core/atlas.css, a size up), then two picks. */
-.first-step {
-    background: var(--bg-secondary);
-    border: 1px solid var(--border-color);
-    border-radius: 12px;
-    padding: 1.5rem;
-}
+   (the shared pill from core/atlas.css, a size up), then two picks. No
+   box around it, so phones get the full width. */
 
 .first-step-lead {
     font-size: 1.05rem;
@@ -400,7 +381,8 @@
     outline-offset: 2px;
 }
 
-/* The closing line, set a size up so the page ends on it. */
+/* The closing words: the closer, then the reassurance, as one paragraph
+   set a size up so the page ends on it. */
 .results-closer {
     font-size: 1.15rem;
     line-height: 1.55;
@@ -420,7 +402,6 @@
     .results-hero {
         grid-template-columns: 1fr;
         gap: 0.5rem;
-        padding: 1.1rem;
     }
 
     .results-hero {
@@ -448,9 +429,6 @@
         grid-template-columns: 1fr;
     }
 
-    .first-step {
-        padding: 1.1rem;
-    }
 }
 
 @media print {
