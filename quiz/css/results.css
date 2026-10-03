@@ -42,8 +42,8 @@
     outline-offset: 2px;
 }
 
-/* Wider screens: the top bar sits to the right of the page title, above
-   the wheel. results-ui.js moves the bar into the header and adds the
+/* Wider screens: the top bar sits to the right of the page title.
+   results-ui.js moves the bar into the header and adds the
    class. On phones it stays under the title. */
 /* On phones, the same spacing as when the bar sat under the header. */
 .quiz-header-results .beta-banner {
@@ -94,25 +94,12 @@
    set on the section by results-ui.js, from blendHex() in core/blends.js
    (for the swatch).
    ========================================================================== */
-.results-hero {
-    display: grid;
-    grid-template-columns: 1fr 1.1fr;
-    grid-template-rows: auto 1fr;
-    grid-template-areas: "heading wheel" "text wheel";
-    gap: 1.5rem 2rem;
-    align-items: center;
-}
 
-/* The heading tops the words; the wheel runs the full height beside them. */
-.results-hero .results-heading { grid-area: heading; margin: 0; align-self: end; }
-.hero-text { grid-area: text; align-self: start; }
-.hero-wheel { grid-area: wheel; }
-
-/* The short line that leads from the three colors into the blend. */
+/* The short line that leads from the blend into its three colors. */
 .blend-lead {
     font-size: 1rem;
     color: var(--text-secondary);
-    margin: 1.75rem 0 0.1rem 0;
+    margin: 1.5rem 0 0.6rem 0;
 }
 
 /* Neutral black for all 56 blends, so the name is always readable. */
@@ -190,27 +177,27 @@
     color: var(--text-secondary);
 }
 
-/* Opens part 2, between its heading and the cards. */
+/* Between the three colors and their cards. */
 .archetype-line {
     text-wrap: balance;
     font-size: 1.15rem;
     font-weight: 700;
-    margin: -0.25rem 0 1.1rem 0;
+    margin: 1.5rem 0 1.1rem 0;
 }
 
-/* The full brand wheel, drawn by core/wheel.js exactly as on the Pathways
-   landing page; this only sets its size. It gets a little more room than
-   the words, since its 24 verbs need it to stay readable. */
-.hero-wheel {
+/* 2. The full brand wheel, drawn by core/wheel.js exactly as on the
+   Pathways landing page; this only sets its size and centers it. Its 24
+   verbs need this much room to stay readable. */
+.context-wheel {
     width: 100%;
     max-width: 460px;
-    justify-self: center;
+    margin: 0 auto;
 }
 
 
 
 /* ==========================================================================
-   Sections 2 and 3
+   All three sections
    ========================================================================== */
 .results-section {
     margin-top: 3rem;
@@ -229,7 +216,7 @@
     margin: 0 0 1rem 0;
 }
 
-/* 2. One card per color, strongest first, side by side. Same card as the
+/* 1, continued. One card per color, strongest first, side by side. Same card as the
    Directory and Pathways (.styleBlock, .pathway-card): a 6px edge in its
    color on the left; the color name uses its text shade. */
 .color-cards {
@@ -428,24 +415,14 @@
 }
 
 /* ==========================================================================
-   Smaller screens: one column, with the wheel first.
+   Smaller screens: one column.
    ========================================================================== */
 @media (max-width: 760px) {
     #results {
         padding-bottom: 3rem;
     }
 
-    .results-hero {
-        grid-template-columns: 1fr;
-        gap: 0.5rem;
-    }
-
-    .results-hero {
-        grid-template-rows: auto;
-        grid-template-areas: "heading" "wheel" "text";
-    }
-
-    .hero-wheel {
+    .context-wheel {
         max-width: 360px;
     }
 
@@ -488,7 +465,7 @@
 
     /* Each part stays whole on the page, and headings stay with what
        follows them. */
-    .results-hero,
+    .context-wheel,
     .color-card,
     .check-step {
         break-inside: avoid;
@@ -508,5 +485,21 @@
     .ccw-caption,
     .ccw-tip {
         display: none !important;
+    }
+
+    /* A smaller wheel and less space between sections on paper, so the
+       result prints on two pages: the blend and cards on the first, the
+       wheel and checklist on the second. Any larger and the closing words
+       can spill onto a third. */
+    .context-wheel {
+        max-width: 280px;
+    }
+
+    .results-section {
+        margin-top: 1.5rem;
+    }
+
+    .results-section-first {
+        margin-top: 0;
     }
 }
