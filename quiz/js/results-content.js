@@ -51,8 +51,8 @@ export const RESULTS_TEXT = {
     moreStories: n => `${n} stories`,
 
     // The closing line, shared by all 56 blends (reading level: grade 5.9).
-    closer: "Together, these three colors mean you don't just care about the climate. " +
-        "You keep hope alive, and you make it easier for everyone around you to care too.",
+    closer: "Together, your colors reflect the care you bring to the climate movement. " +
+        "By sharing them, you make it easier for everyone around you to care too.",
 
     copied: "Link copied.",
     copyFallback: "Copy this link to share your result:"
