@@ -12,19 +12,21 @@
    ========================================================================== */
 
 export const RESULTS_TEXT = {
-    heroLabel: "Your climate colors",
+    // Opens the page. The blend name comes right under it.
+    heroLabel: "You are:",
     // "{Blend} is the color of {image}."
     natureLine: (blendName, image) => `${blendName} is the color of ${image}.`,
-    // Opens "Your climate colors in action": color first in the section
-    // above, archetype right after.
+    // Follows the three colors, so each color comes first and its
+    // archetype right after.
     archetypeLine: (a, b, c) => `You're part ${a}, part ${b}, and part ${c}.`,
-    // Leads from the three colors into the blend they make.
-    blendLead: "Together, they make:",
+    // Leads from the blend into the three colors that make it.
+    blendLead: "a blend of",
     // Ends the page, right after the closer, in the same paragraph.
     reassurance: "You don't need to become anyone new. Who you are is enough to start.",
     chipsLabel: "Your three colors",
 
-    colorsHeading: "Your climate colors in action",
+    // Heads the wheel, which shows the three colors among all eight.
+    contextHeading: "Your colors in context",
     // Small label above each color, strongest first.
     rankLabels: ["Your strongest color", "Your second color", "Your third color"],
     // Built from each color's move and spark in core/climate-color.js.

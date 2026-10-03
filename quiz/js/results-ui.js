@@ -6,14 +6,14 @@ import { resources } from '../../directory/directory-data.js';
 import { stories } from '../../storymap/story-map-data.js';
 
 /* ==========================================================================
-   RESULTS PAGE: one guided path, in three parts, each under a heading
-   that starts "Your climate colors". The first part holds everything a
-   person needs; the other two are there for anyone who scrolls on.
-     1. Recognition: the three colors first, then the blend they make
-        (with a swatch of its own color), and the full brand wheel,
-        linked to the pathways as on the Pathways landing page.
-     2. Understanding: "You're part ..." first, then each color with its
-        archetype, move, and spark.
+   RESULTS PAGE: one guided path, in three parts. The first part holds
+   everything a person needs; the other two are there for anyone who
+   scrolls on.
+     1. Recognition: "You are:", the blend (with a swatch of its own
+        color), then the three colors that make it, "You're part ...",
+        and each color with its archetype, move, and spark.
+     2. Context: the full brand wheel, linked to the pathways as on the
+        Pathways landing page.
      3. Checklist: a few small steps, each one line: the strongest
         color's pathway, one resource and one story picked for the whole
         palette, then the Directory and Story Map, filtered to the
@@ -112,7 +112,7 @@ export function renderResultsScreen(primaryKey, secondaryKey, tertiaryKey) {
 
   // Print, Copy, and Retake join the FAQ in the top bar, where the quiz
   // keeps its controls. The bar moves into the header, so on wider screens
-  // it can sit to the right of the page title, above the wheel.
+  // it can sit to the right of the page title.
   const bannerActions = document.getElementById('bannerActions');
   const header = document.querySelector('.quiz-header');
   const banner = bannerActions?.closest('.beta-banner');
@@ -148,31 +148,23 @@ export function renderResultsScreen(primaryKey, secondaryKey, tertiaryKey) {
   const storyCount = stories.filter(st => !st.draft && paletteMatches(st.styles, colorKeys) > 0).length;
 
   resultsEl.innerHTML = `
-    <!-- 1. Recognition: the three colors come first, then the blend they
-         make, with the wheel beside the words. -->
-    <section class="results-section results-section-first results-hero" aria-labelledby="heroHeading"
+    <!-- 1. Recognition: the blend comes first, then the three colors that
+         make it, "You're part ...", and one card per color, strongest
+         first. -->
+    <section class="results-section results-section-first" aria-labelledby="heroHeading"
       style="--blend-color: ${blendHex(blend)};">
       <h2 class="results-heading" id="heroHeading">${T.heroLabel}</h2>
-      <div class="hero-text">
-        <ul class="palette-lineup" aria-label="${T.chipsLabel}">
-          ${palette.map(c => `
-          <li class="lineup-item">
-            <span class="lineup-dot" style="background: var(--${c.key.toLowerCase()}-color);" aria-hidden="true"></span>
-            <span class="lineup-words"><span class="lineup-name">${esc(c.key)}</span> <span class="lineup-arch">${esc(c.archetype)}</span></span>
-          </li>`).join("")}
-        </ul>
-        <p class="blend-lead">${T.blendLead}</p>
-        <h3 class="blend-name">${esc(blend.name)}</h3>
-        <div class="blend-bar" aria-hidden="true"></div>
-        <p class="nature-line">${esc(T.natureLine(blend.name, blend.natureImage))}</p>
-      </div>
-      <div class="hero-wheel" id="colorWheelSection"></div>
-    </section>
-
-    <!-- 2. Understanding: "You're part ..." first, then one card per
-         color, strongest first. -->
-    <section class="results-section" aria-labelledby="colorsHeading">
-      <h2 class="results-heading" id="colorsHeading">${T.colorsHeading}</h2>
+      <h3 class="blend-name">${esc(blend.name)}</h3>
+      <div class="blend-bar" aria-hidden="true"></div>
+      <p class="nature-line">${esc(T.natureLine(blend.name, blend.natureImage))}</p>
+      <p class="blend-lead">${T.blendLead}</p>
+      <ul class="palette-lineup" aria-label="${T.chipsLabel}">
+        ${palette.map(c => `
+        <li class="lineup-item">
+          <span class="lineup-dot" style="background: var(--${c.key.toLowerCase()}-color);" aria-hidden="true"></span>
+          <span class="lineup-words"><span class="lineup-name">${esc(c.key)}</span> <span class="lineup-arch">${esc(c.archetype)}</span></span>
+        </li>`).join("")}
+      </ul>
       <p class="archetype-line">${esc(T.archetypeLine(p.archetype, s.archetype, t.archetype))}</p>
       <ol class="color-cards">
         ${palette.map((c, i) => `
@@ -183,6 +175,12 @@ export function renderResultsScreen(primaryKey, secondaryKey, tertiaryKey) {
           <p class="color-card-spark">${T.sparkLead} ${esc(lowerFirst(c.spark))}</p>
         </li>`).join("")}
       </ol>
+    </section>
+
+    <!-- 2. Context: the three colors among all eight on the wheel. -->
+    <section class="results-section" aria-labelledby="contextHeading">
+      <h2 class="results-heading" id="contextHeading">${T.contextHeading}</h2>
+      <div class="context-wheel" id="colorWheelSection"></div>
     </section>
 
     <!-- 3. Checklist: one line per step, with a short note under it. -->
