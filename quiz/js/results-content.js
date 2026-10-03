@@ -15,10 +15,15 @@ export const RESULTS_TEXT = {
     // Opens the page. The blend name comes right under it.
     heroLabel: "You are:",
     // "{Blend} is the color of {image}."
-    natureLine: (blendName, image) => `${blendName} is the color of ${image}, a blend of:`,
+    natureLine: (blendName, image) => `${blendName} is the color of ${image}.`,
     // Follows the three colors, so each color comes first and its
     // archetype right after.
     archetypeLine: (a, b, c) => `You're part ${a}, part ${b}, and part ${c}.`,
+    // Leads from the blend into the three colors that make it.
+    blendLead: "a blend of:",
+    // Ends the page, right after the closer, in the same paragraph.
+    reassurance: "You don't need to become anyone new. Who you are is enough to start.",
+    chipsLabel: "Your three colors",
 
     // Heads the wheel, which shows the three colors among all eight.
     contextHeading: "Your colors in context",
