@@ -6,8 +6,8 @@
    telling the Squarespace page how tall this page is, and a listener there
    sets the box to fit. The listener lives in Squarespace's code injection
    (Settings > Advanced > Code Injection > Footer); a copy is kept in
-   tools/squarespace-height-listener.html. The Quiz, Wheel, and Wheel FAQ
-   pages load it.
+   tools/squarespace-height-listener.html. The Quiz, Wheel, Wheel FAQ, and
+   Pathways pages load it.
 
    A ResizeObserver on <body> catches every change (a color card opening,
    fonts loading late) without hooks elsewhere.
