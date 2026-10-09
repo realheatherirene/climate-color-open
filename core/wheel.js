@@ -113,8 +113,8 @@ export function wheelSVG(options = {}) {
     variant = "simple", links = null, globe = true,
     inline = false, globeHref = GLOBE_SRC, interactive = !!links,
     label = variant === "brand"
-      ? "The Stewardship Wheel: six colors around the Earth, each with its archetype and three words for how it helps."
-      : "The Stewardship Wheel: six colors around the Earth, each with its archetype."
+      ? "Stewardship Wheel: six colors around the Earth, each with its archetype and three words for how it helps."
+      : "Stewardship Wheel: six colors around the Earth, each with its archetype."
   } = options;
   const brand = variant === "brand";
   const view = brand ? VIEW.brand : VIEW.simple;
