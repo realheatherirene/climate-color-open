@@ -165,7 +165,7 @@ export function cssVar(name, kind = "color") {
      why     "Why a wheel?", on the Wheel page.
      more    The line that points from other pages to the Wheel page. */
 export const WHEEL_TEXT = {
-  short: "The Stewardship Wheel is an <strong>interactive tool<strong> that can be used to <strong>identify<strong> the mental, emotional, and practical <strong>strengths<strong> you use to <strong>care<strong> for the world around you.",
+  short: "The Stewardship Wheel is an interactive tool that can be used to identify the mental, emotional, and practical strengths you use to care for the world around you.",
   how: {
     title: "How to read it",
     body: "The words in the inner ring of the wheel represent the six core stewardship styles. The words in the outer ring suggest some behaviors, choices, and expressions that can bring each style to life. Tap a color to learn about it. Tap anywhere outside the wheel to unselect."
