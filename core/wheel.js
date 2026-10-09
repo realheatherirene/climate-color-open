@@ -239,7 +239,7 @@ export function renderWheel(container, options = {}) {
   addStyles();
   const links = options.links;
   const tooltip = !links && (options.tooltip ?? true);
-  const caption = options.caption ?? (links ? "Tap a color to learn about it." : tooltip ? "Hover or tap any color to learn about it." : "");
+  const caption = options.caption ?? (links ? "Tap a color to learn about it. Tap again to unselect." : tooltip ? "Hover or tap any color to learn about it." : "");
   const captionHtml = caption ? `<div class="ccw-caption">${esc(caption)}</div>` : "";
   const outside = links && options.panel ? options.panel : null;
 
