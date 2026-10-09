@@ -168,7 +168,7 @@ export const WHEEL_TEXT = {
   short: "The Stewardship Wheel is an interactive tool that can be used to identify the mental, emotional, and practical strengths you use to care for the world around you.",
   how: {
     title: "How to read it",
-    body: "The words in the inner ring of the wheel represent the six core stewardship styles. The words in the outer ring suggest some behaviors, choices, and expressions that can bring each style to life. Tap a color to learn about it. Tap anywhere outside the wheel to unselect."
+    body: "The words in the inner ring of the wheel represent the six core stewardship styles. The words in the outer ring suggest some behaviors, choices, and expressions that can bring each style to life."
   },
   why: {
     title: "Why a wheel?",
