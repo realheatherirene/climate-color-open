@@ -1,0 +1,81 @@
+/* ==========================================================================
+   STORY MAP CSS: the map, its pins, and story-only card details. The
+   search box, pills, and cards come from core/listing.css.
+   ========================================================================== */
+
+.story-map-frame {
+    margin-bottom: 0.75rem;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 0.75rem;
+}
+
+#storyMap {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+/* Land dots: dark enough for the map to read clearly, and darker still on
+   phones (below), where each dot is only a pixel or two wide. Still much
+   lighter than every pin, so the stories stay the focus. */
+.map-dots circle { fill: #AAB6C6; }
+
+/* Pins: a solid dot in the story's color with a white ring, plus a soft
+   halo that only shows on hover, focus, or when the story is selected. */
+.pin { cursor: pointer; outline: none; }
+.pin-hit { fill: transparent; }
+.pin-dot {
+    fill: var(--pin-color);
+    stroke: var(--bg-primary);
+}
+.pin-halo {
+    fill: var(--pin-color);
+    opacity: 0;
+    transition: opacity 0.15s ease;
+}
+.pin:hover .pin-halo,
+.pin:focus-visible .pin-halo { opacity: 0.25; }
+.pin:focus-visible .pin-dot { stroke: var(--text-primary); }
+.pin.is-selected .pin-halo { opacity: 0.35; }
+.pin.is-selected .pin-dot { stroke: var(--text-primary); }
+
+.story-count {
+    min-height: 1.4em;
+    margin: 0 0 1rem;
+    font-size: 0.9rem;
+    color: var(--text-muted);
+}
+
+.draft-notice {
+    margin: 0 0 1rem;
+    padding: 0.6rem 1rem;
+    border-radius: 9999px;
+    background: color-mix(in srgb, var(--yellow-color) 12%, white);
+    border: 1px solid color-mix(in srgb, var(--yellow-color) 40%, white);
+    color: var(--text-primary);
+    font-size: 0.88rem;
+}
+
+/* Story cards are the shared .listing-card; these add story-only details. */
+.story-card:focus { outline: none; }
+.story-card.is-selected {
+    box-shadow: 0 0 0 2px var(--text-secondary), var(--shadow-hover);
+}
+
+.story-place {
+    font-size: 0.82rem;
+    color: var(--text-muted);
+    margin-bottom: 0.35rem;
+}
+
+.story-actions { flex-wrap: wrap; gap: 0.5rem; }
+
+@media (max-width: 640px) {
+    .story-map-frame { padding: 0.4rem; }
+    .map-dots circle { fill: #94A3B8; }
+}
+@media (prefers-reduced-motion: reduce) {
+    .pin-halo { transition: none; }
+}

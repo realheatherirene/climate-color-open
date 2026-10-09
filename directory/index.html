@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Directory | Climate Color</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=ADLaM+Display&family=Varela+Round&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="../core/atlas.css">
+    <link rel="stylesheet" href="../core/listing.css">
+    <link rel="stylesheet" href="directory.css">
+</head>
+<body>
+
+    <header class="page-header">
+        <h1>The Directory</h1>
+        <p>a <strong>curated hub</strong> of <strong>guides</strong>, <strong>grants</strong>, and <strong>tools</strong> sorted by <strong>climate color</strong></p>
+    </header>
+
+    <div class="search-bar">
+        <input id="searchInput" class="search-input" type="search" placeholder="Search resources…" aria-label="Search resources">
+    </div>
+
+    <div class="filter-pills" id="pillContainer" role="group" aria-label="Show resources for these colors"></div>
+    <p id="resourceCount" class="resource-count" aria-live="polite"></p>
+    <div class="listing-grid" id="resourceContainer"></div>
+
+    <script type="module" src="directory-logic.js"></script>
+</body>
+</html>

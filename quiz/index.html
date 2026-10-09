@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Quiz | Climate Color</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=ADLaM+Display&family=Varela+Round&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="../core/atlas.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="page-header">
+        <div>
+            <h1>The Quiz</h1>
+            <p>a <strong>new way</strong> to find your <strong>climate colors</strong> is on the way</p>
+        </div>
+    </header>
+
+    <!-- A placeholder while the new way to find your colors is built. The
+         button's link and words come from core/climate-color.js. -->
+    <main class="page-narrow">
+        <div class="content-card">
+            <h2 class="card-heading">Coming soon</h2>
+            <p>
+                We're building a new way to find your colors on the Stewardship Wheel. Until it's ready, start with the wheel itself. Tap each color to learn what it brings, and think about which ones you already do.
+            </p>
+            <p class="card-action"><a class="pill-btn pill-all next-btn" data-site="wheel" target="_top"></a></p>
+        </div>
+    </main>
+
+    <script type="module">
+        import { SITE, WHEEL_TEXT } from "../core/climate-color.js";
+        const a = document.querySelector("[data-site]");
+        a.href = SITE[a.dataset.site];
+        a.innerHTML = `${WHEEL_TEXT.more} <span aria-hidden="true">&rarr;</span>`;
+    </script>
+
+    <!-- Tells the Squarespace page how tall this page is, so its box fits. -->
+    <script src="../core/iframe-resize.js"></script>
+</body>
+</html>

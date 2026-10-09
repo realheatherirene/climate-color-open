@@ -1,0 +1,13 @@
+/* ==========================================================================
+   DIRECTORY CSS: the one piece unique to this page. The search box, pills,
+   and cards come from core/listing.css.
+   ========================================================================== */
+
+/* How many resources are showing, and for which colors. Pulled up close
+   under the pills. */
+.resource-count {
+    min-height: 1.4em;
+    margin: -1rem 0 1rem;
+    font-size: 0.9rem;
+    color: var(--text-muted);
+}
